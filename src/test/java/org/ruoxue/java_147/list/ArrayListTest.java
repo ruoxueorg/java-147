@@ -10,7 +10,7 @@ import org.junit.Test;
 public class ArrayListTest {
 
 	@Test
-	public void listAdd() {
+	public void add() {
 		int expectedSize = 3;
 		List<String> list = new ArrayList<String>();
 		list.add("Apple");
@@ -33,7 +33,7 @@ public class ArrayListTest {
 	}
 
 	@Test
-	public void listGet() {
+	public void get() {
 		String expected = "Banana";
 		List<String> list = new ArrayList<String>();
 		list.add("Apple");
@@ -44,7 +44,7 @@ public class ArrayListTest {
 	}
 
 	@Test
-	public void listRemove() {
+	public void remove() {
 		int expectedSize = 2;
 		List<String> list = new ArrayList<String>();
 		list.add("Apple");
@@ -112,7 +112,7 @@ public class ArrayListTest {
 	}
 
 	@Test
-	public void listSet() {
+	public void set() {
 		String expected = "Grape";
 		List<String> list = new ArrayList<String>();
 		list.add("Apple");

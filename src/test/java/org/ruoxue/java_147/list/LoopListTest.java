@@ -9,7 +9,7 @@ import org.junit.Test;
 public class LoopListTest {
 
 	@Test
-	public void classicLoop() {
+	public void classic() {
 		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
@@ -20,7 +20,7 @@ public class LoopListTest {
 	}
 
 	@Test
-	public void advancedLoop() {
+	public void advanced() {
 		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
@@ -31,7 +31,7 @@ public class LoopListTest {
 	}
 
 	@Test
-	public void iteratorLoop() {
+	public void iterator() {
 		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
@@ -56,7 +56,7 @@ public class LoopListTest {
 	}
 
 	@Test
-	public void forEachLoop() {
+	public void forEach() {
 		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
@@ -65,7 +65,7 @@ public class LoopListTest {
 	}
 	
 	@Test
-	public void forEachLoop_2() {
+	public void forEach_2() {
 		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");

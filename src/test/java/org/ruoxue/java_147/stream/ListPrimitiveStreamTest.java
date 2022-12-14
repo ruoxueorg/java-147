@@ -14,7 +14,7 @@ import org.junit.Test;
 public class ListPrimitiveStreamTest {
 
 	@Test
-	public void streamMapToInt() {
+	public void mapToInt() {
 		int expectedCount = 3;
 		List<Integer> list = Arrays.asList(1, 2, 3);
 		IntStream stream = list.stream().mapToInt(e -> e);
@@ -24,7 +24,7 @@ public class ListPrimitiveStreamTest {
 	}
 
 	@Test
-	public void streamMapToLong() {
+	public void mapToLong() {
 		int expectedCount = 3;
 		List<Long> list = Arrays.asList(4L, 5L, 6L);
 		LongStream stream = list.stream().mapToLong(e -> e);
@@ -34,7 +34,7 @@ public class ListPrimitiveStreamTest {
 	}
 
 	@Test
-	public void streamMapToDouble() {
+	public void mapToDouble() {
 		int expectedCount = 3;
 		List<Double> list = Arrays.asList(7.0, 8.0, 9.0);
 		DoubleStream stream = list.stream().mapToDouble(e -> e);
@@ -103,7 +103,7 @@ public class ListPrimitiveStreamTest {
 	}
 
 	@Test
-	public void streamSupplier() {
+	public void supplier() {
 		int expectedMin = 1;
 		int expectedMax = 3;
 		Supplier<IntStream> supplier = () -> IntStream.of(1, 2, 3);

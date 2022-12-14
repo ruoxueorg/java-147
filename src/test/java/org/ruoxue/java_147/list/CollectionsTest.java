@@ -71,7 +71,7 @@ public class CollectionsTest {
 	}
 
 	@Test
-	public void collectionShuffle() {
+	public void shuffle() {
 		List<String> list = new ArrayList<String>();
 		list.add("Apple");
 		list.add("Banana");
@@ -83,7 +83,7 @@ public class CollectionsTest {
 	}
 
 	@Test
-	public void collectionSort() {
+	public void sort() {
 		List<String> list = new ArrayList<String>();
 		list.add("Apple");
 		list.add("Cherry");
@@ -107,7 +107,7 @@ public class CollectionsTest {
 	}
 
 	@Test
-	public void collectionSwap() {
+	public void swap() {
 		List<String> list = new ArrayList<String>();
 		list.add("Apple");
 		list.add("Banana");
