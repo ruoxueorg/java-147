@@ -1,0 +1,46 @@
+buildscript {
+	group 'org.ruoxue.java-147'
+	version = '0.0.1-SNAPSHOT'
+	ext {
+		junit4Version = '4.13.2'
+	}
+
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+}
+
+plugins {
+	id 'java-library'
+	id 'eclipse'
+}
+
+
+repositories {
+	mavenCentral()
+	jcenter()
+}
+
+task copyDependencies(type: Copy) {
+	//	from configurations.compileClasspath
+	from configurations.runtimeClasspath
+	into "${buildDir}/dependencies"
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+[compileJava, javadoc, compileTestJava]*.options*.encoding = 'UTF-8'
+
+dependencies {
+	api 'org.apache.commons:commons-math3:3.6.1'
+	implementation 'com.google.guava:guava:27.0.1-jre'
+	
+	testImplementation "junit:junit:${junit4Version}"
+}
+
+task helloWorld {
+   doLast {
+      println 'Hello, World'
+   }
+}
