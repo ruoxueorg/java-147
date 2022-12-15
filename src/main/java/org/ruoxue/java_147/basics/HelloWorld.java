@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.hello_world;
+package org.ruoxue.java_147.basics;
 
 public class HelloWorld {
 

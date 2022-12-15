@@ -7,5 +7,5 @@ Java 是一種物件導向程式設計語言，但不是純物件導向的語言
 ## Java 147
 提供各種分類範例，並單獨測試一個程式、過程或方法，進行正確性測試，來驗證產出結果。
 
-## Relevant Articles
+## Related Articles
 - [Java 147](https://www.ruoxue.org/java-147/)
