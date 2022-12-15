@@ -60,7 +60,7 @@ public class RemoveFromListTest {
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
-		Predicate<String> predicate = (v) -> v.equals("Apple") || v.equals("Cherry");
+		Predicate<String> predicate = v -> v.equals("Apple") || v.equals("Cherry");
 		list.removeIf(predicate);
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
