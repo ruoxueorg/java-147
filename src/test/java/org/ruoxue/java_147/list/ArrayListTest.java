@@ -126,7 +126,7 @@ public class ArrayListTest {
 	}
 
 	@Test
-	public void converToArray() {
+	public void toArray() {
 		int expectedSize = 3;
 		List<String> list = new ArrayList<String>();
 		list.add("Apple");
@@ -144,7 +144,7 @@ public class ArrayListTest {
 	}
 
 	@Test
-	public void converToArrayByStream() {
+	public void toArrayByStream() {
 		int expectedSize = 3;
 		List<String> list = new ArrayList<String>();
 		list.add("Apple");
