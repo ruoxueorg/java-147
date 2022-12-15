@@ -8,7 +8,7 @@ import org.junit.Test;
 public class OOMTest {
 
 	@Test
-	public void oom_1() {
+	public void listOOM() {
 		List<byte[]> list = new ArrayList<byte[]>();
 		int counter = 1;
 		for (;;) {
@@ -20,7 +20,7 @@ public class OOMTest {
 	}
 
 	@Test
-	public void oom_2() {
+	public void integerOOM() {
 		List<Integer> list = new ArrayList<Integer>();
 		int counter = 1;
 		for (;;) {
@@ -31,7 +31,7 @@ public class OOMTest {
 	}
 
 	@Test
-	public void oom_3() {
+	public void byteArrayOOM() {
 		createBytes();
 	}
 
@@ -46,7 +46,7 @@ public class OOMTest {
 	}
 
 	@Test
-	public void no_oom() {
+	public void noOOM() {
 		int counter = 1;
 		for (;;) {
 			Byte[] bytes = new Byte[300 * 1024 * 1024];
