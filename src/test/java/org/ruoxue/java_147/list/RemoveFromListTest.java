@@ -42,7 +42,7 @@ public class RemoveFromListTest {
 	}
 
 	@Test
-	public void removeIf_2() {
+	public void removeIfEquals() {
 		int expectedSize = 1;
 		List<String> list = new ArrayList<>();
 		list.add("Apple");
