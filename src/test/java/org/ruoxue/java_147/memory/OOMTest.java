@@ -1,11 +1,11 @@
-package org.ruoxue.java_147.oom;
+package org.ruoxue.java_147.memory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-public class MemoryTest {
+public class OOMTest {
 
 	@Test
 	public void oom_1() {
