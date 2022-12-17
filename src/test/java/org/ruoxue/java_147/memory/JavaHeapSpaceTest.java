@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class HeapSpaceTest {
+public class JavaHeapSpaceTest {
 
 	@Test
 	public void list() {
