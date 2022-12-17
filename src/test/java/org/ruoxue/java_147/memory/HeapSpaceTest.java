@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class OOMTest {
+public class HeapSpaceTest {
 
 	@Test
-	public void listOOM() {
+	public void list() {
 		List<byte[]> list = new ArrayList<byte[]>();
 		int counter = 1;
 		for (;;) {
@@ -20,7 +20,7 @@ public class OOMTest {
 	}
 
 	@Test
-	public void integerOOM() {
+	public void integer() {
 		List<Integer> list = new ArrayList<Integer>();
 		int counter = 1;
 		for (;;) {
@@ -31,7 +31,7 @@ public class OOMTest {
 	}
 
 	@Test
-	public void byteArrayOOM() {
+	public void byteArray() {
 		createBytes();
 	}
 
@@ -46,7 +46,7 @@ public class OOMTest {
 	}
 
 	@Test
-	public void noOOM() {
+	public void normal() {
 		int counter = 1;
 		for (;;) {
 			Byte[] bytes = new Byte[300 * 1024 * 1024];
