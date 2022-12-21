@@ -89,7 +89,7 @@ public class ListPrimitiveStreamTest {
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void intermediateThrowException() {
+	public void intermediate() {
 		int expectedMin = 1;
 		int expectedMax = 3;
 		IntStream stream = IntStream.of(1, 2, 3);
