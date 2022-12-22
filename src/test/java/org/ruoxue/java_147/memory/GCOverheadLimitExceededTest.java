@@ -50,7 +50,7 @@ public class GCOverheadLimitExceededTest {
 	public void list() {
 		List<Key> list = new ArrayList<Key>();
 		int counter = 1;
-		while (true) {
+		for (;;) {
 			for (int i = 0; i < 1000; i++) {
 				list.add(new Key(i));
 			}
@@ -64,7 +64,7 @@ public class GCOverheadLimitExceededTest {
 	public void map() {
 		Map<Key, Integer> map = new HashMap<Key, Integer>();
 		int counter = 1;
-		while (true) {
+		for (;;) {
 			for (int i = 0; i < 1000; i++) {
 				map.put(new Key(i), i);
 			}
@@ -78,7 +78,7 @@ public class GCOverheadLimitExceededTest {
 	public void byteArray() {
 		Map<Byte[], Integer> map = new HashMap<Byte[], Integer>();
 		int counter = 1;
-		while (true) {
+		for (;;) {
 			for (int i = 0; i < 1000; i++) {
 				map.put(new Byte[10], i);
 			}
@@ -92,7 +92,7 @@ public class GCOverheadLimitExceededTest {
 	public void normal() {
 		Map<KeyEquals, Integer> map = new HashMap<KeyEquals, Integer>();
 		int counter = 1;
-		while (true) {
+		for (;;) {
 			for (int i = 0; i < 1000; i++) {
 				map.put(new KeyEquals(i), i);
 			}
