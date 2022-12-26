@@ -19,5 +19,4 @@ public class DirectBufferMemoryTest {
 		ByteBuffer buffer = ByteBuffer.allocateDirect(Integer.MAX_VALUE);
 		System.out.println("freeMemory: " + Runtime.getRuntime().freeMemory() / 1024 / 1024 + " MB");
 	}
-
 }
