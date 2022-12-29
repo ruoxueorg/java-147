@@ -18,12 +18,12 @@ public class RemoveFromMapTest {
 	public void removeThrowException() {
 		int expectedSize = 2;
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Apple", 1);
-		map.put("Banana", 2);
-		map.put("Cherry", 3);
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
 		for (Map.Entry<String, Integer> e : map.entrySet()) {
 			String key = e.getKey();
-			if ("Apple".equals(key)) {
+			if ("Grape".equals(key)) {
 				map.remove(key);
 			}
 		}
@@ -35,10 +35,10 @@ public class RemoveFromMapTest {
 	public void entrySetRemoveIf() {
 		int expectedSize = 2;
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Apple", 1);
-		map.put("Banana", 2);
-		map.put("Cherry", 3);
-		map.entrySet().removeIf(e -> e.getKey().equals("Apple"));
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
+		map.entrySet().removeIf(e -> e.getKey().equals("Grape"));
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
 	}
@@ -47,10 +47,10 @@ public class RemoveFromMapTest {
 	public void keySetRemoveIf() {
 		int expectedSize = 1;
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Apple", 1);
-		map.put("Banana", 2);
-		map.put("Cherry", 3);
-		map.keySet().removeIf(k -> k.equals("Apple") || k.equals("Cherry"));
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
+		map.keySet().removeIf(k -> k.equals("Grape") || k.equals("Lemon"));
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
 	}
@@ -59,9 +59,9 @@ public class RemoveFromMapTest {
 	public void valuesRemoveIf() {
 		int expectedSize = 1;
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Apple", 1);
-		map.put("Banana", 2);
-		map.put("Cherry", 3);
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
 		map.values().removeIf(v -> v == 1 || v == 3);
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
@@ -71,13 +71,13 @@ public class RemoveFromMapTest {
 	public void remove() {
 		int expectedSize = 2;
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Apple", 1);
-		map.put("Banana", 2);
-		map.put("Cherry", 3);
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
 		List<String> willRemove = new ArrayList<>();
 		for (Map.Entry<String, Integer> e : map.entrySet()) {
 			String key = e.getKey();
-			if ("Apple".equals(key)) {
+			if ("Grape".equals(key)) {
 				willRemove.add(key);
 			}
 		}
@@ -92,14 +92,14 @@ public class RemoveFromMapTest {
 	public void entrySetIteratorRemove() {
 		int expectedSize = 2;
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Apple", 1);
-		map.put("Banana", 2);
-		map.put("Cherry", 3);
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
 		Iterator<Map.Entry<String, Integer>> it = map.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry<String, Integer> e = it.next();
 			String key = e.getKey();
-			if ("Apple".equals(key)) {
+			if ("Grape".equals(key)) {
 				it.remove();
 			}
 		}
@@ -111,13 +111,13 @@ public class RemoveFromMapTest {
 	public void keySetIteratorRemove() {
 		int expectedSize = 2;
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Apple", 1);
-		map.put("Banana", 2);
-		map.put("Cherry", 3);
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
 		Iterator<String> it = map.keySet().iterator();
 		while (it.hasNext()) {
 			String e = it.next();
-			if ("Apple".equals(e)) {
+			if ("Grape".equals(e)) {
 				it.remove();
 			}
 		}
@@ -129,9 +129,9 @@ public class RemoveFromMapTest {
 	public void valuesIteratorRemove() {
 		int expectedSize = 2;
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Apple", 1);
-		map.put("Banana", 2);
-		map.put("Cherry", 3);
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
 		Iterator<Integer> it = map.values().iterator();
 		while (it.hasNext()) {
 			Integer e = it.next();
@@ -147,13 +147,13 @@ public class RemoveFromMapTest {
 	public void filterCollect() {
 		int expectedSize = 2;
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Apple", 1);
-		map.put("Banana", 2);
-		map.put("Cherry", 3);
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
 		Map<String, Integer> result = new HashMap<String, Integer>();
 		for (Map.Entry<String, Integer> e : map.entrySet()) {
 			String key = e.getKey();
-			if (!"Apple".equals(key)) {
+			if (!"Grape".equals(key)) {
 				result.put(e.getKey(), e.getValue());
 			}
 		}
@@ -165,10 +165,10 @@ public class RemoveFromMapTest {
 	public void streamCollect() {
 		int expectedSize = 2;
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Apple", 1);
-		map.put("Banana", 2);
-		map.put("Cherry", 3);
-		Map<String, Integer> result = map.entrySet().stream().filter(e -> !"Apple".equals(e.getKey()))
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
+		Map<String, Integer> result = map.entrySet().stream().filter(e -> !"Grape".equals(e.getKey()))
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 		System.out.println(result);
 		assertEquals(expectedSize, result.size());

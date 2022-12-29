@@ -1,13 +1,11 @@
 package org.ruoxue.java_147.map;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.junit.Test;
 
-public class LoopMapTest {
+public class GetFromMapTest {
 
 	@Test
 	public void entrySet() {
@@ -16,7 +14,9 @@ public class LoopMapTest {
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
 		for (Map.Entry<String, Integer> e : map.entrySet()) {
-			System.out.println(e.getKey() + ", " + e.getValue());
+			String key = e.getKey();
+			int value = e.getValue();
+			System.out.println(key + ", " + value);
 		}
 	}
 
@@ -28,7 +28,6 @@ public class LoopMapTest {
 		map.put("Lemon", 3);
 		for (String key : map.keySet()) {
 			System.out.println(key);
-
 		}
 	}
 
@@ -40,20 +39,6 @@ public class LoopMapTest {
 		map.put("Lemon", 3);
 		for (Integer value : map.values()) {
 			System.out.println(value);
-
-		}
-	}
-
-	@Test
-	public void iterator() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		Iterator<Entry<String, Integer>> iterator = map.entrySet().iterator();
-		while (iterator.hasNext()) {
-			Map.Entry<String, Integer> e = iterator.next();
-			System.out.println(e.getKey() + ", " + e.getValue());
 		}
 	}
 
