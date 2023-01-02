@@ -9,3 +9,8 @@ Java 147 分享這些年來的成長與收穫，介紹 Java 是一種物件導�
 
 ## Related Articles
 - [Java 147](https://www.ruoxue.org/java-147/)
+
+## Meta Links
+- [關於我們](https://www.ruoxue.org/about-us/)
+- [聯絡我們](https://www.ruoxue.org/contact-us/)
+- [隱私權政策](https://www.ruoxue.org/privacy-policy/)
