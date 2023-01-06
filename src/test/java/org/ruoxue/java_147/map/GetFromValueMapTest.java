@@ -61,7 +61,7 @@ public class GetFromValueMapTest {
 		}
 	}
 
-	private Set<String> getKeysUseStream(Map<String, Integer> map, Integer value) {
+	public Set<String> getKeysUseStream(Map<String, Integer> map, Integer value) {
 		return map
 				.entrySet()
 				.stream()
