@@ -9,7 +9,7 @@ import java.util.stream.LongStream;
 
 import org.junit.Test;
 
-public class PrimitiveStreamTest {
+public class PrimitiveTypeStreamsTest {
 
 	@Test
 	public void intStreamOf() {
