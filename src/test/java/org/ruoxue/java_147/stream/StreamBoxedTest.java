@@ -11,7 +11,11 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
-public class PrimitiveStreamBoxedTest {
+public class StreamBoxedTest {
+
+	public StreamBoxedTest() {
+
+	}
 
 	@Test
 	public void intStreamBoxed() {

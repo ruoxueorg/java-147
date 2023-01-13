@@ -11,7 +11,11 @@ import java.util.stream.LongStream;
 
 import org.junit.Test;
 
-public class ListPrimitiveStreamTest {
+public class ListPrimitiveTypeStreamsTest {
+	
+	public ListPrimitiveTypeStreamsTest() {
+		
+	}
 
 	@Test
 	public void mapToInt() {
