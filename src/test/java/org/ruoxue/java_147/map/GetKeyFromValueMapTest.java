@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-public class GetFromValueMapTest {
+public class GetKeyFromValueMapTest {
 
 	@Test
 	public void keySet() {
