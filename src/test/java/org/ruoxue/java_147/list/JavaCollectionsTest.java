@@ -9,7 +9,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class CollectionsTest {
+public class JavaCollectionsTest {
+
+	public JavaCollectionsTest() {
+
+	}
 
 	@Test
 	public void addAll() {
