@@ -7,7 +7,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class ArrayListTest {
+public class JavaListTest {
+	
+	public JavaListTest() {
+		
+	}
 
 	@Test
 	public void add() {
