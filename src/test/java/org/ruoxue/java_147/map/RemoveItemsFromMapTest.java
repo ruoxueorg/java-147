@@ -12,7 +12,11 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-public class RemoveFromMapTest {
+public class RemoveItemsFromMapTest {
+
+	public RemoveItemsFromMapTest() {
+
+	}
 
 	@Test(expected = ConcurrentModificationException.class)
 	public void removeThrowException() {

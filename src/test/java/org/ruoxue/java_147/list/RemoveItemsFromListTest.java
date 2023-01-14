@@ -11,7 +11,11 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-public class RemoveFromListTest {
+public class RemoveItemsFromListTest {
+	
+	public RemoveItemsFromListTest() {
+		
+	}
 
 	@Test(expected = ConcurrentModificationException.class)
 	public void removeThrowException() {
