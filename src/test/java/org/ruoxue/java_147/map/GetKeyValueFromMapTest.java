@@ -5,7 +5,11 @@ import java.util.Map;
 
 import org.junit.Test;
 
-public class GetFromMapTest {
+public class GetKeyValueFromMapTest {
+
+	public GetKeyValueFromMapTest() {
+
+	}
 
 	@Test
 	public void entrySet() {
