@@ -6,7 +6,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class LoopListTest {
+public class IterateListTest {
+
+	public IterateListTest() {
+
+	}
 
 	@Test
 	public void classic() {
@@ -63,7 +67,7 @@ public class LoopListTest {
 		list.add("Cherry");
 		list.forEach(e -> System.out.println(e));
 	}
-	
+
 	@Test
 	public void forEach_2() {
 		List<String> list = new ArrayList<>();

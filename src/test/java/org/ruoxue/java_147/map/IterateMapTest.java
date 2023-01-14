@@ -7,7 +7,11 @@ import java.util.Map.Entry;
 
 import org.junit.Test;
 
-public class LoopMapTest {
+public class IterateMapTest {
+
+	public IterateMapTest() {
+
+	}
 
 	@Test
 	public void entrySet() {
