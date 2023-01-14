@@ -5,3 +5,4 @@
 2. [Java Collections Methods](https://www.ruoxue.org/java-147-java-collections-methods/)
 3. [Java Remove Items From List](https://www.ruoxue.org/java-147-java-remove-items-from-list/)
 4. [Java Loop Through List](https://www.ruoxue.org/java-147-java-loop-through-list/)
+5. [Java Remove Elements From List](https://www.ruoxue.org/java-147-java-remove-elements-from-list/)
