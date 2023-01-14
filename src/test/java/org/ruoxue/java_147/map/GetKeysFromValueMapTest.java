@@ -10,7 +10,11 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-public class GetKeyFromValueMapTest {
+public class GetKeysFromValueMapTest {
+
+	public GetKeysFromValueMapTest() {
+
+	}
 
 	@Test
 	public void keySet() {
@@ -62,11 +66,7 @@ public class GetKeyFromValueMapTest {
 	}
 
 	public Set<String> getKeysUseStream(Map<String, Integer> map, Integer value) {
-		return map
-				.entrySet()
-				.stream()
-				.filter(e -> Objects.equals(e.getValue(), value))
-				.map(Map.Entry::getKey)
+		return map.entrySet().stream().filter(e -> Objects.equals(e.getValue(), value)).map(Map.Entry::getKey)
 				.collect(Collectors.toSet());
 
 	}
@@ -85,11 +85,7 @@ public class GetKeyFromValueMapTest {
 	}
 
 	public Optional<String> getKeysOptional(Map<String, Integer> map, Integer value) {
-		return map
-				.entrySet()
-				.stream()
-				.filter(e -> Objects.equals(e.getValue(), value))
-				.map(Map.Entry::getKey)
+		return map.entrySet().stream().filter(e -> Objects.equals(e.getValue(), value)).map(Map.Entry::getKey)
 				.findFirst();
 
 	}
