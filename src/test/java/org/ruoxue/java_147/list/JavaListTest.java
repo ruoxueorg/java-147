@@ -8,9 +8,9 @@ import java.util.List;
 import org.junit.Test;
 
 public class JavaListTest {
-	
+
 	public JavaListTest() {
-		
+
 	}
 
 	@Test
@@ -99,20 +99,7 @@ public class JavaListTest {
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
-		for (String e : list) {
-			System.out.println(e);
-		}
-	}
-
-	@Test
-	public void numberLoop() {
-		List<Integer> list = new ArrayList<Integer>();
-		list.add(1);
-		list.add(2);
-		list.add(3);
-		for (int e : list) {
-			System.out.println(e);
-		}
+		list.forEach(e -> System.out.println(e));
 	}
 
 	@Test

@@ -8,20 +8,26 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
+import com.google.common.base.Objects;
+
 public class RemoveElementsFromListTest {
-	
+
 	public RemoveElementsFromListTest() {
-		
+
 	}
 
 	@Test
 	public void removeByIndex() {
 		int expectedSize = 2;
+		String expectedValue = "Banana";
 		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
-		list.remove(1);
+		String removed = list.remove(1);
+
+		System.out.println(removed);
+		assertEquals(expectedValue, removed);
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 	}
@@ -33,12 +39,20 @@ public class RemoveElementsFromListTest {
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
-		list.remove("Cherry");
+		boolean removed = list.remove("Cherry");
+
+		System.out.println(removed);
+		assertTrue(removed);
+		System.out.println(list);
+		assertEquals(expectedSize, list.size());
+
+		removed = list.remove("Grape");
+		System.out.println(removed);
+		assertFalse(removed);
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 	}
 
-	
 	@Test
 	public void removeIf() {
 		int expectedSize = 2;
@@ -46,7 +60,10 @@ public class RemoveElementsFromListTest {
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
-		list.removeIf("Apple"::equals);
+		boolean removed = list.removeIf("Apple"::equals);
+
+		System.out.println(removed);
+		assertTrue(removed);
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 	}
@@ -61,7 +78,7 @@ public class RemoveElementsFromListTest {
 		Iterator<String> it = list.iterator();
 		while (it.hasNext()) {
 			String e = it.next();
-			if ("Banana".equals(e)) {
+			if (Objects.equal("Banana", e)) {
 				it.remove();
 			}
 		}
