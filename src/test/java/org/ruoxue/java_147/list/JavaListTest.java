@@ -129,9 +129,7 @@ public class JavaListTest {
 		for (String e : array) {
 			System.out.println(e);
 		}
-
-		String[] result = list.stream().toArray(String[]::new);
-		assertEquals(expectedSize, result.length);
+		assertEquals(expectedSize, array.length);
 	}
 
 	@Test
