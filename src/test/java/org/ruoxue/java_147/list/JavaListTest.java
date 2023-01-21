@@ -43,8 +43,9 @@ public class JavaListTest {
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
-		System.out.println(list);
-		assertEquals(expected, list.get(1));
+		String value = list.get(1);
+		System.out.println(value);
+		assertEquals(expected, value);
 	}
 
 	@Test

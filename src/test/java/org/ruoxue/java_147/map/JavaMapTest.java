@@ -42,8 +42,9 @@ public class JavaMapTest {
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
-		System.out.println(map);
-		assertEquals(expected, map.get("Kiwifruit"));
+		Integer value = map.get("Kiwifruit");
+		System.out.println(value);
+		assertEquals(expected, value);
 	}
 
 	@Test
@@ -128,7 +129,6 @@ public class JavaMapTest {
 		for (String e : array) {
 			System.out.println(e);
 		}
-
 		assertEquals(expectedSize, array.length);
 	}
 
