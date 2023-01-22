@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class JavaListTest {
+public class ArrayListMethodsTest {
 
-	public JavaListTest() {
+	public ArrayListMethodsTest() {
 
 	}
 
@@ -49,6 +49,20 @@ public class JavaListTest {
 	}
 
 	@Test
+	public void set() {
+		String expected = "Grape";
+		List<String> list = new ArrayList<String>();
+		list.add("Apple");
+		list.add("Banana");
+		list.add("Cherry");
+		System.out.println(list);
+
+		list.set(0, "Grape");
+		System.out.println(list);
+		assertEquals(expected, list.get(0));
+	}
+
+	@Test
 	public void remove() {
 		int expectedSize = 2;
 		List<String> list = new ArrayList<String>();
@@ -84,71 +98,6 @@ public class JavaListTest {
 	}
 
 	@Test
-	public void loop() {
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
-		}
-	}
-
-	@Test
-	public void forEach() {
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
-		list.forEach(e -> System.out.println(e));
-	}
-
-	@Test
-	public void set() {
-		String expected = "Grape";
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
-		System.out.println(list);
-
-		list.set(0, "Grape");
-		System.out.println(list);
-		assertEquals(expected, list.get(0));
-	}
-
-	@Test
-	public void toArray() {
-		int expectedSize = 3;
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
-
-		String[] array = new String[list.size()];
-		list.toArray(array);
-		for (String e : array) {
-			System.out.println(e);
-		}
-		assertEquals(expectedSize, array.length);
-	}
-
-	@Test
-	public void toArrayByStream() {
-		int expectedSize = 3;
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
-
-		String[] array = list.stream().toArray(String[]::new);
-		for (String e : array) {
-			System.out.println(e);
-		}
-		assertEquals(expectedSize, array.length);
-	}
-
-	@Test
 	public void addAll() {
 		int expectedSize = 6;
 		List<String> list = new ArrayList<String>();
@@ -164,5 +113,17 @@ public class JavaListTest {
 		list.addAll(list2);
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
+	}
+
+	@Test
+	public void isEmpty() {
+		List<String> list = new ArrayList<String>();
+		System.out.println(list.isEmpty());
+		assertTrue(list.isEmpty());
+		list.add("Apple");
+		list.add("Banana");
+		list.add("Cherry");
+		System.out.println(list.isEmpty());
+		assertFalse(list.isEmpty());
 	}
 }

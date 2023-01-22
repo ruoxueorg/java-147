@@ -1,5 +1,7 @@
 package org.ruoxue.java_147.list;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -7,15 +9,15 @@ import java.util.ListIterator;
 
 import org.junit.Test;
 
-public class IterateListTest {
+public class ArrayListInJavaTest {
 
-	public IterateListTest() {
+	public ArrayListInJavaTest() {
 
 	}
 
 	@Test
-	public void classic() {
-		List<String> list = new ArrayList<>();
+	public void loop() {
+		List<String> list = new ArrayList<String>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -25,14 +27,22 @@ public class IterateListTest {
 	}
 
 	@Test
-	public void advanced() {
+	public void forEach() {
+		List<String> list = new ArrayList<String>();
+		list.add("Apple");
+		list.add("Banana");
+		list.add("Cherry");
+		list.forEach(e -> System.out.println(e));
+	}
+
+	@Test
+	public void forEachRemaining() {
 		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
-		for (String e : list) {
-			System.out.println(e);
-		}
+		Iterator<String> it = list.iterator();
+		it.forEachRemaining(e -> System.out.println(e));
 	}
 
 	@Test
@@ -60,50 +70,51 @@ public class IterateListTest {
 	}
 
 	@Test
-	public void loop() {
+	public void toArray() {
+		int expectedSize = 3;
 		List<String> list = new ArrayList<String>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
-		}
-	}
 
-	@Test
-	public void whileLoop() {
-		List<String> list = new ArrayList<>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
-		int i = 0;
-		while (i < list.size()) {
-			System.out.println(list.get(i));
-			i++;
-		}
-	}
-
-	@Test
-	public void forEach() {
-		List<String> list = new ArrayList<>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
-		list.forEach(e -> System.out.println(e));
-	}
-
-	@Test
-	public void forEach_2() {
-		List<String> list = new ArrayList<>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
-		list.forEach(System.out::println);
-		list.forEach(e -> System.out.println(e));
-		list.forEach(e -> {
-			e += "_Store";
+		String[] array = new String[list.size()];
+		list.toArray(array);
+		for (String e : array) {
 			System.out.println(e);
-		});
+		}
+		assertEquals(expectedSize, array.length);
+	}
+
+	@Test
+	public void toArrayByStream() {
+		int expectedSize = 3;
+		List<String> list = new ArrayList<String>();
+		list.add("Apple");
+		list.add("Banana");
+		list.add("Cherry");
+
+		String[] array = list.stream().toArray(String[]::new);
+		for (String e : array) {
+			System.out.println(e);
+		}
+		assertEquals(expectedSize, array.length);
+	}
+
+	@Test
+	public void retainAll() {
+		int expectedSize = 1;
+		List<String> list = new ArrayList<String>();
+		list.add("Apple");
+		list.add("Banana");
+		list.add("Cherry");
+
+		List<String> list2 = new ArrayList<String>();
+		list2.add("Apple");
+		list2.add("Lemon");
+		list2.add("Mango");
+
+		list.retainAll(list2);
 		System.out.println(list);
+		assertEquals(expectedSize, list.size());
 	}
 }
