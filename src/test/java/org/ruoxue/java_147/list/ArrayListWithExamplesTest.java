@@ -9,9 +9,9 @@ import java.util.ListIterator;
 
 import org.junit.Test;
 
-public class ArrayListInJavaTest {
+public class ArrayListWithExamplesTest {
 
-	public ArrayListInJavaTest() {
+	public ArrayListWithExamplesTest() {
 
 	}
 
@@ -42,7 +42,18 @@ public class ArrayListInJavaTest {
 		list.add("Banana");
 		list.add("Cherry");
 		Iterator<String> it = list.iterator();
-		it.forEachRemaining(e -> System.out.println(e));
+		int i = 0;
+		while (it.hasNext()) {
+			System.out.println(it.next());
+			if (i == 1) {
+				break;
+			}
+			i++;
+		}
+		System.out.println("----------");
+		it.forEachRemaining(e -> {
+			System.out.println(e);
+		});
 	}
 
 	@Test
