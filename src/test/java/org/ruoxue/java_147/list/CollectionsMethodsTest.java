@@ -9,9 +9,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class JavaCollectionsTest {
+public class CollectionsMethodsTest {
 
-	public JavaCollectionsTest() {
+	public CollectionsMethodsTest() {
 
 	}
 
