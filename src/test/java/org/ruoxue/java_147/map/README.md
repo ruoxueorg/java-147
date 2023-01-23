@@ -7,3 +7,4 @@
 4. [Java Get Keys And Values From Map](https://www.ruoxue.org/java-147-java-get-keys-and-values-from-map/)
 5. [Java Get Keys From Value Map](https://www.ruoxue.org/java-147-java-get-keys-from-value-map/)
 6. [Java Remove Elements From Map](https://www.ruoxue.org/java-147-java-remove-elements-from-map/)
+7. [HashMap in Java with Examples](https://www.ruoxue.org/java-147-hashmap-in-java-with-examples/)

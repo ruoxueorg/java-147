@@ -7,79 +7,54 @@ import java.util.Map;
 
 import org.junit.Test;
 
-public class JavaMapTest {
+public class HashMapWithExamplesTest {
 
-	public JavaMapTest() {
+	public HashMapWithExamplesTest() {
 
 	}
 
 	@Test
-	public void put() {
-		int expectedSize = 3;
+	public void containsKey() {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
+		boolean containsKey = map.containsKey("Lemon");
+		System.out.println(containsKey);
+		assertTrue(containsKey);
+	}
+
+	@Test
+	public void containsValue() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
+		boolean containsValue = map.containsValue(3);
+		System.out.println(containsValue);
+		assertTrue(containsValue);
+	}
+
+	@Test
+	public void replace() {
+		Integer expected = 1;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
+		Integer replaced = map.replace("Grape", 10);
 		System.out.println(map);
-		assertEquals(expectedSize, map.size());
+		assertEquals(expected, replaced);
 	}
 
 	@Test
-	public void putIfAbsent() {
-		int expectedSize = 3;
+	public void replaceAll() {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
-		map.putIfAbsent("Lemon", 3);
+		map.put("Lemon", 3);
+		map.replaceAll((k, v) -> v * 10);
 		System.out.println(map);
-		assertEquals(expectedSize, map.size());
-	}
-
-	@Test
-	public void get() {
-		Integer expected = 2;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		Integer value = map.get("Kiwifruit");
-		System.out.println(value);
-		assertEquals(expected, value);
-	}
-
-	@Test
-	public void remove() {
-		int expectedSize = 2;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		map.remove("Grape");
-		System.out.println(map);
-		assertEquals(expectedSize, map.size());
-	}
-
-	@Test
-	public void clear() {
-		int expectedSize = 0;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		map.clear();
-		System.out.println(map);
-		assertEquals(expectedSize, map.size());
-	}
-
-	@Test
-	public void size() {
-		int expectedSize = 3;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		System.out.println(map.size());
-		assertEquals(expectedSize, map.size());
 	}
 
 	@Test
@@ -100,20 +75,6 @@ public class JavaMapTest {
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
 		map.forEach((k, v) -> System.out.println(k + ", " + v));
-	}
-
-	@Test
-	public void update() {
-		Integer expected = 10;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		System.out.println(map);
-
-		map.put("Grape", 10);
-		System.out.println(map);
-		assertEquals(expected, map.get("Grape"));
 	}
 
 	@Test
@@ -145,23 +106,5 @@ public class JavaMapTest {
 			System.out.println(e);
 		}
 		assertEquals(expectedSize, array.length);
-	}
-
-	@Test
-	public void putAll() {
-		int expectedSize = 6;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Apple", 1);
-		map.put("Banana", 2);
-		map.put("Cherry", 3);
-
-		Map<String, Integer> map2 = new HashMap<String, Integer>();
-		map.put("Grape", 4);
-		map.put("Kiwifruit", 5);
-		map.put("Lemon", 6);
-
-		map.putAll(map2);
-		System.out.println(map);
-		assertEquals(expectedSize, map.size());
 	}
 }
