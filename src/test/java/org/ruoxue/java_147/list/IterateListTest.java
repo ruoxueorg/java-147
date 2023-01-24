@@ -93,7 +93,7 @@ public class IterateListTest {
 	}
 
 	@Test
-	public void forEach_2() {
+	public void forEachAction() {
 		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");

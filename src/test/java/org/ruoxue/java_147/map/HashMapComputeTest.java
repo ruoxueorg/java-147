@@ -64,11 +64,7 @@ public class HashMapComputeTest {
 		for (int i = 0; i < value.length(); i++) {
 			String key = String.valueOf(value.charAt(i));
 			map.compute(key, (k, v) -> {
-				if (v == null) {
-					v = 1;
-				} else {
-					v += 1;
-				}
+				v = (v == null ? 1 : v + 1);
 				return v;
 			});
 		}
