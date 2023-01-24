@@ -85,4 +85,22 @@ public class RemoveElementsFromListTest {
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 	}
+	
+	@Test
+	public void listIteratorRemove() {
+		int expectedSize = 2;
+		List<String> list = new ArrayList<>();
+		list.add("Apple");
+		list.add("Banana");
+		list.add("Cherry");
+		Iterator<String> it = list.listIterator();
+		while (it.hasNext()) {
+			String e = it.next();
+			if (Objects.equal("Banana", e)) {
+				it.remove();
+			}
+		}
+		System.out.println(list);
+		assertEquals(expectedSize, list.size());
+	}
 }
