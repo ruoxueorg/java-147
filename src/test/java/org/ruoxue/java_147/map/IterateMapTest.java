@@ -69,4 +69,13 @@ public class IterateMapTest {
 		map.put("Lemon", 3);
 		map.forEach((k, v) -> System.out.println(k + ", " + v));
 	}
+
+	@Test
+	public void stream() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
+		map.entrySet().stream().forEach(e -> System.out.println(e.getKey() + ", " + e.getValue()));
+	}
 }

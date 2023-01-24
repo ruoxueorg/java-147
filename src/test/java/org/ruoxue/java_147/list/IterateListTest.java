@@ -106,4 +106,14 @@ public class IterateListTest {
 		});
 		System.out.println(list);
 	}
+
+	@Test
+	public void stream() {
+		List<String> list = new ArrayList<>();
+		list.add("Apple");
+		list.add("Banana");
+		list.add("Cherry");
+		list.stream().forEach(e -> System.out.println(e));
+	}
+
 }
