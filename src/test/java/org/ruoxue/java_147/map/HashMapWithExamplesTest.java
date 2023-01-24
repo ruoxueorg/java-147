@@ -53,7 +53,10 @@ public class HashMapWithExamplesTest {
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
-		map.replaceAll((k, v) -> v * 10);
+		map.replaceAll((k, v) -> {
+			v = v * 10;
+			return v;
+		});
 		System.out.println(map);
 	}
 
