@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.list;
+package org.ruoxue.java_147.collection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
