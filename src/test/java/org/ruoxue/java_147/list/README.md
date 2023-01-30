@@ -6,3 +6,4 @@
 3. [Java Loop Through List](https://www.ruoxue.org/java-147-java-loop-through-list/)
 4. [Java Remove Elements From List](https://www.ruoxue.org/java-147-java-remove-elements-from-list/)
 5. [ArrayList in Java with Examples](https://www.ruoxue.org/java-147-arraylist-in-java-with-examples/)
+6. [Java ArrayList Class](https://www.ruoxue.org/java-147-java-arraylist-class/)
