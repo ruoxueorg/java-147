@@ -19,12 +19,12 @@ public class CollectionsMethodsTest {
 	public void addAll() {
 		int expectedSize = 6;
 		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		list.add("Mango");
+		list.add("Orange");
+		list.add("Peach");
 		System.out.println(list);
 
-		Collections.addAll(list, "Grape", "Lemon", "Mango");
+		Collections.addAll(list, "Papaya", "Strawberry", "Watermelon");
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 	}
@@ -33,11 +33,11 @@ public class CollectionsMethodsTest {
 	public void binarySearch() {
 		int expectedIndex = 1;
 		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		list.add("Mango");
+		list.add("Orange");
+		list.add("Peach");
 
-		int result = Collections.binarySearch(list, "Banana");
+		int result = Collections.binarySearch(list, "Orange");
 		System.out.println(result);
 		assertEquals(expectedIndex, result);
 	}
@@ -46,14 +46,14 @@ public class CollectionsMethodsTest {
 	public void copy() {
 		int expectedSize = 3;
 		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		list.add("Mango");
+		list.add("Orange");
+		list.add("Peach");
 		System.out.println(list);
 
 		List<String> list2 = new ArrayList<String>();
-		list2.add("Grape");
-		list2.add("Lemon");
+		list2.add("Papaya");
+		list2.add("Strawberry");
 		Collections.copy(list, list2);
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
@@ -62,13 +62,13 @@ public class CollectionsMethodsTest {
 	@Test
 	public void disjoint() {
 		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		list.add("Mango");
+		list.add("Orange");
+		list.add("Peach");
 
 		List<String> list2 = new ArrayList<String>();
-		list2.add("Grape");
-		list2.add("Lemon");
+		list2.add("Papaya");
+		list2.add("Strawberry");
 		boolean result = Collections.disjoint(list, list2);
 		System.out.println(result);
 		assertTrue(result);
@@ -77,9 +77,9 @@ public class CollectionsMethodsTest {
 	@Test
 	public void shuffle() {
 		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		list.add("Mango");
+		list.add("Orange");
+		list.add("Peach");
 		System.out.println(list);
 
 		Collections.shuffle(list);
@@ -89,9 +89,9 @@ public class CollectionsMethodsTest {
 	@Test
 	public void sort() {
 		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Cherry");
-		list.add("Banana");
+		list.add("Mango");
+		list.add("Peach");
+		list.add("Orange");
 		System.out.println(list);
 
 		Collections.sort(list);
@@ -101,9 +101,9 @@ public class CollectionsMethodsTest {
 	@Test
 	public void reverse() {
 		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		list.add("Mango");
+		list.add("Orange");
+		list.add("Peach");
 		System.out.println(list);
 
 		Collections.reverse(list);
@@ -113,9 +113,9 @@ public class CollectionsMethodsTest {
 	@Test
 	public void swap() {
 		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		list.add("Mango");
+		list.add("Orange");
+		list.add("Peach");
 		System.out.println(list);
 
 		Collections.swap(list, 0, 2);

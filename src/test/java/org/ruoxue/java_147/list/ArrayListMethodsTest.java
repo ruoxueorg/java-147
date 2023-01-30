@@ -36,6 +36,25 @@ public class ArrayListMethodsTest {
 		assertEquals(expectedSize, list.size());
 	}
 
+
+	@Test
+	public void addAll() {
+		int expectedSize = 6;
+		List<String> list = new ArrayList<String>();
+		list.add("Apple");
+		list.add("Banana");
+		list.add("Cherry");
+
+		List<String> list2 = new ArrayList<String>();
+		list2.add("Grape");
+		list2.add("Lemon");
+		list2.add("Mango");
+
+		list.addAll(list2);
+		System.out.println(list);
+		assertEquals(expectedSize, list.size());
+	}
+
 	@Test
 	public void get() {
 		String expected = "Banana";
@@ -73,7 +92,7 @@ public class ArrayListMethodsTest {
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 	}
-	
+
 	@Test
 	public void removeAll() {
 		int expectedSize = 1;
@@ -81,7 +100,7 @@ public class ArrayListMethodsTest {
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
-		
+
 		List<String> list2 = new ArrayList<String>();
 		list2.add("Apple");
 		list2.add("Banana");
@@ -111,24 +130,6 @@ public class ArrayListMethodsTest {
 		list.add("Banana");
 		list.add("Cherry");
 		System.out.println(list.size());
-		assertEquals(expectedSize, list.size());
-	}
-
-	@Test
-	public void addAll() {
-		int expectedSize = 6;
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
-
-		List<String> list2 = new ArrayList<String>();
-		list2.add("Grape");
-		list2.add("Lemon");
-		list2.add("Mango");
-
-		list.addAll(list2);
-		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 	}
 
