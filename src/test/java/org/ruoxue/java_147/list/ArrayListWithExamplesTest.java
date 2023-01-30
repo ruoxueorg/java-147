@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Spliterator;
 
 import org.junit.Test;
 
@@ -81,6 +82,18 @@ public class ArrayListWithExamplesTest {
 	}
 
 	@Test
+	public void spliterator() {
+		List<String> list = new ArrayList<>();
+		list.add("Apple");
+		list.add("Banana");
+		list.add("Cherry");
+		Spliterator<String> sit = list.spliterator();
+		sit.tryAdvance(e -> System.out.println(e));
+		System.out.println("----------");
+		sit.forEachRemaining(e -> System.out.println(e));
+	}
+
+	@Test
 	public void toArray() {
 		int expectedSize = 3;
 		List<String> list = new ArrayList<String>();
@@ -111,21 +124,4 @@ public class ArrayListWithExamplesTest {
 		assertEquals(expectedSize, array.length);
 	}
 
-	@Test
-	public void retainAll() {
-		int expectedSize = 1;
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
-
-		List<String> list2 = new ArrayList<String>();
-		list2.add("Apple");
-		list2.add("Lemon");
-		list2.add("Mango");
-
-		list.retainAll(list2);
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
-	}
 }
