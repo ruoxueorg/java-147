@@ -91,6 +91,27 @@ public class ArrayListWithExamplesTest {
 		sit.tryAdvance(e -> System.out.println(e));
 		System.out.println("----------");
 		sit.forEachRemaining(e -> System.out.println(e));
+
+		System.out.println("----------");
+		sit = list.spliterator();
+		while (sit.tryAdvance(e -> System.out.println(e))) {
+		}
+	}
+
+	@Test
+	public void trySplit() {
+		List<String> list = new ArrayList<>();
+		list.add("Apple");
+		list.add("Banana");
+		list.add("Cherry");
+		Spliterator<String> sit = list.spliterator();
+		Spliterator<String> sit2 = sit.trySplit();
+		System.out.println(sit.getExactSizeIfKnown());
+		sit.forEachRemaining(e -> System.out.println(e));
+		
+		System.out.println("----------");
+		System.out.println(sit2.getExactSizeIfKnown());
+		sit2.forEachRemaining(e -> System.out.println(e));
 	}
 
 	@Test
@@ -123,5 +144,4 @@ public class ArrayListWithExamplesTest {
 		}
 		assertEquals(expectedSize, array.length);
 	}
-
 }
