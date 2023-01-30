@@ -73,6 +73,23 @@ public class ArrayListMethodsTest {
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 	}
+	
+	@Test
+	public void removeAll() {
+		int expectedSize = 1;
+		List<String> list = new ArrayList<String>();
+		list.add("Apple");
+		list.add("Banana");
+		list.add("Cherry");
+		
+		List<String> list2 = new ArrayList<String>();
+		list2.add("Apple");
+		list2.add("Banana");
+		list2.add("Mango");
+		list.removeAll(list2);
+		System.out.println(list);
+		assertEquals(expectedSize, list.size());
+	}
 
 	@Test
 	public void clear() {
