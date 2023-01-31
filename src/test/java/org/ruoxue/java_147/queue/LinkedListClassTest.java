@@ -1,28 +1,28 @@
-package org.ruoxue.java_147.list;
+package org.ruoxue.java_147.queue;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-public class ArrayListClassTest {
+public class LinkedListClassTest {
 
-	public ArrayListClassTest() {
+	public LinkedListClassTest() {
 
 	}
 
 	@Test
 	public void contains() {
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		List<String> list = new LinkedList<String>();
+		list.add("Papaya");
+		list.add("Strawberry");
+		list.add("Watermelon");
 
-		boolean contains = list.contains("Apple");
+		boolean contains = list.contains("Papaya");
 		System.out.println(contains);
 		assertTrue(contains);
 
@@ -33,14 +33,14 @@ public class ArrayListClassTest {
 
 	@Test
 	public void containsAll() {
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		List<String> list = new LinkedList<String>();
+		list.add("Papaya");
+		list.add("Strawberry");
+		list.add("Watermelon");
 
-		List<String> list2 = new ArrayList<String>();
-		list2.add("Apple");
-		list2.add("Banana");
+		List<String> list2 = new LinkedList<String>();
+		list2.add("Papaya");
+		list2.add("Strawberry");
 
 		boolean contains = list.containsAll(list2);
 		System.out.println(contains);
@@ -54,12 +54,12 @@ public class ArrayListClassTest {
 	@Test
 	public void indexOf() {
 		int expected = 1;
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		List<String> list = new LinkedList<String>();
+		list.add("Papaya");
+		list.add("Strawberry");
+		list.add("Watermelon");
 
-		int index = list.indexOf("Banana");
+		int index = list.indexOf("Strawberry");
 		System.out.println(index);
 		assertEquals(expected, index);
 
@@ -71,13 +71,13 @@ public class ArrayListClassTest {
 	@Test
 	public void lastIndexOf() {
 		int expected = 3;
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
-		list.add("Apple");
+		List<String> list = new LinkedList<String>();
+		list.add("Papaya");
+		list.add("Strawberry");
+		list.add("Watermelon");
+		list.add("Papaya");
 
-		int index = list.lastIndexOf("Apple");
+		int index = list.lastIndexOf("Papaya");
 		System.out.println(index);
 		assertEquals(expected, index);
 
@@ -88,10 +88,10 @@ public class ArrayListClassTest {
 
 	@Test
 	public void sort() {
-		List<String> list = new ArrayList<String>();
-		list.add("Banana");
-		list.add("Apple");
-		list.add("Cherry");
+		List<String> list = new LinkedList<String>();
+		list.add("Strawberry");
+		list.add("Papaya");
+		list.add("Watermelon");
 		list.sort(Comparator.naturalOrder());
 		System.out.println(list);
 
@@ -102,22 +102,22 @@ public class ArrayListClassTest {
 
 	@Test
 	public void stream() {
-		int expectedSize = 1;
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
-		list = list.stream().filter(e -> e.length() < 6).collect(Collectors.toList());
+		int expectedSize = 2;
+		List<String> list = new LinkedList<String>();
+		list.add("Papaya");
+		list.add("Strawberry");
+		list.add("Watermelon");
+		list = list.stream().filter(e -> e.length() > 6).collect(Collectors.toList());
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 	}
 
 	@Test
 	public void parallelStream() {
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		List<String> list = new LinkedList<String>();
+		list.add("Papaya");
+		list.add("Strawberry");
+		list.add("Watermelon");
 		list.parallelStream().forEach(System.out::println);
 		System.out.println("----------");
 		list.parallelStream().forEachOrdered(System.out::println);
@@ -126,10 +126,10 @@ public class ArrayListClassTest {
 	@Test
 	public void subList() {
 		int expectedSize = 2;
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		List<String> list = new LinkedList<String>();
+		list.add("Papaya");
+		list.add("Strawberry");
+		list.add("Watermelon");
 
 		List<String> list2 = list.subList(0, 2);
 		System.out.println(list2);
@@ -139,10 +139,10 @@ public class ArrayListClassTest {
 
 	@Test
 	public void replaceAll() {
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		List<String> list = new LinkedList<String>();
+		list.add("Papaya");
+		list.add("Strawberry");
+		list.add("Watermelon");
 		list.replaceAll(e -> e.toUpperCase());
 		System.out.println(list);
 	}
@@ -150,13 +150,13 @@ public class ArrayListClassTest {
 	@Test
 	public void retainAll() {
 		int expectedSize = 1;
-		List<String> list = new ArrayList<String>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
+		List<String> list = new LinkedList<String>();
+		list.add("Papaya");
+		list.add("Strawberry");
+		list.add("Watermelon");
 
-		List<String> list2 = new ArrayList<String>();
-		list2.add("Apple");
+		List<String> list2 = new LinkedList<String>();
+		list2.add("Papaya");
 		list2.add("Lemon");
 		list2.add("Mango");
 
