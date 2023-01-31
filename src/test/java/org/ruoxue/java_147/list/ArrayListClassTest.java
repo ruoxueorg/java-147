@@ -130,7 +130,7 @@ public class ArrayListClassTest {
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
-
+		System.out.println(list);
 		List<String> list2 = list.subList(0, 2);
 		System.out.println(list2);
 

@@ -130,7 +130,7 @@ public class LinkedListClassTest {
 		list.add("Papaya");
 		list.add("Strawberry");
 		list.add("Watermelon");
-
+		System.out.println(list);
 		List<String> list2 = list.subList(0, 2);
 		System.out.println(list2);
 
