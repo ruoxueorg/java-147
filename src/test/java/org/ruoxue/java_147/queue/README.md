@@ -7,3 +7,6 @@
 4. [Java ArrayBlockingQueue Methods](https://www.ruoxue.org/java-147-java-arrayblockingqueue-methods/)
 5. [ArrayBlockingQueue in Java with Examples](https://www.ruoxue.org/java-147-arrayblockingqueue-in-java-with-examples/)
 6. [Java ArrayBlockingQueue Class](https://www.ruoxue.org/java-147-java-arrayblockingqueue-class/)
+7. [Java LinkedBlockingQueue Methods](https://www.ruoxue.org/java-147-java-linkedblockingqueue-methods/)
+8. [LinkedBlockingQueue in Java with Examples](https://www.ruoxue.org/java-147-linkedblockingqueue-in-java-with-examples/)
+9. [Java LinkedBlockingQueue Class](https://www.ruoxue.org/java-147-java-linkedblockingqueue-class/)

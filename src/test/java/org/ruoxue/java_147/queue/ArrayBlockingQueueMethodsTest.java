@@ -163,4 +163,14 @@ public class ArrayBlockingQueueMethodsTest {
 		assertFalse(queue.isEmpty());
 	}
 
+	@Test
+	public void remainingCapacity() {
+		int expectedSize = 7;
+		BlockingQueue<String> queue = new ArrayBlockingQueue<String>(10);
+		queue.add("Papaya");
+		queue.add("Strawberry");
+		queue.add("Watermelon");
+		System.out.println(queue.remainingCapacity());
+		assertEquals(expectedSize, queue.remainingCapacity());
+	}
 }

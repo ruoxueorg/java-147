@@ -116,4 +116,36 @@ public class ArrayBlockingQueueWithExamplesTest {
 		}
 		assertEquals(expectedSize, array.length);
 	}
+
+	@Test
+	public void drainTo() {
+		int expectedSize = 0;
+		BlockingQueue<String> queue = new ArrayBlockingQueue<String>(10);
+		queue.add("Papaya");
+		queue.add("Strawberry");
+		queue.add("Watermelon");
+		System.out.println(queue);
+		BlockingQueue<String> queue2 = new ArrayBlockingQueue<String>(10);
+		queue.drainTo(queue2);
+		System.out.println(queue);
+		System.out.println(queue2);
+		assertEquals(expectedSize, queue.size());
+		assertEquals(3, queue2.size());
+	}
+
+	@Test
+	public void drainToMaxElements() {
+		int expectedSize = 2;
+		BlockingQueue<String> queue = new ArrayBlockingQueue<String>(10);
+		queue.add("Papaya");
+		queue.add("Strawberry");
+		queue.add("Watermelon");
+		System.out.println(queue);
+		BlockingQueue<String> queue2 = new ArrayBlockingQueue<String>(10);
+		queue.drainTo(queue2, 1);
+		System.out.println(queue);
+		System.out.println(queue2);
+		assertEquals(expectedSize, queue.size());
+		assertEquals(1, queue2.size());
+	}
 }
