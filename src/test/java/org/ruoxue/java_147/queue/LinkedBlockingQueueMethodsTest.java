@@ -9,6 +9,7 @@ import java.util.concurrent.BlockingQueue;
 import org.junit.Test;
 
 public class LinkedBlockingQueueMethodsTest {
+
 	@Test
 	public void add() {
 		int expectedSize = 3;
@@ -22,7 +23,7 @@ public class LinkedBlockingQueueMethodsTest {
 
 	@Test(expected = IllegalStateException.class)
 	public void addWhenFull() {
-		int expectedSize = 3;
+		int expectedSize = 2;
 		BlockingQueue<String> queue = new LinkedBlockingQueue<String>(2);
 		queue.add("Papaya");
 		queue.add("Strawberry");

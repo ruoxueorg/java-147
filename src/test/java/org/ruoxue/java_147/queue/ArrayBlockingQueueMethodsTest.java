@@ -23,7 +23,7 @@ public class ArrayBlockingQueueMethodsTest {
 
 	@Test(expected = IllegalStateException.class)
 	public void addWhenFull() {
-		int expectedSize = 3;
+		int expectedSize = 2;
 		BlockingQueue<String> queue = new ArrayBlockingQueue<String>(2);
 		queue.add("Papaya");
 		queue.add("Strawberry");

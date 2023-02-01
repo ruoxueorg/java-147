@@ -12,10 +12,6 @@ import org.junit.Test;
 
 public class ArrayBlockingQueueClassTest {
 
-	public ArrayBlockingQueueClassTest() {
-
-	}
-
 	@Test
 	public void offer() {
 		int expectedSize = 3;

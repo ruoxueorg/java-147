@@ -12,10 +12,6 @@ import org.junit.Test;
 
 public class LinkedListWithExamplesTest {
 
-	public LinkedListWithExamplesTest() {
-
-	}
-
 	@Test
 	public void loop() {
 		List<String> list = new LinkedList<String>();

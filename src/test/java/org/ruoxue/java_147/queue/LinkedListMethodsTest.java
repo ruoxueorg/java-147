@@ -11,10 +11,6 @@ import org.junit.Test;
 
 public class LinkedListMethodsTest {
 
-	public LinkedListMethodsTest() {
-
-	}
-
 	@Test
 	public void add() {
 		int expectedSize = 3;

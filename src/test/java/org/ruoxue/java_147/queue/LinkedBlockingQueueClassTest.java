@@ -12,10 +12,6 @@ import org.junit.Test;
 
 public class LinkedBlockingQueueClassTest {
 
-	public LinkedBlockingQueueClassTest() {
-
-	}
-
 	@Test
 	public void offer() {
 		int expectedSize = 3;

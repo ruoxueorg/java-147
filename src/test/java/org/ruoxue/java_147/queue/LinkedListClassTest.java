@@ -11,10 +11,6 @@ import org.junit.Test;
 
 public class LinkedListClassTest {
 
-	public LinkedListClassTest() {
-
-	}
-
 	@Test
 	public void contains() {
 		List<String> list = new LinkedList<String>();
