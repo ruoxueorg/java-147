@@ -10,3 +10,6 @@
 7. [Java LinkedBlockingQueue Methods](https://www.ruoxue.org/java-147-java-linkedblockingqueue-methods/)
 8. [LinkedBlockingQueue in Java with Examples](https://www.ruoxue.org/java-147-linkedblockingqueue-in-java-with-examples/)
 9. [Java LinkedBlockingQueue Class](https://www.ruoxue.org/java-147-java-linkedblockingqueue-class/)
+10. [Java ConcurrentLinkedQueue Methods](https://www.ruoxue.org/java-147-java-concurrentlinkedqueue-methods/)
+11. [ConcurrentLinkedQueue in Java with Examples](https://www.ruoxue.org/java-147-concurrentlinkedqueue-in-java-with-examples/)
+12. [Java ConcurrentLinkedQueue Class](https://www.ruoxue.org/java-147-java-concurrentlinkedqueue-class/)
