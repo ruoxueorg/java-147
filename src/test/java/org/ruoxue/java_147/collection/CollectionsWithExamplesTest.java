@@ -106,4 +106,29 @@ public class CollectionsWithExamplesTest {
 		assertEquals(expectedSize, list.size());
 	}
 
+	@Test
+	public void max() {
+		String expected = "Peach";
+		List<String> list = new ArrayList<String>();
+		list.add("Mango");
+		list.add("Orange");
+		list.add("Peach");
+		System.out.println(list);
+		String value = Collections.max(list);
+		System.out.println(value);
+		assertEquals(expected, value);
+	}
+
+	@Test
+	public void min() {
+		String expected = "Mango";
+		List<String> list = new ArrayList<String>();
+		list.add("Mango");
+		list.add("Orange");
+		list.add("Peach");
+		System.out.println(list);
+		String value = Collections.min(list);
+		System.out.println(value);
+		assertEquals(expected, value);
+	}
 }
