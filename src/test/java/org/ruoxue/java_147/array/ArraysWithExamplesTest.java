@@ -15,7 +15,6 @@ import lombok.Setter;
 
 public class ArraysWithExamplesTest {
 
-	// fill
 	// parallelPrefix
 	// spliterator
 	// stream
@@ -43,6 +42,15 @@ public class ArraysWithExamplesTest {
 			builder.append("type", type);
 			return builder.toString();
 		}
+	}
+
+	@Test
+	public void fill() {
+		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		System.out.println(Arrays.toString(array));
+
+		Arrays.fill(array, "Durian");
+		System.out.println(Arrays.toString(array));
 	}
 
 	@Test
