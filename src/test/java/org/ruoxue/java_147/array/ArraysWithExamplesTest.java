@@ -15,12 +15,8 @@ import lombok.Setter;
 
 public class ArraysWithExamplesTest {
 
-	// setAll
 	// fill
 	// parallelPrefix
-	// equals
-	// deepEquals
-	//
 	// spliterator
 	// stream
 
@@ -47,6 +43,67 @@ public class ArraysWithExamplesTest {
 			builder.append("type", type);
 			return builder.toString();
 		}
+	}
+
+	@Test
+	public void setAll() {
+		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		System.out.println(Arrays.toString(array));
+
+		Arrays.setAll(array, i -> {
+			String value = array[i];
+			if (value.startsWith("G")) {
+				return value.toUpperCase();
+			}
+			return value;
+		});
+		System.out.println(Arrays.toString(array));
+	}
+
+	@Test
+	public void paralleSetAll() {
+		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		System.out.println(Arrays.toString(array));
+
+		Arrays.parallelSetAll(array, i -> {
+			String value = array[i];
+			if (value.contains("a")) {
+				return value.toUpperCase();
+			}
+			return value;
+		});
+		System.out.println(Arrays.toString(array));
+	}
+
+	@Test
+	public void equals() {
+		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		String[] array2 = new String[] { "Durian", "Guava", "Pitaya" };
+		boolean result = Arrays.equals(array, array2);
+		System.out.println(result);
+		assertTrue(result);
+
+		String[] array3 = new String[] { "Mango" };
+		result = Arrays.equals(array, array3);
+		System.out.println(result);
+		assertFalse(result);
+	}
+
+	@Test
+	public void deepToEquals() {
+		Fruit durian = new Fruit("Durian", 1, 1);
+		Fruit pitaya = new Fruit("Guava", 2, 1);
+		Fruit guava = new Fruit("Pitaya", 3, 1);
+		Fruit[] array = new Fruit[] { durian, pitaya, guava };
+		Fruit[] array2 = new Fruit[] { durian, pitaya, guava };
+		boolean result = Arrays.equals(array, array2);
+		System.out.println(result);
+		assertTrue(result);
+
+		Fruit[] array3 = new Fruit[] { new Fruit("Durian", 1, 1), new Fruit("Guava", 2, 1), new Fruit("Pitaya", 3, 1) };
+		result = Arrays.equals(array, array3);
+		System.out.println(result);
+		assertFalse(result);
 	}
 
 	@Test
