@@ -101,7 +101,7 @@ public class ArraysMethodsTest {
 	}
 
 	@Test
-	public void parallelSortComparator() {
+	public void parallelSortWithComparator() {
 		Fruit durian = new Fruit("Durian", 1, 1);
 		Fruit pitaya = new Fruit("Pitaya", 3, 1);
 		Fruit guava = new Fruit("Guava", 2, 1);
@@ -113,7 +113,7 @@ public class ArraysMethodsTest {
 	}
 
 	@Test
-	public void parallelSortLambda() {
+	public void parallelSortWithLambda() {
 		Fruit durian = new Fruit("Durian", 1, 1);
 		Fruit pitaya = new Fruit("Pitaya", 3, 1);
 		Fruit guava = new Fruit("Guava", 2, 1);

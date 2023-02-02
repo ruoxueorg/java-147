@@ -103,7 +103,7 @@ public class CollectionsMethodsTest {
 	}
 
 	@Test
-	public void sortComparator() {
+	public void sortWithComparator() {
 		List<String> list = new ArrayList<String>();
 		list.add("Mango");
 		list.add("Peach");
@@ -115,7 +115,7 @@ public class CollectionsMethodsTest {
 	}
 
 	@Test
-	public void sortLambda() {
+	public void sortWithLambda() {
 		List<String> list = new ArrayList<String>();
 		list.add("Mango");
 		list.add("Peach");
