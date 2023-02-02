@@ -3,6 +3,7 @@ package org.ruoxue.java_147.array;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -15,6 +16,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class ArraysMethodsTest {
+
+	public static Comparator<Fruit> fruitQuantityComparator = new Comparator<Fruit>() {
+		@Override
+		public int compare(Fruit o1, Fruit o2) {
+			return Double.compare(o1.quantity, o2.quantity);
+		}
+	};
 
 	@NoArgsConstructor
 	@Getter
@@ -87,22 +95,43 @@ public class ArraysMethodsTest {
 	public void parallelSort() {
 		String[] array = new String[] { "Durian", "Pitaya", "Guava" };
 		System.out.println(Arrays.toString(array));
-
 		Arrays.parallelSort(array);
 		System.out.println(Arrays.toString(array));
 	}
 
 	@Test
+	public void parallelSortComparator() {
+		Fruit durian = new Fruit("Durian", 1, 1);
+		Fruit pitaya = new Fruit("Pitaya", 3, 1);
+		Fruit guava = new Fruit("Guava", 2, 1);
+		Fruit[] array = new Fruit[] { durian, pitaya, guava };
+		System.out.println(Arrays.toString(array));
+		Arrays.parallelSort(array, fruitQuantityComparator);
+		System.out.println(Arrays.toString(array));
+	}
+
+	@Test
+	public void parallelSortLambda() {
+		Fruit durian = new Fruit("Durian", 1, 1);
+		Fruit pitaya = new Fruit("Pitaya", 3, 1);
+		Fruit guava = new Fruit("Guava", 2, 1);
+		Fruit[] array = new Fruit[] { durian, pitaya, guava };
+		System.out.println(Arrays.toString(array));
+		Arrays.parallelSort(array, (o1, o2) -> Double.compare(o1.quantity, o2.quantity));
+		System.out.println(Arrays.toString(array));
+	}
+
+	@Test
 	public void toStringz() {
-		String[] array = new String[] { "Durian", "Pitaya", "Guava" };
+		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
 		System.out.println(Arrays.toString(array));
 	}
 
 	@Test
 	public void deepToString() {
 		Fruit durian = new Fruit("Durian", 1, 1);
-		Fruit pitaya = new Fruit("Pitaya", 2, 1);
-		Fruit guava = new Fruit("Guava", 3, 1);
+		Fruit pitaya = new Fruit("Guava", 2, 1);
+		Fruit guava = new Fruit("Pitaya", 3, 1);
 		Fruit[] array = new Fruit[] { durian, pitaya, guava };
 		System.out.println(Arrays.deepToString(array));
 	}
