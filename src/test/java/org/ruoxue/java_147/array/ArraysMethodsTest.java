@@ -2,27 +2,44 @@ package org.ruoxue.java_147.array;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 public class ArraysMethodsTest {
 
+	@NoArgsConstructor
+	@Getter
+	@Setter
+	@Builder
+	public static class Fruit {
+		private String name;
+		private double quantity;
+		private int type;
 
-//setAll
-//fill
-//
-//toString
-//deepToString
-//
-//equals
-//deepEquals
-//
-//spliterator
-//stream
+		public Fruit(String name, double quantity, int type) {
+			this.name = name;
+			this.quantity = quantity;
+			this.type = type;
+		}
+
+		public String toString() {
+			ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.JSON_STYLE);
+			builder.appendSuper(super.toString());
+			builder.append("name", name);
+			builder.append("quantity", quantity);
+			builder.append("type", type);
+			return builder.toString();
+		}
+	}
 
 	@Test
 	public void asList() {
@@ -44,82 +61,49 @@ public class ArraysMethodsTest {
 
 	@Test
 	public void copyOf() {
-		int expectedSize = 3;
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Orange");
-		list.add("Peach");
-		System.out.println(list);
+		int expectedSize = 5;
+		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		System.out.println(Arrays.toString(array));
 
-		List<String> list2 = new ArrayList<String>();
-		list2.add("Papaya");
-		list2.add("Strawberry");
-		Collections.copy(list, list2);
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
+		String[] array2 = null;
+		array2 = Arrays.copyOf(array, 5);
+		System.out.println(Arrays.toString(array2));
+		assertEquals(expectedSize, array2.length);
 	}
 
 	@Test
 	public void copyOfRange() {
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Orange");
-		list.add("Peach");
+		int expectedSize = 1;
+		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		System.out.println(Arrays.toString(array));
 
-		List<String> list2 = new ArrayList<String>();
-		list2.add("Papaya");
-		list2.add("Strawberry");
-		boolean result = Collections.disjoint(list, list2);
-		System.out.println(result);
-		assertTrue(result);
+		String[] array2 = null;
+		array2 = Arrays.copyOfRange(array, 1, 2);
+		System.out.println(Arrays.toString(array2));
+		assertEquals(expectedSize, array2.length);
 	}
 
 	@Test
-	public void mismatch() {
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Orange");
-		list.add("Peach");
-		System.out.println(list);
+	public void parallelSort() {
+		String[] array = new String[] { "Durian", "Pitaya", "Guava" };
+		System.out.println(Arrays.toString(array));
 
-		Collections.shuffle(list);
-		System.out.println(list);
+		Arrays.parallelSort(array);
+		System.out.println(Arrays.toString(array));
 	}
 
 	@Test
-	public void sort() {
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Peach");
-		list.add("Orange");
-		System.out.println(list);
-
-		Collections.sort(list);
-		System.out.println(list);
+	public void toStringz() {
+		String[] array = new String[] { "Durian", "Pitaya", "Guava" };
+		System.out.println(Arrays.toString(array));
 	}
 
 	@Test
-	public void reverse() {
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Orange");
-		list.add("Peach");
-		System.out.println(list);
-
-		Collections.reverse(list);
-		System.out.println(list);
+	public void deepToString() {
+		Fruit durian = new Fruit("Durian", 1, 1);
+		Fruit pitaya = new Fruit("Pitaya", 2, 1);
+		Fruit guava = new Fruit("Guava", 3, 1);
+		Fruit[] array = new Fruit[] { durian, pitaya, guava };
+		System.out.println(Arrays.deepToString(array));
 	}
-
-	@Test
-	public void swap() {
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Orange");
-		list.add("Peach");
-		System.out.println(list);
-
-		Collections.swap(list, 0, 2);
-		System.out.println(list);
-	}
-
 }
