@@ -95,7 +95,7 @@ public class ArraysMethodsTest {
 	public void parallelSort() {
 		String[] array = new String[] { "Durian", "Pitaya", "Guava" };
 		System.out.println(Arrays.toString(array));
-		
+
 		Arrays.parallelSort(array);
 		System.out.println(Arrays.toString(array));
 	}
@@ -107,7 +107,7 @@ public class ArraysMethodsTest {
 		Fruit guava = new Fruit("Guava", 2, 1);
 		Fruit[] array = new Fruit[] { durian, pitaya, guava };
 		System.out.println(Arrays.toString(array));
-		
+
 		Arrays.parallelSort(array, FruitQuantityComparator);
 		System.out.println(Arrays.toString(array));
 	}
@@ -119,28 +119,13 @@ public class ArraysMethodsTest {
 		Fruit guava = new Fruit("Guava", 2, 1);
 		Fruit[] array = new Fruit[] { durian, pitaya, guava };
 		System.out.println(Arrays.toString(array));
-		
+
 		Arrays.parallelSort(array, (o1, o2) -> Double.compare(o1.quantity, o2.quantity));
 		System.out.println(Arrays.toString(array));
-		
+
 		Arrays.parallelSort(array, (o1, o2) -> {
 			return Double.compare(o2.quantity, o1.quantity);
 		});
 		System.out.println(Arrays.toString(array));
-	}
-
-	@Test
-	public void toStringz() {
-		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
-		System.out.println(Arrays.toString(array));
-	}
-
-	@Test
-	public void deepToString() {
-		Fruit durian = new Fruit("Durian", 1, 1);
-		Fruit pitaya = new Fruit("Guava", 2, 1);
-		Fruit guava = new Fruit("Pitaya", 3, 1);
-		Fruit[] array = new Fruit[] { durian, pitaya, guava };
-		System.out.println(Arrays.deepToString(array));
 	}
 }
