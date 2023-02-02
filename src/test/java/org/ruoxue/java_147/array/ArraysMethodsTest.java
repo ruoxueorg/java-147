@@ -17,7 +17,7 @@ import lombok.Setter;
 
 public class ArraysMethodsTest {
 
-	public static Comparator<Fruit> fruitQuantityComparator = new Comparator<Fruit>() {
+	public static Comparator<Fruit> FruitQuantityComparator = new Comparator<Fruit>() {
 		@Override
 		public int compare(Fruit o1, Fruit o2) {
 			return Double.compare(o1.quantity, o2.quantity);
@@ -95,6 +95,7 @@ public class ArraysMethodsTest {
 	public void parallelSort() {
 		String[] array = new String[] { "Durian", "Pitaya", "Guava" };
 		System.out.println(Arrays.toString(array));
+		
 		Arrays.parallelSort(array);
 		System.out.println(Arrays.toString(array));
 	}
@@ -106,7 +107,8 @@ public class ArraysMethodsTest {
 		Fruit guava = new Fruit("Guava", 2, 1);
 		Fruit[] array = new Fruit[] { durian, pitaya, guava };
 		System.out.println(Arrays.toString(array));
-		Arrays.parallelSort(array, fruitQuantityComparator);
+		
+		Arrays.parallelSort(array, FruitQuantityComparator);
 		System.out.println(Arrays.toString(array));
 	}
 
@@ -117,7 +119,13 @@ public class ArraysMethodsTest {
 		Fruit guava = new Fruit("Guava", 2, 1);
 		Fruit[] array = new Fruit[] { durian, pitaya, guava };
 		System.out.println(Arrays.toString(array));
+		
 		Arrays.parallelSort(array, (o1, o2) -> Double.compare(o1.quantity, o2.quantity));
+		System.out.println(Arrays.toString(array));
+		
+		Arrays.parallelSort(array, (o1, o2) -> {
+			return Double.compare(o2.quantity, o1.quantity);
+		});
 		System.out.println(Arrays.toString(array));
 	}
 

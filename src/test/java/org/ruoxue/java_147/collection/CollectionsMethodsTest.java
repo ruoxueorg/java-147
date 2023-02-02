@@ -5,15 +5,19 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.Test;
 
 public class CollectionsMethodsTest {
 
-	public CollectionsMethodsTest() {
-
-	}
+	public static Comparator<String> NameComparator = new Comparator<String>() {
+		@Override
+		public int compare(String o1, String o2) {
+			return o1.compareTo(o2);
+		}
+	};
 
 	@Test
 	public void addAll() {
@@ -95,6 +99,35 @@ public class CollectionsMethodsTest {
 		System.out.println(list);
 
 		Collections.sort(list);
+		System.out.println(list);
+	}
+
+	@Test
+	public void sortComparator() {
+		List<String> list = new ArrayList<String>();
+		list.add("Mango");
+		list.add("Peach");
+		list.add("Orange");
+		System.out.println(list);
+
+		Collections.sort(list, NameComparator);
+		System.out.println(list);
+	}
+
+	@Test
+	public void sortLambda() {
+		List<String> list = new ArrayList<String>();
+		list.add("Mango");
+		list.add("Peach");
+		list.add("Orange");
+		System.out.println(list);
+
+		Collections.sort(list, (o1, o2) -> o1.compareTo(o2));
+		System.out.println(list);
+
+		Collections.sort(list, (o1, o2) -> {
+			return o2.compareTo(o1);
+		});
 		System.out.println(list);
 	}
 
