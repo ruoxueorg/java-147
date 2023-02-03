@@ -128,6 +128,13 @@ public class ArraysWithExamplesTest {
 	}
 
 	@Test
+	public void parallelPrefixInt() {
+		int[] array = new int[] { 1, 2, 3, 4, 5 };
+		Arrays.parallelPrefix(array, (e1, e2) -> e1 * e2);
+		System.out.println(Arrays.toString(array));
+	}
+
+	@Test
 	public void equals() {
 		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
 		String[] array2 = new String[] { "Durian", "Guava", "Pitaya" };
@@ -156,20 +163,5 @@ public class ArraysWithExamplesTest {
 		result = Arrays.equals(array, array3);
 		System.out.println(result);
 		assertFalse(result);
-	}
-
-	@Test
-	public void toStringz() {
-		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
-		System.out.println(Arrays.toString(array));
-	}
-
-	@Test
-	public void deepToString() {
-		Fruit durian = new Fruit("Durian", 1, 1);
-		Fruit pitaya = new Fruit("Guava", 2, 1);
-		Fruit guava = new Fruit("Pitaya", 3, 1);
-		Fruit[] array = new Fruit[] { durian, pitaya, guava };
-		System.out.println(Arrays.deepToString(array));
 	}
 }
