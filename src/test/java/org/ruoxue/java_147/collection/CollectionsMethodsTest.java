@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class CollectionsMethodsTest {
 
-	public static Comparator<String> NameComparator = new Comparator<String>() {
+	public static Comparator<String> nameComparator = new Comparator<String>() {
 		@Override
 		public int compare(String o1, String o2) {
 			return o1.compareTo(o2);
@@ -110,7 +110,7 @@ public class CollectionsMethodsTest {
 		list.add("Orange");
 		System.out.println(list);
 
-		Collections.sort(list, NameComparator);
+		Collections.sort(list, nameComparator);
 		System.out.println(list);
 	}
 

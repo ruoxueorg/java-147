@@ -3,6 +3,9 @@ package org.ruoxue.java_147.array;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.Spliterator;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -14,10 +17,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class ArraysWithExamplesTest {
-
-	// parallelPrefix
-	// spliterator
-	// stream
 
 	@NoArgsConstructor
 	@Getter
@@ -79,6 +78,51 @@ public class ArraysWithExamplesTest {
 				return value.toUpperCase();
 			}
 			return value;
+		});
+		System.out.println(Arrays.toString(array));
+	}
+
+	@Test
+	public void stream() {
+		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		Stream<String> stream = Arrays.stream(array);
+		stream.map(e -> e.toUpperCase()).forEach(e -> System.out.println(e));
+		System.out.println("----------");
+
+		Stream<String> stream2 = Stream.of(array);
+		stream2.map(e -> e.toLowerCase()).forEach(e -> System.out.println(e));
+	}
+
+	@Test
+	public void intStream() {
+		int[] array = new int[] { 1, 2, 3 };
+		IntStream stream = Arrays.stream(array);
+		stream.map(e -> e * 10).forEach(e -> System.out.println(e));
+		System.out.println("----------");
+
+		Stream<int[]> stream2 = Stream.of(array);
+		stream2.flatMapToInt(e -> Arrays.stream(e)).map(e -> e * 10).forEach(e -> System.out.println(e));
+	}
+
+	@Test
+	public void spliterator() {
+		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		Spliterator<String> sit = Arrays.spliterator(array);
+		sit.tryAdvance(e -> System.out.println(e));
+		System.out.println("----------");
+		sit.forEachRemaining(e -> System.out.println(e));
+
+		System.out.println("----------");
+		sit = Arrays.spliterator(array);
+		while (sit.tryAdvance(e -> System.out.println(e))) {
+		}
+	}
+
+	@Test
+	public void parallelPrefix() {
+		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		Arrays.parallelPrefix(array, (e1, e2) -> {
+			return e1.toUpperCase() + "_" + e2;
 		});
 		System.out.println(Arrays.toString(array));
 	}
