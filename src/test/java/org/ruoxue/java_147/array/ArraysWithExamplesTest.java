@@ -94,7 +94,7 @@ public class ArraysWithExamplesTest {
 	}
 
 	@Test
-	public void intStream() {
+	public void streamInt() {
 		int[] array = new int[] { 1, 2, 3 };
 		IntStream stream = Arrays.stream(array);
 		stream.map(e -> e * 10).forEach(e -> System.out.println(e));
