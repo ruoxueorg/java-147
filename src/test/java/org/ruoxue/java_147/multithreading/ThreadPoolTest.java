@@ -1,17 +1,161 @@
 package org.ruoxue.java_147.multithreading;
 
-import static org.junit.Assert.*;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
 
 public class ThreadPoolTest {
 
 	@Test
-	public void newFixedThreadPool() {
-		ExecutorService executorService = Executors.newFixedThreadPool(100);
+	public void newSingleThreadExecutor() {
+		ExecutorService executorService = Executors.newSingleThreadExecutor();
+		int taskSize = 3;
+		CountDownLatch latch = new CountDownLatch(taskSize);
+		try {
+			IntStream.range(0, taskSize).forEach(e -> {
+				executorService.execute(() -> {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+					try {
+						System.out.println(
+								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] Begin task: " + e);
+						Thread.sleep(3_000);
+					} catch (InterruptedException ex) {
+						ex.printStackTrace();
+					} finally {
+						System.out.println(
+								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] End task: " + e);
+						latch.countDown();
+					}
+				});
+			});
+			latch.await();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
+	@Test
+	public void newFixedThreadPool() {
+		int poolSize = 2;
+		ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
+		int taskSize = 3;
+		CountDownLatch latch = new CountDownLatch(taskSize);
+		try {
+			IntStream.range(0, taskSize).forEach(e -> {
+				executorService.execute(() -> {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+					try {
+						System.out.println(
+								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] Begin task: " + e);
+						Thread.sleep(3_000);
+					} catch (InterruptedException ex) {
+						ex.printStackTrace();
+					} finally {
+						System.out.println(
+								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] End task: " + e);
+						latch.countDown();
+					}
+				});
+			});
+			latch.await();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Test
+	public void newCachedThreadPool() {
+		ExecutorService executorService = Executors.newCachedThreadPool();
+		int taskSize = 3;
+		CountDownLatch latch = new CountDownLatch(taskSize);
+		try {
+			IntStream.range(0, taskSize).forEach(e -> {
+				executorService.execute(() -> {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+					try {
+						System.out.println(
+								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] Begin task: " + e);
+						Thread.sleep(3_000);
+					} catch (InterruptedException ex) {
+						ex.printStackTrace();
+					} finally {
+						System.out.println(
+								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] End task: " + e);
+						latch.countDown();
+					}
+				});
+			});
+			latch.await();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Test
+	public void newScheduledThreadPool() {
+		int poolSize = 2;
+		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
+		int taskSize = 3;
+		CountDownLatch latch = new CountDownLatch(5);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		System.out.println(df.format(new Date()) + " T[" + Thread.currentThread().getId() + "] init");
+		try {
+			IntStream.range(0, taskSize).forEach(e -> {
+				executorService.scheduleAtFixedRate(() -> {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+					try {
+						System.out.println(
+								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] Begin task: " + e);
+						Thread.sleep(3_000);
+					} catch (InterruptedException ex) {
+						ex.printStackTrace();
+					} finally {
+						System.out.println(
+								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] End task: " + e);
+						latch.countDown();
+					}
+				}, 5_000, 5_000, TimeUnit.MILLISECONDS);
+			});
+			latch.await();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Test
+	public void newSingleThreadScheduledExecutor() {
+		ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+		int taskSize = 3;
+		CountDownLatch latch = new CountDownLatch(5);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		System.out.println(df.format(new Date()) + " T[" + Thread.currentThread().getId() + "] init");
+		try {
+			IntStream.range(0, taskSize).forEach(e -> {
+				executorService.scheduleAtFixedRate(() -> {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+					try {
+						System.out.println(
+								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] Begin task: " + e);
+						Thread.sleep(3_000);
+					} catch (InterruptedException ex) {
+						ex.printStackTrace();
+					} finally {
+						System.out.println(
+								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] End task: " + e);
+						latch.countDown();
+					}
+				}, 5_000, 5_000, TimeUnit.MILLISECONDS);
+			});
+			latch.await();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }
