@@ -24,9 +24,9 @@ public class RunnableTest {
 			try {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 				System.out.println(
-						sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
-				Thread.sleep(1_000);
-				System.out.println(sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id
+						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+				TimeUnit.SECONDS.sleep(1);
+				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
 						+ " finished");
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -42,7 +42,7 @@ public class RunnableTest {
 				Thread thread = new Thread(new Worker(i));
 				thread.start();
 			}
-			Thread.sleep(3_000);
+			TimeUnit.SECONDS.sleep(5);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -64,9 +64,9 @@ public class RunnableTest {
 				}
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 				System.out.println(
-						sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
-				Thread.sleep(1_000);
-				System.out.println(sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id
+						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+				TimeUnit.SECONDS.sleep(1);
+				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
 						+ " finished");
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -75,14 +75,14 @@ public class RunnableTest {
 	}
 
 	@Test
-	public void brokenRun() {
+	public void runBroken() {
 		try {
 			int taskSize = 3;
 			for (int i = 0; i < taskSize; i++) {
 				Thread thread = new Thread(new BrokenWorker(i));
 				thread.start();
 			}
-			Thread.sleep(3_000);
+			TimeUnit.SECONDS.sleep(5);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -106,9 +106,9 @@ public class RunnableTest {
 			try {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 				System.out.println(
-						sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
-				TimeUnit.SECONDS.sleep(id + 1);
-				System.out.println(sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id
+						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+				TimeUnit.SECONDS.sleep(3 + id);
+				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
 						+ " finished");
 
 				result = "OK";
@@ -124,7 +124,7 @@ public class RunnableTest {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 			while (result == null) {
 				System.out.println(
-						sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id + " wait");
+						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] get: " + id + " waiting");
 				wait();
 			}
 			return result;
@@ -132,7 +132,7 @@ public class RunnableTest {
 	}
 
 	@Test
-	public void returnRun() {
+	public void runReturn() {
 		try {
 			int taskSize = 3;
 			List<ReturnWorker> workers = new ArrayList<ReturnWorker>();
@@ -142,15 +142,93 @@ public class RunnableTest {
 				Thread thread = new Thread(worker);
 				thread.start();
 			}
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 			workers.forEach(e -> {
 				try {
 					Object result = e.get();
-					System.out.println("worker: " + e.getId() + ", result: " + result);
+					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: "
+							+ e.getId() + " result " + result);
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				}
 			});
-			Thread.sleep(3_000);
+			TimeUnit.SECONDS.sleep(5);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	protected class ReturnTimeoutWorker implements Runnable {
+
+		private int id;
+		private Object result;
+
+		public ReturnTimeoutWorker(int id) {
+			this.id = id;
+		}
+
+		public int getId() {
+			return id;
+		}
+
+		@Override
+		public void run() {
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+				System.out.println(
+						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+				TimeUnit.SECONDS.sleep(3);
+				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
+						+ " finished");
+
+				result = "OK";
+				synchronized (this) {
+					notifyAll();
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		public synchronized Object get() throws InterruptedException {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			while (result == null) {
+				System.out.println(
+						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] get: " + id + " waiting");
+				wait(2000);
+				if (Thread.interrupted())
+					throw new InterruptedException();
+				if (result == null)
+					throw new InterruptedException();
+			}
+			return result;
+		}
+	}
+
+	@Test
+	public void runReturnTimeout() {
+		try {
+			int taskSize = 1;
+			List<ReturnTimeoutWorker> workers = new ArrayList<ReturnTimeoutWorker>();
+			for (int i = 0; i < taskSize; i++) {
+				ReturnTimeoutWorker worker = new ReturnTimeoutWorker(i);
+				workers.add(worker);
+				Thread thread = new Thread(worker);
+				thread.start();
+			}
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			workers.forEach(e -> {
+				try {
+					Object result = e.get();
+					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: "
+							+ e.getId() + " result " + result);
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+			});
+			TimeUnit.SECONDS.sleep(5);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

@@ -36,9 +36,9 @@ public class CountDownLatchTest {
 			try {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 				System.out.println(
-						sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 				Thread.sleep(1_000);
-				System.out.println(sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id
+				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
 						+ " finished");
 				output.put(id, "finished");
 			} catch (Exception ex) {
@@ -90,9 +90,9 @@ public class CountDownLatchTest {
 				}
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 				System.out.println(
-						sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 				Thread.sleep(1_000);
-				System.out.println(sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id
+				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
 						+ " finished");
 				output.put(id, "finished");
 				latch.countDown();
@@ -147,9 +147,9 @@ public class CountDownLatchTest {
 				callingLatch.await();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 				System.out.println(
-						sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 				Thread.sleep(3_000);
-				System.out.println(sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id
+				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
 						+ " finished");
 				output.put(id, "finished");
 			} catch (Exception ex) {
@@ -161,7 +161,7 @@ public class CountDownLatchTest {
 	}
 
 	@Test
-	public void waitingAwait() {
+	public void awaitWaiting() {
 		try {
 			int taskSize = 3;
 			CountDownLatch readyLatch = new CountDownLatch(taskSize);
