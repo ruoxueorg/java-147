@@ -85,7 +85,7 @@ public class CountDownLatchTest {
 		@Override
 		public void run() {
 			try {
-				if (id == 2) {
+				if (id == 1) {
 					throw new RuntimeException("BrokenWorker " + id + " throw exception");
 				}
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
@@ -117,7 +117,7 @@ public class CountDownLatchTest {
 			boolean completed = latch.await(5, TimeUnit.SECONDS);
 
 			assertThat(completed).isFalse();
-			assertThat(output).hasSize(2).containsOnly(entry(0, "finished"), entry(1, "finished"));
+			assertThat(output).hasSize(2).containsOnly(entry(0, "finished"), entry(2, "finished"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
