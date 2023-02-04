@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
@@ -74,7 +75,7 @@ public class RunnableTest {
 	}
 
 	@Test
-	public void runBroken() {
+	public void brokenRun() {
 		try {
 			int taskSize = 3;
 			for (int i = 0; i < taskSize; i++) {
@@ -106,7 +107,7 @@ public class RunnableTest {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 				System.out.println(
 						sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
-				Thread.sleep(3_000);
+				TimeUnit.SECONDS.sleep(id + 1);
 				System.out.println(sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id
 						+ " finished");
 
@@ -120,8 +121,10 @@ public class RunnableTest {
 		}
 
 		public synchronized Object get() throws InterruptedException {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 			while (result == null) {
-				System.out.println("wait");
+				System.out.println(
+						sdf.format(new Date()) + "T[" + Thread.currentThread().getId() + "] worker: " + id + " wait");
 				wait();
 			}
 			return result;
@@ -129,7 +132,7 @@ public class RunnableTest {
 	}
 
 	@Test
-	public void runReturn() {
+	public void returnRun() {
 		try {
 			int taskSize = 3;
 			List<ReturnWorker> workers = new ArrayList<ReturnWorker>();
