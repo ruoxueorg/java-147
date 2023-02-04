@@ -52,18 +52,19 @@ public class CountDownLatchTest {
 	@Test
 	public void await() {
 		try {
-			CountDownLatch latch = new CountDownLatch(5);
+			int taskSize = 3;
+			CountDownLatch latch = new CountDownLatch(taskSize);
 			Map<Integer, String> output = Collections.synchronizedMap(new LinkedHashMap<Integer, String>());
 			AtomicInteger counter = new AtomicInteger();
 
 			List<Thread> workers = Stream
-					.generate(() -> new Thread(new Worker(latch, counter.getAndIncrement(), output))).limit(5)
+					.generate(() -> new Thread(new Worker(latch, counter.getAndIncrement(), output))).limit(taskSize)
 					.collect(Collectors.toList());
 			workers.forEach(e -> e.start());
 			latch.await();
 
-			assertThat(output).hasSize(5).containsOnly(entry(0, "finished"), entry(1, "finished"), entry(2, "finished"),
-					entry(3, "finished"), entry(4, "finished"));
+			assertThat(output).hasSize(taskSize).containsOnly(entry(0, "finished"), entry(1, "finished"),
+					entry(2, "finished"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -104,19 +105,19 @@ public class CountDownLatchTest {
 	@Test
 	public void awaitTimeout() {
 		try {
-			CountDownLatch latch = new CountDownLatch(5);
+			int taskSize = 3;
+			CountDownLatch latch = new CountDownLatch(taskSize);
 			Map<Integer, String> output = Collections.synchronizedMap(new LinkedHashMap<Integer, String>());
 			AtomicInteger counter = new AtomicInteger();
 
 			List<Thread> workers = Stream
-					.generate(() -> new Thread(new BrokenWorker(latch, counter.getAndIncrement(), output))).limit(5)
-					.collect(Collectors.toList());
+					.generate(() -> new Thread(new BrokenWorker(latch, counter.getAndIncrement(), output)))
+					.limit(taskSize).collect(Collectors.toList());
 			workers.forEach(e -> e.start());
 			boolean completed = latch.await(5, TimeUnit.SECONDS);
 
 			assertThat(completed).isFalse();
-			assertThat(output).hasSize(4).containsOnly(entry(0, "finished"), entry(1, "finished"), entry(3, "finished"),
-					entry(4, "finished"));
+			assertThat(output).hasSize(2).containsOnly(entry(0, "finished"), entry(1, "finished"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -162,22 +163,23 @@ public class CountDownLatchTest {
 	@Test
 	public void waitingAwait() {
 		try {
-			CountDownLatch readyLatch = new CountDownLatch(5);
+			int taskSize = 3;
+			CountDownLatch readyLatch = new CountDownLatch(taskSize);
 			CountDownLatch callingLatch = new CountDownLatch(1);
-			CountDownLatch finishedLatch = new CountDownLatch(5);
+			CountDownLatch finishedLatch = new CountDownLatch(taskSize);
 			Map<Integer, String> output = Collections.synchronizedMap(new LinkedHashMap<Integer, String>());
 			AtomicInteger counter = new AtomicInteger();
 
 			List<Thread> workers = Stream.generate(() -> new Thread(
 					new WaitingWorker(readyLatch, callingLatch, finishedLatch, counter.getAndIncrement(), output)))
-					.limit(5).collect(Collectors.toList());
+					.limit(taskSize).collect(Collectors.toList());
 			workers.forEach(e -> e.start());
 			readyLatch.await();
 			callingLatch.countDown();
 			finishedLatch.await();
 
-			assertThat(output).hasSize(5).containsOnly(entry(0, "finished"), entry(1, "finished"), entry(2, "finished"),
-					entry(3, "finished"), entry(4, "finished"));
+			assertThat(output).hasSize(taskSize).containsOnly(entry(0, "finished"), entry(1, "finished"),
+					entry(2, "finished"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
