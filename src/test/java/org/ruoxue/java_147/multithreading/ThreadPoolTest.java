@@ -25,7 +25,7 @@ public class ThreadPoolTest {
 					try {
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " ready");
-						Thread.sleep(3_000);
+						TimeUnit.SECONDS.sleep(3);
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " finished");
 					} catch (InterruptedException ex) {
@@ -54,7 +54,7 @@ public class ThreadPoolTest {
 					try {
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " ready");
-						Thread.sleep(3_000);
+						TimeUnit.SECONDS.sleep(3);
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " finished");
 					} catch (InterruptedException ex) {
@@ -82,7 +82,7 @@ public class ThreadPoolTest {
 					try {
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " ready");
-						Thread.sleep(3_000);
+						TimeUnit.SECONDS.sleep(3);
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " finished");
 					} catch (InterruptedException ex) {
@@ -113,7 +113,7 @@ public class ThreadPoolTest {
 					try {
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " ready");
-						Thread.sleep(3_000);
+						TimeUnit.SECONDS.sleep(3);
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " finished");
 					} catch (InterruptedException ex) {
@@ -143,7 +143,7 @@ public class ThreadPoolTest {
 					try {
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " ready");
-						Thread.sleep(3_000);
+						TimeUnit.SECONDS.sleep(3);
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " finished");
 					} catch (InterruptedException ex) {

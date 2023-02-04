@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
-public class CountDownLatchTest {
+public class CountDownLatchWithExamplesTest {
 
 	protected class Worker implements Runnable {
 
@@ -37,7 +37,7 @@ public class CountDownLatchTest {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
-				Thread.sleep(1_000);
+				TimeUnit.SECONDS.sleep(1);
 				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
 						+ " finished");
 				output.put(id, "finished");
@@ -91,7 +91,7 @@ public class CountDownLatchTest {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
-				Thread.sleep(1_000);
+				TimeUnit.SECONDS.sleep(1);
 				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
 						+ " finished");
 				output.put(id, "finished");
@@ -148,7 +148,7 @@ public class CountDownLatchTest {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
-				Thread.sleep(3_000);
+				TimeUnit.SECONDS.sleep(3);
 				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
 						+ " finished");
 				output.put(id, "finished");

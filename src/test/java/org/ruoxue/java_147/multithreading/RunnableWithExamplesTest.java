@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
-public class RunnableTest {
+public class RunnableWithExamplesTest {
 
 	protected class Worker implements Runnable {
 
