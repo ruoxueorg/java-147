@@ -23,14 +23,14 @@ public class ThreadPoolTest {
 				executorService.execute(() -> {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 					try {
-						System.out.println(
-								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] Begin task: " + e);
+						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
+								+ e + " ready");
 						Thread.sleep(3_000);
+						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
+								+ e + " finished");
 					} catch (InterruptedException ex) {
 						ex.printStackTrace();
 					} finally {
-						System.out.println(
-								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] End task: " + e);
 						latch.countDown();
 					}
 				});
@@ -52,14 +52,14 @@ public class ThreadPoolTest {
 				executorService.execute(() -> {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 					try {
-						System.out.println(
-								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] Begin task: " + e);
+						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
+								+ e + " ready");
 						Thread.sleep(3_000);
+						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
+								+ e + " finished");
 					} catch (InterruptedException ex) {
 						ex.printStackTrace();
 					} finally {
-						System.out.println(
-								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] End task: " + e);
 						latch.countDown();
 					}
 				});
@@ -80,14 +80,14 @@ public class ThreadPoolTest {
 				executorService.execute(() -> {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 					try {
-						System.out.println(
-								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] Begin task: " + e);
+						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
+								+ e + " ready");
 						Thread.sleep(3_000);
+						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
+								+ e + " finished");
 					} catch (InterruptedException ex) {
 						ex.printStackTrace();
 					} finally {
-						System.out.println(
-								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] End task: " + e);
 						latch.countDown();
 					}
 				});
@@ -111,14 +111,14 @@ public class ThreadPoolTest {
 				executorService.scheduleAtFixedRate(() -> {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 					try {
-						System.out.println(
-								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] Begin task: " + e);
+						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
+								+ e + " ready");
 						Thread.sleep(3_000);
+						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
+								+ e + " finished");
 					} catch (InterruptedException ex) {
 						ex.printStackTrace();
 					} finally {
-						System.out.println(
-								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] End task: " + e);
 						latch.countDown();
 					}
 				}, 5_000, 5_000, TimeUnit.MILLISECONDS);
@@ -141,14 +141,14 @@ public class ThreadPoolTest {
 				executorService.scheduleAtFixedRate(() -> {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 					try {
-						System.out.println(
-								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] Begin task: " + e);
+						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
+								+ e + " ready");
 						Thread.sleep(3_000);
+						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
+								+ e + " finished");
 					} catch (InterruptedException ex) {
 						ex.printStackTrace();
 					} finally {
-						System.out.println(
-								sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] End task: " + e);
 						latch.countDown();
 					}
 				}, 5_000, 5_000, TimeUnit.MILLISECONDS);

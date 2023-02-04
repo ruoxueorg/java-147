@@ -5,6 +5,7 @@ buildscript {
 		commonsLang3Version = '3.8.1'
 		lombokVersion = '1.18.24'
 		junit4Version = '4.13.2'
+		assertjVersion = '3.23.1'
 	}
 
 	repositories {
@@ -42,6 +43,7 @@ dependencies {
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
 	testImplementation "junit:junit:${junit4Version}"
+	testImplementation "org.assertj:assertj-core:${assertjVersion}"
 }
 
 task helloWorld {
