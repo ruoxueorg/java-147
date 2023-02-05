@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 
 import org.junit.Test;
 
-public class ThreadPoolTest {
+public class ThreadPoolWithExamplesTest {
 
 	@Test
 	public void newSingleThreadExecutor() {
