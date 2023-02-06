@@ -19,6 +19,54 @@ import org.junit.Test;
 
 public class CountDownLatchClassTest {
 
+	protected class Worker implements Runnable {
+
+		private CountDownLatch latch;
+		private int id;
+
+		public Worker(CountDownLatch latch, int id) {
+			this.latch = latch;
+			this.id = id;
+		}
+
+		@Override
+		public void run() {
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+				System.out.println(
+						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+				TimeUnit.SECONDS.sleep(1);
+				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
+						+ " finished");
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				latch.countDown();
+			}
+		}
+	}
+
+	@Test
+	public void getCount() {
+		try {
+			int taskSize = 3;
+			CountDownLatch latch = new CountDownLatch(taskSize);
+			AtomicInteger ids = new AtomicInteger();
+
+			List<Thread> workers = Stream.generate(() -> new Thread(new Worker(latch, ids.getAndIncrement())))
+					.limit(taskSize).collect(Collectors.toList());
+			workers.forEach(e -> e.start());
+			System.out.println(latch.getCount());
+			assertThat(latch.getCount()).isEqualTo(taskSize);
+
+			latch.await();
+			System.out.println(latch.getCount());
+			assertThat(latch.getCount()).isEqualTo(0);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
 	protected class WaitingWorker implements Runnable {
 
 		private CountDownLatch readyLatch;
@@ -66,8 +114,9 @@ public class CountDownLatchClassTest {
 			Map<Integer, String> output = Collections.synchronizedMap(new LinkedHashMap<Integer, String>());
 			AtomicInteger ids = new AtomicInteger();
 
-			List<Thread> workers = Stream.generate(() -> new Thread(
-					new WaitingWorker(readyLatch, callingLatch, finishedLatch, ids.getAndIncrement(), output)))
+			List<Thread> workers = Stream
+					.generate(() -> new Thread(
+							new WaitingWorker(readyLatch, callingLatch, finishedLatch, ids.getAndIncrement(), output)))
 					.limit(taskSize).collect(Collectors.toList());
 			workers.forEach(e -> e.start());
 			readyLatch.await();

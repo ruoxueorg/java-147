@@ -50,7 +50,7 @@ public class CountDownLatchWithExamplesTest {
 	}
 
 	@Test
-	public void worker() {
+	public void await() {
 		try {
 			int taskSize = 3;
 			CountDownLatch latch = new CountDownLatch(taskSize);
@@ -103,7 +103,7 @@ public class CountDownLatchWithExamplesTest {
 	}
 
 	@Test
-	public void brokenWorker() {
+	public void awaitTimeout() {
 		try {
 			int taskSize = 3;
 			CountDownLatch latch = new CountDownLatch(taskSize);
