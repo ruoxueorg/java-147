@@ -58,7 +58,6 @@ public class CountDownLatchClassTest {
 			workers.forEach(e -> e.start());
 			System.out.println(latch.getCount());
 			assertThat(latch.getCount()).isEqualTo(taskSize);
-
 			latch.await();
 			System.out.println(latch.getCount());
 			assertThat(latch.getCount()).isEqualTo(0);
