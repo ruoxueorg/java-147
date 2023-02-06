@@ -86,8 +86,8 @@ public class RunnableWithExamplesTest {
 			threads.forEach(e -> {
 				try {
 					e.join();
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
 				}
 			});
 		} catch (Exception ex) {
@@ -135,8 +135,8 @@ public class RunnableWithExamplesTest {
 			threads.forEach(e -> {
 				try {
 					e.join();
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
 				}
 			});
 		} catch (Exception ex) {

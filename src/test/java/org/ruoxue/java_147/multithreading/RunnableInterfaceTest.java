@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
-public class RunnableClassTest {
+public class RunnableInterfaceTest {
 
 	protected class ReturnWorker implements Runnable {
 
