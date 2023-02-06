@@ -200,7 +200,7 @@ public class RunnableWithExamplesTest {
 				if (Thread.interrupted())
 					throw new InterruptedException();
 				if (result == null)
-					throw new InterruptedException();
+					throw new RuntimeException("ReturnTimeoutWorker " + id + " throw exception");
 			}
 			return result;
 		}
@@ -228,10 +228,10 @@ public class RunnableWithExamplesTest {
 					ex.printStackTrace();
 				}
 			});
+
 			TimeUnit.SECONDS.sleep(5);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
-
 }
