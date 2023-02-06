@@ -50,15 +50,15 @@ public class CountDownLatchWithExamplesTest {
 	}
 
 	@Test
-	public void await() {
+	public void worker() {
 		try {
 			int taskSize = 3;
 			CountDownLatch latch = new CountDownLatch(taskSize);
 			Map<Integer, String> output = Collections.synchronizedMap(new LinkedHashMap<Integer, String>());
-			AtomicInteger counter = new AtomicInteger();
+			AtomicInteger ids = new AtomicInteger();
 
 			List<Thread> workers = Stream
-					.generate(() -> new Thread(new Worker(latch, counter.getAndIncrement(), output))).limit(taskSize)
+					.generate(() -> new Thread(new Worker(latch, ids.getAndIncrement(), output))).limit(taskSize)
 					.collect(Collectors.toList());
 			workers.forEach(e -> e.start());
 			latch.await();
@@ -103,83 +103,21 @@ public class CountDownLatchWithExamplesTest {
 	}
 
 	@Test
-	public void awaitTimeout() {
+	public void brokenWorker() {
 		try {
 			int taskSize = 3;
 			CountDownLatch latch = new CountDownLatch(taskSize);
 			Map<Integer, String> output = Collections.synchronizedMap(new LinkedHashMap<Integer, String>());
-			AtomicInteger counter = new AtomicInteger();
+			AtomicInteger ids = new AtomicInteger();
 
 			List<Thread> workers = Stream
-					.generate(() -> new Thread(new BrokenWorker(latch, counter.getAndIncrement(), output)))
+					.generate(() -> new Thread(new BrokenWorker(latch, ids.getAndIncrement(), output)))
 					.limit(taskSize).collect(Collectors.toList());
 			workers.forEach(e -> e.start());
 			boolean completed = latch.await(5, TimeUnit.SECONDS);
 
 			assertThat(completed).isFalse();
 			assertThat(output).hasSize(2).containsOnly(entry(0, "finished"), entry(2, "finished"));
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	protected class WaitingWorker implements Runnable {
-
-		private CountDownLatch readyLatch;
-		private CountDownLatch callingLatch;
-		private CountDownLatch finishedLatch;
-		private int id;
-		private Map<Integer, String> output;
-
-		public WaitingWorker(CountDownLatch readyLatch, CountDownLatch callingLatch, CountDownLatch finishedLatch,
-				int id, Map<Integer, String> output) {
-			this.readyLatch = readyLatch;
-			this.callingLatch = callingLatch;
-			this.finishedLatch = finishedLatch;
-			this.id = id;
-			this.output = output;
-		}
-
-		@Override
-		public void run() {
-			try {
-				readyLatch.countDown();
-				callingLatch.await();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-				System.out.println(
-						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
-				TimeUnit.SECONDS.sleep(3);
-				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
-						+ " finished");
-				output.put(id, "finished");
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			} finally {
-				finishedLatch.countDown();
-			}
-		}
-	}
-
-	@Test
-	public void awaitWaiting() {
-		try {
-			int taskSize = 3;
-			CountDownLatch readyLatch = new CountDownLatch(taskSize);
-			CountDownLatch callingLatch = new CountDownLatch(1);
-			CountDownLatch finishedLatch = new CountDownLatch(taskSize);
-			Map<Integer, String> output = Collections.synchronizedMap(new LinkedHashMap<Integer, String>());
-			AtomicInteger counter = new AtomicInteger();
-
-			List<Thread> workers = Stream.generate(() -> new Thread(
-					new WaitingWorker(readyLatch, callingLatch, finishedLatch, counter.getAndIncrement(), output)))
-					.limit(taskSize).collect(Collectors.toList());
-			workers.forEach(e -> e.start());
-			readyLatch.await();
-			callingLatch.countDown();
-			finishedLatch.await();
-
-			assertThat(output).hasSize(taskSize).containsOnly(entry(0, "finished"), entry(1, "finished"),
-					entry(2, "finished"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

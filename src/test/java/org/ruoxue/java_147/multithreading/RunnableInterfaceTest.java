@@ -14,6 +14,7 @@ public class RunnableInterfaceTest {
 
 		private int id;
 		private Object result;
+		private boolean done = false;
 
 		public ReturnWorker(int id) {
 			this.id = id;
@@ -34,17 +35,20 @@ public class RunnableInterfaceTest {
 						+ " finished");
 
 				result = "OK";
+			} catch (Exception ex) {
+				result = null;
+				ex.printStackTrace();
+			} finally {
+				done = true;
 				synchronized (this) {
 					notifyAll();
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
 		}
 
 		public synchronized Object get() throws InterruptedException {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-			while (result == null) {
+			while (!done && result == null) {
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] get: " + id + " waiting");
 				wait();
@@ -84,6 +88,7 @@ public class RunnableInterfaceTest {
 
 		private int id;
 		private Object result;
+		private boolean done = false;
 
 		public ReturnTimeoutWorker(int id) {
 			this.id = id;
@@ -104,24 +109,27 @@ public class RunnableInterfaceTest {
 						+ " finished");
 
 				result = "OK";
+			} catch (Exception ex) {
+				result = null;
+				ex.printStackTrace();
+			} finally {
+				done = true;
 				synchronized (this) {
 					notifyAll();
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
 		}
 
 		public synchronized Object get() throws InterruptedException {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-			while (result == null) {
+			while (!done && result == null) {
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] get: " + id + " waiting");
 				wait(2000);
 				if (Thread.interrupted())
 					throw new InterruptedException();
 				if (result == null)
-					throw new RuntimeException("ReturnTimeoutWorker " + id + " throw exception");
+					throw new RuntimeException("ReturnTimeoutWorker " + id + " Timeout");
 			}
 			return result;
 		}
