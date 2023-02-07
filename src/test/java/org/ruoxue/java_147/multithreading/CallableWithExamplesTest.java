@@ -1,7 +1,5 @@
 package org.ruoxue.java_147.multithreading;
 
-import static org.junit.Assert.*;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -124,5 +122,4 @@ public class CallableWithExamplesTest {
 			ex.printStackTrace();
 		}
 	}
-
 }
