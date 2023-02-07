@@ -107,7 +107,7 @@ public class RunnableWithExamplesTest {
 		public void run() {
 			try {
 				if (id == 1) {
-					throw new IOException("BrokenWorker " + id + " throw exception");
+					throw new RuntimeException("BrokenWorker " + id + " throw exception");
 				}
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 				System.out.println(
