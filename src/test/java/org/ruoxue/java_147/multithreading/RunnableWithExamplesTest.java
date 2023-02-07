@@ -1,6 +1,5 @@
 package org.ruoxue.java_147.multithreading;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
