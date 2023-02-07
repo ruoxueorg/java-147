@@ -10,11 +10,11 @@ import org.junit.Test;
 
 public class RunnableInterfaceTest {
 
-	protected class ReturnWorker implements Runnable {
+	protected class ReturnWorker<T> implements Runnable {
 
 		private int id;
-		private Object result;
 		private boolean done = false;
+		private T result;
 
 		public ReturnWorker(int id) {
 			this.id = id;
@@ -24,6 +24,7 @@ public class RunnableInterfaceTest {
 			return id;
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void run() {
 			try {
@@ -34,9 +35,8 @@ public class RunnableInterfaceTest {
 				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
 						+ " finished");
 
-				result = "OK";
+				result = (T) "OK";
 			} catch (Exception ex) {
-				result = null;
 				ex.printStackTrace();
 			} finally {
 				done = true;
@@ -48,7 +48,7 @@ public class RunnableInterfaceTest {
 
 		public synchronized Object get() throws InterruptedException {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-			while (!done && result == null) {
+			while (!done) {
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] get: " + id + " waiting");
 				wait();
@@ -61,9 +61,9 @@ public class RunnableInterfaceTest {
 	public void returnWorker() {
 		try {
 			int taskSize = 3;
-			List<ReturnWorker> workers = new ArrayList<ReturnWorker>();
+			List<ReturnWorker<String>> workers = new ArrayList<ReturnWorker<String>>();
 			for (int i = 0; i < taskSize; i++) {
-				ReturnWorker worker = new ReturnWorker(i);
+				ReturnWorker<String> worker = new ReturnWorker<String>(i);
 				workers.add(worker);
 				Thread thread = new Thread(worker);
 				thread.start();
@@ -84,11 +84,11 @@ public class RunnableInterfaceTest {
 		}
 	}
 
-	protected class ReturnTimeoutWorker implements Runnable {
+	protected class ReturnTimeoutWorker<T> implements Runnable {
 
 		private int id;
-		private Object result;
 		private boolean done = false;
+		private T result;
 
 		public ReturnTimeoutWorker(int id) {
 			this.id = id;
@@ -98,6 +98,7 @@ public class RunnableInterfaceTest {
 			return id;
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void run() {
 			try {
@@ -108,9 +109,8 @@ public class RunnableInterfaceTest {
 				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
 						+ " finished");
 
-				result = "OK";
+				result = (T) "OK";
 			} catch (Exception ex) {
-				result = null;
 				ex.printStackTrace();
 			} finally {
 				done = true;
@@ -122,14 +122,14 @@ public class RunnableInterfaceTest {
 
 		public synchronized Object get() throws InterruptedException {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-			while (!done && result == null) {
+			while (!done) {
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] get: " + id + " waiting");
 				wait(2000);
 				if (Thread.interrupted())
 					throw new InterruptedException();
-				if (result == null)
-					throw new RuntimeException("ReturnTimeoutWorker " + id + " Timeout");
+				if (!done)
+					throw new InterruptedException("ReturnTimeoutWorker " + id + " Timeout");
 			}
 			return result;
 		}
@@ -139,9 +139,9 @@ public class RunnableInterfaceTest {
 	public void returnTimeoutWorker() {
 		try {
 			int taskSize = 3;
-			List<ReturnTimeoutWorker> workers = new ArrayList<ReturnTimeoutWorker>();
+			List<ReturnTimeoutWorker<String>> workers = new ArrayList<ReturnTimeoutWorker<String>>();
 			for (int i = 0; i < taskSize; i++) {
-				ReturnTimeoutWorker worker = new ReturnTimeoutWorker(i);
+				ReturnTimeoutWorker<String> worker = new ReturnTimeoutWorker<String>(i);
 				workers.add(worker);
 				Thread thread = new Thread(worker);
 				thread.start();
