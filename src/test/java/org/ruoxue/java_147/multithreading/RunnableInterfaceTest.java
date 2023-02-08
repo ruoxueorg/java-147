@@ -128,7 +128,7 @@ public class RunnableInterfaceTest {
 				if (Thread.interrupted())
 					throw new InterruptedException();
 				if (!done)
-					throw new TimeoutException("ReturnTimeoutWorker " + id + " timeout");
+					throw new TimeoutException("TimeoutWorker " + id + " timeout");
 			}
 			return result;
 		}
