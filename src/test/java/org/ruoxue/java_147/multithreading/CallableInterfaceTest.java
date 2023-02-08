@@ -48,8 +48,8 @@ public class CallableInterfaceTest {
 			ExecutorService executor = Executors.newFixedThreadPool(taskSize);
 			List<Future<Object>> futures = new ArrayList<Future<Object>>();
 			for (int i = 0; i < taskSize; i++) {
-				Future<Object> futureTask = executor.submit(new Worker(i));
-				futures.add(futureTask);
+				Future<Object> future = executor.submit(new Worker(i));
+				futures.add(future);
 			}
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
@@ -101,8 +101,8 @@ public class CallableInterfaceTest {
 			ExecutorService executor = Executors.newFixedThreadPool(taskSize);
 			List<Future<Object>> futures = new ArrayList<Future<Object>>();
 			for (int i = 0; i < taskSize; i++) {
-				Future<Object> futureTask = executor.submit(new TimeoutWorker(i));
-				futures.add(futureTask);
+				Future<Object> future = executor.submit(new TimeoutWorker(i));
+				futures.add(future);
 			}
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
