@@ -11,13 +11,13 @@ import org.junit.Test;
 
 public class RunnableInterfaceTest {
 
-	protected class ReturnWorker implements Runnable {
+	protected class Worker implements Runnable {
 
 		private int id;
 		private boolean done = false;
 		private Object result;
 
-		public ReturnWorker(int id) {
+		public Worker(int id) {
 			this.id = id;
 		}
 
@@ -58,12 +58,12 @@ public class RunnableInterfaceTest {
 	}
 
 	@Test
-	public void returnWorker() {
+	public void worker() {
 		try {
 			int taskSize = 3;
-			List<ReturnWorker> workers = new ArrayList<ReturnWorker>();
+			List<Worker> workers = new ArrayList<Worker>();
 			for (int i = 0; i < taskSize; i++) {
-				ReturnWorker worker = new ReturnWorker(i);
+				Worker worker = new Worker(i);
 				workers.add(worker);
 				Thread thread = new Thread(worker);
 				thread.start();
@@ -84,13 +84,13 @@ public class RunnableInterfaceTest {
 		}
 	}
 
-	protected class ReturnTimeoutWorker implements Runnable {
+	protected class TimeoutWorker implements Runnable {
 
 		private int id;
 		private boolean done = false;
 		private Object result;
 
-		public ReturnTimeoutWorker(int id) {
+		public TimeoutWorker(int id) {
 			this.id = id;
 		}
 
@@ -135,12 +135,12 @@ public class RunnableInterfaceTest {
 	}
 
 	@Test
-	public void returnTimeoutWorker() {
+	public void timeoutWorker() {
 		try {
 			int taskSize = 3;
-			List<ReturnTimeoutWorker> workers = new ArrayList<ReturnTimeoutWorker>();
+			List<TimeoutWorker> workers = new ArrayList<TimeoutWorker>();
 			for (int i = 0; i < taskSize; i++) {
-				ReturnTimeoutWorker worker = new ReturnTimeoutWorker(i);
+				TimeoutWorker worker = new TimeoutWorker(i);
 				workers.add(worker);
 				Thread thread = new Thread(worker);
 				thread.start();
