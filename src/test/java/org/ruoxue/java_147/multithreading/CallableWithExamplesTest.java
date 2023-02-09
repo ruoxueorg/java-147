@@ -27,7 +27,7 @@ public class CallableWithExamplesTest {
 
 		@Override
 		public Object call() throws Exception {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			System.out.println(
 					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 			TimeUnit.SECONDS.sleep(3);
@@ -51,7 +51,7 @@ public class CallableWithExamplesTest {
 				thread.start();
 			}
 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			futureTasks.forEach(e -> {
 				try {
 					Object result = e.get();
@@ -84,7 +84,7 @@ public class CallableWithExamplesTest {
 			if (id == 1) {
 				throw new RuntimeException("BrokenWorker " + id + " throw exception");
 			}
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			System.out.println(
 					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 			TimeUnit.SECONDS.sleep(3);
@@ -108,7 +108,7 @@ public class CallableWithExamplesTest {
 				thread.start();
 			}
 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			futureTasks.forEach(e -> {
 				try {
 					Object result = e.get();

@@ -22,7 +22,7 @@ public class RunnableVSCallableTest {
 		@Override
 		public void run() {
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] runner: ready");
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println(
@@ -47,7 +47,7 @@ public class RunnableVSCallableTest {
 
 		@Override
 		public Object call() throws Exception {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] caller: ready");
 			TimeUnit.SECONDS.sleep(1);
 			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] caller: finished");
@@ -77,7 +77,7 @@ public class RunnableVSCallableTest {
 				throw new IOException();
 			}
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] caller: ready");
 			TimeUnit.SECONDS.sleep(1);
 			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] caller: finished");

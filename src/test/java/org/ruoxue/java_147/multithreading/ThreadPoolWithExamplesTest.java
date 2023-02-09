@@ -21,7 +21,7 @@ public class ThreadPoolWithExamplesTest {
 		try {
 			IntStream.range(0, taskSize).forEach(e -> {
 				executorService.execute(() -> {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 					try {
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " ready");
@@ -50,7 +50,7 @@ public class ThreadPoolWithExamplesTest {
 		try {
 			IntStream.range(0, taskSize).forEach(e -> {
 				executorService.execute(() -> {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 					try {
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " ready");
@@ -78,7 +78,7 @@ public class ThreadPoolWithExamplesTest {
 		try {
 			IntStream.range(0, taskSize).forEach(e -> {
 				executorService.execute(() -> {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 					try {
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " ready");
@@ -104,12 +104,12 @@ public class ThreadPoolWithExamplesTest {
 		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
 		int taskSize = 3;
 		CountDownLatch latch = new CountDownLatch(5);
-		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		System.out.println(df.format(new Date()) + " T[" + Thread.currentThread().getId() + "] init");
 		try {
 			IntStream.range(0, taskSize).forEach(e -> {
 				executorService.scheduleAtFixedRate(() -> {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 					try {
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " ready");
@@ -134,12 +134,12 @@ public class ThreadPoolWithExamplesTest {
 		ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 		int taskSize = 3;
 		CountDownLatch latch = new CountDownLatch(5);
-		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		System.out.println(df.format(new Date()) + " T[" + Thread.currentThread().getId() + "] init");
 		try {
 			IntStream.range(0, taskSize).forEach(e -> {
 				executorService.scheduleAtFixedRate(() -> {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 					try {
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " ready");

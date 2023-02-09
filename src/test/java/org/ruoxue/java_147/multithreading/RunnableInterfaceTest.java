@@ -28,7 +28,7 @@ public class RunnableInterfaceTest {
 		@Override
 		public void run() {
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 				TimeUnit.SECONDS.sleep(3);
@@ -47,7 +47,7 @@ public class RunnableInterfaceTest {
 		}
 
 		public synchronized Object get() throws InterruptedException {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			while (!done) {
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] get: " + id + " waiting");
@@ -69,7 +69,7 @@ public class RunnableInterfaceTest {
 				thread.start();
 			}
 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			workers.forEach(e -> {
 				try {
 					Object result = e.get();
@@ -101,7 +101,7 @@ public class RunnableInterfaceTest {
 		@Override
 		public void run() {
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 				TimeUnit.SECONDS.sleep(3);
@@ -120,7 +120,7 @@ public class RunnableInterfaceTest {
 		}
 
 		public synchronized Object get(long timeout) throws InterruptedException, TimeoutException {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			while (!done) {
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] get: " + id + " waiting");
@@ -146,7 +146,7 @@ public class RunnableInterfaceTest {
 				thread.start();
 			}
 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			workers.forEach(e -> {
 				try {
 					Object result = e.get(2000);

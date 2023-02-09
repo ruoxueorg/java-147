@@ -34,7 +34,7 @@ public class CountDownLatchWithExamplesTest {
 		@Override
 		public void run() {
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 				TimeUnit.SECONDS.sleep(1);
@@ -88,7 +88,7 @@ public class CountDownLatchWithExamplesTest {
 				if (id == 1) {
 					throw new RuntimeException("BrokenWorker " + id + " throw exception");
 				}
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 				TimeUnit.SECONDS.sleep(1);
