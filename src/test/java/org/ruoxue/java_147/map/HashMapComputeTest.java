@@ -80,11 +80,11 @@ public class HashMapComputeTest {
 		map.put("Lemon", 3);
 		System.out.println(map);
 		String key = "Mango";
-		map.computeIfAbsent(key, (k) -> 4);
+		map.computeIfAbsent(key, k -> 4);
 		System.out.println(map);
 		assertEquals(expected, map.get(key));
 		key = "Grape";
-		map.computeIfAbsent(key, (k) -> 2);
+		map.computeIfAbsent(key, k -> 2);
 		assertEquals(1, map.get(key).intValue());
 	}
 

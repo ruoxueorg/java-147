@@ -121,15 +121,20 @@ public class RunnableInterfaceTest {
 
 		public synchronized Object get(long timeout) throws InterruptedException, TimeoutException {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			while (!done) {
+
+			long timeoutRemaining = timeout;
+			long awaitStarted = System.currentTimeMillis();
+			while (!done && timeoutRemaining > 0) {
 				System.out.println(
 						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] get: " + id + " waiting");
 				wait(timeout);
+				timeoutRemaining -= System.currentTimeMillis() - awaitStarted;
 				if (Thread.interrupted())
 					throw new InterruptedException();
-				if (!done)
-					throw new TimeoutException("TimeoutWorker " + id + " timeout");
 			}
+			if (!done)
+				throw new TimeoutException("TimeoutWorker " + id + " timeout");
+
 			return result;
 		}
 	}
