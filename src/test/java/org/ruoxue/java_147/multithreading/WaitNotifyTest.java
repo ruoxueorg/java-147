@@ -24,6 +24,7 @@ public class WaitNotifyTest {
 
 		public synchronized void put(E e) throws InterruptedException {
 			while (list.size() == maxSize) {
+				System.out.println("T[" + Thread.currentThread().getId() + "] put waiting");
 				wait();
 			}
 			list.add(e);
@@ -33,6 +34,7 @@ public class WaitNotifyTest {
 		public synchronized E take() throws InterruptedException {
 			E result = null;
 			while (list.size() == 0) {
+				System.out.println("T[" + Thread.currentThread().getId() + "] take waiting");
 				wait();
 			}
 			result = list.remove(0);
@@ -53,12 +55,11 @@ public class WaitNotifyTest {
 			return builder.toString();
 		}
 	}
-
+	
 	@Test
-	public void put() {
-		int expectedSize = 2;
+	public void consumeAndProduce() {
+		int expectedSize = 1;
 		BlockQueue<Integer> queue = new BlockQueue<Integer>(2);
-
 		List<Thread> takeThreads = Stream.generate(() -> new Thread(() -> {
 			try {
 				Integer value = queue.take();
@@ -78,7 +79,7 @@ public class WaitNotifyTest {
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
-		})).limit(4).collect(Collectors.toList());
+		})).limit(3).collect(Collectors.toList());
 		putThreads.forEach(e -> e.start());
 
 		System.out.println("T[" + Thread.currentThread().getId() + "] " + queue);
@@ -86,10 +87,9 @@ public class WaitNotifyTest {
 	}
 
 	@Test
-	public void take() {
-		int expectedSize = 2;
+	public void produceAndConsume() {
+		int expectedSize = 1;
 		BlockQueue<Integer> queue = new BlockQueue<Integer>(2);
-
 		AtomicInteger ids = new AtomicInteger();
 		List<Thread> putThreads = Stream.generate(() -> new Thread(() -> {
 			try {
@@ -99,7 +99,7 @@ public class WaitNotifyTest {
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
-		})).limit(4).collect(Collectors.toList());
+		})).limit(3).collect(Collectors.toList());
 		putThreads.forEach(e -> e.start());
 
 		List<Thread> takeThreads = Stream.generate(() -> new Thread(() -> {
