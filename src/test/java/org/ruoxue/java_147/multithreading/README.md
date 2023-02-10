@@ -10,4 +10,5 @@
 7. [Java Callable Interface](https://www.ruoxue.org/https://www.ruoxue.org/java-147-java-callable-interface/)
 8. [Runnable vs Callable in Java](https://www.ruoxue.org/java-147-runnable-vs-callable-in-java/)
 9. [Java Thread Join Method](https://www.ruoxue.org/java-147-java-thread-join-method/)
-10. [Java Wait Notify Methods](https://www.ruoxue.org/java-147-java-wait-notify-methods/)
+10. [Wait and Notify Methods in Java](https://www.ruoxue.org/java-147-wait-and-notify-methods-in-java/)
+11. [Difference Between Notify and NotifyAll in Java](https://www.ruoxue.org/java-147-difference-between-notify-and-notifyall-in-java/)
