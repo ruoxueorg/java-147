@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 
@@ -76,11 +80,11 @@ public class RunnableWithExamplesTest {
 		try {
 			int taskSize = 3;
 			List<Thread> threads = new ArrayList<Thread>();
-			for (int i = 0; i < taskSize; i++) {
-				Thread thread = new Thread(new Worker(i));
+			IntStream.range(0, taskSize).forEach(e -> {
+				Thread thread = new Thread(new Worker(e));
 				thread.start();
 				threads.add(thread);
-			}
+			});
 
 			threads.forEach(e -> {
 				try {
@@ -124,12 +128,10 @@ public class RunnableWithExamplesTest {
 	public void brokenWorker() {
 		try {
 			int taskSize = 3;
-			List<Thread> threads = new ArrayList<Thread>();
-			for (int i = 0; i < taskSize; i++) {
-				Thread thread = new Thread(new BrokenWorker(i));
-				thread.start();
-				threads.add(thread);
-			}
+			AtomicInteger ids = new AtomicInteger();
+			List<Thread> threads = Stream.generate(() -> new Thread(new BrokenWorker(ids.getAndIncrement())))
+					.limit(taskSize).collect(Collectors.toList());
+			threads.forEach(e -> e.start());
 
 			threads.forEach(e -> {
 				try {

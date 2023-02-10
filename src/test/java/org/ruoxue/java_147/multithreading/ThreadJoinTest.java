@@ -14,21 +14,26 @@ public class ThreadJoinTest {
 	public void join() {
 		Thread threadA = new Thread(() -> {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] ready");
+			String id = "A";
+			System.out.println(
+					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 			for (int i = 0; i < 3; i++) {
 				try {
-					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] " + i);
+					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] " + i);
 					TimeUnit.SECONDS.sleep(1);
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				}
 			}
-			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] finished");
-		}, "A");
+			System.out.println(
+					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
+		});
 
 		Thread threadB = new Thread(() -> {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] ready");
+			String id = "B";
+			System.out.println(
+					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 			try {
 				threadA.join();
 			} catch (InterruptedException ex) {
@@ -38,20 +43,23 @@ public class ThreadJoinTest {
 			assertFalse(threadA.isAlive());
 			for (int i = 0; i < 3; i++) {
 				try {
-					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] " + i);
+					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] " + i);
 					TimeUnit.SECONDS.sleep(1);
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				}
 			}
-			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] finished");
-		}, "B");
+			System.out.println(
+					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
+		});
 
 		threadA.start();
 		threadB.start();
 
 		try {
+			assertTrue(threadA.isAlive());
 			threadB.join();
+			assertFalse(threadA.isAlive());
 		} catch (InterruptedException ex) {
 			ex.printStackTrace();
 		}
@@ -60,34 +68,68 @@ public class ThreadJoinTest {
 	}
 
 	@Test
+	public void joinTimeout() {
+		Thread threadA = new Thread(() -> {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			String id = "A";
+			System.out.println(
+					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+			for (int i = 0; i < 3; i++) {
+				try {
+					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] " + i);
+					TimeUnit.SECONDS.sleep(1);
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+			}
+			System.out.println(
+					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
+		});
+		threadA.start();
+
+		try {
+			threadA.join(1000);
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		assertTrue(threadA.isAlive());
+	}
+
+	@Test
 	public void mainJoin() {
 		Thread threadA = new Thread(() -> {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] ready");
+			String id = "A";
+			System.out.println(
+					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 			for (int i = 0; i < 3; i++) {
 				try {
-					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] " + i);
+					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] " + i);
 					TimeUnit.SECONDS.sleep(1);
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				}
 			}
-			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] finished");
-		}, "A");
+			System.out.println(
+					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
+		});
 
 		Thread threadB = new Thread(() -> {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] ready");
+			String id = "B";
+			System.out.println(
+					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 			for (int i = 0; i < 3; i++) {
 				try {
-					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] " + i);
-					TimeUnit.SECONDS.sleep(1);
+					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] " + i);
+					TimeUnit.SECONDS.sleep(2);
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				}
 			}
-			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] finished");
-		}, "B");
+			System.out.println(
+					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
+		});
 
 		threadA.start();
 		threadB.start();
@@ -101,32 +143,5 @@ public class ThreadJoinTest {
 
 		assertFalse(threadA.isAlive());
 		assertFalse(threadB.isAlive());
-	}
-
-	@Test
-	public void joinTimeout() {
-		Thread threadA = new Thread(() -> {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] ready");
-			for (int i = 0; i < 3; i++) {
-				try {
-					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] " + i);
-					TimeUnit.SECONDS.sleep(1);
-				} catch (InterruptedException ex) {
-					ex.printStackTrace();
-				}
-			}
-			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getName() + "] finished");
-		}, "A");
-
-		threadA.start();
-
-		try {
-			threadA.join(1000);
-		} catch (InterruptedException ex) {
-			ex.printStackTrace();
-		}
-
-		assertTrue(threadA.isAlive());
 	}
 }
