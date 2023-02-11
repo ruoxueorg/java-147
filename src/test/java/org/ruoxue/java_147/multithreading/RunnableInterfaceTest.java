@@ -14,7 +14,7 @@ public class RunnableInterfaceTest {
 	protected class Worker implements Runnable {
 
 		private int id;
-		private boolean done = false;
+		private volatile boolean done = false;
 		private Object result;
 
 		public Worker(int id) {
@@ -39,8 +39,8 @@ public class RunnableInterfaceTest {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {
-				done = true;
 				synchronized (this) {
+					done = true;
 					notifyAll();
 				}
 			}
@@ -50,7 +50,7 @@ public class RunnableInterfaceTest {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			while (!done) {
 				System.out.println(
-						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] get: " + id + " waiting");
+						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " waiting");
 				wait();
 			}
 			return result;
@@ -87,7 +87,7 @@ public class RunnableInterfaceTest {
 	protected class TimeoutWorker implements Runnable {
 
 		private int id;
-		private boolean done = false;
+		private volatile boolean done = false;
 		private Object result;
 
 		public TimeoutWorker(int id) {
@@ -112,8 +112,8 @@ public class RunnableInterfaceTest {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {
-				done = true;
 				synchronized (this) {
+					done = true;
 					notifyAll();
 				}
 			}
@@ -126,7 +126,7 @@ public class RunnableInterfaceTest {
 			long awaitStarted = System.currentTimeMillis();
 			while (!done && timeoutRemaining > 0) {
 				System.out.println(
-						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] get: " + id + " waiting");
+						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " waiting");
 				wait(timeout);
 				timeoutRemaining -= System.currentTimeMillis() - awaitStarted;
 				if (Thread.interrupted())

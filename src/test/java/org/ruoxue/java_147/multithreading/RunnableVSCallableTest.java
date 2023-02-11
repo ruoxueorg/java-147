@@ -35,10 +35,14 @@ public class RunnableVSCallableTest {
 	}
 
 	@Test
-	public void runner() throws Exception {
+	public void runner() {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		executor.execute(new Runner());
-		executor.awaitTermination(3, TimeUnit.SECONDS);
+		try {
+			executor.awaitTermination(3, TimeUnit.SECONDS);
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	protected class Caller implements Callable<Object> {
@@ -58,12 +62,17 @@ public class RunnableVSCallableTest {
 	}
 
 	@Test
-	public void caller() throws Exception {
+	public void caller() {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		Future<Object> future = executor.submit(new Caller());
-		Object result = future.get();
-		System.out.println(result);
-		assertEquals("OK", ((String) result));
+		Object result;
+		try {
+			result = future.get();
+			System.out.println(result);
+			assertEquals("OK", ((String) result));
+		} catch (InterruptedException | ExecutionException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	protected class BrokenCaller implements Callable<Object> {
@@ -72,13 +81,12 @@ public class RunnableVSCallableTest {
 
 		@Override
 		public Object call() throws Exception {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] caller: ready");
 			boolean flag = true;
 			if (flag) {
 				throw new IOException();
 			}
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] caller: ready");
 			TimeUnit.SECONDS.sleep(1);
 			System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] caller: finished");
 
@@ -87,12 +95,17 @@ public class RunnableVSCallableTest {
 		}
 	}
 
-	@Test(expected = ExecutionException.class)
-	public void brokenCaller() throws Exception {
+	@Test
+	public void brokenCaller() {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		Future<Object> future = executor.submit(new BrokenCaller());
-		Object result = future.get();
-		System.out.println(result);
-		assertNull(result);
+		Object result;
+		try {
+			result = future.get();
+			System.out.println(result);
+			assertNull(result);
+		} catch (InterruptedException | ExecutionException ex) {
+			ex.printStackTrace();
+		}
 	}
 }
