@@ -102,4 +102,23 @@ public class DifferenceRunnableCallableTest {
 			}
 		});
 	}
+
+	@Test
+	public void timeoutCaller() {
+		List<FutureTask<String>> futureTasks = new ArrayList<FutureTask<String>>();
+		FutureTask<String> futureTask = new FutureTask<String>(new Caller());
+		futureTasks.add(futureTask);
+		Thread thread = new Thread(futureTask);
+		thread.start();
+
+		futureTasks.forEach(e -> {
+			try {
+				String result = e.get(2, TimeUnit.SECONDS);
+				System.out.println("T[" + Thread.currentThread().getId() + "] caller: " + result);
+				assertNotNull(result);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		});
+	}
 }
