@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
-public class NotifyNotifyAllTest {
+public class DifferenceNotifyNotifyAllTest {
 
 	@Test
 	public void notifyz() {
