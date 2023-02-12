@@ -43,7 +43,7 @@ public class DifferenceNotifyNotifyAllTest {
 
 	@Test
 	public void notifyAllz() {
-		Object lock = new Object();
+		final Object lock = new Object();
 		List<Thread> threads = Stream.generate(() -> new Thread(() -> {
 			try {
 				synchronized (lock) {
