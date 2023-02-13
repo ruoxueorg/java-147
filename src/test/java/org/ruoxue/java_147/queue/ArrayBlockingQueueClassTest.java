@@ -37,7 +37,7 @@ public class ArrayBlockingQueueClassTest {
 	}
 
 	@Test
-	public void offerTimeOutWhenFull() {
+	public void offerTimeout() {
 		try {
 			int expectedSize = 2;
 			BlockingQueue<String> queue = new ArrayBlockingQueue<String>(2);
@@ -79,7 +79,7 @@ public class ArrayBlockingQueueClassTest {
 	}
 
 	@Test
-	public void pollTimeOutWhenEmpty() {
+	public void pollTimeout() {
 		try {
 			int expectedSize = 0;
 			BlockingQueue<String> queue = new ArrayBlockingQueue<String>(2);
