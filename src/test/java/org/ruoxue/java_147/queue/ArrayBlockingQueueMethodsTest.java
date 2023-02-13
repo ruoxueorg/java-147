@@ -55,10 +55,14 @@ public class ArrayBlockingQueueMethodsTest {
 		String expected = "Papaya";
 		int expectedSize = 3;
 		BlockingQueue<String> queue = new ArrayBlockingQueue<String>(10);
+		String value = queue.peek();
+		System.out.println(value);
+		assertEquals(null, value);
+		
 		queue.add("Papaya");
 		queue.add("Strawberry");
 		queue.add("Watermelon");
-		String value = queue.peek();
+		value = queue.peek();
 		System.out.println(value);
 		assertEquals(expected, value);
 		assertEquals(expectedSize, queue.size());
