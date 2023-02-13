@@ -34,7 +34,7 @@ public class DifferenceNotifyNotifyAllTest {
 				System.out.println("T[" + Thread.currentThread().getId() + "] notify");
 				lock.notify();
 			}
-			TimeUnit.SECONDS.sleep(2);
+			TimeUnit.SECONDS.sleep(3);
 			System.out.println("T[" + Thread.currentThread().getId() + "] finished");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -64,7 +64,7 @@ public class DifferenceNotifyNotifyAllTest {
 				System.out.println("T[" + Thread.currentThread().getId() + "] notify");
 				lock.notifyAll();
 			}
-			TimeUnit.SECONDS.sleep(2);
+			TimeUnit.SECONDS.sleep(3);
 			System.out.println("T[" + Thread.currentThread().getId() + "] finished");
 			threads.forEach(e -> assertFalse(e.isAlive()));
 		} catch (InterruptedException e) {
