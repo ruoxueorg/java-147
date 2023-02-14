@@ -37,7 +37,7 @@ public class LinkedBlockingQueueClassTest {
 	}
 
 	@Test
-	public void offerTimeOutWhenFull() {
+	public void offerTimeout() {
 		try {
 			int expectedSize = 2;
 			BlockingQueue<String> queue = new LinkedBlockingQueue<String>(2);
@@ -79,7 +79,7 @@ public class LinkedBlockingQueueClassTest {
 	}
 
 	@Test
-	public void pollTimeOutWhenEmpty() {
+	public void pollTimeout() {
 		try {
 			int expectedSize = 0;
 			BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
