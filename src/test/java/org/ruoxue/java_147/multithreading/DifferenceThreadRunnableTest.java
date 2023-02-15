@@ -1,8 +1,6 @@
 package org.ruoxue.java_147.multithreading;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
@@ -16,11 +14,9 @@ public class DifferenceThreadRunnableTest {
 		@Override
 		public void run() {
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: ready");
-				TimeUnit.SECONDS.sleep(1);
-				System.out.println(
-						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: finished");
+				System.out.println("T[" + Thread.currentThread().getId() + "] worker: ready");
+				TimeUnit.SECONDS.sleep(3);
+				System.out.println("T[" + Thread.currentThread().getId() + "] worker: finished");
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -50,11 +46,6 @@ public class DifferenceThreadRunnableTest {
 		public String getName() {
 			return name;
 		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
 	}
 
 	protected class Worker extends Obj implements Runnable {
@@ -66,12 +57,9 @@ public class DifferenceThreadRunnableTest {
 		@Override
 		public void run() {
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker "
-						+ getName() + ": ready");
-				TimeUnit.SECONDS.sleep(1);
-				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker "
-						+ getName() + ": finished");
+				System.out.println("T[" + Thread.currentThread().getId() + "] worker " + getName() + ": ready");
+				TimeUnit.SECONDS.sleep(3);
+				System.out.println("T[" + Thread.currentThread().getId() + "] worker " + getName() + ": finished");
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -92,7 +80,7 @@ public class DifferenceThreadRunnableTest {
 	}
 
 	@Test
-	public void multiThreadOneWorker() {
+	public void threadsWorker() {
 		try {
 			int taskSize = 3;
 			Worker worker = new Worker("BBB");
