@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.junit.Test;
 
 public class ConcurrentLinkedQueueMethodsTest {
+
 	@Test
 	public void add() {
 		int expectedSize = 3;
@@ -43,10 +44,14 @@ public class ConcurrentLinkedQueueMethodsTest {
 		String expected = "Papaya";
 		int expectedSize = 3;
 		Queue<String> queue = new ConcurrentLinkedQueue<String>();
+		String value = queue.peek();
+		System.out.println(value);
+		assertEquals(null, value);
+		
 		queue.add("Papaya");
 		queue.add("Strawberry");
 		queue.add("Watermelon");
-		String value = queue.peek();
+		value = queue.peek();
 		System.out.println(value);
 		assertEquals(expected, value);
 		assertEquals(expectedSize, queue.size());
