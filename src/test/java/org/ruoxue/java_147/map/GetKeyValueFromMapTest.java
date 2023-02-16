@@ -66,4 +66,15 @@ public class GetKeyValueFromMapTest {
 			System.out.println(e.getValue());
 		});
 	}
+
+	@Test
+	public void getKeyValue() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
+		for (String key : map.keySet()) {
+			System.out.println(key + " ," + map.get(key));
+		}
+	}
 }

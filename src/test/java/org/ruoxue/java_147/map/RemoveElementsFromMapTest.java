@@ -2,9 +2,11 @@ package org.ruoxue.java_147.map;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -84,6 +86,27 @@ public class RemoveElementsFromMapTest {
 			if (Objects.equal(3, e)) {
 				it.remove();
 			}
+		}
+		System.out.println(map);
+		assertEquals(expectedSize, map.size());
+	}
+	
+	@Test
+	public void remove() {
+		int expectedSize = 2;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
+		List<String> willRemove = new ArrayList<>();
+		for (Map.Entry<String, Integer> e : map.entrySet()) {
+			String key = e.getKey();
+			if ("Grape".equals(key)) {
+				willRemove.add(key);
+			}
+		}
+		for (String e : willRemove) {
+			map.remove(e);
 		}
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
