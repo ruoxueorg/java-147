@@ -2,6 +2,7 @@ package org.ruoxue.java_147.stream;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
@@ -37,6 +38,15 @@ public class StreamBoxedTest {
 	}
 
 	@Test
+	public void intStreamToArray() {
+		int expectedSize = 3;
+		IntStream stream = IntStream.of(1, 2, 3);
+		Integer[] array = stream.boxed().toArray(Integer[]::new);
+		System.out.println(Arrays.toString(array));
+		assertEquals(expectedSize, array.length);
+	}
+
+	@Test
 	public void longStreamBoxed() {
 		int expectedCount = 3;
 		LongStream stream = LongStream.of(4, 5, 6);
@@ -56,6 +66,15 @@ public class StreamBoxedTest {
 	}
 
 	@Test
+	public void longStreamToArray() {
+		int expectedSize = 3;
+		LongStream stream = LongStream.of(4, 5, 6);
+		Long[] array = stream.boxed().toArray(Long[]::new);
+		System.out.println(Arrays.toString(array));
+		assertEquals(expectedSize, array.length);
+	}
+
+	@Test
 	public void doubleStreamBoxed() {
 		int expectedCount = 3;
 		DoubleStream stream = DoubleStream.of(7.0, 8.0, 9.0);
@@ -72,5 +91,14 @@ public class StreamBoxedTest {
 		List<Double> list = stream.boxed().collect(Collectors.toList());
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
+	}
+	
+	@Test
+	public void doubleStreamToArray() {
+		int expectedSize = 3;
+		DoubleStream stream = DoubleStream.of(7.0, 8.0, 9.0);
+		Double[] array = stream.boxed().toArray(Double[]::new);
+		System.out.println(Arrays.toString(array));
+		assertEquals(expectedSize, array.length);
 	}
 }
