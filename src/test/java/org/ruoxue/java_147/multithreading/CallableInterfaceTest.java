@@ -36,7 +36,7 @@ public class CallableInterfaceTest {
 			System.out.println(
 					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
 
-			result = "OK";
+			result = id + " OK";
 			return result;
 		}
 	}
@@ -89,7 +89,7 @@ public class CallableInterfaceTest {
 			System.out.println(
 					sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
 
-			result = "OK";
+			result = id + " OK";
 			return result;
 		}
 	}
