@@ -1,7 +1,6 @@
 package org.ruoxue.java_147.multithreading;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
@@ -21,7 +20,7 @@ public class ExecutorServiceMethodsTest {
 	public void execute() {
 		int poolSize = 2;
 		int maxPoolSize = 5;
-		ThreadPoolExecutor executorService = new ThreadPoolExecutor(poolSize, maxPoolSize, 0L, TimeUnit.SECONDS,
+		ExecutorService executorService = new ThreadPoolExecutor(poolSize, maxPoolSize, 0L, TimeUnit.SECONDS,
 				new LinkedBlockingQueue<Runnable>());
 		int taskSize = 3;
 		CountDownLatch latch = new CountDownLatch(taskSize);
@@ -49,6 +48,37 @@ public class ExecutorServiceMethodsTest {
 	}
 
 	@Test
+	public void awaitTermination() {
+		int poolSize = 2;
+		int maxPoolSize = 5;
+		ExecutorService executorService = new ThreadPoolExecutor(poolSize, maxPoolSize, 0L, TimeUnit.SECONDS,
+				new LinkedBlockingQueue<Runnable>());
+		int taskSize = 3;
+		AtomicInteger ids = new AtomicInteger();
+		for (int i = 0; i < taskSize; i++) {
+			executorService.execute(() -> {
+				try {
+					int id = ids.incrementAndGet();
+					System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+					TimeUnit.SECONDS.sleep(1);
+					System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			});
+		}
+
+		executorService.shutdown();
+		try {
+			if (!executorService.awaitTermination(3, TimeUnit.SECONDS)) {
+				executorService.shutdownNow();
+			}
+		} catch (InterruptedException e) {
+			executorService.shutdownNow();
+		}
+	}
+
+	@Test
 	public void submit() {
 		int poolSize = 2;
 		int maxPoolSize = 5;
@@ -63,7 +93,6 @@ public class ExecutorServiceMethodsTest {
 				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
-
 				return id + " OK";
 			});
 			futures.add(future);
@@ -83,7 +112,7 @@ public class ExecutorServiceMethodsTest {
 	public void invokeAny() {
 		int poolSize = 2;
 		int maxPoolSize = 5;
-		ThreadPoolExecutor executorService = new ThreadPoolExecutor(poolSize, maxPoolSize, 0L, TimeUnit.SECONDS,
+		ExecutorService executorService = new ThreadPoolExecutor(poolSize, maxPoolSize, 0L, TimeUnit.SECONDS,
 				new LinkedBlockingQueue<Runnable>());
 		int taskSize = 3;
 		AtomicInteger ids = new AtomicInteger();
@@ -108,5 +137,41 @@ public class ExecutorServiceMethodsTest {
 			ex.printStackTrace();
 		}
 		System.out.println("worker: " + result);
+	}
+
+	@Test
+	public void invokeAll() {
+		int poolSize = 2;
+		int maxPoolSize = 5;
+		ExecutorService executorService = new ThreadPoolExecutor(poolSize, maxPoolSize, 0L, TimeUnit.SECONDS,
+				new LinkedBlockingQueue<Runnable>());
+		int taskSize = 3;
+		AtomicInteger ids = new AtomicInteger();
+		List<Callable<String>> callables = new ArrayList<Callable<String>>();
+		for (int i = 0; i < taskSize; i++) {
+			callables.add(() -> {
+				int id = ids.incrementAndGet();
+				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+				TimeUnit.SECONDS.sleep(1);
+				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
+				return id + " OK";
+			});
+		}
+
+		List<Future<String>> futures = null;
+		try {
+			futures = executorService.invokeAll(callables);
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+
+		futures.forEach(e -> {
+			try {
+				String result = e.get();
+				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + result);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		});
 	}
 }
