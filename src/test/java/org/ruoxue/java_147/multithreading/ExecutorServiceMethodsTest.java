@@ -79,7 +79,40 @@ public class ExecutorServiceMethodsTest {
 	}
 
 	@Test
-	public void submit() {
+	public void submitRunnable() {
+		int poolSize = 2;
+		int maxPoolSize = 5;
+		ThreadPoolExecutor executorService = new ThreadPoolExecutor(poolSize, maxPoolSize, 0L, TimeUnit.SECONDS,
+				new LinkedBlockingQueue<Runnable>());
+		int taskSize = 3;
+		AtomicInteger ids = new AtomicInteger();
+		List<Future<String>> futures = new ArrayList<Future<String>>();
+		for (int i = 0; i < taskSize; i++) {
+			int id = ids.incrementAndGet();
+			Future<String> future = executorService.submit(() -> {
+				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+				try {
+					TimeUnit.SECONDS.sleep(1);
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
+			}, id + " OK");
+			futures.add(future);
+		}
+
+		futures.forEach(e -> {
+			try {
+				String result = e.get();
+				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + result);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		});
+	}
+
+	@Test
+	public void submitCallable() {
 		int poolSize = 2;
 		int maxPoolSize = 5;
 		ThreadPoolExecutor executorService = new ThreadPoolExecutor(poolSize, maxPoolSize, 0L, TimeUnit.SECONDS,
@@ -106,6 +139,45 @@ public class ExecutorServiceMethodsTest {
 				ex.printStackTrace();
 			}
 		});
+	}
+
+	@Test
+	public void cancel() {
+		int poolSize = 2;
+		int maxPoolSize = 5;
+		ThreadPoolExecutor executorService = new ThreadPoolExecutor(poolSize, maxPoolSize, 0L, TimeUnit.SECONDS,
+				new LinkedBlockingQueue<Runnable>());
+		int taskSize = 3;
+		AtomicInteger ids = new AtomicInteger();
+		List<Future<String>> futures = new ArrayList<Future<String>>();
+		for (int i = 0; i < taskSize; i++) {
+			Future<String> future = executorService.submit(() -> {
+				int id = ids.incrementAndGet();
+				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+				TimeUnit.SECONDS.sleep(5);
+				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
+				return id + " OK";
+			});
+			futures.add(future);
+		}
+
+		futures.forEach(e -> {
+			try {
+				if (!e.isDone()) {
+					e.cancel(true);
+				}
+				String result = e.get();
+				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + result);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		});
+
+		try {
+			executorService.awaitTermination(3, TimeUnit.SECONDS);
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	@Test
