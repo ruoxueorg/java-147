@@ -18,3 +18,4 @@
 15. [Java ExecutorService Methods](https://www.ruoxue.org/java-147-java-executorservice-methods/)
 16. [ExecutorService in Java with Examples](https://www.ruoxue.org/java-147-executorservice-in-java-with-examples/)
 17. [Java ExecutorService Interface](https://www.ruoxue.org/java-147-java-executorservice-interface/)
+18. [Difference Between ExecutorService execute and submit in Java](https://www.ruoxue.org/java-147-difference-between-executorservice-execute-and-submit-in-java/)
