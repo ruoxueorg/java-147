@@ -1,13 +1,10 @@
 package org.ruoxue.java_147.list;
 
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Test;
-
 import com.google.common.collect.ImmutableList;
 
 public class InitializeArrayListTest {
@@ -24,7 +21,7 @@ public class InitializeArrayListTest {
 	}
 
 	@Test
-	public void extend() {
+	public void extendAdd() {
 		int expectedSize = 3;
 		ArrayList<String> list = new ArrayList<String>() {
 
@@ -59,7 +56,7 @@ public class InitializeArrayListTest {
 	}
 
 	@Test
-	public void constructor() {
+	public void constructorAdd() {
 		int expectedSize = 3;
 		ArrayList<String> list = new ArrayList<String>(Arrays.asList("Apple", "Banana", "Cherry"));
 		ArrayList<String> list2 = new ArrayList<String>(list);

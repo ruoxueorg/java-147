@@ -1,12 +1,9 @@
 package org.ruoxue.java_147.map;
 
 import static org.junit.Assert.*;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import org.junit.Test;
-
 import com.google.common.collect.ImmutableMap;
 
 public class InitializeHashMapTest {
@@ -23,7 +20,7 @@ public class InitializeHashMapTest {
 	}
 
 	@Test
-	public void extend() {
+	public void extendPut() {
 		int expectedSize = 3;
 		Map<String, Integer> map = new HashMap<String, Integer>() {
 
@@ -53,7 +50,7 @@ public class InitializeHashMapTest {
 	}
 
 	@Test
-	public void constructor() {
+	public void constructorPut() {
 		int expectedSize = 3;
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Grape", 1);
