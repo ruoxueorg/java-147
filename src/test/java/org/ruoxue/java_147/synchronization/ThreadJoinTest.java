@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.multithreading;
+package org.ruoxue.java_147.synchronization;
 
 import static org.junit.Assert.*;
 

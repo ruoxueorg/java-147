@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.multithreading;
+package org.ruoxue.java_147.synchronization;
 
 import java.util.concurrent.TimeUnit;
 
