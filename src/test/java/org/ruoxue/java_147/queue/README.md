@@ -13,3 +13,4 @@
 10. [Java ConcurrentLinkedQueue Methods](https://www.ruoxue.org/java-147-java-concurrentlinkedqueue-methods/)
 11. [ConcurrentLinkedQueue in Java with Examples](https://www.ruoxue.org/java-147-concurrentlinkedqueue-in-java-with-examples/)
 12. [Java ConcurrentLinkedQueue Class](https://www.ruoxue.org/java-147-java-concurrentlinkedqueue-class/)
+13. [Java SynchronousQueue Methods](https://www.ruoxue.org/java-147-java-synchronousqueue-methods/)
