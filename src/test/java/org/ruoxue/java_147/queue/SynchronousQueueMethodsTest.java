@@ -2,10 +2,7 @@ package org.ruoxue.java_147.queue;
 
 import static org.junit.Assert.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -73,6 +70,7 @@ public class SynchronousQueueMethodsTest {
 			Thread thread = new Thread(() -> {
 				try {
 					queue.put("Papaya");
+					System.out.println("T[" + Thread.currentThread().getId() + "] put: " + queue);
 					queue.put("Strawberry");
 					System.out.println("T[" + Thread.currentThread().getId() + "] put: " + queue);
 				} catch (InterruptedException ex) {
@@ -84,6 +82,12 @@ public class SynchronousQueueMethodsTest {
 			String value = queue.take();
 			System.out.println("T[" + Thread.currentThread().getId() + "] take: " + value);
 			assertEquals(expectedSize, queue.size());
+			
+			try {
+				TimeUnit.SECONDS.sleep(3);
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
 		} catch (InterruptedException ex) {
 			ex.printStackTrace();
 		}
@@ -114,7 +118,7 @@ public class SynchronousQueueMethodsTest {
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
-		})).limit(3).collect(Collectors.toList());
+		})).limit(2).collect(Collectors.toList());
 		takeThreads.forEach(e -> e.start());
 
 		try {
@@ -150,5 +154,4 @@ public class SynchronousQueueMethodsTest {
 			ex.printStackTrace();
 		}
 	}
-
 }
