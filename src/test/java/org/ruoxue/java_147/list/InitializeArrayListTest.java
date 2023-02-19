@@ -68,7 +68,7 @@ public class InitializeArrayListTest {
 	}
 
 	@Test
-	public void of() {
+	public void immutableList() {
 		int expectedSize = 3;
 		List<String> list = ImmutableList.of("Apple", "Banana", "Cherry");
 		System.out.println(list);
