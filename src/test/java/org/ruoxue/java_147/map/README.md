@@ -9,3 +9,4 @@
 6. [Java Remove Elements From Map](https://www.ruoxue.org/java-147-java-remove-elements-from-map/)
 7. [HashMap in Java with Examples](https://www.ruoxue.org/java-147-hashmap-in-java-with-examples/)
 8. [Java HashMap Compute Method](https://www.ruoxue.org/java-147-java-hashmap-compute-method/)
+9. [Initialize HashMap in Java](https://www.ruoxue.org/java-147-initialize-hashmap-in-java/)

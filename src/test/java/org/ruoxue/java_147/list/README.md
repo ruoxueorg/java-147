@@ -7,3 +7,4 @@
 4. [Java Remove Elements From List](https://www.ruoxue.org/java-147-java-remove-elements-from-list/)
 5. [ArrayList in Java with Examples](https://www.ruoxue.org/java-147-arraylist-in-java-with-examples/)
 6. [Java ArrayList Class](https://www.ruoxue.org/java-147-java-arraylist-class/)
+7. [Initialize ArrayList in Java](https://www.ruoxue.org/java-147-initialize-arraylist-in-java/)
