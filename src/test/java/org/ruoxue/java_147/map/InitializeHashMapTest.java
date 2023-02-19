@@ -20,12 +20,10 @@ public class InitializeHashMapTest {
 	}
 
 	@Test
-	public void extendPut() {
+	public void doubleBrace() {
 		int expectedSize = 3;
 		Map<String, Integer> map = new HashMap<String, Integer>() {
-
 			private static final long serialVersionUID = -5487223135233714632L;
-
 			{
 				put("Grape", 1);
 				put("Kiwifruit", 2);
@@ -50,7 +48,7 @@ public class InitializeHashMapTest {
 	}
 
 	@Test
-	public void constructorPut() {
+	public void constructor() {
 		int expectedSize = 3;
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Grape", 1);

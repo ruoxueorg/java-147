@@ -19,14 +19,12 @@ public class InitializeArrayListTest {
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 	}
-
+	 
 	@Test
-	public void extendAdd() {
+	public void doubleBrace() {
 		int expectedSize = 3;
 		ArrayList<String> list = new ArrayList<String>() {
-
 			private static final long serialVersionUID = -5948701413773974786L;
-
 			{
 				add("Apple");
 				add("Banana");
@@ -56,7 +54,7 @@ public class InitializeArrayListTest {
 	}
 
 	@Test
-	public void constructorAdd() {
+	public void constructor() {
 		int expectedSize = 3;
 		ArrayList<String> list = new ArrayList<String>(Arrays.asList("Apple", "Banana", "Cherry"));
 		ArrayList<String> list2 = new ArrayList<String>(list);
