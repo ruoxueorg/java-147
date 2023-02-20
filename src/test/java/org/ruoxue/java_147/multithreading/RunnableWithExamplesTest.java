@@ -45,7 +45,6 @@ public class RunnableWithExamplesTest {
 				Thread thread = new Thread(new Task(i));
 				thread.start();
 			}
-
 			TimeUnit.SECONDS.sleep(3);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -77,25 +76,21 @@ public class RunnableWithExamplesTest {
 
 	@Test
 	public void worker() {
-		try {
-			int taskSize = 3;
-			List<Thread> threads = new ArrayList<Thread>();
-			IntStream.range(0, taskSize).forEach(e -> {
-				Thread thread = new Thread(new Worker(e));
-				thread.start();
-				threads.add(thread);
-			});
+		int taskSize = 3;
+		List<Thread> threads = new ArrayList<Thread>();
+		IntStream.range(0, taskSize).forEach(e -> {
+			Thread thread = new Thread(new Worker(e));
+			thread.start();
+			threads.add(thread);
+		});
 
-			threads.forEach(e -> {
-				try {
-					e.join();
-				} catch (InterruptedException ex) {
-					ex.printStackTrace();
-				}
-			});
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		threads.forEach(e -> {
+			try {
+				e.join();
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
+		});
 	}
 
 	protected class BrokenWorker implements Runnable {
@@ -126,22 +121,18 @@ public class RunnableWithExamplesTest {
 
 	@Test
 	public void brokenWorker() {
-		try {
-			int taskSize = 3;
-			AtomicInteger ids = new AtomicInteger();
-			List<Thread> threads = Stream.generate(() -> new Thread(new BrokenWorker(ids.getAndIncrement())))
-					.limit(taskSize).collect(Collectors.toList());
-			threads.forEach(e -> e.start());
+		int taskSize = 3;
+		AtomicInteger ids = new AtomicInteger();
+		List<Thread> threads = Stream.generate(() -> new Thread(new BrokenWorker(ids.getAndIncrement())))
+				.limit(taskSize).collect(Collectors.toList());
+		threads.forEach(e -> e.start());
 
-			threads.forEach(e -> {
-				try {
-					e.join();
-				} catch (InterruptedException ex) {
-					ex.printStackTrace();
-				}
-			});
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		threads.forEach(e -> {
+			try {
+				e.join();
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
+		});
 	}
 }

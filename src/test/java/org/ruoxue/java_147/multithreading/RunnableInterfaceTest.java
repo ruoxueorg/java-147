@@ -36,11 +36,11 @@ public class RunnableInterfaceTest {
 						+ " finished");
 
 				result = "OK";
+				done = true;
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {
 				synchronized (this) {
-					done = true;
 					notifyAll();
 				}
 			}
@@ -49,8 +49,8 @@ public class RunnableInterfaceTest {
 		public synchronized Object get() throws InterruptedException {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			while (!done) {
-				System.out.println(
-						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " waiting");
+				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
+						+ " waiting");
 				wait();
 			}
 			return result;
@@ -109,11 +109,11 @@ public class RunnableInterfaceTest {
 						+ " finished");
 
 				result = "OK";
+				done = true;
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {
 				synchronized (this) {
-					done = true;
 					notifyAll();
 				}
 			}
@@ -125,8 +125,8 @@ public class RunnableInterfaceTest {
 			long timeoutRemaining = timeout;
 			long awaitStarted = System.currentTimeMillis();
 			while (!done && timeoutRemaining > 0) {
-				System.out.println(
-						sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id + " waiting");
+				System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] worker: " + id
+						+ " waiting");
 				wait(timeout);
 				timeoutRemaining -= System.currentTimeMillis() - awaitStarted;
 				if (Thread.interrupted())
