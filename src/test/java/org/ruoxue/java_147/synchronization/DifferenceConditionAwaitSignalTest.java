@@ -38,7 +38,6 @@ public class DifferenceConditionAwaitSignalTest {
 					condition.await();
 				}
 			} finally {
-
 				lock.unlock();
 			}
 			return done;

@@ -17,9 +17,8 @@ public class DifferenceNotifyNotifyAllTest {
 		List<Thread> threads = Stream.generate(() -> new Thread(() -> {
 			try {
 				synchronized (lock) {
-					System.out.println("T[" + Thread.currentThread().getId() + "] wait");
+					System.out.println("T[" + Thread.currentThread().getId() + "] waiting");
 					lock.wait();
-					System.out.println("T[" + Thread.currentThread().getId() + "] awake");
 				}
 				System.out.println("T[" + Thread.currentThread().getId() + "] finished");
 			} catch (InterruptedException ex) {
@@ -29,7 +28,7 @@ public class DifferenceNotifyNotifyAllTest {
 		threads.forEach(e -> e.start());
 
 		try {
-			TimeUnit.SECONDS.sleep(2);
+			TimeUnit.SECONDS.sleep(3);
 			synchronized (lock) {
 				System.out.println("T[" + Thread.currentThread().getId() + "] notify");
 				lock.notify();
@@ -47,9 +46,8 @@ public class DifferenceNotifyNotifyAllTest {
 		List<Thread> threads = Stream.generate(() -> new Thread(() -> {
 			try {
 				synchronized (lock) {
-					System.out.println("T[" + Thread.currentThread().getId() + "] wait");
+					System.out.println("T[" + Thread.currentThread().getId() + "] waiting");
 					lock.wait();
-					System.out.println("T[" + Thread.currentThread().getId() + "] awake");
 				}
 				System.out.println("T[" + Thread.currentThread().getId() + "] finished");
 			} catch (InterruptedException ex) {
@@ -59,9 +57,9 @@ public class DifferenceNotifyNotifyAllTest {
 		threads.forEach(e -> e.start());
 
 		try {
-			TimeUnit.SECONDS.sleep(2);
+			TimeUnit.SECONDS.sleep(3);
 			synchronized (lock) {
-				System.out.println("T[" + Thread.currentThread().getId() + "] notify");
+				System.out.println("T[" + Thread.currentThread().getId() + "] notifyAll");
 				lock.notifyAll();
 			}
 			TimeUnit.SECONDS.sleep(3);
