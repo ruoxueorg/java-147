@@ -24,21 +24,25 @@ public class WaitNotifyTest {
 
 		public synchronized void put(E e) throws InterruptedException {
 			while (list.size() == maxSize) {
-				System.out.println("T[" + Thread.currentThread().getId() + "] put waiting");
+				System.out.println("T[" + Thread.currentThread().getId() + "] producer waiting");
 				wait();
 			}
-			list.add(e);
-			notify();
+			boolean added = list.add(e);
+			if (added) {
+				notify();
+			}
 		}
 
 		public synchronized E take() throws InterruptedException {
 			E result = null;
 			while (list.size() == 0) {
-				System.out.println("T[" + Thread.currentThread().getId() + "] take waiting");
+				System.out.println("T[" + Thread.currentThread().getId() + "] comsumer waiting");
 				wait();
 			}
 			result = list.remove(0);
-			notify();
+			if (result != null) {
+				notify();
+			}
 			return result;
 		}
 
@@ -55,32 +59,32 @@ public class WaitNotifyTest {
 			return builder.toString();
 		}
 	}
-	
+
 	@Test
 	public void consumeAndProduce() {
 		int expectedSize = 1;
 		BlockQueue<Integer> queue = new BlockQueue<Integer>(2);
-		List<Thread> takeThreads = Stream.generate(() -> new Thread(() -> {
+		List<Thread> comsumers = Stream.generate(() -> new Thread(() -> {
 			try {
 				Integer value = queue.take();
-				System.out.println("T[" + Thread.currentThread().getId() + "] take: " + value);
+				System.out.println("T[" + Thread.currentThread().getId() + "] comsumer take: " + value);
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
 		})).limit(2).collect(Collectors.toList());
-		takeThreads.forEach(e -> e.start());
+		comsumers.forEach(e -> e.start());
 
 		AtomicInteger ids = new AtomicInteger();
-		List<Thread> putThreads = Stream.generate(() -> new Thread(() -> {
+		List<Thread> producers = Stream.generate(() -> new Thread(() -> {
 			try {
 				int value = ids.getAndIncrement();
 				queue.put(value);
-				System.out.println("T[" + Thread.currentThread().getId() + "] put: " + value);
+				System.out.println("T[" + Thread.currentThread().getId() + "] producer put: " + value);
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
 		})).limit(3).collect(Collectors.toList());
-		putThreads.forEach(e -> e.start());
+		producers.forEach(e -> e.start());
 
 		System.out.println("T[" + Thread.currentThread().getId() + "] " + queue);
 		assertEquals(expectedSize, queue.size());
@@ -91,26 +95,26 @@ public class WaitNotifyTest {
 		int expectedSize = 1;
 		BlockQueue<Integer> queue = new BlockQueue<Integer>(2);
 		AtomicInteger ids = new AtomicInteger();
-		List<Thread> putThreads = Stream.generate(() -> new Thread(() -> {
+		List<Thread> producers = Stream.generate(() -> new Thread(() -> {
 			try {
 				int value = ids.getAndIncrement();
 				queue.put(value);
-				System.out.println("T[" + Thread.currentThread().getId() + "] put: " + value);
+				System.out.println("T[" + Thread.currentThread().getId() + "] producer put: " + value);
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
 		})).limit(3).collect(Collectors.toList());
-		putThreads.forEach(e -> e.start());
+		producers.forEach(e -> e.start());
 
-		List<Thread> takeThreads = Stream.generate(() -> new Thread(() -> {
+		List<Thread> comsumers = Stream.generate(() -> new Thread(() -> {
 			try {
 				Integer value = queue.take();
-				System.out.println("T[" + Thread.currentThread().getId() + "] take: " + value);
+				System.out.println("T[" + Thread.currentThread().getId() + "] comsumer take: " + value);
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
 		})).limit(2).collect(Collectors.toList());
-		takeThreads.forEach(e -> e.start());
+		comsumers.forEach(e -> e.start());
 
 		System.out.println("T[" + Thread.currentThread().getId() + "] " + queue);
 		assertEquals(expectedSize, queue.size());

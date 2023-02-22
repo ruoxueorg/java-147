@@ -34,8 +34,10 @@ public class ConditionAwaitSignalTest {
 					System.out.println("T[" + Thread.currentThread().getId() + "] put waiting");
 					condition.await();
 				}
-				list.add(e);
-				condition.signal();
+				boolean added = list.add(e);
+				if (added) {
+					condition.signal();
+				}
 			} finally {
 				lock.unlock();
 			}
@@ -50,7 +52,9 @@ public class ConditionAwaitSignalTest {
 					condition.await();
 				}
 				result = list.remove(0);
-				condition.signal();
+				if (result != null) {
+					condition.signal();
+				}
 			} finally {
 				lock.unlock();
 			}
