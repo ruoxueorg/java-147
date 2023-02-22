@@ -105,12 +105,12 @@ public class ReentrantLockWithExamplesTest {
 		assertEquals(expected, count);
 	}
 
-	protected class InterruptiblyWorker implements Runnable {
+	protected class LockInterruptiblyWorker implements Runnable {
 
 		private final Lock lock = new ReentrantLock();
 		private int count;
 
-		public InterruptiblyWorker() {
+		public LockInterruptiblyWorker() {
 		}
 
 		@Override
@@ -142,7 +142,7 @@ public class ReentrantLockWithExamplesTest {
 	public void lockInterruptibly() {
 		int expected = 2;
 		int taskSize = 3;
-		InterruptiblyWorker worker = new InterruptiblyWorker();
+		LockInterruptiblyWorker worker = new LockInterruptiblyWorker();
 		List<Thread> threads = Stream.generate(() -> new Thread(worker)).limit(taskSize).collect(Collectors.toList());
 		threads.forEach(e -> e.start());
 

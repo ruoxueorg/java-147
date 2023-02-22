@@ -7,3 +7,7 @@
 4. [Difference Between notify and notifyAll in Java](https://www.ruoxue.org/java-147-difference-between-notify-and-notifyall-in-java/)
 5. [ReentrantLock in Java with Examples](https://www.ruoxue.org/java-147-reentrantlock-in-java-with-examples/)
 6. [Java ReentrantLock Class](https://www.ruoxue.org/java-147-java-reentrantlock-class/)
+7. [Java ReentrantLock with Conditions](https://www.ruoxue.org/java-147-java-reentrantlock-with-conditions/)
+8. [Condition await and signal Methods in Java](https://www.ruoxue.org/java-147-condition-await-and-signal-methods-in-java/)
+9. [Difference Between Condition await and signal in Java](https://www.ruoxue.org/java-147-difference-between-condition-await-and-signal-in-java/)
+10. [Difference Between Condition signal and signalAll in Java](https://www.ruoxue.org/java-147-difference-between-condition-signal-and-signalall-in-java/)

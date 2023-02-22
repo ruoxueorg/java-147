@@ -15,7 +15,7 @@ public class ReentrantLockClassTest {
 
 	protected class NonfairLockWorker implements Runnable {
 
-		private final Lock lock = new ReentrantLock(false);
+		private final Lock lock = new ReentrantLock();
 		private int count;
 
 		public NonfairLockWorker() {
