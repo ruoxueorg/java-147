@@ -31,7 +31,7 @@ public class ConditionAwaitSignalTest {
 			lock.lock();
 			try {
 				while (list.size() == maxSize) {
-					System.out.println("T[" + Thread.currentThread().getId() + "] put waiting");
+					System.out.println("T[" + Thread.currentThread().getId() + "] producer waiting");
 					condition.await();
 				}
 				boolean added = list.add(e);
@@ -48,7 +48,7 @@ public class ConditionAwaitSignalTest {
 			lock.lock();
 			try {
 				while (list.size() == 0) {
-					System.out.println("T[" + Thread.currentThread().getId() + "] take waiting");
+					System.out.println("T[" + Thread.currentThread().getId() + "] consumer waiting");
 					condition.await();
 				}
 				result = list.remove(0);
@@ -79,27 +79,27 @@ public class ConditionAwaitSignalTest {
 	public void consumeAndProduce() {
 		int expectedSize = 1;
 		BlockQueue<Integer> queue = new BlockQueue<Integer>(2);
-		List<Thread> takeThreads = Stream.generate(() -> new Thread(() -> {
+		List<Thread> consumers = Stream.generate(() -> new Thread(() -> {
 			try {
 				Integer value = queue.take();
-				System.out.println("T[" + Thread.currentThread().getId() + "] take: " + value);
+				System.out.println("T[" + Thread.currentThread().getId() + "] consumer take: " + value);
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
 		})).limit(2).collect(Collectors.toList());
-		takeThreads.forEach(e -> e.start());
+		consumers.forEach(e -> e.start());
 
 		AtomicInteger ids = new AtomicInteger();
-		List<Thread> putThreads = Stream.generate(() -> new Thread(() -> {
+		List<Thread> producers = Stream.generate(() -> new Thread(() -> {
 			try {
 				int value = ids.getAndIncrement();
 				queue.put(value);
-				System.out.println("T[" + Thread.currentThread().getId() + "] put: " + value);
+				System.out.println("T[" + Thread.currentThread().getId() + "] producer put: " + value);
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
 		})).limit(3).collect(Collectors.toList());
-		putThreads.forEach(e -> e.start());
+		producers.forEach(e -> e.start());
 
 		System.out.println("T[" + Thread.currentThread().getId() + "] " + queue);
 		assertEquals(expectedSize, queue.size());
@@ -110,26 +110,26 @@ public class ConditionAwaitSignalTest {
 		int expectedSize = 1;
 		BlockQueue<Integer> queue = new BlockQueue<Integer>(2);
 		AtomicInteger ids = new AtomicInteger();
-		List<Thread> putThreads = Stream.generate(() -> new Thread(() -> {
+		List<Thread> producers = Stream.generate(() -> new Thread(() -> {
 			try {
 				int value = ids.getAndIncrement();
 				queue.put(value);
-				System.out.println("T[" + Thread.currentThread().getId() + "] put: " + value);
+				System.out.println("T[" + Thread.currentThread().getId() + "] producer put: " + value);
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
 		})).limit(3).collect(Collectors.toList());
-		putThreads.forEach(e -> e.start());
+		producers.forEach(e -> e.start());
 
-		List<Thread> takeThreads = Stream.generate(() -> new Thread(() -> {
+		List<Thread> consumers = Stream.generate(() -> new Thread(() -> {
 			try {
 				Integer value = queue.take();
-				System.out.println("T[" + Thread.currentThread().getId() + "] take: " + value);
+				System.out.println("T[" + Thread.currentThread().getId() + "] consumer take: " + value);
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
 		})).limit(2).collect(Collectors.toList());
-		takeThreads.forEach(e -> e.start());
+		consumers.forEach(e -> e.start());
 
 		System.out.println("T[" + Thread.currentThread().getId() + "] " + queue);
 		assertEquals(expectedSize, queue.size());
