@@ -28,7 +28,7 @@ public class ReentrantLockWithExamplesTest {
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
-			System.out.println("T[" + Thread.currentThread().getId() + "] count: " + count);
+			System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 		}
 
 		public int getCount() {
@@ -69,14 +69,15 @@ public class ReentrantLockWithExamplesTest {
 			lock.lock();
 			try {
 				System.out.println("T[" + Thread.currentThread().getId() + "] lock acquired");
+				System.out.println(String.format("T[%d] lock acquired", Thread.currentThread().getId()));
 				count++;
 				TimeUnit.SECONDS.sleep(1);
-				System.out.println("T[" + Thread.currentThread().getId() + "] count: " + count);
+				System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {
 				lock.unlock();
-				System.out.println("T[" + Thread.currentThread().getId() + "] lock released");
+				System.out.println(String.format("T[%d] lock released", Thread.currentThread().getId()));
 			}
 		}
 
@@ -118,15 +119,15 @@ public class ReentrantLockWithExamplesTest {
 			try {
 				lock.lockInterruptibly();
 				try {
-					System.out.println("T[" + Thread.currentThread().getId() + "] lock acquired");
+					System.out.println(String.format("T[%d] lock acquired", Thread.currentThread().getId()));
 					count++;
 					TimeUnit.SECONDS.sleep(1);
-					System.out.println("T[" + Thread.currentThread().getId() + "] count: " + count);
+					System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				} finally {
 					lock.unlock();
-					System.out.println("T[" + Thread.currentThread().getId() + "] lock released");
+					System.out.println(String.format("T[%d] lock released", Thread.currentThread().getId()));
 				}
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
@@ -173,18 +174,19 @@ public class ReentrantLockWithExamplesTest {
 		public void run() {
 			try {
 				boolean isLockAcquired = lock.tryLock(100, TimeUnit.MILLISECONDS);
-				System.out.println("T[" + Thread.currentThread().getId() + "] isLockAcquired: " + isLockAcquired);
+				System.out.println(
+						String.format("T[%d] isLockAcquired: %b", Thread.currentThread().getId(), isLockAcquired));
 				if (isLockAcquired) {
 					try {
-						System.out.println("T[" + Thread.currentThread().getId() + "] lock acquired");
+						System.out.println(String.format("T[%d] lock acquired", Thread.currentThread().getId()));
 						count++;
 						TimeUnit.SECONDS.sleep(1);
-						System.out.println("T[" + Thread.currentThread().getId() + "] count: " + count);
+						System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					} finally {
 						lock.unlock();
-						System.out.println("T[" + Thread.currentThread().getId() + "] lock released");
+						System.out.println(String.format("T[%d] lock released", Thread.currentThread().getId()));
 					}
 				}
 			} catch (InterruptedException ex) {

@@ -34,7 +34,7 @@ public class ReentrantLockWithConditionsTest {
 			lock.lock();
 			try {
 				while (list.size() == maxSize) {
-					System.out.println("T[" + Thread.currentThread().getId() + "] producer waiting");
+					System.out.println(String.format("T[%d] producer waiting", Thread.currentThread().getId()));
 					notEmpty.await();
 				}
 				boolean added = list.add(e);
@@ -51,7 +51,7 @@ public class ReentrantLockWithConditionsTest {
 			lock.lock();
 			try {
 				while (list.size() == 0) {
-					System.out.println("T[" + Thread.currentThread().getId() + "] comsumer waiting");
+					System.out.println(String.format("T[%d] comsumer waiting", Thread.currentThread().getId()));
 					notFull.await();
 				}
 				result = list.remove(0);
@@ -85,7 +85,7 @@ public class ReentrantLockWithConditionsTest {
 		List<Thread> consumers = Stream.generate(() -> new Thread(() -> {
 			try {
 				Integer value = queue.take();
-				System.out.println("T[" + Thread.currentThread().getId() + "] comsumer take: " + value);
+				System.out.println(String.format("T[%d] consumer take: %d", Thread.currentThread().getId(), value));
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
@@ -97,7 +97,7 @@ public class ReentrantLockWithConditionsTest {
 			try {
 				int value = ids.getAndIncrement();
 				queue.put(value);
-				System.out.println("T[" + Thread.currentThread().getId() + "] producer put: " + value);
+				System.out.println(String.format("T[%d] producer put: %d", Thread.currentThread().getId(), value));
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
@@ -121,7 +121,7 @@ public class ReentrantLockWithConditionsTest {
 		public void doWork() throws Exception {
 			await();
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] ready");
+				System.out.println(String.format("T[%d] ready", Thread.currentThread().getId()));
 				TimeUnit.SECONDS.sleep(3);
 			} finally {
 				signal();
@@ -132,7 +132,7 @@ public class ReentrantLockWithConditionsTest {
 			lock.lock();
 			try {
 				while (count.get() >= MAX_COUNT) {
-					System.out.println("T[" + Thread.currentThread().getId() + "] waiting");
+					System.out.println(String.format("T[%d] waiting", Thread.currentThread().getId()));
 					condition.await();
 				}
 				count.incrementAndGet();
@@ -145,7 +145,7 @@ public class ReentrantLockWithConditionsTest {
 			lock.lock();
 			try {
 				count.decrementAndGet();
-				System.out.println("T[" + Thread.currentThread().getId() + "] finished");
+				System.out.println(String.format("T[%d] finished", Thread.currentThread().getId()));
 				condition.signal();
 			} finally {
 				lock.unlock();
@@ -187,7 +187,7 @@ public class ReentrantLockWithConditionsTest {
 		public void doWork() throws Exception {
 			await();
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] ready");
+				System.out.println(String.format("T[%d] ready", Thread.currentThread().getId()));
 				TimeUnit.SECONDS.sleep(3);
 			} finally {
 				signal();
@@ -201,7 +201,7 @@ public class ReentrantLockWithConditionsTest {
 				long timeoutRemaining = 2000;
 				long awaitStarted = System.currentTimeMillis();
 				while (count.get() >= MAX_COUNT && !awaited && timeoutRemaining > 0) {
-					System.out.println("T[" + Thread.currentThread().getId() + "] waiting");
+					System.out.println(String.format("T[%d] waiting", Thread.currentThread().getId()));
 					awaited = condition.await(timeoutRemaining, TimeUnit.MILLISECONDS);
 					timeoutRemaining -= System.currentTimeMillis() - awaitStarted;
 				}
@@ -218,7 +218,7 @@ public class ReentrantLockWithConditionsTest {
 			lock.lock();
 			try {
 				count.decrementAndGet();
-				System.out.println("T[" + Thread.currentThread().getId() + "] finished");
+				System.out.println(String.format("T[%d] finished", Thread.currentThread().getId()));
 				condition.signal();
 			} finally {
 				lock.unlock();
@@ -227,7 +227,7 @@ public class ReentrantLockWithConditionsTest {
 	}
 
 	@Test
-	public void doWorkerTimeout() {
+	public void timeoutWorker() {
 		TimeoutWorker worker = new TimeoutWorker();
 		List<Thread> threads = Stream.generate(() -> new Thread(() -> {
 			try {

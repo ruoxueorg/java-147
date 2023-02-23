@@ -22,7 +22,7 @@ public class DifferenceConditionAwaitSignalTest {
 			lock.lock();
 			try {
 				TimeUnit.SECONDS.sleep(3);
-				System.out.println("T[" + Thread.currentThread().getId() + "] put finished");
+				System.out.println(String.format("T[%d] put finished", Thread.currentThread().getId()));
 				done = true;
 				condition.signal();
 			} finally {
@@ -34,7 +34,7 @@ public class DifferenceConditionAwaitSignalTest {
 			lock.lock();
 			try {
 				while (!done) {
-					System.out.println("T[" + Thread.currentThread().getId() + "] take waiting");
+					System.out.println(String.format("T[%d] take waiting", Thread.currentThread().getId()));
 					condition.await();
 				}
 			} finally {
@@ -50,9 +50,10 @@ public class DifferenceConditionAwaitSignalTest {
 		Thread threadA = new Thread(() -> {
 			String id = "A";
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+				System.out.println(String.format("T[%d] worker: %s ready", Thread.currentThread().getId(), id));
 				worker.put();
-				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
+				System.out.println(String.format("T[%d] worker: %s finished", Thread.currentThread().getId(), id));
+				worker.put();
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
@@ -61,10 +62,10 @@ public class DifferenceConditionAwaitSignalTest {
 		Thread threadB = new Thread(() -> {
 			String id = "B";
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+				System.out.println(String.format("T[%d] worker: %s ready", Thread.currentThread().getId(), id));
 				boolean done = worker.take();
-				System.out.println(
-						"T[" + Thread.currentThread().getId() + "] worker: " + id + " finished, result: " + done);
+				System.out.println(String.format("T[%d] worker: %s finished, result: %b",
+						Thread.currentThread().getId(), id, done));
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
@@ -94,7 +95,7 @@ public class DifferenceConditionAwaitSignalTest {
 			lock.lock();
 			try {
 				TimeUnit.SECONDS.sleep(3);
-				System.out.println("T[" + Thread.currentThread().getId() + "] put finished");
+				System.out.println(String.format("T[%d] put finished", Thread.currentThread().getId()));
 				done = true;
 				// condition.signal();
 			} finally {
@@ -106,7 +107,7 @@ public class DifferenceConditionAwaitSignalTest {
 			lock.lock();
 			try {
 				while (!done) {
-					System.out.println("T[" + Thread.currentThread().getId() + "] take waiting");
+					System.out.println(String.format("T[%d] take waiting", Thread.currentThread().getId()));
 					condition.await();
 				}
 			} finally
@@ -126,9 +127,10 @@ public class DifferenceConditionAwaitSignalTest {
 		Thread threadA = new Thread(() -> {
 			String id = "A";
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+				System.out.println(String.format("T[%d] worker: %s ready", Thread.currentThread().getId(), id));
 				worker.put();
-				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " finished");
+				System.out.println(String.format("T[%d] worker: %s finished", Thread.currentThread().getId(), id));
+
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
@@ -137,10 +139,10 @@ public class DifferenceConditionAwaitSignalTest {
 		Thread threadB = new Thread(() -> {
 			String id = "B";
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] worker: " + id + " ready");
+				System.out.println(String.format("T[%d] worker: %s ready", Thread.currentThread().getId(), id));
 				boolean done = worker.take();
-				System.out.println(
-						"T[" + Thread.currentThread().getId() + "] worker: " + id + " finished, result: " + done);
+				System.out.println(String.format("T[%d] worker: %s finished, result: %b",
+						Thread.currentThread().getId(), id, done));
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}

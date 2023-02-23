@@ -31,7 +31,7 @@ public class ConditionAwaitSignalTest {
 			lock.lock();
 			try {
 				while (list.size() == maxSize) {
-					System.out.println("T[" + Thread.currentThread().getId() + "] producer waiting");
+					System.out.println(String.format("T[%d] producer waiting", Thread.currentThread().getId()));
 					condition.await();
 				}
 				boolean added = list.add(e);
@@ -48,7 +48,7 @@ public class ConditionAwaitSignalTest {
 			lock.lock();
 			try {
 				while (list.size() == 0) {
-					System.out.println("T[" + Thread.currentThread().getId() + "] consumer waiting");
+					System.out.println(String.format("T[%d] consumer waiting", Thread.currentThread().getId()));
 					condition.await();
 				}
 				result = list.remove(0);
@@ -82,7 +82,7 @@ public class ConditionAwaitSignalTest {
 		List<Thread> consumers = Stream.generate(() -> new Thread(() -> {
 			try {
 				Integer value = queue.take();
-				System.out.println("T[" + Thread.currentThread().getId() + "] consumer take: " + value);
+				System.out.println(String.format("T[%d] consumer take: %d", Thread.currentThread().getId(), value));
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
@@ -94,14 +94,14 @@ public class ConditionAwaitSignalTest {
 			try {
 				int value = ids.getAndIncrement();
 				queue.put(value);
-				System.out.println("T[" + Thread.currentThread().getId() + "] producer put: " + value);
+				System.out.println(String.format("T[%d] producer put: %d", Thread.currentThread().getId(), value));
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
 		})).limit(3).collect(Collectors.toList());
 		producers.forEach(e -> e.start());
 
-		System.out.println("T[" + Thread.currentThread().getId() + "] " + queue);
+		System.out.println(String.format("T[%d] %s", Thread.currentThread().getId(), queue));
 		assertEquals(expectedSize, queue.size());
 	}
 
@@ -114,7 +114,7 @@ public class ConditionAwaitSignalTest {
 			try {
 				int value = ids.getAndIncrement();
 				queue.put(value);
-				System.out.println("T[" + Thread.currentThread().getId() + "] producer put: " + value);
+				System.out.println(String.format("T[%d] producer put: %d", Thread.currentThread().getId(), value));
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
@@ -124,14 +124,14 @@ public class ConditionAwaitSignalTest {
 		List<Thread> consumers = Stream.generate(() -> new Thread(() -> {
 			try {
 				Integer value = queue.take();
-				System.out.println("T[" + Thread.currentThread().getId() + "] consumer take: " + value);
+				System.out.println(String.format("T[%d] consumer take: %d", Thread.currentThread().getId(), value));
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
 		})).limit(2).collect(Collectors.toList());
 		consumers.forEach(e -> e.start());
 
-		System.out.println("T[" + Thread.currentThread().getId() + "] " + queue);
+		System.out.println(String.format("T[%d] %s", Thread.currentThread().getId(), queue));
 		assertEquals(expectedSize, queue.size());
 	}
 }

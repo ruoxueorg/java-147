@@ -25,14 +25,14 @@ public class ReentrantLockClassTest {
 		public void run() {
 			lock.lock();
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] lock acquired");
+				System.out.println(String.format("T[%d] lock acquired", Thread.currentThread().getId()));
 				count++;
-				System.out.println("T[" + Thread.currentThread().getId() + "] count: " + count);
+				System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {
 				lock.unlock();
-				System.out.println("T[" + Thread.currentThread().getId() + "] lock released");
+				System.out.println(String.format("T[%d] lock released", Thread.currentThread().getId()));
 			}
 		}
 
@@ -73,14 +73,14 @@ public class ReentrantLockClassTest {
 		public void run() {
 			lock.lock();
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] lock acquired");
+				System.out.println(String.format("T[%d] lock acquired", Thread.currentThread().getId()));
 				count++;
-				System.out.println("T[" + Thread.currentThread().getId() + "] count: " + count);
+				System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {
 				lock.unlock();
-				System.out.println("T[" + Thread.currentThread().getId() + "] lock released");
+				System.out.println(String.format("T[%d] lock released", Thread.currentThread().getId()));
 			}
 		}
 
@@ -121,28 +121,28 @@ public class ReentrantLockClassTest {
 		public void run() {
 			lock.lock();
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] run() lock acquired");
+				System.out.println(String.format("T[%d] run() lock acquired", Thread.currentThread().getId()));
 				doCount();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {
 				lock.unlock();
-				System.out.println("T[" + Thread.currentThread().getId() + "] run() lock released");
+				System.out.println(String.format("T[%d] run() lock released", Thread.currentThread().getId()));
 			}
 		}
 
 		public void doCount() {
 			lock.lock();
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] doCount() lock acquired");
+				System.out.println(String.format("T[%d] doCount() lock acquired", Thread.currentThread().getId()));
 				count++;
 				TimeUnit.SECONDS.sleep(1);
-				System.out.println("T[" + Thread.currentThread().getId() + "] count: " + count);
+				System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {
 				lock.unlock();
-				System.out.println("T[" + Thread.currentThread().getId() + "] doCount() lock released");
+				System.out.println(String.format("T[%d] doCount() lock released", Thread.currentThread().getId()));
 			}
 		}
 
@@ -183,16 +183,16 @@ public class ReentrantLockClassTest {
 		public void run() {
 			lock.lock();
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] lock acquired");
+				System.out.println(String.format("T[%d] lock acquired", Thread.currentThread().getId()));
 				count++;
 				TimeUnit.SECONDS.sleep(1);
-				System.out.println("T[" + Thread.currentThread().getId() + "] count: " + count);
+				System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {
 				lock.unlock();
 				lock.unlock();
-				System.out.println("T[" + Thread.currentThread().getId() + "] lock released");
+				System.out.println(String.format("T[%d] lock released", Thread.currentThread().getId()));
 			}
 		}
 
