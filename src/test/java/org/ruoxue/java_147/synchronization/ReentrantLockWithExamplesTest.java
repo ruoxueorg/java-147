@@ -56,19 +56,18 @@ public class ReentrantLockWithExamplesTest {
 		assertEquals(expected, count);
 	}
 
-	protected class LockWorker implements Runnable {
+	protected class Worker implements Runnable {
 
 		private final Lock lock = new ReentrantLock();
 		private int count;
 
-		public LockWorker() {
+		public Worker() {
 		}
 
 		@Override
 		public void run() {
 			lock.lock();
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] lock acquired");
 				System.out.println(String.format("T[%d] lock acquired", Thread.currentThread().getId()));
 				count++;
 				TimeUnit.SECONDS.sleep(1);
@@ -90,7 +89,7 @@ public class ReentrantLockWithExamplesTest {
 	public void lock() {
 		int expected = 3;
 		int taskSize = 3;
-		LockWorker worker = new LockWorker();
+		Worker worker = new Worker();
 		List<Thread> threads = Stream.generate(() -> new Thread(worker)).limit(taskSize).collect(Collectors.toList());
 		threads.forEach(e -> e.start());
 
