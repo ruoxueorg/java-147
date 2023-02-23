@@ -20,9 +20,9 @@ public class DifferenceConditionSignalSignalAllTest {
 			try {
 				lock.lock();
 				try {
-					System.out.println("T[" + Thread.currentThread().getId() + "] waiting");
+					System.out.println(String.format("T[%d] waiting", Thread.currentThread().getId()));
 					condition.await();
-					System.out.println("T[" + Thread.currentThread().getId() + "] finished");
+					System.out.println(String.format("T[%d] finished", Thread.currentThread().getId()));
 				} finally {
 					lock.unlock();
 				}
@@ -36,9 +36,9 @@ public class DifferenceConditionSignalSignalAllTest {
 			TimeUnit.SECONDS.sleep(3);
 			lock.lock();
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] signal");
+				System.out.println(String.format("T[%d] signal", Thread.currentThread().getId()));
 				condition.signal();
-				System.out.println("T[" + Thread.currentThread().getId() + "] finished");
+				System.out.println(String.format("T[%d] finished", Thread.currentThread().getId()));
 			} finally {
 				lock.unlock();
 			}
@@ -56,9 +56,9 @@ public class DifferenceConditionSignalSignalAllTest {
 			try {
 				lock.lock();
 				try {
-					System.out.println("T[" + Thread.currentThread().getId() + "] waiting");
+					System.out.println(String.format("T[%d] waiting", Thread.currentThread().getId()));
 					condition.await();
-					System.out.println("T[" + Thread.currentThread().getId() + "] finished");
+					System.out.println(String.format("T[%d] finished", Thread.currentThread().getId()));
 				} finally {
 					lock.unlock();
 				}
@@ -72,9 +72,9 @@ public class DifferenceConditionSignalSignalAllTest {
 			TimeUnit.SECONDS.sleep(3);
 			lock.lock();
 			try {
-				System.out.println("T[" + Thread.currentThread().getId() + "] signalAll");
+				System.out.println(String.format("T[%d] signalAll", Thread.currentThread().getId()));
 				condition.signalAll();
-				System.out.println("T[" + Thread.currentThread().getId() + "] finished");
+				System.out.println(String.format("T[%d] finished", Thread.currentThread().getId()));
 			} finally {
 				lock.unlock();
 			}
