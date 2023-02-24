@@ -13,12 +13,12 @@ import org.junit.Test;
 
 public class SemaphoreWithExamplesTest {
 
-	protected class NoLockWorker implements Runnable {
+	protected class Worker implements Runnable {
 
-		private Semaphore semaphore = new Semaphore(4000);
+		private Semaphore semaphore = new Semaphore(1);
 		private int count;
 
-		public NoLockWorker() {
+		public Worker() {
 		}
 
 		@Override
@@ -48,9 +48,9 @@ public class SemaphoreWithExamplesTest {
 	}
 
 	@Test
-	public void nolock() {
-		int expected = 4000;
-		int taskSize = 4000;
+	public void lock() {
+		int expected = 3;
+		int taskSize = 3;
 		Worker worker = new Worker();
 		List<Thread> threads = Stream.generate(() -> new Thread(worker)).limit(taskSize).collect(Collectors.toList());
 		threads.forEach(e -> e.start());
@@ -67,13 +67,12 @@ public class SemaphoreWithExamplesTest {
 		assertEquals(expected, count);
 	}
 
-	
-	protected class Worker implements Runnable {
+	protected class AcquireWorker implements Runnable {
 
-		private Semaphore semaphore = new Semaphore(500);
+		private Semaphore semaphore = new Semaphore(2);
 		private AtomicInteger count = new AtomicInteger();
 
-		public Worker() {
+		public AcquireWorker() {
 		}
 
 		@Override
@@ -104,9 +103,9 @@ public class SemaphoreWithExamplesTest {
 
 	@Test
 	public void acquire() {
-		int expected = 1000;
-		int taskSize = 1000;
-		Worker worker = new Worker();
+		int expected = 3;
+		int taskSize = 3;
+		AcquireWorker worker = new AcquireWorker();
 		List<Thread> threads = Stream.generate(() -> new Thread(worker)).limit(taskSize).collect(Collectors.toList());
 		threads.forEach(e -> e.start());
 
@@ -123,15 +122,67 @@ public class SemaphoreWithExamplesTest {
 	}
 
 	@Test
-	public void acquire2() {
-		int expected = 1000;
-		int taskSize = 1000;
-		Worker worker = new Worker();
+	public void acquireInterruptibly() {
+		int expected = 2;
+		int taskSize = 3;
+		AcquireWorker worker = new AcquireWorker();
 		List<Thread> threads = Stream.generate(() -> new Thread(worker)).limit(taskSize).collect(Collectors.toList());
 		threads.forEach(e -> e.start());
 
-//		Thread thread = threads.get(1);
-//		thread.interrupt();
+		Thread thread = threads.get(1);
+		thread.interrupt();
+
+		threads.forEach(e -> {
+			try {
+				e.join();
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
+		});
+		int count = worker.getCount();
+		System.out.println(count);
+		assertEquals(expected, count);
+	}
+
+	protected class AcquireUninterruptiblyWorker implements Runnable {
+
+		private Semaphore semaphore = new Semaphore(2);
+		private AtomicInteger count = new AtomicInteger();
+
+		public AcquireUninterruptiblyWorker() {
+		}
+
+		@Override
+		public void run() {
+			System.out.println(String.format("T[%d] waiting", Thread.currentThread().getId()));
+			semaphore.acquireUninterruptibly();
+			try {
+				System.out.println(String.format("T[%d] acquire", Thread.currentThread().getId()));
+				count.incrementAndGet();
+				System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count.get()));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				semaphore.release();
+				System.out.println(String.format("T[%d] release", Thread.currentThread().getId()));
+			}
+		}
+
+		public int getCount() {
+			return count.get();
+		}
+	}
+
+	@Test
+	public void acquireUninterruptibly() {
+		int expected = 3;
+		int taskSize = 3;
+		AcquireUninterruptiblyWorker worker = new AcquireUninterruptiblyWorker();
+		List<Thread> threads = Stream.generate(() -> new Thread(worker)).limit(taskSize).collect(Collectors.toList());
+		threads.forEach(e -> e.start());
+
+		Thread thread = threads.get(1);
+		thread.interrupt();
 
 		threads.forEach(e -> {
 			try {
@@ -148,7 +199,7 @@ public class SemaphoreWithExamplesTest {
 	protected class TryAcquireWorker implements Runnable {
 
 		private Semaphore semaphore = new Semaphore(2);
-		private int count;
+		private AtomicInteger count = new AtomicInteger();
 
 		public TryAcquireWorker() {
 		}
@@ -158,12 +209,15 @@ public class SemaphoreWithExamplesTest {
 			try {
 				System.out.println(String.format("T[%d] waiting", Thread.currentThread().getId()));
 				boolean isLockAcquired = semaphore.tryAcquire(100, TimeUnit.MILLISECONDS);
+				System.out.println(
+						String.format("T[%d] isLockAcquired: %b", Thread.currentThread().getId(), isLockAcquired));
 				if (isLockAcquired) {
 					try {
 						System.out.println(String.format("T[%d] acquire", Thread.currentThread().getId()));
 						TimeUnit.SECONDS.sleep(1);
-						count++;
-						System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
+						count.incrementAndGet();
+						System.out
+								.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count.get()));
 					} catch (InterruptedException ex) {
 						ex.printStackTrace();
 					} finally {
@@ -177,7 +231,7 @@ public class SemaphoreWithExamplesTest {
 		}
 
 		public int getCount() {
-			return count;
+			return count.get();
 		}
 	}
 
