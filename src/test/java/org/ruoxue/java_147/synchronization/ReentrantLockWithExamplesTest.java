@@ -23,8 +23,8 @@ public class ReentrantLockWithExamplesTest {
 		@Override
 		public void run() {
 			try {
-				count++;
 				TimeUnit.SECONDS.sleep(1);
+				count++;
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
@@ -38,8 +38,8 @@ public class ReentrantLockWithExamplesTest {
 
 	@Test
 	public void nolock() {
-		int expected = 3;
-		int taskSize = 3;
+		int expected = 500;
+		int taskSize = 500;
 		NoLockWorker worker = new NoLockWorker();
 		List<Thread> threads = Stream.generate(() -> new Thread(worker)).limit(taskSize).collect(Collectors.toList());
 		threads.forEach(e -> e.start());
@@ -69,8 +69,8 @@ public class ReentrantLockWithExamplesTest {
 			lock.lock();
 			try {
 				System.out.println(String.format("T[%d] lock acquired", Thread.currentThread().getId()));
-				count++;
 				TimeUnit.SECONDS.sleep(1);
+				count++;
 				System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -119,8 +119,8 @@ public class ReentrantLockWithExamplesTest {
 				lock.lockInterruptibly();
 				try {
 					System.out.println(String.format("T[%d] lock acquired", Thread.currentThread().getId()));
-					count++;
 					TimeUnit.SECONDS.sleep(1);
+					count++;
 					System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -178,8 +178,8 @@ public class ReentrantLockWithExamplesTest {
 				if (isLockAcquired) {
 					try {
 						System.out.println(String.format("T[%d] lock acquired", Thread.currentThread().getId()));
-						count++;
 						TimeUnit.SECONDS.sleep(1);
+						count++;
 						System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 					} catch (Exception ex) {
 						ex.printStackTrace();

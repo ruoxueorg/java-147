@@ -135,8 +135,8 @@ public class ReentrantLockClassTest {
 			lock.lock();
 			try {
 				System.out.println(String.format("T[%d] doCount() lock acquired", Thread.currentThread().getId()));
-				count++;
 				TimeUnit.SECONDS.sleep(1);
+				count++;
 				System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -184,8 +184,8 @@ public class ReentrantLockClassTest {
 			lock.lock();
 			try {
 				System.out.println(String.format("T[%d] lock acquired", Thread.currentThread().getId()));
-				count++;
 				TimeUnit.SECONDS.sleep(1);
+				count++;
 				System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 			} catch (Exception ex) {
 				ex.printStackTrace();
