@@ -11,3 +11,5 @@
 8. [Condition await and signal Methods in Java](https://www.ruoxue.org/java-147-condition-await-and-signal-methods-in-java/)
 9. [Difference Between Condition await and signal in Java](https://www.ruoxue.org/java-147-difference-between-condition-await-and-signal-in-java/)
 10. [Difference Between Condition signal and signalAll in Java](https://www.ruoxue.org/java-147-difference-between-condition-signal-and-signalall-in-java/)
+11. [Semaphore in Java with Examples](https://www.ruoxue.org/semaphore-in-java-with-examples/)
+12. [Java Semaphore Class](https://www.ruoxue.org/java-semaphore-class/)
