@@ -13,6 +13,61 @@ import org.junit.Test;
 
 public class SemaphoreWithExamplesTest {
 
+	protected class NoLockWorker implements Runnable {
+
+		private Semaphore semaphore = new Semaphore(4000);
+		private int count;
+
+		public NoLockWorker() {
+		}
+
+		@Override
+		public void run() {
+			try {
+				System.out.println(String.format("T[%d] waiting", Thread.currentThread().getId()));
+				semaphore.acquire();
+				try {
+					System.out.println(String.format("T[%d] acquire", Thread.currentThread().getId()));
+					TimeUnit.SECONDS.sleep(1);
+					count++;
+					System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				} finally {
+					semaphore.release();
+					System.out.println(String.format("T[%d] release", Thread.currentThread().getId()));
+				}
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		public int getCount() {
+			return count;
+		}
+	}
+
+	@Test
+	public void nolock() {
+		int expected = 4000;
+		int taskSize = 4000;
+		Worker worker = new Worker();
+		List<Thread> threads = Stream.generate(() -> new Thread(worker)).limit(taskSize).collect(Collectors.toList());
+		threads.forEach(e -> e.start());
+
+		threads.forEach(e -> {
+			try {
+				e.join();
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
+		});
+		int count = worker.getCount();
+		System.out.println(count);
+		assertEquals(expected, count);
+	}
+
+	
 	protected class Worker implements Runnable {
 
 		private Semaphore semaphore = new Semaphore(500);
