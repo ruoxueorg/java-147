@@ -51,7 +51,7 @@ public class StringIntegerArrayTest {
 	}
 
 	@Test
-	public void numberFormatException() {
+	public void streamWithException() {
 		int expectedSize = 5;
 		String value = "147,168,151,460,java";
 		String[] stringArray = value.split(",");
