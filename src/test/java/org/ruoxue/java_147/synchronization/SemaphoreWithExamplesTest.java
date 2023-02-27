@@ -49,8 +49,8 @@ public class SemaphoreWithExamplesTest {
 
 	@Test
 	public void acquire() {
-		int expected = 3;
-		int taskSize = 3;
+		int expected = 5;
+		int taskSize = 5;
 		AcquireWorker worker = new AcquireWorker();
 		List<Thread> threads = Stream.generate(() -> new Thread(worker)).limit(taskSize).collect(Collectors.toList());
 		threads.forEach(e -> e.start());

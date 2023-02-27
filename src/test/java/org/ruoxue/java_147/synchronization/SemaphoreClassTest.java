@@ -125,4 +125,60 @@ public class SemaphoreClassTest {
 		System.out.println(count);
 		assertEquals(expected, count);
 	}
+
+	protected class AvailablePermitsWorker implements Runnable {
+
+		private Semaphore semaphore = new Semaphore(5);
+		private AtomicInteger count = new AtomicInteger();
+
+		public AvailablePermitsWorker() {
+		}
+
+		@Override
+		public void run() {
+			try {
+				System.out.println(String.format("T[%d] waiting", Thread.currentThread().getId()));
+				semaphore.acquire(2);
+				System.out.println(String.format("T[%d] availablePermits: %d", Thread.currentThread().getId(),
+						semaphore.availablePermits()));
+				try {
+					System.out.println(String.format("T[%d] acquire", Thread.currentThread().getId()));
+					TimeUnit.SECONDS.sleep(1);
+					count.incrementAndGet();
+					System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count.get()));
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				} finally {
+					semaphore.release();
+					System.out.println(String.format("T[%d] release", Thread.currentThread().getId()));
+				}
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		public int getCount() {
+			return count.get();
+		}
+	}
+
+	@Test
+	public void availablePermits() {
+		int expected = 3;
+		int taskSize = 3;
+		AvailablePermitsWorker worker = new AvailablePermitsWorker();
+		List<Thread> threads = Stream.generate(() -> new Thread(worker)).limit(taskSize).collect(Collectors.toList());
+		threads.forEach(e -> e.start());
+
+		threads.forEach(e -> {
+			try {
+				e.join();
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
+		});
+		int count = worker.getCount();
+		System.out.println(count);
+		assertEquals(expected, count);
+	}
 }
