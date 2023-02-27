@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.junit.Test;
 import com.google.common.collect.ImmutableList;
 
@@ -19,7 +22,7 @@ public class InitializeArrayListTest {
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 	}
-	 
+
 	@Test
 	public void doubleBrace() {
 		int expectedSize = 3;
@@ -77,5 +80,13 @@ public class InitializeArrayListTest {
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 		list.remove(0);
+	}
+
+	@Test
+	public void stream() {
+		int expectedSize = 3;
+		List<String> list = Stream.of("Apple", "Banana", "Cherry").collect(Collectors.toList());
+		System.out.println(list);
+		assertEquals(expectedSize, list.size());
 	}
 }
