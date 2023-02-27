@@ -49,4 +49,23 @@ public class StringIntegerArrayTest {
 		System.out.println(Arrays.toString(array));
 		assertEquals(expectedSize, array.length);
 	}
+
+	@Test
+	public void numberFormatException() {
+		int expectedSize = 5;
+		String value = "147,168,151,460,java";
+		String[] stringArray = value.split(",");
+		System.out.println(Arrays.toString(stringArray));
+
+		int[] array = Arrays.stream(stringArray).mapToInt(e -> {
+			int result = 0;
+			try {
+				result = Integer.parseInt(e);
+			} catch (NumberFormatException ex) {
+			}
+			return result;
+		}).toArray();
+		System.out.println(Arrays.toString(array));
+		assertEquals(expectedSize, array.length);
+	}
 }
