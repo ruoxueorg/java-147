@@ -9,19 +9,33 @@ public class StringFormatTest {
 	@Test
 	public void string() {
 		String value = "Ruoxue";
-		String formatted = String.format("Name is: %s", value);
+		String formatted = String.format("String is: %s", value);
 		System.out.println(formatted);
 
 		value = "Ruoxue";
-		formatted = String.format("Name is: %10s", value);
+		formatted = String.format("String is: %10s", value);
+		System.out.println(formatted);
+	}
+
+	@Test
+	public void charz() {
+		char value = 'R';
+		String formatted = String.format("Char is: %c", value);
 		System.out.println(formatted);
 
-		formatted = String.format("%c", 'R');
+		formatted = String.format("Char is: %10c", value);
+		System.out.println(formatted);
+	}
+
+	@Test
+	public void bolleanz() {
+		boolean value = true;
+		String formatted = String.format("Boolean is: %b", value);
 		System.out.println(formatted);
 
-		formatted = String.format("%10c", 'R');
+		value = false;
+		formatted = String.format("Boolean is: %10b", value);
 		System.out.println(formatted);
-
 	}
 
 	@Test
@@ -45,9 +59,20 @@ public class StringFormatTest {
 		BigInteger bigIntegerValue = BigInteger.ZERO;
 		formatted = String.format("BigInteger is: %d", bigIntegerValue);
 		System.out.println(formatted);
+	}
 
-		formatted = String.format("Hex is: %x", byteValue);
+	@Test
+	public void hex() {
+		int intValue = Integer.MAX_VALUE;
+		String formatted = String.format("Hex is: %x", intValue);
 		System.out.println(formatted);
+		
+		formatted = String.format("Hex is: %10x", intValue);
+		System.out.println(formatted);
+		
+		formatted = String.format("Hex is: %010x", intValue);
+		System.out.println(formatted);
+
 	}
 
 	@Test
@@ -68,17 +93,16 @@ public class StringFormatTest {
 	@Test
 	public void padding() {
 		int intValue = 147;
-		String formatted = String.format("%05d", intValue);
+		String formatted = String.format("%010d", intValue);
 		System.out.println(formatted);
 
 		formatted = String.format("% d", intValue);
 		System.out.println(formatted);
 
-		formatted = String.format("%5d", intValue);
+		formatted = String.format("%10d", intValue);
 		System.out.println(formatted);
 
-		formatted = String.format("%-5d", intValue);
+		formatted = String.format("%-10d", intValue);
 		System.out.println(formatted);
-
 	}
 }
