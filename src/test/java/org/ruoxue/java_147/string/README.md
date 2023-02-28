@@ -5,3 +5,4 @@
 2. [Java Convert String to Integer Array](https://www.ruoxue.org/java-147-java-convert-string-to-integer-array/)
 3. [Java Convert String to String Array](https://www.ruoxue.org/java-147-java-convert-string-to-string-array/)
 4. [Java Convert String to InputStream](https://www.ruoxue.org/java-147-java-convert-string-to-inputstream/)
+5. [Java Convert String to Int](https://www.ruoxue.org/java-147-java-convert-string-to-int/)
