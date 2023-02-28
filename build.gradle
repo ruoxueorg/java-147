@@ -3,6 +3,7 @@ buildscript {
 	version = '0.0.1-SNAPSHOT'
 	ext {
 		commonsLang3Version = '3.8.1'
+		commonsIoVersion = '2.11.0'
 		lombokVersion = '1.18.24'
 		junit4Version = '4.13.2'
 		assertjVersion = '3.23.1'
@@ -39,6 +40,7 @@ dependencies {
 	api 'org.apache.commons:commons-math3:3.6.1'
 	implementation 'com.google.guava:guava:27.0.1-jre'
 	implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
+	implementation "commons-io:commons-io:${commonsIoVersion}"
 	compileOnly "org.projectlombok:lombok:${lombokVersion}"
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
