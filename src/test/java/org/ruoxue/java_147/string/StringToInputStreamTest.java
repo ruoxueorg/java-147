@@ -14,6 +14,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import com.google.common.io.CharSource;
+import com.google.common.io.CharStreams;
 
 public class StringToInputStreamTest {
 
@@ -77,13 +78,7 @@ public class StringToInputStreamTest {
 			is = CharSource.wrap(value).asByteSource(StandardCharsets.UTF_8).openStream();
 			System.out.println(is);
 
-			StringBuilder builder = new StringBuilder();
-			try (Scanner scanner = new Scanner(is, StandardCharsets.UTF_8.toString())) {
-				while (scanner.hasNext()) {
-					builder.append(scanner.nextLine());
-				}
-			}
-			String result = builder.toString();
+			String result = CharStreams.toString(new InputStreamReader(is, StandardCharsets.UTF_8));
 			System.out.println(result);
 			assertEquals(value, result);
 		} catch (IOException ex) {
