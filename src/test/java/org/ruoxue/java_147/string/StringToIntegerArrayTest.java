@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-public class StringIntegerArrayTest {
+public class StringToIntegerArrayTest {
 
 	@Test
 	public void replaceAll() {
