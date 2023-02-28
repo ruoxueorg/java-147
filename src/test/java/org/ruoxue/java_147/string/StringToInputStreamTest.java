@@ -38,7 +38,7 @@ public class StringToInputStreamTest {
 	}
 
 	@Test
-	public void ioUtils() {
+	public void commons_io_IOUtils() {
 		String value = "java147,springboot168,junit151,bash460,it484";
 		InputStream is = IOUtils.toInputStream(value, StandardCharsets.UTF_8);
 		System.out.println(is);
@@ -54,7 +54,7 @@ public class StringToInputStreamTest {
 	}
 
 	@Test
-	public void charSource() {
+	public void guava_CharSource() {
 		String value = "java147,springboot168,junit151,bash460,it484";
 		InputStream is = null;
 		try {
