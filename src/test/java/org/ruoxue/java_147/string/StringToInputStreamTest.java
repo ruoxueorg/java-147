@@ -20,37 +20,53 @@ public class StringToInputStreamTest {
 	@Test
 	public void byteArrayInputStream() {
 		String value = "java147,springboot168,junit151,bash460,it484";
-		InputStream is = new ByteArrayInputStream(value.getBytes(StandardCharsets.UTF_8));
-		System.out.println(is);
+		InputStream is = null;
+		try {
+			is = new ByteArrayInputStream(value.getBytes(StandardCharsets.UTF_8));
+			System.out.println(is);
 
-		StringBuilder builder = new StringBuilder();
-		try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
-			String str;
-			while ((str = bufferedReader.readLine()) != null) {
-				builder.append(str);
+			StringBuilder builder = new StringBuilder();
+			try (BufferedReader bufferedReader = new BufferedReader(
+					new InputStreamReader(is, StandardCharsets.UTF_8))) {
+				String str;
+				while ((str = bufferedReader.readLine()) != null) {
+					builder.append(str);
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
 			}
-		} catch (IOException ex) {
-			ex.printStackTrace();
+			String result = builder.toString();
+			System.out.println(result);
+			assertEquals(value, result);
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (IOException ex) {
+				}
+			}
 		}
-		String result = builder.toString();
-		System.out.println(result);
-		assertEquals(value, result);
 	}
 
 	@Test
 	public void commons_io_IOUtils() {
 		String value = "java147,springboot168,junit151,bash460,it484";
-		InputStream is = IOUtils.toInputStream(value, StandardCharsets.UTF_8);
-		System.out.println(is);
-
-		String result = null;
+		InputStream is = null;
 		try {
-			result = IOUtils.toString(is, StandardCharsets.UTF_8);
-		} catch (IOException ex) {
-			ex.printStackTrace();
+			is = IOUtils.toInputStream(value, StandardCharsets.UTF_8);
+			System.out.println(is);
+
+			String result = null;
+			try {
+				result = IOUtils.toString(is, StandardCharsets.UTF_8);
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			System.out.println(result);
+			assertEquals(value, result);
+		} finally {
+			IOUtils.closeQuietly(is);
 		}
-		System.out.println(result);
-		assertEquals(value, result);
 	}
 
 	@Test
@@ -59,19 +75,26 @@ public class StringToInputStreamTest {
 		InputStream is = null;
 		try {
 			is = CharSource.wrap(value).asByteSource(StandardCharsets.UTF_8).openStream();
+			System.out.println(is);
+
+			StringBuilder builder = new StringBuilder();
+			try (Scanner scanner = new Scanner(is, StandardCharsets.UTF_8.toString())) {
+				while (scanner.hasNext()) {
+					builder.append(scanner.nextLine());
+				}
+			}
+			String result = builder.toString();
+			System.out.println(result);
+			assertEquals(value, result);
 		} catch (IOException ex) {
 			ex.printStackTrace();
-		}
-		System.out.println(is);
-
-		StringBuilder builder = new StringBuilder();
-		try (Scanner scanner = new Scanner(is, StandardCharsets.UTF_8.toString())) {
-			while (scanner.hasNext()) {
-				builder.append(scanner.nextLine());
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (IOException ex) {
+				}
 			}
 		}
-		String result = builder.toString();
-		System.out.println(result);
-		assertEquals(value, result);
 	}
 }
