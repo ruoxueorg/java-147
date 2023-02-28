@@ -18,7 +18,6 @@ public class StringToStringArrayTest {
 		String[] array = value.split(",");
 		System.out.println(Arrays.toString(array));
 		assertEquals(expectedSize, array.length);
-		
 	}
 
 	@Test
