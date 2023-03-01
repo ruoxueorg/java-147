@@ -63,6 +63,13 @@ public class StringToIntTest {
 		result = Integer.valueOf(value, 16);
 		System.out.println(result);
 		assertEquals(32, result.intValue());
+		
+		value = "101010";
+		// (1)*2^5 + (0)*2^4 + (1)*2^3 + (0)*2^2 + (1)*2^1 + (0)*2^0 = 42
+		// 32 + 0 + 8 + 0 + 2 = 42
+		result = Integer.valueOf(value, 2);
+		System.out.println(result);
+		assertEquals(42, result.intValue());
 	}
 
 	@Test(expected = NumberFormatException.class)
