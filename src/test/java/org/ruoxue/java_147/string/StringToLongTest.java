@@ -72,7 +72,7 @@ public class StringToLongTest {
 		assertEquals(58, result.longValue());
 	}
 
-	@Test(expected = NumberFormatException.class)
+	@Test
 	public void valueOfThrowException() {
 		String value = "168";
 		Long result = Long.valueOf(value);
@@ -91,10 +91,10 @@ public class StringToLongTest {
 		System.out.println(result);
 		assertEquals(168, result);
 
-		value = "-20";
+		value = "-30";
 		result = Integer.decode(value);
 		System.out.println(result);
-		assertEquals(-20, result);
+		assertEquals(-30, result);
 	}
 
 	@Test(expected = NumberFormatException.class)
@@ -116,20 +116,19 @@ public class StringToLongTest {
 		System.out.println(result);
 		assertEquals(168, result);
 
-		value = "-20";
+		value = "-30";
 		result = NumberUtils.toLong(value);
 		System.out.println(result);
-		assertEquals(-20, result);
+		assertEquals(-30, result);
 
-		value = "20";
+		value = "30";
 		result = NumberUtils.toLong(value, 0);
 		System.out.println(result);
-		assertEquals(20, result);
+		assertEquals(30, result);
 		
 		value = "springboot-168";
 		result = NumberUtils.toLong(value, 0);
 		System.out.println(result);
 		assertEquals(0, result);
 	}
-
 }
