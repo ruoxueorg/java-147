@@ -79,4 +79,18 @@ public class StringToInputStreamWithExamplesTest {
 			}
 		}
 	}
+
+	@Test
+	public void openStream_CharSourceTryWithResources() {
+		String value = "java147,springboot168,junit151,bash460,it484";
+		try (InputStream is = CharSource.wrap(value).asByteSource(StandardCharsets.UTF_8).openStream()) {
+			System.out.println(is);
+
+			String result = CharStreams.toString(new InputStreamReader(is, StandardCharsets.UTF_8));
+			System.out.println(result);
+			assertEquals(value, result);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
 }

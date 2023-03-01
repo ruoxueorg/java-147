@@ -45,6 +45,30 @@ public class StringToInputStreamTest {
 		}
 	}
 
+	@Test
+	public void byteArrayInputStreamTryWithResources() {
+		String value = "java147,springboot168,junit151,bash460,it484";
+		try (InputStream is = new ByteArrayInputStream(value.getBytes(StandardCharsets.UTF_8))) {
+			System.out.println(is);
+
+			StringBuilder builder = new StringBuilder();
+			try (BufferedReader bufferedReader = new BufferedReader(
+					new InputStreamReader(is, StandardCharsets.UTF_8))) {
+				String buff = null;
+				while ((buff = bufferedReader.readLine()) != null) {
+					builder.append(buff);
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			String result = builder.toString();
+			System.out.println(result);
+			assertEquals(value, result);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
 	@Test(expected = NullPointerException.class)
 	public void byteArrayInputStreamThrowException() {
 		String value = "java147,springboot168,junit151,bash460,it484";
