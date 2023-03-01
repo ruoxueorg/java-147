@@ -7,13 +7,10 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
-
-import com.google.common.io.CharSource;
-import com.google.common.io.CharStreams;
 
 public class StringToInputStreamTest {
 
@@ -28,9 +25,9 @@ public class StringToInputStreamTest {
 			StringBuilder builder = new StringBuilder();
 			try (BufferedReader bufferedReader = new BufferedReader(
 					new InputStreamReader(is, StandardCharsets.UTF_8))) {
-				String str;
-				while ((str = bufferedReader.readLine()) != null) {
-					builder.append(str);
+				String buff = null;
+				while ((buff = bufferedReader.readLine()) != null) {
+					builder.append(buff);
 				}
 			} catch (IOException ex) {
 				ex.printStackTrace();
@@ -48,40 +45,28 @@ public class StringToInputStreamTest {
 		}
 	}
 
-	@Test
-	public void commons_io_IOUtils() {
+	@Test(expected = NullPointerException.class)
+	public void byteArrayInputStreamThrowException() {
 		String value = "java147,springboot168,junit151,bash460,it484";
 		InputStream is = null;
 		try {
-			is = IOUtils.toInputStream(value, StandardCharsets.UTF_8);
+			is = new ByteArrayInputStream(value.getBytes((Charset) null));
 			System.out.println(is);
 
-			String result = null;
-			try {
-				result = IOUtils.toString(is, StandardCharsets.UTF_8);
+			StringBuilder builder = new StringBuilder();
+			try (BufferedReader bufferedReader = new BufferedReader(
+					new InputStreamReader(is, StandardCharsets.UTF_8))) {
+				String buff = bufferedReader.readLine();
+				while (buff != null) {
+					builder.append(buff);
+					buff = bufferedReader.readLine();
+				}
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
+			String result = builder.toString();
 			System.out.println(result);
 			assertEquals(value, result);
-		} finally {
-			IOUtils.closeQuietly(is);
-		}
-	}
-
-	@Test
-	public void guava_CharSource() {
-		String value = "java147,springboot168,junit151,bash460,it484";
-		InputStream is = null;
-		try {
-			is = CharSource.wrap(value).asByteSource(StandardCharsets.UTF_8).openStream();
-			System.out.println(is);
-
-			String result = CharStreams.toString(new InputStreamReader(is, StandardCharsets.UTF_8));
-			System.out.println(result);
-			assertEquals(value, result);
-		} catch (IOException ex) {
-			ex.printStackTrace();
 		} finally {
 			if (is != null) {
 				try {
