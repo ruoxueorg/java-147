@@ -8,7 +8,6 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;

@@ -21,9 +21,17 @@ public class StringToIntTest {
 
 		value = "20";
 		// (2)*16^1 + (0)*16^0 = 32
+		// 32 + 0 = 32
 		result = Integer.parseInt(value, 16);
 		System.out.println(result);
 		assertEquals(32, result);
+		
+		value = "101010";
+		// (1)*2^5 + (0)*2^4 + (1)*2^3 + (0)*2^2 + (1)*2^1 + (0)*2^0 = 42
+		// 32 + 0 + 8 + 0 + 2 = 42
+		result = Integer.parseInt(value, 2);
+		System.out.println(result);
+		assertEquals(42, result);
 	}
 
 	@Test(expected = NumberFormatException.class)
