@@ -25,7 +25,7 @@ public class StringToIntTest {
 		result = Integer.parseInt(value, 16);
 		System.out.println(result);
 		assertEquals(32, result);
-		
+
 		value = "101010";
 		// (1)*2^5 + (0)*2^4 + (1)*2^3 + (0)*2^2 + (1)*2^1 + (0)*2^0 = 42
 		// 32 + 0 + 8 + 0 + 2 = 42
@@ -63,7 +63,7 @@ public class StringToIntTest {
 		result = Integer.valueOf(value, 16);
 		System.out.println(result);
 		assertEquals(32, result.intValue());
-		
+
 		value = "101010";
 		// (1)*2^5 + (0)*2^4 + (1)*2^3 + (0)*2^2 + (1)*2^1 + (0)*2^0 = 42
 		// 32 + 0 + 8 + 0 + 2 = 42
@@ -110,6 +110,19 @@ public class StringToIntTest {
 	}
 
 	@Test
+	public void constructor() {
+		String value = "147";
+		int result = new Integer(value);
+		System.out.println(result);
+		assertEquals(147, result);
+
+		value = "-20";
+		result = new Integer(value);
+		System.out.println(result);
+		assertEquals(-20, result);
+	}
+
+	@Test
 	public void commons_lang3_NumberUtils() {
 		String value = "147";
 		int result = NumberUtils.toInt(value);
@@ -125,7 +138,7 @@ public class StringToIntTest {
 		result = NumberUtils.toInt(value, 0);
 		System.out.println(result);
 		assertEquals(20, result);
-		
+
 		value = "java-147";
 		result = NumberUtils.toInt(value, 0);
 		System.out.println(result);

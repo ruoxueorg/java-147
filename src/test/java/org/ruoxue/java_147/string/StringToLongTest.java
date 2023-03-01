@@ -25,7 +25,7 @@ public class StringToLongTest {
 		result = Long.parseLong(value, 16);
 		System.out.println(result);
 		assertEquals(48, result);
-		
+
 		value = "111010";
 		// (1)*2^5 + (1)*2^4 + (1)*2^3 + (0)*2^2 + (1)*2^1 + (0)*2^0 = 42
 		// 32 + 16 + 8 + 0 + 2 = 58
@@ -63,7 +63,7 @@ public class StringToLongTest {
 		result = Long.valueOf(value, 16);
 		System.out.println(result);
 		assertEquals(48, result.longValue());
-		
+
 		value = "111010";
 		// (1)*2^5 + (1)*2^4 + (1)*2^3 + (0)*2^2 + (1)*2^1 + (0)*2^0 = 42
 		// 32 + 16 + 8 + 0 + 2 = 58
@@ -110,6 +110,19 @@ public class StringToLongTest {
 	}
 
 	@Test
+	public void constructor() {
+		String value = "168";
+		long result = new Long(value);
+		System.out.println(result);
+		assertEquals(168, result);
+
+		value = "-30";
+		result = new Long(value);
+		System.out.println(result);
+		assertEquals(-30, result);
+	}
+
+	@Test
 	public void commons_lang3_NumberUtils() {
 		String value = "168";
 		long result = NumberUtils.toLong(value);
@@ -125,7 +138,7 @@ public class StringToLongTest {
 		result = NumberUtils.toLong(value, 0);
 		System.out.println(result);
 		assertEquals(30, result);
-		
+
 		value = "springboot-168";
 		result = NumberUtils.toLong(value, 0);
 		System.out.println(result);
