@@ -65,7 +65,7 @@ public class StringToShortTest {
 
 		value = "111111";
 		// (1)*2^5 + (1)*2^4 + (1)*2^3 + (1)*2^2 + (1)*2^1 + (1)*2^0 = 63
-				// 32 + 16 + 8 + 4 + 2 + 1= 63
+		// 32 + 16 + 8 + 4 + 2 + 1= 63
 		result = Short.valueOf(value, 2);
 		System.out.println(result);
 		assertEquals(63, result.shortValue());
