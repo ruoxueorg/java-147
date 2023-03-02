@@ -71,7 +71,7 @@ public class StringToLongTest {
 		assertEquals(58, result.longValue());
 	}
 
-	@Test
+	@Test(expected = NumberFormatException.class)
 	public void valueOfThrowException() {
 		String value = "168";
 		Long result = Long.valueOf(value);

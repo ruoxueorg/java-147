@@ -15,7 +15,7 @@ public class StringToLongWithExamplesTest {
 		assertEquals(168, result);
 
 		value = "-30";
-		result = Integer.decode(value);
+		result = Long.decode(value);
 		System.out.println(result);
 		assertEquals(-30, result);
 	}
@@ -56,6 +56,7 @@ public class StringToLongWithExamplesTest {
 		result = new Long(value);
 		System.out.println(result);
 	}
+
 	@Test
 	public void toLong_NumberUtils() {
 		String value = "168";
