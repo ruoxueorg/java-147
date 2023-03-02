@@ -45,8 +45,20 @@ public class StringToIntWithExamplesTest {
 		assertEquals(-20, result);
 	}
 
+	@Test(expected = NumberFormatException.class)
+	public void constructorThrowException() {
+		String value = "147";
+		int result = new Integer(value);
+		System.out.println(result);
+		assertEquals(147, result);
+
+		value = "java-147";
+		result = new Integer(value);
+		System.out.println(result);
+	}
+
 	@Test
-	public void commons_lang3_NumberUtils() {
+	public void toInt_NumberUtils() {
 		String value = "147";
 		int result = NumberUtils.toInt(value);
 		System.out.println(result);

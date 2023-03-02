@@ -2,10 +2,6 @@ package org.ruoxue.java_147.string;
 
 import static org.junit.Assert.*;
 
-import java.text.DecimalFormat;
-import java.text.ParseException;
-
-import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Test;
 
 public class StringToDoubleTest {
@@ -30,7 +26,7 @@ public class StringToDoubleTest {
 		System.out.println(result);
 		assertEquals(460.88, result, 0);
 
-		value = "bash-460";
+		value = "bash-460.88";
 		result = Double.parseDouble(value);
 		System.out.println(result);
 	}
@@ -55,7 +51,7 @@ public class StringToDoubleTest {
 		System.out.println(result);
 		assertEquals(460.88, result.doubleValue(), 0);
 
-		value = "bash-460";
+		value = "bash-460.88";
 		result = Double.valueOf(value);
 		System.out.println(result);
 	}

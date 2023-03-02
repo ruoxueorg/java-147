@@ -45,8 +45,19 @@ public class StringToLongWithExamplesTest {
 		assertEquals(-30, result);
 	}
 
+	@Test(expected = NumberFormatException.class)
+	public void constructorThrowException() {
+		String value = "168";
+		long result = new Long(value);
+		System.out.println(result);
+		assertEquals(168, result);
+
+		value = "springboot-168";
+		result = new Long(value);
+		System.out.println(result);
+	}
 	@Test
-	public void commons_lang3_NumberUtils() {
+	public void toLong_NumberUtils() {
 		String value = "168";
 		long result = NumberUtils.toLong(value);
 		System.out.println(result);
