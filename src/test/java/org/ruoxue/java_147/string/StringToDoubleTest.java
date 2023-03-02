@@ -55,5 +55,4 @@ public class StringToDoubleTest {
 		result = Double.valueOf(value);
 		System.out.println(result);
 	}
-
 }

@@ -37,7 +37,7 @@ public class StringToInputStreamWithExamplesTest {
 	}
 
 	@Test(expected = NullPointerException.class)
-	public void toInputStreamThrowException_IOUtils() {
+	public void toInputStream_IOUtils_ThrowException() {
 		String value = null;
 		InputStream is = null;
 		try {
@@ -80,8 +80,31 @@ public class StringToInputStreamWithExamplesTest {
 		}
 	}
 
+	@Test(expected = NullPointerException.class)
+	public void openStream_CharSource_ThrowException() {
+		String value = null;
+		InputStream is = null;
+		try {
+			is = CharSource.wrap(value).asByteSource(StandardCharsets.UTF_8).openStream();
+			System.out.println(is);
+
+			String result = CharStreams.toString(new InputStreamReader(is, StandardCharsets.UTF_8));
+			System.out.println(result);
+			assertEquals(value, result);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (IOException ex) {
+				}
+			}
+		}
+	}
+
 	@Test
-	public void openStream_CharSourceTryWithResources() {
+	public void openStream_CharSource_TryWithResources() {
 		String value = "java147,springboot168,junit151,bash460,it484";
 		try (InputStream is = CharSource.wrap(value).asByteSource(StandardCharsets.UTF_8).openStream()) {
 			System.out.println(is);

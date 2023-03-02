@@ -27,7 +27,7 @@ public class StringToLongWithExamplesTest {
 		System.out.println(result);
 		assertEquals(168, result);
 
-		value = "java-168";
+		value = "springboot-168";
 		result = Long.decode(value);
 		System.out.println(result);
 	}

@@ -95,7 +95,7 @@ public class StringToDoubleWithExamplesTest {
 		System.out.println(result);
 		assertEquals(50.88, result, 0);
 
-		value = "bash-460";
+		value = "bash-460.88";
 		result = NumberUtils.toDouble(value, 0);
 		System.out.println(result);
 		assertEquals(0, result, 0);
