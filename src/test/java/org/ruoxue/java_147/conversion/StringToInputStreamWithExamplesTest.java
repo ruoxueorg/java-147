@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.string;
+package org.ruoxue.java_147.conversion;
 
 import static org.junit.Assert.*;
 
