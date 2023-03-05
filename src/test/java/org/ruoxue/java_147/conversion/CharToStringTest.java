@@ -1,10 +1,10 @@
-package org.ruoxue.java_147.enumz;
+package org.ruoxue.java_147.conversion;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class EnumToStringTest {
+public class CharToStringTest {
 
 	@Test
 	public void test() {

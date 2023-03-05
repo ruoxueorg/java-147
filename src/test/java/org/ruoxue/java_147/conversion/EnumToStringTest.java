@@ -1,10 +1,10 @@
-package org.ruoxue.java_147.charz;
+package org.ruoxue.java_147.conversion;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class CharToStringTest {
+public class EnumToStringTest {
 
 	@Test
 	public void test() {
