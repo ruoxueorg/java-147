@@ -1,4 +1,4 @@
-# Java 147 Memory
+# Java 147 Memory Allocation
 
 ## Related Articles
 1. [Java Heap Space](https://www.ruoxue.org/java-147-java-outofmemoryerror-java-heap-space/)
