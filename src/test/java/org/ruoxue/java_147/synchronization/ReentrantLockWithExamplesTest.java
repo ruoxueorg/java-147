@@ -69,7 +69,6 @@ public class ReentrantLockWithExamplesTest {
 			lock.lock();
 			try {
 				System.out.println(String.format("T[%d] lock acquired", Thread.currentThread().getId()));
-				//TimeUnit.SECONDS.sleep(1);
 				count++;
 				System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 			} catch (Exception ex) {

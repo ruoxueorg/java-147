@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class SynchronizedKeywordTest {
 
-	protected static class SyncStaticWorker {
+	protected static class SyncStaticCounter {
 
 		private static int count;
 
@@ -27,11 +27,11 @@ public class SynchronizedKeywordTest {
 
 	@Test
 	public void syncStatic() {
-		int expected = 500;
-		int taskSize = 500;
-		ExecutorService executorService = Executors.newFixedThreadPool(taskSize);
+		int expected = 1000;
+		int taskSize = 1000;
+		ExecutorService executorService = Executors.newFixedThreadPool(3);
 		IntStream.range(0, taskSize).forEach(e -> {
-			executorService.submit(SyncStaticWorker::increment);
+			executorService.submit(SyncStaticCounter::increment);
 		});
 
 		executorService.shutdown();
@@ -42,16 +42,16 @@ public class SynchronizedKeywordTest {
 		} catch (InterruptedException e) {
 			executorService.shutdownNow();
 		}
-		int count = SyncStaticWorker.getCount();
+		int count = SyncStaticCounter.getCount();
 		System.out.println(count);
 		assertEquals(expected, count);
 	}
 
-	protected class ReentrantWorker {
+	protected class ReentrantCounter {
 
 		private int count;
 
-		public ReentrantWorker() {
+		public ReentrantCounter() {
 		}
 
 		public synchronized void increment() {
@@ -74,12 +74,12 @@ public class SynchronizedKeywordTest {
 
 	@Test
 	public void reentrant() {
-		int expected = 500;
-		int taskSize = 500;
-		ExecutorService executorService = Executors.newFixedThreadPool(taskSize);
-		ReentrantWorker worker = new ReentrantWorker();
+		int expected = 1000;
+		int taskSize = 1000;
+		ExecutorService executorService = Executors.newFixedThreadPool(3);
+		ReentrantCounter counter = new ReentrantCounter();
 		IntStream.range(0, taskSize).forEach(e -> {
-			executorService.submit(worker::increment);
+			executorService.submit(counter::increment);
 		});
 
 		executorService.shutdown();
@@ -90,7 +90,7 @@ public class SynchronizedKeywordTest {
 		} catch (InterruptedException e) {
 			executorService.shutdownNow();
 		}
-		int count = worker.getCount();
+		int count = counter.getCount();
 		System.out.println(count);
 		assertEquals(expected, count);
 	}
@@ -103,7 +103,7 @@ public class SynchronizedKeywordTest {
 			String id = "A";
 			synchronized (lock1) {
 				System.out
-						.println(String.format("T[%d] worker: %s lock1 acquired", Thread.currentThread().getId(), id));
+						.println(String.format("T[%d] counter: %s lock1 acquired", Thread.currentThread().getId(), id));
 				try {
 					Thread.sleep(3);
 				} catch (InterruptedException ex) {
@@ -111,7 +111,7 @@ public class SynchronizedKeywordTest {
 				}
 				synchronized (lock2) {
 					System.out.println(
-							String.format("T[%d] worker: %s lock2 acquired", Thread.currentThread().getId(), id));
+							String.format("T[%d] counter: %s lock2 acquired", Thread.currentThread().getId(), id));
 
 				}
 			}
@@ -121,7 +121,7 @@ public class SynchronizedKeywordTest {
 			String id = "B";
 			synchronized (lock2) {
 				System.out
-						.println(String.format("T[%d] worker: %s lock2 acquired", Thread.currentThread().getId(), id));
+						.println(String.format("T[%d] counter: %s lock2 acquired", Thread.currentThread().getId(), id));
 				try {
 					Thread.sleep(3);
 				} catch (InterruptedException ex) {
@@ -129,7 +129,58 @@ public class SynchronizedKeywordTest {
 				}
 				synchronized (lock1) {
 					System.out.println(
-							String.format("T[%d] worker: %s lock1 acquired", Thread.currentThread().getId(), id));
+							String.format("T[%d] counter: %s lock1 acquired", Thread.currentThread().getId(), id));
+
+				}
+			}
+		});
+
+		threadB.start();
+		threadA.start();
+
+		try {
+			threadA.join();
+			threadB.join();
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Test
+	public void deadlockSolution() {
+		Object lock1 = new Object();
+		Object lock2 = new Object();
+		Thread threadA = new Thread(() -> {
+			String id = "A";
+			synchronized (lock1) {
+				System.out
+						.println(String.format("T[%d] counter: %s lock1 acquired", Thread.currentThread().getId(), id));
+				try {
+					Thread.sleep(3);
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+				synchronized (lock2) {
+					System.out.println(
+							String.format("T[%d] counter: %s lock2 acquired", Thread.currentThread().getId(), id));
+
+				}
+			}
+		});
+
+		Thread threadB = new Thread(() -> {
+			String id = "B";
+			synchronized (lock1) {
+				System.out
+						.println(String.format("T[%d] counter: %s lock2 acquired", Thread.currentThread().getId(), id));
+				try {
+					Thread.sleep(3);
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+				synchronized (lock2) {
+					System.out.println(
+							String.format("T[%d] counter: %s lock1 acquired", Thread.currentThread().getId(), id));
 
 				}
 			}

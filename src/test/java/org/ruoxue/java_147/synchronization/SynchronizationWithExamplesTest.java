@@ -11,20 +11,15 @@ import org.junit.Test;
 
 public class SynchronizationWithExamplesTest {
 
-	protected class NoSyncWorker {
+	protected class NoSyncCounter {
 
 		private int count;
 
-		public NoSyncWorker() {
+		public NoSyncCounter() {
 		}
 
 		public void increment() {
-			try {
-				TimeUnit.SECONDS.sleep(1);
-				count = getCount() + 1;
-			} catch (InterruptedException ex) {
-				ex.printStackTrace();
-			}
+			count = getCount() + 1;
 			System.out.println(String.format("T[%d] count: %d", Thread.currentThread().getId(), count));
 		}
 
@@ -35,12 +30,12 @@ public class SynchronizationWithExamplesTest {
 
 	@Test
 	public void noSync() {
-		int expected = 500;
-		int taskSize = 500;
-		ExecutorService executorService = Executors.newFixedThreadPool(taskSize);
-		NoSyncWorker worker = new NoSyncWorker();
+		int expected = 1000;
+		int taskSize = 1000;
+		ExecutorService executorService = Executors.newFixedThreadPool(3);
+		NoSyncCounter counter = new NoSyncCounter();
 		IntStream.range(0, taskSize).forEach(e -> {
-			executorService.submit(worker::increment);
+			executorService.submit(counter::increment);
 		});
 
 		executorService.shutdown();
@@ -51,16 +46,16 @@ public class SynchronizationWithExamplesTest {
 		} catch (InterruptedException e) {
 			executorService.shutdownNow();
 		}
-		int count = worker.getCount();
+		int count = counter.getCount();
 		System.out.println(count);
 		assertEquals(expected, count);
 	}
 
-	protected class Worker {
+	protected class SyncMethodCounter {
 
 		private int count;
 
-		public Worker() {
+		public SyncMethodCounter() {
 		}
 
 		public synchronized void increment() {
@@ -74,13 +69,13 @@ public class SynchronizationWithExamplesTest {
 	}
 
 	@Test
-	public void sync() {
-		int expected = 500;
-		int taskSize = 500;
-		ExecutorService executorService = Executors.newFixedThreadPool(taskSize);
-		Worker worker = new Worker();
+	public void syncMethod() {
+		int expected = 1000;
+		int taskSize = 1000;
+		ExecutorService executorService = Executors.newFixedThreadPool(3);
+		SyncMethodCounter counter = new SyncMethodCounter();
 		IntStream.range(0, taskSize).forEach(e -> {
-			executorService.submit(worker::increment);
+			executorService.submit(counter::increment);
 		});
 
 		executorService.shutdown();
@@ -91,16 +86,16 @@ public class SynchronizationWithExamplesTest {
 		} catch (InterruptedException e) {
 			executorService.shutdownNow();
 		}
-		int count = worker.getCount();
+		int count = counter.getCount();
 		System.out.println(count);
 		assertEquals(expected, count);
 	}
 
-	protected class SyncBlockWorker {
+	protected class SyncBlockCounter {
 
 		private int count;
 
-		public SyncBlockWorker() {
+		public SyncBlockCounter() {
 		}
 
 		public void increment() {
@@ -117,12 +112,12 @@ public class SynchronizationWithExamplesTest {
 
 	@Test
 	public void syncBlock() {
-		int expected = 500;
-		int taskSize = 500;
-		ExecutorService executorService = Executors.newFixedThreadPool(taskSize);
-		Worker worker = new Worker();
+		int expected = 1000;
+		int taskSize = 1000;
+		ExecutorService executorService = Executors.newFixedThreadPool(3);
+		SyncBlockCounter counter = new SyncBlockCounter();
 		IntStream.range(0, taskSize).forEach(e -> {
-			executorService.submit(worker::increment);
+			executorService.submit(counter::increment);
 		});
 
 		executorService.shutdown();
@@ -133,7 +128,7 @@ public class SynchronizationWithExamplesTest {
 		} catch (InterruptedException e) {
 			executorService.shutdownNow();
 		}
-		int count = worker.getCount();
+		int count = counter.getCount();
 		System.out.println(count);
 		assertEquals(expected, count);
 	}
