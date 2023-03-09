@@ -2,7 +2,7 @@ package org.ruoxue.java_147.set;
 
 import static org.junit.Assert.*;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Spliterator;
@@ -13,7 +13,7 @@ public class LinkedHashSetWithExamplesTest {
 
 	@Test
 	public void forEach() {
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new LinkedHashSet<String>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -22,7 +22,7 @@ public class LinkedHashSetWithExamplesTest {
 
 	@Test
 	public void forEachRemaining() {
-		Set<String> set = new HashSet<>();
+		Set<String> set = new LinkedHashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -43,7 +43,7 @@ public class LinkedHashSetWithExamplesTest {
 
 	@Test
 	public void iterator() {
-		Set<String> set = new HashSet<>();
+		Set<String> set = new LinkedHashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -55,7 +55,7 @@ public class LinkedHashSetWithExamplesTest {
 
 	@Test
 	public void spliterator() {
-		Set<String> set = new HashSet<>();
+		Set<String> set = new LinkedHashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -72,7 +72,7 @@ public class LinkedHashSetWithExamplesTest {
 
 	@Test
 	public void trySplit() {
-		Set<String> set = new HashSet<>();
+		Set<String> set = new LinkedHashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -89,7 +89,7 @@ public class LinkedHashSetWithExamplesTest {
 	@Test
 	public void toArray() {
 		int expectedSize = 3;
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new LinkedHashSet<String>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -105,7 +105,7 @@ public class LinkedHashSetWithExamplesTest {
 	@Test
 	public void toArrayByStream() {
 		int expectedSize = 3;
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new LinkedHashSet<String>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");

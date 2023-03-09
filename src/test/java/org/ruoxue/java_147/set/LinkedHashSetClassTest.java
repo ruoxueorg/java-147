@@ -2,7 +2,7 @@ package org.ruoxue.java_147.set;
 
 import static org.junit.Assert.*;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,7 +12,7 @@ public class LinkedHashSetClassTest {
 
 	@Test
 	public void contains() {
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new LinkedHashSet<String>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -28,12 +28,12 @@ public class LinkedHashSetClassTest {
 
 	@Test
 	public void containsAll() {
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new LinkedHashSet<String>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
 
-		Set<String> set2 = new HashSet<String>();
+		Set<String> set2 = new LinkedHashSet<String>();
 		set2.add("Longan");
 		set2.add("Tomato");
 
@@ -49,7 +49,7 @@ public class LinkedHashSetClassTest {
 	@Test
 	public void stream() {
 		int expectedSize = 1;
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new LinkedHashSet<String>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -60,7 +60,7 @@ public class LinkedHashSetClassTest {
 
 	@Test
 	public void parallelStream() {
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new LinkedHashSet<String>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -72,12 +72,12 @@ public class LinkedHashSetClassTest {
 	@Test
 	public void retainAll() {
 		int expectedSize = 1;
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new LinkedHashSet<String>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
 
-		Set<String> set2 = new HashSet<String>();
+		Set<String> set2 = new LinkedHashSet<String>();
 		set2.add("Longan");
 		set2.add("Lemon");
 		set2.add("Mango");
