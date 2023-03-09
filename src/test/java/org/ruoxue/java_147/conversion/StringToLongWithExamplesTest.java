@@ -58,7 +58,7 @@ public class StringToLongWithExamplesTest {
 	}
 
 	@Test
-	public void toLong_NumberUtils() {
+	public void NumberUtils_toLong() {
 		String value = "168";
 		long result = NumberUtils.toLong(value);
 		System.out.println(result);

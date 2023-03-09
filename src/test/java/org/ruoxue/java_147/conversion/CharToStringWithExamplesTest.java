@@ -51,7 +51,7 @@ public class CharToStringWithExamplesTest {
 	}
 
 	@Test
-	public void toString_CharUtils() {
+	public void CharUtils_toString() {
 		char value = 'g';
 		String result = CharUtils.toString(value);
 		System.out.println(result);

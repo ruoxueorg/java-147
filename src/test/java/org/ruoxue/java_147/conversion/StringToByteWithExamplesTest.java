@@ -58,7 +58,7 @@ public class StringToByteWithExamplesTest {
 	}
 
 	@Test
-	public void toByte_NumberUtils() {
+	public void NumberUtils_toByte() {
 		String value = "102";
 		byte result = NumberUtils.toByte(value);
 		System.out.println(result);

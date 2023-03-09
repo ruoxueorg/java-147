@@ -94,14 +94,14 @@ public class ArraysWithExamplesTest {
 	}
 
 	@Test
-	public void streamInt() {
+	public void streamIntArray() {
 		int[] array = new int[] { 1, 2, 3 };
 		IntStream stream = Arrays.stream(array);
 		stream.map(e -> e * 10).forEach(e -> System.out.println(e));
 		System.out.println("----------");
 
-		Stream<int[]> stream2 = Stream.of(array);
-		stream2.flatMapToInt(e -> Arrays.stream(e)).map(e -> e * 10).forEach(e -> System.out.println(e));
+		Stream<int[]> streamIntArray = Stream.of(array);
+		streamIntArray.flatMapToInt(e -> Arrays.stream(e)).map(e -> e * 10).forEach(e -> System.out.println(e));
 	}
 
 	@Test

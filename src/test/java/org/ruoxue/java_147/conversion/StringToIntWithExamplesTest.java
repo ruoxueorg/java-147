@@ -58,7 +58,7 @@ public class StringToIntWithExamplesTest {
 	}
 
 	@Test
-	public void toInt_NumberUtils() {
+	public void NumberUtils_toInt() {
 		String value = "147";
 		int result = NumberUtils.toInt(value);
 		System.out.println(result);

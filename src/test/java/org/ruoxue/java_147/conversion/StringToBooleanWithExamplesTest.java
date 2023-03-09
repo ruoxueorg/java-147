@@ -32,7 +32,7 @@ public class StringToBooleanWithExamplesTest {
 
 
 	@Test
-	public void toBoolean_BooleanUtils() {
+	public void BooleanUtils_toBoolean() {
 		String value = "true";
 		boolean result = BooleanUtils.toBoolean(value);
 		System.out.println(result);

@@ -79,7 +79,7 @@ public class StringToDoubleWithExamplesTest {
 	}
 
 	@Test
-	public void toDouble_NumberUtils() {
+	public void NumberUtils_toDouble() {
 		String value = "460.88";
 		double result = NumberUtils.toDouble(value);
 		System.out.println(result);

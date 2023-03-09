@@ -81,7 +81,7 @@ public class StringToFloatWithExamplesTest {
 	}
 
 	@Test
-	public void toFloat_NumberUtils() {
+	public void NumberUtils_toFloat() {
 		String value = "151.88";
 		float result = NumberUtils.toFloat(value);
 		System.out.println(result);

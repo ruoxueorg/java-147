@@ -16,7 +16,7 @@ import com.google.common.io.CharStreams;
 public class StringToInputStreamWithExamplesTest {
 
 	@Test
-	public void toInputStream_IOUtils() {
+	public void IOUtils_toInputStream() {
 		String value = "java147,springboot168,junit151,bash460,it484";
 		InputStream is = null;
 		try {
@@ -37,7 +37,7 @@ public class StringToInputStreamWithExamplesTest {
 	}
 
 	@Test(expected = NullPointerException.class)
-	public void toInputStream_IOUtils_ThrowException() {
+	public void IOUtils_toInputStream_ThrowException() {
 		String value = null;
 		InputStream is = null;
 		try {
@@ -58,7 +58,7 @@ public class StringToInputStreamWithExamplesTest {
 	}
 
 	@Test
-	public void openStream_CharSource() {
+	public void CharSource_openStream() {
 		String value = "java147,springboot168,junit151,bash460,it484";
 		InputStream is = null;
 		try {
@@ -81,7 +81,7 @@ public class StringToInputStreamWithExamplesTest {
 	}
 
 	@Test(expected = NullPointerException.class)
-	public void openStream_CharSource_ThrowException() {
+	public void CharSource_openStream_ThrowException() {
 		String value = null;
 		InputStream is = null;
 		try {
@@ -104,7 +104,7 @@ public class StringToInputStreamWithExamplesTest {
 	}
 
 	@Test
-	public void openStream_CharSource_TryWithResources() {
+	public void CharSource_openStream_TryWithResources() {
 		String value = "java147,springboot168,junit151,bash460,it484";
 		try (InputStream is = CharSource.wrap(value).asByteSource(StandardCharsets.UTF_8).openStream()) {
 			System.out.println(is);

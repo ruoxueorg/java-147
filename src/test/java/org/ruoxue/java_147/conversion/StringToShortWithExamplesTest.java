@@ -58,7 +58,7 @@ public class StringToShortWithExamplesTest {
 	}
 
 	@Test
-	public void toShort_NumberUtils() {
+	public void NumberUtils_toShort() {
 		String value = "155";
 		short result = NumberUtils.toShort(value);
 		System.out.println(result);
