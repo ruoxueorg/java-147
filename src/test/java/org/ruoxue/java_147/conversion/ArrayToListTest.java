@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
-
 public class ArrayToListTest {
 
 	@Test
@@ -35,6 +33,14 @@ public class ArrayToListTest {
 		}
 		System.out.println(intList);
 		assertEquals(expectedSize, intList.size());
+
+		Integer[] integerArray = { 147, 168, 151, 460, 484 };
+		List<Integer> integerList = new ArrayList<>();
+		for (int e : integerArray) {
+			integerList.add(e);
+		}
+		System.out.println(intList);
+		assertEquals(expectedSize, intList.size());
 	}
 
 	@Test
@@ -45,10 +51,16 @@ public class ArrayToListTest {
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 
-		Integer[] intArray = { 147, 168, 151, 460, 484 };
-		List<Integer> intList = Arrays.asList(intArray);
+		int[] intArray = { 147, 168, 151, 460, 484 };
+		Integer[] boxedArray = IntStream.of(intArray).boxed().toArray(Integer[]::new);
+		List<Integer> intList = Arrays.asList(boxedArray);
 		System.out.println(intList);
 		assertEquals(expectedSize, intList.size());
+
+		Integer[] integerArray = { 147, 168, 151, 460, 484 };
+		List<Integer> integerList = Arrays.asList(integerArray);
+		System.out.println(integerList);
+		assertEquals(expectedSize, integerList.size());
 	}
 
 	@Test
@@ -60,11 +72,18 @@ public class ArrayToListTest {
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 
-		Integer[] intArray = { 147, 168, 151, 460, 484 };
+		int[] intArray = { 147, 168, 151, 460, 484 };
 		List<Integer> intList = new ArrayList<>();
-		Collections.addAll(intList, intArray);
+		Integer[] boxedArray = Arrays.stream(intArray).boxed().toArray(Integer[]::new);
+		Collections.addAll(intList, boxedArray);
 		System.out.println(intList);
 		assertEquals(expectedSize, intList.size());
+
+		Integer[] integerArray = { 147, 168, 151, 460, 484 };
+		List<Integer> integerList = new ArrayList<>();
+		Collections.addAll(integerList, integerArray);
+		System.out.println(integerList);
+		assertEquals(expectedSize, integerList.size());
 	}
 
 	@Test
@@ -91,49 +110,5 @@ public class ArrayToListTest {
 		list = Stream.of(array).collect(Collectors.toCollection(LinkedList::new));
 		System.out.println(list);
 		assertEquals(LinkedList.class, list.getClass());
-	}
-
-	@Test
-	public void Arrays_stream_intArray() {
-		int expectedSize = 5;
-		int[] array = { 147, 168, 151, 460, 484 };
-		IntStream stream = Arrays.stream(array);
-		List<Integer> list = stream.boxed().collect(Collectors.toList());
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
-
-		stream = Arrays.stream(array);
-		list = stream.boxed().collect(Collectors.toCollection(LinkedList::new));
-		System.out.println(list);
-		assertEquals(LinkedList.class, list.getClass());
-	}
-
-	@Test
-	public void Stream_of_intArray() {
-		int expectedSize = 5;
-		int[] array = { 147, 168, 151, 460, 484 };
-		Stream<int[]> stream = Stream.of(array);
-		List<Integer> list = stream.flatMapToInt(e -> Arrays.stream(e)).boxed().collect(Collectors.toList());
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
-
-		stream = Stream.of(array);
-		list = stream.flatMapToInt(e -> Arrays.stream(e)).boxed().collect(Collectors.toCollection(LinkedList::new));
-		System.out.println(list);
-		Collectors.toCollection(LinkedList::new);
-	}
-
-	@Test
-	public void Lists_newArrayList() {
-		int expectedSize = 5;
-		String[] array = { "Java 147", "Spring boot 168", "Junit 151", "Bash 460", "IT 484" };
-		List<String> list = Lists.newArrayList(array);
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
-
-		Integer[] intArray = { 147, 168, 151, 460, 484 };
-		List<Integer> intList = Lists.newArrayList(intArray);
-		System.out.println(intList);
-		assertEquals(expectedSize, intList.size());
 	}
 }
