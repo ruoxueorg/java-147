@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
@@ -42,6 +43,17 @@ public class IntArrayToItegerArrayTest {
 		assertEquals(expectedSize, integerArray.length);
 	}
 
+	@Test
+	public void Stream_of() {
+		int expectedSize = 5;
+		int[] array = { 147, 168, 151, 460, 484 };
+		Stream<int[]> stream = Stream.of(array);
+		Integer[] integerArray =stream.flatMapToInt(e -> Arrays.stream(e)).boxed().toArray(Integer[]::new);
+		System.out.println(Arrays.toString(integerArray));
+		assertEquals(expectedSize, integerArray.length);
+	}
+
+	
 	@Test
 	public void ArrayUtils_toObject() {
 		int expectedSize = 5;

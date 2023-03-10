@@ -54,7 +54,7 @@ public class ListToArrayTest {
 	}
 
 	@Test
-	public void toArrayByStream() {
+	public void streamToArray() {
 		int expectedSize = 5;
 		List<String> list = Arrays.asList("Java 147", "Spring boot 168", "Junit 151", "Bash 460", "IT 484");
 		String[] array = list.stream().toArray(String[]::new);

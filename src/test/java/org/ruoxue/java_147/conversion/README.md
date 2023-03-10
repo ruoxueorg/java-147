@@ -17,3 +17,5 @@
 14. [Convert String to Float in Java with Examples](https://www.ruoxue.org/java-147-convert-string-to-float-in-java-with-examples/)
 15. [Java Convert String to Double](https://www.ruoxue.org/java-147-java-convert-string-to-double/)
 16. [Convert String to Double in Java with Examples](https://www.ruoxue.org/java-147-convert-string-to-double-in-java-with-examples/)
+17. [Java Convert String to Boolean](https://www.ruoxue.org/java-147-java-convert-string-to-boolean/)
+18. [Convert String to Boolean in Java with Examples](https://www.ruoxue.org/java-147-convert-string-to-boolean-in-java-with-examples/)
