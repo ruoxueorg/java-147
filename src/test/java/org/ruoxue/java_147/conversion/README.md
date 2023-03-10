@@ -19,3 +19,12 @@
 16. [Convert String to Double in Java with Examples](https://www.ruoxue.org/java-147-convert-string-to-double-in-java-with-examples/)
 17. [Java Convert String to Boolean](https://www.ruoxue.org/java-147-java-convert-string-to-boolean/)
 18. [Convert String to Boolean in Java with Examples](https://www.ruoxue.org/java-147-convert-string-to-boolean-in-java-with-examples/)
+19. [Java Convert String to Char](https://www.ruoxue.org/java-147-convert-string-to-char/)
+20. [Java Convert Char to String](https://www.ruoxue.org/java-147-java-convert-char-to-string/)
+21. [Convert Char to String in Java with Examples](https://www.ruoxue.org/java-147-convert-char-to-string-in-java-with-examples/)
+22. [Java Convert Enum to String](https://www.ruoxue.org/java-147-java-convert-enum-to-string/)
+23. [Java Convert Array to List](https://www.ruoxue.org/java-147-java-convert-array-to-list/)
+24. [Convert Array to List in Java with Examples](https://www.ruoxue.org/java-147-convert-array-to-list-in-java-with-examples/)
+25. [Java Convert List to Array](https://www.ruoxue.org/java-147-java-convert-list-to-array/)
+26. [Java Convert int Array to Iteger Array](https://www.ruoxue.org/java-convert-int-array-to-iteger-array/)
+

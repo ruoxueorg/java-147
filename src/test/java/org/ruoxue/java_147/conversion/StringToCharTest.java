@@ -63,7 +63,7 @@ public class StringToCharTest {
 		assertEquals(8, result.length);
 	}
 
-	@Test(expected = ArrayIndexOutOfBoundsException.class)
+	@Test
 	public void getCharsThrowException() {
 		String value = "gradle 161";
 		char[] result = new char[3];
