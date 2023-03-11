@@ -88,5 +88,4 @@ public class EnumToStringTest {
 		System.out.println(result);
 		assertEquals("Junit 151", result);
 	}
-
 }

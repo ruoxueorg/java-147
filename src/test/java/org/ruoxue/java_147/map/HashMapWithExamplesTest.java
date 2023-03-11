@@ -97,7 +97,7 @@ public class HashMapWithExamplesTest {
 	}
 
 	@Test
-	public void keyToArrayByStream() {
+	public void keyStreamToArray() {
 		int expectedSize = 3;
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Grape", 1);
