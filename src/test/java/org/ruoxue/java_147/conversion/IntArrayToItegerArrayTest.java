@@ -29,7 +29,8 @@ public class IntArrayToItegerArrayTest {
 	public void IntStream_of() {
 		int expectedSize = 5;
 		int[] array = { 147, 168, 151, 460, 484 };
-		Integer[] integerArray = IntStream.of(array).boxed().toArray(Integer[]::new);
+		IntStream intStream = IntStream.of(array);
+		Integer[] integerArray = intStream.boxed().toArray(Integer[]::new);
 		System.out.println(Arrays.toString(integerArray));
 		assertEquals(expectedSize, integerArray.length);
 	}
@@ -38,7 +39,8 @@ public class IntArrayToItegerArrayTest {
 	public void Arrays_stream() {
 		int expectedSize = 5;
 		int[] array = { 147, 168, 151, 460, 484 };
-		Integer[] integerArray = Arrays.stream(array).boxed().toArray(Integer[]::new);
+		IntStream intStream = Arrays.stream(array);
+		Integer[] integerArray = intStream.boxed().toArray(Integer[]::new);
 		System.out.println(Arrays.toString(integerArray));
 		assertEquals(expectedSize, integerArray.length);
 	}
@@ -48,12 +50,11 @@ public class IntArrayToItegerArrayTest {
 		int expectedSize = 5;
 		int[] array = { 147, 168, 151, 460, 484 };
 		Stream<int[]> stream = Stream.of(array);
-		Integer[] integerArray =stream.flatMapToInt(e -> Arrays.stream(e)).boxed().toArray(Integer[]::new);
+		Integer[] integerArray = stream.flatMapToInt(e -> Arrays.stream(e)).boxed().toArray(Integer[]::new);
 		System.out.println(Arrays.toString(integerArray));
 		assertEquals(expectedSize, integerArray.length);
 	}
 
-	
 	@Test
 	public void ArrayUtils_toObject() {
 		int expectedSize = 5;
@@ -64,7 +65,7 @@ public class IntArrayToItegerArrayTest {
 	}
 
 	@Test
-	public void Ints_asList() {
+	public void Ints_asList_toArray() {
 		int expectedSize = 5;
 		int[] array = { 147, 168, 151, 460, 484 };
 		Integer[] integerArray = Ints.asList(array).toArray(new Integer[array.length]);
