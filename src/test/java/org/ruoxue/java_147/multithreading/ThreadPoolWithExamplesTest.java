@@ -103,7 +103,7 @@ public class ThreadPoolWithExamplesTest {
 		int poolSize = 2;
 		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
 		int taskSize = 3;
-		CountDownLatch latch = new CountDownLatch(5);
+		CountDownLatch latch = new CountDownLatch(taskSize);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		System.out.println(df.format(new Date()) + " T[" + Thread.currentThread().getId() + "] init");
 		try {
@@ -113,7 +113,7 @@ public class ThreadPoolWithExamplesTest {
 					try {
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " ready");
-						TimeUnit.SECONDS.sleep(3);
+						TimeUnit.SECONDS.sleep(5);
 						System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: "
 								+ e + " finished");
 					} catch (InterruptedException ex) {
