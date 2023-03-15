@@ -19,8 +19,8 @@ public class ScheduledExecutorServiceInterfaceTest {
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
 		ScheduledFuture<?> future = executorService.scheduleAtFixedRate(() -> {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				System.out.println(String.format("%s T[%d] %d task ready", sdf.format(new Date()),
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
 				for (int i = 0; i < 100000; i++) {
@@ -60,8 +60,8 @@ public class ScheduledExecutorServiceInterfaceTest {
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
 		ScheduledFuture<?> future = executorService.scheduleAtFixedRate(() -> {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				System.out.println(String.format("%s T[%d] %d task ready", sdf.format(new Date()),
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
 				for (int i = 0; i < 100000; i++) {
@@ -105,11 +105,11 @@ public class ScheduledExecutorServiceInterfaceTest {
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
 		ScheduledFuture<?> futureA = executorService.scheduleWithFixedDelay(() -> {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				System.out.println(String.format("%s T[%d] %d task: A ready", sdf.format(new Date()),
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
-				TimeUnit.SECONDS.sleep(7);
+				TimeUnit.SECONDS.sleep(3);
 				System.out.println(String.format("%s T[%d] %d task: A finished", sdf.format(new Date()),
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
 			} catch (InterruptedException ex) {
@@ -155,11 +155,11 @@ public class ScheduledExecutorServiceInterfaceTest {
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
 		ScheduledFuture<?> futureA = executorService.scheduleAtFixedRate(() -> {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				System.out.println(String.format("%s T[%d] %d task: A ready", sdf.format(new Date()),
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
-				TimeUnit.SECONDS.sleep(7);
+				TimeUnit.SECONDS.sleep(3);
 				System.out.println(String.format("%s T[%d] %d task: A finished", sdf.format(new Date()),
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
 			} catch (InterruptedException ex) {

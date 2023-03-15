@@ -12,12 +12,12 @@ import org.junit.Test;
 
 public class ScheduledThreadPoolExecutorClassTest {
 
-	protected class FalseWorker implements Runnable {
+	protected class CancelFalseWorker implements Runnable {
 
 		private AtomicInteger counter;
 		private long start;
 
-		public FalseWorker(AtomicInteger counter, long start) {
+		public CancelFalseWorker(AtomicInteger counter, long start) {
 			this.counter = counter;
 			this.start = start;
 		}
@@ -38,15 +38,15 @@ public class ScheduledThreadPoolExecutorClassTest {
 	}
 
 	@Test
-	public void cancelFalse() {
+	public void cancelFalseWorker() {
 		int poolSize = 1;
 		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
 		AtomicInteger counter = new AtomicInteger();
-		ScheduledFuture<?> future = executorService.scheduleAtFixedRate(new FalseWorker(counter, start), 1_000, 1_000,
-				TimeUnit.MILLISECONDS);
+		ScheduledFuture<?> future = executorService.scheduleAtFixedRate(new CancelFalseWorker(counter, start), 1, 1,
+				TimeUnit.SECONDS);
 
 		while (true) {
 			try {
@@ -72,12 +72,12 @@ public class ScheduledThreadPoolExecutorClassTest {
 		}
 	}
 
-	protected class TrueWorker implements Runnable {
+	protected class CancelTrueWorker implements Runnable {
 
 		private AtomicInteger counter;
 		private long start;
 
-		public TrueWorker(AtomicInteger counter, long start) {
+		public CancelTrueWorker(AtomicInteger counter, long start) {
 			this.counter = counter;
 			this.start = start;
 		}
@@ -100,15 +100,15 @@ public class ScheduledThreadPoolExecutorClassTest {
 	}
 
 	@Test
-	public void cancelTrue() {
+	public void cancelTrueWorker() {
 		int poolSize = 1;
 		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
 		AtomicInteger counter = new AtomicInteger();
-		ScheduledFuture<?> future = executorService.scheduleAtFixedRate(new TrueWorker(counter, start), 1_000, 1_000,
-				TimeUnit.MILLISECONDS);
+		ScheduledFuture<?> future = executorService.scheduleAtFixedRate(new CancelTrueWorker(counter, start), 1, 1,
+				TimeUnit.SECONDS);
 
 		try {
 			TimeUnit.SECONDS.sleep(4);
@@ -129,30 +129,45 @@ public class ScheduledThreadPoolExecutorClassTest {
 		}
 	}
 
+	protected class NoCatchUpWorker implements Runnable {
+
+		private AtomicInteger counter;
+		private long start;
+
+		public NoCatchUpWorker(AtomicInteger counter, long start) {
+			this.counter = counter;
+			this.start = start;
+		}
+
+		@Override
+		public void run() {
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				System.out.println(String.format("%s T[%d] %d worker ready", sdf.format(new Date()),
+						Thread.currentThread().getId(), System.currentTimeMillis() - start));
+				if (counter.get() == 0) {
+					TimeUnit.SECONDS.sleep(3);
+				}
+				counter.getAndIncrement();
+				System.out.println(String.format("%s T[%d] %d worker finished", sdf.format(new Date()),
+						Thread.currentThread().getId(), System.currentTimeMillis() - start));
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+				Thread.currentThread().interrupt();
+			}
+		}
+	}
+
 	@Test
-	public void noCatchUp() {
+	public void noCatchUpWorker() {
 		int poolSize = 1;
 		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
 		AtomicInteger counter = new AtomicInteger();
-		ScheduledFuture<?> future = executorService.scheduleWithFixedDelay(() -> {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			try {
-				System.out.println(String.format("%s T[%d] %d task: A ready", sdf.format(new Date()),
-						Thread.currentThread().getId(), System.currentTimeMillis() - start));
-				if (counter.get() == 0) {
-					TimeUnit.SECONDS.sleep(3);
-				}
-				counter.getAndIncrement();
-				System.out.println(String.format("%s T[%d] %d task: A finished", sdf.format(new Date()),
-						Thread.currentThread().getId(), System.currentTimeMillis() - start));
-			} catch (InterruptedException ex) {
-				ex.printStackTrace();
-				Thread.currentThread().interrupt();
-			}
-		}, 1_000, 1_000, TimeUnit.MILLISECONDS);
+		ScheduledFuture<?> future = executorService.scheduleWithFixedDelay(new NoCatchUpWorker(counter, start), 1, 1,
+				TimeUnit.SECONDS);
 
 		try {
 			executorService.awaitTermination(10, TimeUnit.SECONDS);
@@ -161,30 +176,45 @@ public class ScheduledThreadPoolExecutorClassTest {
 		}
 	}
 
+	protected class CatchUpWorker implements Runnable {
+
+		private AtomicInteger counter;
+		private long start;
+
+		public CatchUpWorker(AtomicInteger counter, long start) {
+			this.counter = counter;
+			this.start = start;
+		}
+
+		@Override
+		public void run() {
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				System.out.println(String.format("%s T[%d] %d worker ready", sdf.format(new Date()),
+						Thread.currentThread().getId(), System.currentTimeMillis() - start));
+				if (counter.get() == 0) {
+					TimeUnit.SECONDS.sleep(3);
+				}
+				counter.getAndIncrement();
+				System.out.println(String.format("%s T[%d] %d worker finished", sdf.format(new Date()),
+						Thread.currentThread().getId(), System.currentTimeMillis() - start));
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+				Thread.currentThread().interrupt();
+			}
+		}
+	}
+
 	@Test
-	public void catchUp() {
+	public void catchUpWorker() {
 		int poolSize = 1;
 		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
 		AtomicInteger counter = new AtomicInteger();
-		ScheduledFuture<?> future = executorService.scheduleAtFixedRate(() -> {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			try {
-				System.out.println(String.format("%s T[%d] %d task: A ready", sdf.format(new Date()),
-						Thread.currentThread().getId(), System.currentTimeMillis() - start));
-				if (counter.get() == 0) {
-					TimeUnit.SECONDS.sleep(3);
-				}
-				counter.getAndIncrement();
-				System.out.println(String.format("%s T[%d] %d task: A finished", sdf.format(new Date()),
-						Thread.currentThread().getId(), System.currentTimeMillis() - start));
-			} catch (InterruptedException ex) {
-				ex.printStackTrace();
-				Thread.currentThread().interrupt();
-			}
-		}, 1_000, 1_000, TimeUnit.MILLISECONDS);
+		ScheduledFuture<?> future = executorService.scheduleAtFixedRate(new CatchUpWorker(counter, start), 1, 1,
+				TimeUnit.SECONDS);
 
 		try {
 			executorService.awaitTermination(10, TimeUnit.SECONDS);
