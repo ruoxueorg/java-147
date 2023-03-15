@@ -20,17 +20,18 @@ public class ScheduledExecutorServiceWithExamplesTest {
 		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
 		int taskSize = 3;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		System.out.println(df.format(new Date()) + " T[" + Thread.currentThread().getId() + "] init");
+		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
+		long start = System.currentTimeMillis();
 		List<ScheduledFuture<?>> futures = new ArrayList<>();
 		IntStream.range(0, taskSize).forEach(e -> {
 			ScheduledFuture<?> scheduledFuture = executorService.schedule(() -> {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				try {
-					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: " + e
-							+ " ready");
+					System.out.println(String.format("%s T[%d] %d task: %d ready", sdf.format(new Date()),
+							Thread.currentThread().getId(), System.currentTimeMillis() - start, e));
 					TimeUnit.SECONDS.sleep(1);
-					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: " + e
-							+ " finished");
+					System.out.println(String.format("%s T[%d] %d task: %d finished", sdf.format(new Date()),
+							Thread.currentThread().getId(), System.currentTimeMillis() - start, e));
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				}
@@ -38,14 +39,11 @@ public class ScheduledExecutorServiceWithExamplesTest {
 			futures.add(scheduledFuture);
 		});
 
-		futures.forEach(e -> {
-			try {
-				Object result = e.get();
-				System.out.println("T[" + Thread.currentThread().getId() + "] task: " + result);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		});
+		try {
+			executorService.awaitTermination(10, TimeUnit.SECONDS);
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	@Test
@@ -54,17 +52,18 @@ public class ScheduledExecutorServiceWithExamplesTest {
 		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
 		int taskSize = 3;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		System.out.println(df.format(new Date()) + " T[" + Thread.currentThread().getId() + "] init");
+		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
+		long start = System.currentTimeMillis();
 		List<ScheduledFuture<String>> futures = new ArrayList<>();
 		IntStream.range(0, taskSize).forEach(e -> {
 			ScheduledFuture<String> scheduledFuture = executorService.schedule(() -> {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				try {
-					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: " + e
-							+ " ready");
+					System.out.println(String.format("%s T[%d] %d task: %d ready", sdf.format(new Date()),
+							Thread.currentThread().getId(), System.currentTimeMillis() - start, e));
 					TimeUnit.SECONDS.sleep(1);
-					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: " + e
-							+ " finished");
+					System.out.println(String.format("%s T[%d] %d task: %d finished", sdf.format(new Date()),
+							Thread.currentThread().getId(), System.currentTimeMillis() - start, e));
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				}
@@ -73,14 +72,11 @@ public class ScheduledExecutorServiceWithExamplesTest {
 			futures.add(scheduledFuture);
 		});
 
-		futures.forEach(e -> {
-			try {
-				String result = e.get();
-				System.out.println("T[" + Thread.currentThread().getId() + "] task: " + result);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		});
+		try {
+			executorService.awaitTermination(10, TimeUnit.SECONDS);
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	@Test
@@ -89,17 +85,18 @@ public class ScheduledExecutorServiceWithExamplesTest {
 		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
 		int taskSize = 3;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		System.out.println(df.format(new Date()) + " T[" + Thread.currentThread().getId() + "] init");
+		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
+		long start = System.currentTimeMillis();
 		List<ScheduledFuture<?>> futures = new ArrayList<>();
 		IntStream.range(0, taskSize).forEach(e -> {
 			ScheduledFuture<?> scheduledFuture = executorService.scheduleAtFixedRate(() -> {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				try {
-					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: " + e
-							+ " ready");
+					System.out.println(String.format("%s T[%d] %d task: %d ready", sdf.format(new Date()),
+							Thread.currentThread().getId(), System.currentTimeMillis() - start, e));
 					TimeUnit.SECONDS.sleep(1);
-					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: " + e
-							+ " finished");
+					System.out.println(String.format("%s T[%d] %d task: %d finished", sdf.format(new Date()),
+							Thread.currentThread().getId(), System.currentTimeMillis() - start, e));
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				}
@@ -120,17 +117,18 @@ public class ScheduledExecutorServiceWithExamplesTest {
 		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
 		int taskSize = 3;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		System.out.println(df.format(new Date()) + " T[" + Thread.currentThread().getId() + "] init");
+		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
+		long start = System.currentTimeMillis();
 		List<ScheduledFuture<?>> futures = new ArrayList<>();
 		IntStream.range(0, taskSize).forEach(e -> {
 			ScheduledFuture<?> scheduledFuture = executorService.scheduleWithFixedDelay(() -> {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				try {
-					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: " + e
-							+ " ready");
+					System.out.println(String.format("%s T[%d] %d task: %d ready", sdf.format(new Date()),
+							Thread.currentThread().getId(), System.currentTimeMillis() - start, e));
 					TimeUnit.SECONDS.sleep(1);
-					System.out.println(sdf.format(new Date()) + " T[" + Thread.currentThread().getId() + "] task: " + e
-							+ " finished");
+					System.out.println(String.format("%s T[%d] %d task: %d finished", sdf.format(new Date()),
+							Thread.currentThread().getId(), System.currentTimeMillis() - start, e));
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				}
