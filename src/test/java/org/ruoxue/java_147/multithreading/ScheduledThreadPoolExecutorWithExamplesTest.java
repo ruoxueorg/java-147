@@ -49,8 +49,8 @@ public class ScheduledThreadPoolExecutorWithExamplesTest {
 		long start = System.currentTimeMillis();
 		List<ScheduledFuture<?>> futures = new ArrayList<>();
 		IntStream.range(0, taskSize).forEach(e -> {
-			ScheduledFuture<?> scheduledFuture = executorService.schedule(new RunWorker(start, e), 1, TimeUnit.SECONDS);
-			futures.add(scheduledFuture);
+			ScheduledFuture<?> future = executorService.schedule(new RunWorker(start, e), 1, TimeUnit.SECONDS);
+			futures.add(future);
 		});
 
 		try {
@@ -99,9 +99,8 @@ public class ScheduledThreadPoolExecutorWithExamplesTest {
 		long start = System.currentTimeMillis();
 		List<ScheduledFuture<String>> futures = new ArrayList<>();
 		IntStream.range(0, taskSize).forEach(e -> {
-			ScheduledFuture<String> scheduledFuture = executorService.schedule(new CallWorker(start, e), 1,
-					TimeUnit.SECONDS);
-			futures.add(scheduledFuture);
+			ScheduledFuture<String> future = executorService.schedule(new CallWorker(start, e), 1, TimeUnit.SECONDS);
+			futures.add(future);
 		});
 
 		try {
@@ -121,9 +120,9 @@ public class ScheduledThreadPoolExecutorWithExamplesTest {
 		long start = System.currentTimeMillis();
 		List<ScheduledFuture<?>> futures = new ArrayList<>();
 		IntStream.range(0, taskSize).forEach(e -> {
-			ScheduledFuture<?> scheduledFuture = executorService.scheduleAtFixedRate(new RunWorker(start, e), 1, 1,
+			ScheduledFuture<?> future = executorService.scheduleAtFixedRate(new RunWorker(start, e), 1, 1,
 					TimeUnit.SECONDS);
-			futures.add(scheduledFuture);
+			futures.add(future);
 		});
 
 		try {
@@ -143,9 +142,9 @@ public class ScheduledThreadPoolExecutorWithExamplesTest {
 		long start = System.currentTimeMillis();
 		List<ScheduledFuture<?>> futures = new ArrayList<>();
 		IntStream.range(0, taskSize).forEach(e -> {
-			ScheduledFuture<?> scheduledFuture = executorService.scheduleWithFixedDelay(new RunWorker(start, e), 1, 3,
+			ScheduledFuture<?> future = executorService.scheduleWithFixedDelay(new RunWorker(start, e), 1, 3,
 					TimeUnit.SECONDS);
-			futures.add(scheduledFuture);
+			futures.add(future);
 		});
 
 		try {

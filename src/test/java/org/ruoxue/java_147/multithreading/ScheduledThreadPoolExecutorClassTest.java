@@ -136,12 +136,16 @@ public class ScheduledThreadPoolExecutorClassTest {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
-		ScheduledFuture<?> futureA = executorService.scheduleWithFixedDelay(() -> {
+		AtomicInteger counter = new AtomicInteger();
+		ScheduledFuture<?> future = executorService.scheduleWithFixedDelay(() -> {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			try {
 				System.out.println(String.format("%s T[%d] %d task: A ready", sdf.format(new Date()),
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
-				TimeUnit.SECONDS.sleep(7);
+				if (counter.get() == 0) {
+					TimeUnit.SECONDS.sleep(3);
+				}
+				counter.getAndIncrement();
 				System.out.println(String.format("%s T[%d] %d task: A finished", sdf.format(new Date()),
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
 			} catch (InterruptedException ex) {
@@ -149,28 +153,6 @@ public class ScheduledThreadPoolExecutorClassTest {
 				Thread.currentThread().interrupt();
 			}
 		}, 1_000, 1_000, TimeUnit.MILLISECONDS);
-
-		ScheduledFuture<?> futureB = executorService.scheduleWithFixedDelay(() -> {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			try {
-				System.out.println(String.format("%s T[%d] %d task: B ready", sdf.format(new Date()),
-						Thread.currentThread().getId(), System.currentTimeMillis() - start));
-				System.out.println(String.format("%s T[%d] %d task: B finished", sdf.format(new Date()),
-						Thread.currentThread().getId(), System.currentTimeMillis() - start));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}, 1_000, 1_000, TimeUnit.MILLISECONDS);
-
-		try {
-			TimeUnit.SECONDS.sleep(4);
-		} catch (InterruptedException ex) {
-			ex.printStackTrace();
-		}
-
-		if (false == futureA.isDone()) {
-			futureA.cancel(true);
-		}
 
 		try {
 			executorService.awaitTermination(10, TimeUnit.SECONDS);
@@ -186,12 +168,16 @@ public class ScheduledThreadPoolExecutorClassTest {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
-		ScheduledFuture<?> futureA = executorService.scheduleAtFixedRate(() -> {
+		AtomicInteger counter = new AtomicInteger();
+		ScheduledFuture<?> future = executorService.scheduleAtFixedRate(() -> {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			try {
 				System.out.println(String.format("%s T[%d] %d task: A ready", sdf.format(new Date()),
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
-				TimeUnit.SECONDS.sleep(7);
+				if (counter.get() == 0) {
+					TimeUnit.SECONDS.sleep(3);
+				}
+				counter.getAndIncrement();
 				System.out.println(String.format("%s T[%d] %d task: A finished", sdf.format(new Date()),
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
 			} catch (InterruptedException ex) {
@@ -199,28 +185,6 @@ public class ScheduledThreadPoolExecutorClassTest {
 				Thread.currentThread().interrupt();
 			}
 		}, 1_000, 1_000, TimeUnit.MILLISECONDS);
-
-		ScheduledFuture<?> futureB = executorService.scheduleAtFixedRate(() -> {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			try {
-				System.out.println(String.format("%s T[%d] %d task: B ready", sdf.format(new Date()),
-						Thread.currentThread().getId(), System.currentTimeMillis() - start));
-				System.out.println(String.format("%s T[%d] %d task: B finished", sdf.format(new Date()),
-						Thread.currentThread().getId(), System.currentTimeMillis() - start));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}, 1_000, 1_000, TimeUnit.MILLISECONDS);
-
-		try {
-			TimeUnit.SECONDS.sleep(4);
-		} catch (InterruptedException ex) {
-			ex.printStackTrace();
-		}
-
-		if (false == futureA.isDone()) {
-			futureA.cancel(true);
-		}
 
 		try {
 			executorService.awaitTermination(10, TimeUnit.SECONDS);

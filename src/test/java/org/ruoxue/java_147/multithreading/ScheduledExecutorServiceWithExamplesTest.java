@@ -24,7 +24,7 @@ public class ScheduledExecutorServiceWithExamplesTest {
 		long start = System.currentTimeMillis();
 		List<ScheduledFuture<?>> futures = new ArrayList<>();
 		IntStream.range(0, taskSize).forEach(e -> {
-			ScheduledFuture<?> scheduledFuture = executorService.schedule(() -> {
+			ScheduledFuture<?> future = executorService.schedule(() -> {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				try {
 					System.out.println(String.format("%s T[%d] %d task: %d ready", sdf.format(new Date()),
@@ -36,7 +36,7 @@ public class ScheduledExecutorServiceWithExamplesTest {
 					ex.printStackTrace();
 				}
 			}, 5, TimeUnit.SECONDS);
-			futures.add(scheduledFuture);
+			futures.add(future);
 		});
 
 		try {
@@ -56,7 +56,7 @@ public class ScheduledExecutorServiceWithExamplesTest {
 		long start = System.currentTimeMillis();
 		List<ScheduledFuture<String>> futures = new ArrayList<>();
 		IntStream.range(0, taskSize).forEach(e -> {
-			ScheduledFuture<String> scheduledFuture = executorService.schedule(() -> {
+			ScheduledFuture<String> future = executorService.schedule(() -> {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				try {
 					System.out.println(String.format("%s T[%d] %d task: %d ready", sdf.format(new Date()),
@@ -69,7 +69,7 @@ public class ScheduledExecutorServiceWithExamplesTest {
 				}
 				return e + " OK";
 			}, 5, TimeUnit.SECONDS);
-			futures.add(scheduledFuture);
+			futures.add(future);
 		});
 
 		try {
@@ -89,7 +89,7 @@ public class ScheduledExecutorServiceWithExamplesTest {
 		long start = System.currentTimeMillis();
 		List<ScheduledFuture<?>> futures = new ArrayList<>();
 		IntStream.range(0, taskSize).forEach(e -> {
-			ScheduledFuture<?> scheduledFuture = executorService.scheduleAtFixedRate(() -> {
+			ScheduledFuture<?> future = executorService.scheduleAtFixedRate(() -> {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				try {
 					System.out.println(String.format("%s T[%d] %d task: %d ready", sdf.format(new Date()),
@@ -101,7 +101,7 @@ public class ScheduledExecutorServiceWithExamplesTest {
 					ex.printStackTrace();
 				}
 			}, 5, 1, TimeUnit.SECONDS);
-			futures.add(scheduledFuture);
+			futures.add(future);
 		});
 
 		try {
@@ -121,7 +121,7 @@ public class ScheduledExecutorServiceWithExamplesTest {
 		long start = System.currentTimeMillis();
 		List<ScheduledFuture<?>> futures = new ArrayList<>();
 		IntStream.range(0, taskSize).forEach(e -> {
-			ScheduledFuture<?> scheduledFuture = executorService.scheduleWithFixedDelay(() -> {
+			ScheduledFuture<?> future = executorService.scheduleWithFixedDelay(() -> {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				try {
 					System.out.println(String.format("%s T[%d] %d task: %d ready", sdf.format(new Date()),
@@ -133,7 +133,7 @@ public class ScheduledExecutorServiceWithExamplesTest {
 					ex.printStackTrace();
 				}
 			}, 5, 3, TimeUnit.SECONDS);
-			futures.add(scheduledFuture);
+			futures.add(future);
 		});
 
 		try {
