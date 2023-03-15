@@ -2,9 +2,9 @@ package org.ruoxue.java_147.multithreading;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -40,7 +40,7 @@ public class ScheduledThreadPoolExecutorClassTest {
 	@Test
 	public void cancelFalseWorker() {
 		int poolSize = 1;
-		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
+		ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(poolSize);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
@@ -102,7 +102,7 @@ public class ScheduledThreadPoolExecutorClassTest {
 	@Test
 	public void cancelTrueWorker() {
 		int poolSize = 1;
-		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
+		ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(poolSize);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
@@ -161,7 +161,7 @@ public class ScheduledThreadPoolExecutorClassTest {
 	@Test
 	public void noCatchUpWorker() {
 		int poolSize = 1;
-		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
+		ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(poolSize);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
@@ -208,7 +208,7 @@ public class ScheduledThreadPoolExecutorClassTest {
 	@Test
 	public void catchUpWorker() {
 		int poolSize = 1;
-		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
+		ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(poolSize);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		System.out.println(String.format("%s T[%d] init", df.format(new Date()), Thread.currentThread().getId()));
 		long start = System.currentTimeMillis();
