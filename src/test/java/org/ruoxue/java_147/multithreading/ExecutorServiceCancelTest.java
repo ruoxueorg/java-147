@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -29,7 +30,8 @@ public class ExecutorServiceCancelTest {
 
 		protected long calculate(int n) {
 			try {
-				if (Thread.interrupted()) {
+				if (Thread.currentThread().isInterrupted()) {
+					System.out.println("stop calculate");
 					throw new InterruptedException();
 				}
 				if (n <= 1)
@@ -54,7 +56,7 @@ public class ExecutorServiceCancelTest {
 	@Test
 	public void cancelFalse() {
 		int poolSize = 3;
-		ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
+		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(poolSize);
 		Future<Long> future = executorService.submit(new FibonacciWorker(47));
 		long result = -1;
 		try {

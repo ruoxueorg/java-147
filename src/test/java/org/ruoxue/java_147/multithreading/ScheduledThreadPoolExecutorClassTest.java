@@ -48,20 +48,16 @@ public class ScheduledThreadPoolExecutorClassTest {
 		ScheduledFuture<?> future = executorService.scheduleAtFixedRate(new CancelFalseWorker(counter, start), 1, 1,
 				TimeUnit.SECONDS);
 
-		while (true) {
+		while (false == future.isDone()) {
 			try {
 				TimeUnit.SECONDS.sleep(1);
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
 			if (counter.get() == 3) {
-				if (false == future.isDone()) {
-					boolean cancel = future.cancel(false);
-					System.out.println(String.format("%s T[%d] %d worker cancel: %b, done: %b", df.format(new Date()),
-							Thread.currentThread().getId(), System.currentTimeMillis() - start, cancel,
-							future.isDone()));
-				}
-				break;
+				boolean cancel = future.cancel(false);
+				System.out.println(String.format("%s T[%d] %d worker cancel: %b, done: %b", df.format(new Date()),
+						Thread.currentThread().getId(), System.currentTimeMillis() - start, cancel, future.isDone()));
 			}
 		}
 
