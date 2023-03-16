@@ -48,7 +48,7 @@ public class ExecutorServiceCancelTest {
 	@Test
 	public void fibonacci() {
 		for (int i = 0; i < 5; i++) {
-			System.out.println(i + " = " + new FibonacciWorker(i).call());
+			System.out.println("f(" + i + ") = " + new FibonacciWorker(i).call());
 		}
 	}
 
