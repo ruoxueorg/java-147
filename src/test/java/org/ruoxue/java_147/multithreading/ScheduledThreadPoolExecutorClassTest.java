@@ -153,7 +153,6 @@ public class ScheduledThreadPoolExecutorClassTest {
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
-				Thread.currentThread().interrupt();
 			}
 		}
 	}
@@ -200,7 +199,6 @@ public class ScheduledThreadPoolExecutorClassTest {
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
-				Thread.currentThread().interrupt();
 			}
 		}
 	}

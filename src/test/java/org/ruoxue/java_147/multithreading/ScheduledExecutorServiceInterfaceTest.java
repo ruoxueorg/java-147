@@ -114,7 +114,6 @@ public class ScheduledExecutorServiceInterfaceTest {
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
-				Thread.currentThread().interrupt();
 			}
 		}, 1_000, 1_000, TimeUnit.MILLISECONDS);
 
@@ -164,7 +163,6 @@ public class ScheduledExecutorServiceInterfaceTest {
 						Thread.currentThread().getId(), System.currentTimeMillis() - start));
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
-				Thread.currentThread().interrupt();
 			}
 		}, 1_000, 1_000, TimeUnit.MILLISECONDS);
 

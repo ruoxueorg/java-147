@@ -27,13 +27,20 @@ public class ExecutorServiceCancelTest {
 			return calculate(input);
 		}
 
-		private long calculate(int n) {
-			if (Thread.currentThread().isInterrupted())
-				return 0;
-			if (n <= 1)
-				return n;
-			else
-				return calculate(n - 1) + calculate(n - 2);
+		protected long calculate(int n) {
+			try {
+				if (Thread.interrupted()) {
+					throw new InterruptedException();
+				}
+				if (n <= 1)
+					return n;
+				else
+					return calculate(n - 1) + calculate(n - 2);
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+				Thread.currentThread().interrupt();
+			}
+			return 0;
 		}
 	}
 
@@ -45,14 +52,33 @@ public class ExecutorServiceCancelTest {
 	}
 
 	@Test
-	public void cancel() {
+	public void cancelFalse() {
 		int poolSize = 3;
 		ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
-		Future<Long> future = executorService.submit(new FibonacciWorker(50));
+		Future<Long> future = executorService.submit(new FibonacciWorker(47));
 		long result = -1;
 		try {
 			result = future.get(3, TimeUnit.SECONDS);
-		} catch (InterruptedException | ExecutionException | TimeoutException ex) {
+		} catch (InterruptedException | ExecutionException ex) {
+			ex.printStackTrace();
+		} catch (TimeoutException ex) {
+			ex.printStackTrace();
+			future.cancel(false);
+		}
+		System.out.println(result);
+	}
+
+	@Test
+	public void cancelTrue() {
+		int poolSize = 3;
+		ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
+		Future<Long> future = executorService.submit(new FibonacciWorker(47));
+		long result = -1;
+		try {
+			result = future.get(3, TimeUnit.SECONDS);
+		} catch (InterruptedException | ExecutionException ex) {
+			ex.printStackTrace();
+		} catch (TimeoutException ex) {
 			ex.printStackTrace();
 			future.cancel(true);
 		}

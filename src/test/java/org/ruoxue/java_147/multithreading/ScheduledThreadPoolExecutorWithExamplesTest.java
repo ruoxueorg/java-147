@@ -33,7 +33,7 @@ public class ScheduledThreadPoolExecutorWithExamplesTest {
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println(String.format("%s T[%d] %d worker: %d finished", sdf.format(new Date()),
 						Thread.currentThread().getId(), System.currentTimeMillis() - start, id));
-			} catch (Exception ex) {
+			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
 		}
