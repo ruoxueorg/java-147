@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-public class OptionalTest {
+public class OptionalMethodsClassTest {
 
 	@Test
 	public void empty() {
@@ -75,7 +75,7 @@ public class OptionalTest {
 		assertFalse(food.isPresent());
 	}
 
-	public String getDefaultValue() {
+	public static String getDefaultValue() {
 		System.out.println("call getDefaultValue()");
 		return "defaultValue";
 	}
@@ -111,7 +111,7 @@ public class OptionalTest {
 		assertFalse(food.isPresent());
 
 		food = Optional.ofNullable(null);
-		result = food.orElseGet(this::getDefaultValue);
+		result = food.orElseGet(OptionalMethodsClassTest::getDefaultValue);
 		System.out.println(result);
 		assertFalse(food.isPresent());
 	}
@@ -124,9 +124,19 @@ public class OptionalTest {
 		assertTrue(food.isPresent());
 
 		food = Optional.ofNullable("Beef");
-		result = food.orElseGet(this::getDefaultValue);
+		result = food.orElseGet(OptionalMethodsClassTest::getDefaultValue);
 		System.out.println(result);
 		assertTrue(food.isPresent());
+
+		food = Optional.ofNullable(null);
+		result = food.orElse(getDefaultValue());
+		System.out.println(result);
+		assertFalse(food.isPresent());
+
+		food = Optional.ofNullable(null);
+		result = food.orElseGet(OptionalMethodsClassTest::getDefaultValue);
+		System.out.println(result);
+		assertFalse(food.isPresent());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -148,7 +158,7 @@ public class OptionalTest {
 		assertNull(result);
 	}
 
-	public String findById(String id) {
+	public static String findById(String id) {
 		if (id != null) {
 			return id;
 		} else {
@@ -156,7 +166,7 @@ public class OptionalTest {
 		}
 	}
 
-	public String findById_optional(String id) {
+	public static String findById_get(String id) {
 		Optional<String> optional = Optional.ofNullable(id);
 		if (optional.isPresent()) {
 			return optional.get();
@@ -165,7 +175,7 @@ public class OptionalTest {
 		}
 	}
 
-	public String findById_orElseThrow(String id) {
+	public static String findById_orElseThrow(String id) {
 		Optional<String> optional = Optional.ofNullable(id);
 		return optional.orElseThrow(() -> new IllegalArgumentException(id));
 	}
