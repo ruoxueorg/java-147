@@ -3,62 +3,13 @@ package org.ruoxue.java_147.map;
 import static org.junit.Assert.*;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Test;
 
 public class HashMapWithExamplesTest {
-
-	public HashMapWithExamplesTest() {
-
-	}
-
-	@Test
-	public void containsKey() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		boolean containsKey = map.containsKey("Lemon");
-		System.out.println(containsKey);
-		assertTrue(containsKey);
-	}
-
-	@Test
-	public void containsValue() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		boolean containsValue = map.containsValue(3);
-		System.out.println(containsValue);
-		assertTrue(containsValue);
-	}
-
-	@Test
-	public void replace() {
-		Integer expected = 1;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		Integer replaced = map.replace("Grape", 10);
-		System.out.println(map);
-		assertEquals(expected, replaced);
-	}
-
-	@Test
-	public void replaceAll() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		map.replaceAll((k, v) -> {
-			v = v * 10;
-			return v;
-		});
-		System.out.println(map);
-	}
 
 	@Test
 	public void entrySet() {
@@ -78,6 +29,37 @@ public class HashMapWithExamplesTest {
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
 		map.forEach((k, v) -> System.out.println(k + ", " + v));
+	}
+
+	@Test
+	public void keyForEach() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
+		map.keySet().forEach(e -> System.out.println(e));
+	}
+
+	@Test
+	public void keyForEachRemaining() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Grape", 1);
+		map.put("Kiwifruit", 2);
+		map.put("Lemon", 3);
+		Set<String> set = map.keySet();
+		Iterator<String> it = set.iterator();
+		int i = 0;
+		while (it.hasNext()) {
+			System.out.println(it.next());
+			if (i == 1) {
+				break;
+			}
+			i++;
+		}
+		System.out.println("----------");
+		it.forEachRemaining(e -> {
+			System.out.println(e);
+		});
 	}
 
 	@Test
