@@ -43,6 +43,4 @@ public class OptionalClassTest {
 		System.out.println(result);
 		assertEquals(0, result);
 	}
-	
-	
 }
