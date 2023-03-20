@@ -103,7 +103,7 @@ public class LinkedBlockingQueueWithExamplesTest {
 	}
 
 	@Test
-	public void toArrayByStream() {
+	public void streamToArray() {
 		int expectedSize = 3;
 		BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
 		queue.add("Papaya");

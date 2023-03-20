@@ -103,7 +103,7 @@ public class ArrayBlockingQueueWithExamplesTest {
 	}
 
 	@Test
-	public void toArrayByStream() {
+	public void streamToArray() {
 		int expectedSize = 3;
 		BlockingQueue<String> queue = new ArrayBlockingQueue<String>(10);
 		queue.add("Papaya");

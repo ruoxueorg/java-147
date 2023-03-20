@@ -127,7 +127,7 @@ public class LinkedListWithExamplesTest {
 	}
 
 	@Test
-	public void toArrayByStream() {
+	public void streamToArray() {
 		int expectedSize = 3;
 		List<String> list = new LinkedList<String>();
 		list.add("Papaya");

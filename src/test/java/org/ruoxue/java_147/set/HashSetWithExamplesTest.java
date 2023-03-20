@@ -103,7 +103,7 @@ public class HashSetWithExamplesTest {
 	}
 
 	@Test
-	public void toArrayByStream() {
+	public void streamToArray() {
 		int expectedSize = 3;
 		Set<String> set = new HashSet<String>();
 		set.add("Longan");

@@ -131,7 +131,7 @@ public class ArrayListWithExamplesTest {
 	}
 
 	@Test
-	public void toArrayByStream() {
+	public void streamToArray() {
 		int expectedSize = 3;
 		List<String> list = new ArrayList<String>();
 		list.add("Apple");

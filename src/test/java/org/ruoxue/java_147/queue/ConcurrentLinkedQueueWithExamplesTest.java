@@ -103,7 +103,7 @@ public class ConcurrentLinkedQueueWithExamplesTest {
 	}
 
 	@Test
-	public void toArrayByStream() {
+	public void streamToArray() {
 		int expectedSize = 3;
 		Queue<String> queue = new ConcurrentLinkedQueue<String>();
 		queue.add("Papaya");

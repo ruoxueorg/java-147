@@ -103,7 +103,7 @@ public class LinkedHashSetWithExamplesTest {
 	}
 
 	@Test
-	public void toArrayByStream() {
+	public void streamToArray() {
 		int expectedSize = 3;
 		Set<String> set = new LinkedHashSet<String>();
 		set.add("Longan");
