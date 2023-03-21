@@ -66,6 +66,9 @@ public class HashMapClassTest {
 		Integer replaced = map.replace("Grape", 10);
 		System.out.println(map);
 		assertEquals(expected, replaced);
+		boolean repl = map.replace("Grape", 10, 1);
+		System.out.println(map);
+		assertEquals(true, repl);
 	}
 
 	@Test
@@ -91,7 +94,7 @@ public class HashMapClassTest {
 		Integer replaced = map.merge("Grape", 10, (oldValue, newValue) -> oldValue + newValue);
 		System.out.println(map);
 		assertEquals(expected, replaced);
-		
+
 		replaced = map.merge("Papaya", 4, (oldValue, newValue) -> oldValue + newValue);
 		System.out.println(map);
 		assertEquals(4, replaced.intValue());
