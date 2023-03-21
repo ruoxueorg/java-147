@@ -62,12 +62,11 @@ public class LinkedHashSetClassTest {
 	@Test
 	public void contains() {
 		Set<Fruit> set = new LinkedHashSet<>();
-		Fruit fruit = new Fruit("Longan", 1, 1);
-		set.add(fruit);
+		set.add(new Fruit("Longan", 1, 1));
 		set.add(new Fruit("Tomato", 2, 1));
 		set.add(new Fruit("Pear", 3, 1));
 
-		boolean contains = set.contains(fruit);
+		boolean contains = set.contains(new Fruit("Longan", 1, 1));
 		System.out.println(contains);
 		assertTrue(contains);
 
@@ -121,7 +120,6 @@ public class LinkedHashSetClassTest {
 
 	@Test
 	public void retainAll() {
-		int expectedSize = 1;
 		Set<Fruit> set = new LinkedHashSet<>();
 		set.add(new Fruit("Longan", 1, 1));
 		set.add(new Fruit("Tomato", 2, 1));
@@ -132,8 +130,14 @@ public class LinkedHashSetClassTest {
 		set2.add(new Fruit("Lemon", 4, 1));
 		set2.add(new Fruit("Mango", 5, 1));
 
-		set.retainAll(set2);
+		boolean result = set.retainAll(set2);
+		System.out.println(result);
 		System.out.println(set);
-		assertEquals(expectedSize, set.size());
+		assertTrue(result);
+
+		result = set.retainAll(set2);
+		System.out.println(result);
+		System.out.println(set);
+		assertFalse(result);
 	}
 }

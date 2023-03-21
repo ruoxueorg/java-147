@@ -71,7 +71,6 @@ public class HashSetClassTest {
 
 	@Test
 	public void retainAll() {
-		int expectedSize = 1;
 		Set<String> set = new HashSet<String>();
 		set.add("Longan");
 		set.add("Tomato");
@@ -82,8 +81,14 @@ public class HashSetClassTest {
 		set2.add("Lemon");
 		set2.add("Mango");
 
-		set.retainAll(set2);
+		boolean result = set.retainAll(set2);
+		System.out.println(result);
 		System.out.println(set);
-		assertEquals(expectedSize, set.size());
+		assertTrue(result);
+
+		result = set.retainAll(set2);
+		System.out.println(result);
+		System.out.println(set);
+		assertFalse(result);
 	}
 }
