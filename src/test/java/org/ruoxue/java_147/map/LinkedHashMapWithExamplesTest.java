@@ -3,18 +3,18 @@ package org.ruoxue.java_147.map;
 import static org.junit.Assert.*;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
 
-public class HashMapWithExamplesTest {
+public class LinkedHashMapWithExamplesTest {
 
 	@Test
 	public void entrySet() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
@@ -25,7 +25,7 @@ public class HashMapWithExamplesTest {
 
 	@Test
 	public void forEach() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
@@ -34,7 +34,7 @@ public class HashMapWithExamplesTest {
 
 	@Test
 	public void keyForEach() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
@@ -43,7 +43,7 @@ public class HashMapWithExamplesTest {
 
 	@Test
 	public void keyForEachRemaining() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
@@ -65,7 +65,7 @@ public class HashMapWithExamplesTest {
 
 	@Test
 	public void keyIterator() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
@@ -77,7 +77,7 @@ public class HashMapWithExamplesTest {
 
 	@Test
 	public void valueForEach() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
@@ -86,7 +86,7 @@ public class HashMapWithExamplesTest {
 
 	@Test
 	public void valueForEachRemaining() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
@@ -108,7 +108,7 @@ public class HashMapWithExamplesTest {
 
 	@Test
 	public void valueIterator() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
@@ -121,7 +121,7 @@ public class HashMapWithExamplesTest {
 	@Test
 	public void keyToArray() {
 		int expectedSize = 3;
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
@@ -137,7 +137,7 @@ public class HashMapWithExamplesTest {
 	@Test
 	public void keyStreamToArray() {
 		int expectedSize = 3;
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);

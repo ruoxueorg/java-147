@@ -3,21 +3,17 @@ package org.ruoxue.java_147.map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.junit.Test;
 
-public class HashMapComputeTest {
-
-	public HashMapComputeTest() {
-
-	}
+public class LinkedHashMapComputeTest {
 
 	@Test
 	public void compute() {
 		Integer expected = 2;
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
@@ -31,7 +27,7 @@ public class HashMapComputeTest {
 	@Test
 	public void computeFunction() {
 		Integer expected = 2;
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
@@ -47,7 +43,7 @@ public class HashMapComputeTest {
 
 	@Test(expected = NullPointerException.class)
 	public void computeNullPointerException() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
@@ -60,7 +56,7 @@ public class HashMapComputeTest {
 	@Test
 	public void computeCount() {
 		String value = "Hello World, Tutorial Java 147";
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		for (int i = 0; i < value.length(); i++) {
 			String key = String.valueOf(value.charAt(i));
 			map.compute(key, (k, v) -> {
@@ -74,7 +70,7 @@ public class HashMapComputeTest {
 	@Test
 	public void computeIfAbsent() {
 		Integer expected = 4;
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
@@ -91,7 +87,7 @@ public class HashMapComputeTest {
 	@Test
 	public void computeIfPresent() {
 		Integer expected = 2;
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
