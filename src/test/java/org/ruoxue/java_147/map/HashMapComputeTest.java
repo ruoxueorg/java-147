@@ -81,10 +81,13 @@ public class HashMapComputeTest {
 		System.out.println(map);
 		String key = "Mango";
 		Integer result = map.computeIfAbsent(key, k -> 4);
+		System.out.println(result);
 		System.out.println(map);
 		assertEquals(expected, result);
 		key = "Grape";
 		result = map.computeIfAbsent(key, k -> 2);
+		System.out.println(result);
+		System.out.println(map);
 		assertEquals(1, result.intValue());
 	}
 
@@ -98,10 +101,13 @@ public class HashMapComputeTest {
 		System.out.println(map);
 		String key = "Grape";
 		Integer result = map.computeIfPresent(key, (k, v) -> v + 1);
+		System.out.println(result);
 		System.out.println(map);
 		assertEquals(expected, result);
 		key = "Mango";
 		result = map.computeIfPresent(key, (k, v) -> 4);
+		System.out.println(result);
+		System.out.println(map);
 		assertNull(result);
 	}
 }
