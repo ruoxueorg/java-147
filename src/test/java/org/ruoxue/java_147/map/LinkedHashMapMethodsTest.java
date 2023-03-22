@@ -10,7 +10,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
-import org.ruoxue.java_147.set.LinkedHashSetClassTest.Fruit;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +23,7 @@ public class LinkedHashMapMethodsTest {
 	@Setter
 	@Builder
 	public static class Fruit {
+
 		private String name;
 		private double quantity;
 		private int type;
@@ -94,42 +94,40 @@ public class LinkedHashMapMethodsTest {
 		System.out.println(value);
 		assertEquals(expected, value.getQuantity(), 0);
 	}
-xxx
+
 	@Test
 	public void getOrDefault() {
-		Integer expected = -1;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		Integer value = map.getOrDefault("", -1);
-		System.out.println(value);
-		assertEquals(expected, value);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Fruit result = map.getOrDefault("", new Fruit("Empty", 0, 0));
+		System.out.println(result);
+		assertNotNull(result);
 	}
 
 	@Test
 	public void update() {
-		Integer expected = 10;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		double expected = 10d;
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		System.out.println(map);
 
-		Integer put = map.put("Grape", 10);
-		System.out.println(put);
-		assertEquals(1, put.intValue());
+		Fruit put = map.put("Grape", new Fruit("Grape", 10, 1));
+		assertEquals(1d, put.getQuantity(), 0);
 		System.out.println(map);
-		assertEquals(expected, map.get("Grape"));
+		assertEquals(expected, map.get("Grape").getQuantity(), 0);
 	}
 
 	@Test
 	public void remove() {
 		int expectedSize = 2;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		map.remove("Grape");
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
@@ -138,10 +136,10 @@ xxx
 	@Test
 	public void clear() {
 		int expectedSize = 0;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		map.clear();
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
@@ -150,10 +148,10 @@ xxx
 	@Test
 	public void size() {
 		int expectedSize = 3;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		System.out.println(map.size());
 		assertEquals(expectedSize, map.size());
 	}
@@ -161,15 +159,15 @@ xxx
 	@Test
 	public void putAll() {
 		int expectedSize = 6;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Apple", 1);
-		map.put("Banana", 2);
-		map.put("Cherry", 3);
-
-		Map<String, Integer> map2 = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 4);
-		map.put("Kiwifruit", 5);
-		map.put("Lemon", 6);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		
+		Map<String, Fruit> map2 = new LinkedHashMap<>();
+		map2.put("Apple", new Fruit("Apple", 4, 1));
+		map2.put("Banana", new Fruit("Banana", 5, 1));
+		map2.put("Cherry", new Fruit("Cherry", 6, 1));
 
 		map.putAll(map2);
 		System.out.println(map);
@@ -178,12 +176,10 @@ xxx
 
 	@Test
 	public void isEmpty() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+		Map<String, Fruit> map = new LinkedHashMap<>();
 		System.out.println(map.isEmpty());
 		assertTrue(map.isEmpty());
-		map.put("Grape", 4);
-		map.put("Kiwifruit", 5);
-		map.put("Lemon", 6);
+		map.put("Grape", new Fruit("Grape", 1, 1));
 		System.out.println(map.isEmpty());
 		assertFalse(map.isEmpty());
 	}

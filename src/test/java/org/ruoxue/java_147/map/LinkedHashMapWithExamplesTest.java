@@ -20,6 +20,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class LinkedHashMapWithExamplesTest {
+	
 	@NoArgsConstructor
 	@Getter
 	@Setter
@@ -62,39 +63,39 @@ public class LinkedHashMapWithExamplesTest {
 
 	@Test
 	public void entrySet() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		for (Map.Entry<String, Integer> e : map.entrySet()) {
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		for (Map.Entry<String, Fruit> e : map.entrySet()) {
 			System.out.println(e.getKey() + ", " + e.getValue());
 		}
 	}
 
 	@Test
 	public void forEach() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		map.forEach((k, v) -> System.out.println(k + ", " + v));
 	}
 
 	@Test
 	public void keyForEach() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		map.keySet().forEach(e -> System.out.println(e));
 	}
 
 	@Test
 	public void keyForEachRemaining() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		Set<String> set = map.keySet();
 		Iterator<String> it = set.iterator();
 		int i = 0;
@@ -113,10 +114,10 @@ public class LinkedHashMapWithExamplesTest {
 
 	@Test
 	public void keyIterator() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		Iterator<String> it = map.keySet().iterator();
 		while (it.hasNext()) {
 			System.out.println(it.next());
@@ -125,21 +126,21 @@ public class LinkedHashMapWithExamplesTest {
 
 	@Test
 	public void valueForEach() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		map.values().forEach(System.out::println);
 	}
 
 	@Test
 	public void valueForEachRemaining() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		Collection<Integer> collection = map.values();
-		Iterator<Integer> it = collection.iterator();
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Collection<Fruit> collection = map.values();
+		Iterator<Fruit> it = collection.iterator();
 		int i = 0;
 		while (it.hasNext()) {
 			System.out.println(it.next());
@@ -156,11 +157,11 @@ public class LinkedHashMapWithExamplesTest {
 
 	@Test
 	public void valueIterator() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		Iterator<Integer> it = map.values().iterator();
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Iterator<Fruit> it = map.values().iterator();
 		while (it.hasNext()) {
 			System.out.println(it.next());
 		}
@@ -169,10 +170,10 @@ public class LinkedHashMapWithExamplesTest {
 	@Test
 	public void keyToArray() {
 		int expectedSize = 3;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 
 		String[] array = new String[map.size()];
 		map.keySet().toArray(array);
@@ -185,10 +186,10 @@ public class LinkedHashMapWithExamplesTest {
 	@Test
 	public void keyStreamToArray() {
 		int expectedSize = 3;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 
 		String[] array = map.keySet().stream().toArray(String[]::new);
 		for (String e : array) {

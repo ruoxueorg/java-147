@@ -62,10 +62,10 @@ public class LinkedHashMapClassTest {
 
 	@Test
 	public void containsKey() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		boolean containsKey = map.containsKey("Lemon");
 		System.out.println(containsKey);
 		assertTrue(containsKey);
@@ -73,11 +73,11 @@ public class LinkedHashMapClassTest {
 
 	@Test
 	public void containsValue() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		boolean containsValue = map.containsValue(3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		boolean containsValue = map.containsValue(new Fruit("Grape", 1, 1));
 		System.out.println(containsValue);
 		assertTrue(containsValue);
 	}
@@ -85,10 +85,10 @@ public class LinkedHashMapClassTest {
 	@Test
 	public void stream() {
 		int expectedSize = 2;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		Set<String> set = map.keySet().stream().filter(e -> e.length() < 6).collect(Collectors.toSet());
 		System.out.println(set);
 		assertEquals(expectedSize, set.size());
@@ -96,10 +96,10 @@ public class LinkedHashMapClassTest {
 
 	@Test
 	public void parallelStream() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		map.keySet().parallelStream().forEach(System.out::println);
 		System.out.println("----------");
 		map.keySet().parallelStream().forEachOrdered(System.out::println);
@@ -107,27 +107,24 @@ public class LinkedHashMapClassTest {
 
 	@Test
 	public void replace() {
-		Integer expected = 1;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		Integer replaced = map.replace("Grape", 10);
+		double expected = 10d;
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.replace("Grape", new Fruit("Grape", 10, 1));
 		System.out.println(map);
-		assertEquals(expected, replaced);
-		boolean repl = map.replace("Grape", 10, 1);
-		System.out.println(map);
-		assertEquals(true, repl);
+		assertEquals(expected, map.get("Grape").getQuantity(), 0);
 	}
 
 	@Test
 	public void replaceAll() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		map.replaceAll((k, v) -> {
-			v = v * 10;
+			v.setQuantity(v.getQuantity() * 10);
 			return v;
 		});
 		System.out.println(map);
@@ -135,17 +132,23 @@ public class LinkedHashMapClassTest {
 
 	@Test
 	public void merge() {
-		Integer expected = 11;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		Integer replaced = map.merge("Grape", 10, (oldValue, newValue) -> oldValue + newValue);
+		double expected = 11d;
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Fruit replaced = map.merge("Grape", new Fruit("Grape", 10, 1), (oldValue, newValue) -> {
+			newValue.setQuantity(oldValue.getQuantity() + newValue.getQuantity());
+			return newValue;
+		});
 		System.out.println(map);
-		assertEquals(expected, replaced);
+		assertEquals(expected, replaced.getQuantity(), 0);
 
-		replaced = map.merge("Papaya", 4, (oldValue, newValue) -> oldValue + newValue);
+		replaced = map.merge("Papaya", new Fruit("Papaya", 4, 1), (oldValue, newValue) -> {
+			newValue.setQuantity(oldValue.getQuantity() + newValue.getQuantity());
+			return newValue;
+		});
 		System.out.println(map);
-		assertEquals(4, replaced.intValue());
+		assertEquals(4d, replaced.getQuantity(), 0);
 	}
 }

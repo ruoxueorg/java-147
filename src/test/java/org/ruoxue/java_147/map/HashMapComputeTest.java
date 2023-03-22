@@ -59,7 +59,7 @@ public class HashMapComputeTest {
 
 	@Test
 	public void computeCount() {
-		String value = "Hello World, Tutorial Java 147";
+		String value = "Hello World, Java Learn";
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		for (int i = 0; i < value.length(); i++) {
 			String key = String.valueOf(value.charAt(i));

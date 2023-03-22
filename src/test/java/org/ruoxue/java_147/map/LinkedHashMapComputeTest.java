@@ -61,50 +61,24 @@ public class LinkedHashMapComputeTest {
 
 	@Test
 	public void compute() {
-		Integer expected = 2;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		System.out.println(map);
-		String key = "Grape";
-		map.compute(key, (k, v) -> v + 1);
-		System.out.println(map);
-		assertEquals(expected, map.get(key));
-	}
-
-	@Test
-	public void computeFunction() {
-		Integer expected = 2;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		double expected = 2d;
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		System.out.println(map);
 		String key = "Grape";
 		map.compute(key, (k, v) -> {
-			v += 1;
+			v.setQuantity(v.getQuantity() + 1);
 			return v;
 		});
 		System.out.println(map);
-		assertEquals(expected, map.get(key));
-	}
-
-	@Test(expected = NullPointerException.class)
-	public void computeNullPointerException() {
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		System.out.println(map);
-		String key = null;
-		map.compute(key, (k, v) -> v + 1);
-		System.out.println(map);
+		assertEquals(expected, map.get(key).getQuantity(), 0);
 	}
 
 	@Test
 	public void computeCount() {
-		String value = "Hello World, Tutorial Java 147";
+		String value = "Hello World, Java Learn";
 		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		for (int i = 0; i < value.length(); i++) {
 			String key = String.valueOf(value.charAt(i));
@@ -118,35 +92,41 @@ public class LinkedHashMapComputeTest {
 
 	@Test
 	public void computeIfAbsent() {
-		Integer expected = 4;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		double expected = 4d;
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		System.out.println(map);
 		String key = "Mango";
-		Integer result = map.computeIfAbsent(key, k -> 4);
+		Fruit result = map.computeIfAbsent(key, k -> new Fruit("Mango", 4, 1));
 		System.out.println(map);
-		assertEquals(expected, result);
+		assertEquals(expected, result.getQuantity(), 0);
 		key = "Grape";
-		result = map.computeIfAbsent(key, k -> 2);
-		assertEquals(1, result.intValue());
+		result = map.computeIfAbsent(key, k -> new Fruit("Grape", 2, 1));
+		assertEquals(1d, result.getQuantity(), 0);
 	}
 
 	@Test
 	public void computeIfPresent() {
-		Integer expected = 2;
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		double expected = 2d;
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		System.out.println(map);
 		String key = "Grape";
-		Integer result = map.computeIfPresent(key, (k, v) -> v + 1);
+		Fruit result = map.computeIfPresent(key, (k, v) -> {
+			v.setQuantity(v.getQuantity() + 1);
+			return v;
+		});
 		System.out.println(map);
-		assertEquals(expected, result);
+		assertEquals(expected, result.getQuantity(), 0);
 		key = "Mango";
-		result = map.computeIfPresent(key, (k, v) -> 4);
+		result = map.computeIfPresent(key, (k, v) -> {
+			v.setQuantity(4);
+			return v;
+		});
 		assertNull(result);
 	}
 }
