@@ -15,12 +15,19 @@ public class InitializeArrayListTest {
 	@Test
 	public void add() {
 		int expectedSize = 3;
-		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
+
+		ArrayList<Integer> intList = new ArrayList<>();
+		intList.add(1);
+		intList.add(2);
+		intList.add(3);
+		System.out.println(intList);
+		assertEquals(expectedSize, intList.size());
 	}
 
 	@Test
@@ -36,16 +43,33 @@ public class InitializeArrayListTest {
 		};
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
+
+		ArrayList<Integer> intList = new ArrayList<Integer>() {
+			private static final long serialVersionUID = -1238701413773974786L;
+			{
+				add(1);
+				add(2);
+				add(3);
+			}
+		};
+		System.out.println(intList);
+		assertEquals(expectedSize, intList.size());
 	}
 
 	@Test
 	public void addAll() {
 		int expectedSize = 3;
 		ArrayList<String> list = new ArrayList<String>(Arrays.asList("Apple", "Banana", "Cherry"));
-		ArrayList<String> list2 = new ArrayList<String>();
-		list2.addAll(list);
-		System.out.println(list2);
-		assertEquals(expectedSize, list2.size());
+		ArrayList<String> newList = new ArrayList<String>();
+		newList.addAll(list);
+		System.out.println(newList);
+		assertEquals(expectedSize, newList.size());
+
+		ArrayList<Integer> intList = new ArrayList<>(Arrays.asList(1, 2, 3));
+		ArrayList<Integer> newIntList = new ArrayList<Integer>();
+		newIntList.addAll(intList);
+		System.out.println(newIntList);
+		assertEquals(expectedSize, newIntList.size());
 	}
 
 	@Test
@@ -54,39 +78,9 @@ public class InitializeArrayListTest {
 		ArrayList<String> list = new ArrayList<String>(Arrays.asList("Apple", "Banana", "Cherry"));
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
-	}
 
-	@Test
-	public void constructor() {
-		int expectedSize = 3;
-		ArrayList<String> list = new ArrayList<String>(Arrays.asList("Apple", "Banana", "Cherry"));
-		ArrayList<String> list2 = new ArrayList<String>(list);
-		System.out.println(list2);
-		assertEquals(expectedSize, list2.size());
-	}
-
-	@Test
-	public void immutableList() {
-		int expectedSize = 3;
-		List<String> list = ImmutableList.of("Apple", "Banana", "Cherry");
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
-	}
-
-	@Test(expected = UnsupportedOperationException.class)
-	public void removeThrowException() {
-		int expectedSize = 3;
-		List<String> list = ImmutableList.of("Apple", "Banana", "Cherry");
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
-		list.remove(0);
-	}
-
-	@Test
-	public void stream() {
-		int expectedSize = 3;
-		List<String> list = Stream.of("Apple", "Banana", "Cherry").collect(Collectors.toList());
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
+		ArrayList<Integer> intList = new ArrayList<>(Arrays.asList(1, 2, 3));
+		System.out.println(intList);
+		assertEquals(expectedSize, intList.size());
 	}
 }

@@ -8,3 +8,4 @@
 5. [Java Loop Through List](https://www.ruoxue.org/java-147-java-loop-through-list/)
 6. [Java Remove Elements From List](https://www.ruoxue.org/java-147-java-remove-elements-from-list/)
 7. [Initialize ArrayList in Java](https://www.ruoxue.org/java-147-initialize-arraylist-in-java/)
+8. [Java ArrayList Initialization](https://www.ruoxue.org/java-147-java-arraylist-initialization/)
