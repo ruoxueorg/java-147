@@ -41,10 +41,10 @@ public class InitializeHashMapTest {
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
-		Map<String, Integer> map2 = new HashMap<String, Integer>();
-		map2.putAll(map);
-		System.out.println(map2);
-		assertEquals(expectedSize, map2.size());
+		Map<String, Integer> newMap = new HashMap<String, Integer>();
+		newMap.putAll(map);
+		System.out.println(newMap);
+		assertEquals(expectedSize, newMap.size());
 	}
 
 	@Test
@@ -54,9 +54,9 @@ public class InitializeHashMapTest {
 		map.put("Grape", 1);
 		map.put("Kiwifruit", 2);
 		map.put("Lemon", 3);
-		Map<String, Integer> map2 = new HashMap<String, Integer>(map);
-		System.out.println(map2);
-		assertEquals(expectedSize, map2.size());
+		Map<String, Integer> newMap = new HashMap<String, Integer>(map);
+		System.out.println(newMap);
+		assertEquals(expectedSize, newMap.size());
 	}
 
 	@Test

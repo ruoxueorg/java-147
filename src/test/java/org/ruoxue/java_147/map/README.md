@@ -15,3 +15,4 @@
 12. [LinkedHashMap in Java with Examples](https://www.ruoxue.org/java-147-linkedhashmap-in-java-with-examples/)
 13. [Java LinkedHashMap Class](https://www.ruoxue.org/java-147-java-linkedhashmap-class/)
 14. [Java LinkedHashMap Compute Method](https://www.ruoxue.org/java-147-java-linkedhashmap-compute-method/)
+15. [Initialize LinkedHashMap in Java](https://www.ruoxue.org/java-147-initialize-linkedhashmap-in-java/)

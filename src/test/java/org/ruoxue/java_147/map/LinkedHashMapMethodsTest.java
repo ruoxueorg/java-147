@@ -164,12 +164,12 @@ public class LinkedHashMapMethodsTest {
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		
-		Map<String, Fruit> map2 = new LinkedHashMap<>();
-		map2.put("Apple", new Fruit("Apple", 4, 1));
-		map2.put("Banana", new Fruit("Banana", 5, 1));
-		map2.put("Cherry", new Fruit("Cherry", 6, 1));
+		Map<String, Fruit> newMap = new LinkedHashMap<>();
+		newMap.put("Apple", new Fruit("Apple", 4, 1));
+		newMap.put("Banana", new Fruit("Banana", 5, 1));
+		newMap.put("Cherry", new Fruit("Cherry", 6, 1));
 
-		map.putAll(map2);
+		map.putAll(newMap);
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
 	}
