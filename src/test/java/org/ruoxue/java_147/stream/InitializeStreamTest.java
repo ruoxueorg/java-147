@@ -50,9 +50,9 @@ public class InitializeStreamTest {
 
 		int[] intArray = new int[] { 1, 2, 3 };
 		Stream<int[]> streamIntArray = Stream.of(intArray);
-		IntStream iStream = streamIntArray.flatMapToInt(e -> Arrays.stream(e));
-		System.out.println(iStream);
-		count = iStream.peek(System.out::println).count();
+		IntStream intArrayStream = streamIntArray.flatMapToInt(e -> Arrays.stream(e));
+		System.out.println(intArrayStream);
+		count = intArrayStream.peek(System.out::println).count();
 		assertEquals(expectedCount, count);
 	}
 

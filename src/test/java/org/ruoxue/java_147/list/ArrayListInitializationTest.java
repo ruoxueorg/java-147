@@ -15,13 +15,13 @@ public class ArrayListInitializationTest {
 	@Test
 	public void constructor() {
 		int expectedSize = 3;
-		ArrayList<String> list = new ArrayList<String>(Arrays.asList("Apple", "Banana", "Cherry"));
-		ArrayList<String> newList = new ArrayList<String>(list);
+		List<String> list = new ArrayList<>(Arrays.asList("Apple", "Banana", "Cherry"));
+		List<String> newList = new ArrayList<>(list);
 		System.out.println(newList);
 		assertEquals(expectedSize, newList.size());
 
-		ArrayList<Integer> intList = new ArrayList<>(Arrays.asList(1, 2, 3));
-		ArrayList<Integer> newIntList = new ArrayList<Integer>(intList);
+		List<Integer> intList = new ArrayList<>(Arrays.asList(1, 2, 3));
+		List<Integer> newIntList = new ArrayList<>(intList);
 		System.out.println(newIntList);
 		assertEquals(expectedSize, newIntList.size());
 	}
@@ -57,5 +57,10 @@ public class ArrayListInitializationTest {
 		List<Integer> intList = Stream.of(1, 2, 3).collect(Collectors.toList());
 		System.out.println(intList);
 		assertEquals(expectedSize, intList.size());
+
+		List<Integer> intArrayList = Stream.of(new int[] { 1, 2, 3 }).flatMapToInt(e -> Arrays.stream(e)).boxed()
+				.collect(Collectors.toList());
+		System.out.println(intArrayList);
+		assertEquals(expectedSize, intArrayList.size());
 	}
 }
