@@ -10,15 +10,15 @@ public class OptionalClassTest {
 
 	@Test
 	public void filter() {
-		Optional<String> food = Optional.ofNullable("Beef");
-		Optional<String> optional = food.filter(e -> e.contains("B"));
+		Optional<String> opt = Optional.ofNullable("Beef");
+		Optional<String> optional = opt.filter(e -> e.contains("B"));
 		System.out.println(optional);
 		boolean result = optional.isPresent();
 		System.out.println(result);
 		assertTrue(result);
 
-		food = Optional.ofNullable(null);
-		optional = food.filter(e -> e.contains("B"));
+		opt = Optional.ofNullable(null);
+		optional = opt.filter(e -> e.contains("B"));
 		System.out.println(optional);
 		assertEquals(Optional.empty(), optional);
 		result = optional.isPresent();
@@ -28,15 +28,15 @@ public class OptionalClassTest {
 
 	@Test
 	public void map() {
-		Optional<String> food = Optional.ofNullable("Beef");
-		Optional<Integer> optional = food.map(e -> e.length());
+		Optional<String> opt = Optional.ofNullable("Beef");
+		Optional<Integer> optional = opt.map(e -> e.length());
 		System.out.println(optional);
 		int result = optional.orElse(0);
 		System.out.println(result);
 		assertEquals(4, result);
 
-		food = Optional.ofNullable(null);
-		optional = food.map(String::length);
+		opt = Optional.ofNullable(null);
+		optional = opt.map(String::length);
 		System.out.println(optional);
 		assertEquals(Optional.empty(), optional);
 		result = optional.orElse(0);
