@@ -61,13 +61,13 @@ public class InitializeOptionalTest {
 
 	@Test
 	public void empty() {
-		Optional<String> empty = Optional.empty();
-		System.out.println(empty);
-		assertFalse(empty.isPresent());
+		Optional<String> emptyOpt = Optional.empty();
+		System.out.println(emptyOpt);
+		assertFalse(emptyOpt.isPresent());
 
-		System.out.println(empty);
-		empty = Optional.ofNullable(null);
-		assertFalse(empty.isPresent());
+		System.out.println(emptyOpt);
+		emptyOpt = Optional.ofNullable(null);
+		assertFalse(emptyOpt.isPresent());
 	}
 
 	@Test
@@ -77,6 +77,11 @@ public class InitializeOptionalTest {
 		assertTrue(opt.isPresent());
 		System.out.println(opt.get());
 
+		Optional<Integer> intOpt = Optional.of(147);
+		System.out.println(intOpt);
+		assertTrue(intOpt.isPresent());
+		System.out.println(intOpt.get());
+
 		Food food = new Food("Chicken", 2, 1);
 		Optional<Food> foodOpt = Optional.of(food);
 		System.out.println(foodOpt);
@@ -85,9 +90,11 @@ public class InitializeOptionalTest {
 
 		List<Food> list = new ArrayList<>();
 		list.add(food);
+		list.add(new Food("Duck", 3, 1));
 		Optional<List<Food>> listOpt = Optional.of(list);
 		System.out.println(listOpt);
 		assertTrue(listOpt.isPresent());
+		System.out.println(listOpt.get());
 	}
 
 	@Test(expected = NullPointerException.class)
@@ -103,14 +110,44 @@ public class InitializeOptionalTest {
 		assertTrue(opt.isPresent());
 		System.out.println(opt.get());
 
-		Food food = null;
+		Optional<Integer> intOpt = Optional.ofNullable(147);
+		System.out.println(intOpt);
+		assertTrue(intOpt.isPresent());
+		System.out.println(intOpt.get());
+
+		Food food = new Food("Chicken", 2, 1);
 		Optional<Food> foodOpt = Optional.ofNullable(food);
+		System.out.println(foodOpt);
+		assertTrue(foodOpt.isPresent());
+		System.out.println(foodOpt.get());
+
+		List<Food> list = new ArrayList<>();
+		list.add(food);
+		list.add(new Food("Duck", 3, 1));
+		Optional<List<Food>> listOpt = Optional.ofNullable(list);
+		System.out.println(listOpt);
+		assertTrue(listOpt.isPresent());
+		System.out.println(listOpt.get());
+	}
+
+	@Test
+	public void ofNullableWithNull() {
+		Optional<String> opt = Optional.ofNullable(null);
+		System.out.println(opt);
+		assertFalse(opt.isPresent());
+		System.out.println(opt.orElse("DEFAULT_VALUE"));
+
+		Optional<Integer> intOpt = Optional.ofNullable(null);
+		System.out.println(intOpt);
+		assertFalse(intOpt.isPresent());
+		System.out.println(intOpt.orElse(0));
+		
+		Optional<Food> foodOpt = Optional.ofNullable(null);
 		System.out.println(foodOpt);
 		assertFalse(foodOpt.isPresent());
 		System.out.println(foodOpt.orElse(null));
 
-		List<Food> list = null;
-		Optional<List<Food>> listOpt = Optional.ofNullable(list);
+		Optional<List<Food>> listOpt = Optional.ofNullable(null);
 		System.out.println(listOpt);
 		assertFalse(listOpt.isPresent());
 		System.out.println(listOpt.orElseGet(() -> new ArrayList<Food>()));

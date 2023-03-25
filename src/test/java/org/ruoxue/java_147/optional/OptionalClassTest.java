@@ -11,17 +11,17 @@ public class OptionalClassTest {
 	@Test
 	public void filter() {
 		Optional<String> opt = Optional.ofNullable("Beef");
-		Optional<String> optional = opt.filter(e -> e.contains("B"));
-		System.out.println(optional);
-		boolean result = optional.isPresent();
+		Optional<String> newOpt = opt.filter(e -> e.contains("B"));
+		System.out.println(newOpt);
+		boolean result = newOpt.isPresent();
 		System.out.println(result);
 		assertTrue(result);
 
 		opt = Optional.ofNullable(null);
-		optional = opt.filter(e -> e.contains("B"));
-		System.out.println(optional);
-		assertEquals(Optional.empty(), optional);
-		result = optional.isPresent();
+		newOpt = opt.filter(e -> e.contains("B"));
+		System.out.println(newOpt);
+		assertEquals(Optional.empty(), newOpt);
+		result = newOpt.isPresent();
 		System.out.println(result);
 		assertFalse(result);
 	}
@@ -29,17 +29,17 @@ public class OptionalClassTest {
 	@Test
 	public void map() {
 		Optional<String> opt = Optional.ofNullable("Beef");
-		Optional<Integer> optional = opt.map(e -> e.length());
-		System.out.println(optional);
-		int result = optional.orElse(0);
+		Optional<Integer> newOpt = opt.map(e -> e.length());
+		System.out.println(newOpt);
+		int result = newOpt.orElse(0);
 		System.out.println(result);
 		assertEquals(4, result);
 
 		opt = Optional.ofNullable(null);
-		optional = opt.map(String::length);
-		System.out.println(optional);
-		assertEquals(Optional.empty(), optional);
-		result = optional.orElse(0);
+		newOpt = opt.map(String::length);
+		System.out.println(newOpt);
+		assertEquals(Optional.empty(), newOpt);
+		result = newOpt.orElse(0);
 		System.out.println(result);
 		assertEquals(0, result);
 	}

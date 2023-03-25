@@ -3,6 +3,7 @@ package org.ruoxue.java_147.optional;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -32,7 +33,7 @@ public class OptionalMethodsTest {
 		System.out.println(intOpt);
 		assertTrue(intOpt.isPresent());
 
-		Optional<List<String>> listOpt = Optional.of(new ArrayList<>());
+		Optional<List<String>> listOpt = Optional.of(new ArrayList<>(Arrays.asList("Beef", "Chicken", "Duck")));
 		System.out.println(listOpt);
 		assertTrue(listOpt.isPresent());
 	}
@@ -53,7 +54,7 @@ public class OptionalMethodsTest {
 		System.out.println(intOpt);
 		assertTrue(intOpt.isPresent());
 
-		Optional<List<String>> listOpt = Optional.ofNullable(new ArrayList<>());
+		Optional<List<String>> listOpt = Optional.ofNullable(new ArrayList<>(Arrays.asList("Beef", "Chicken", "Duck")));
 		System.out.println(listOpt);
 		assertTrue(listOpt.isPresent());
 
@@ -76,11 +77,11 @@ public class OptionalMethodsTest {
 		System.out.println(intResult);
 		assertEquals(147, intResult);
 
-		Optional<List<String>> listOpt = Optional.of(new ArrayList<>());
+		Optional<List<String>> listOpt = Optional.of(new ArrayList<>(Arrays.asList("Beef", "Chicken", "Duck")));
 		System.out.println(listOpt);
 		List<String> listResult = listOpt.get();
 		System.out.println(listResult);
-		assertEquals(0, listResult.size());
+		assertEquals(3, listResult.size());
 	}
 
 	@Test(expected = NoSuchElementException.class)
@@ -102,7 +103,7 @@ public class OptionalMethodsTest {
 		System.out.println(result);
 		assertTrue(result);
 
-		Optional<List<String>> listOpt = Optional.ofNullable(new ArrayList<>());
+		Optional<List<String>> listOpt = Optional.ofNullable(new ArrayList<>(Arrays.asList("Beef", "Chicken", "Duck")));
 		result = listOpt.isPresent();
 		System.out.println(result);
 		assertTrue(result);
@@ -123,7 +124,7 @@ public class OptionalMethodsTest {
 		intOpt.ifPresent(System.out::println);
 		assertTrue(intOpt.isPresent());
 
-		Optional<List<String>> listOpt = Optional.ofNullable(new ArrayList<>());
+		Optional<List<String>> listOpt = Optional.ofNullable(new ArrayList<>(Arrays.asList("Beef", "Chicken", "Duck")));
 		listOpt.ifPresent(e -> {
 			System.out.println(e);
 		});
