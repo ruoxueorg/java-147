@@ -43,4 +43,59 @@ public class OptionalClassTest {
 		System.out.println(result);
 		assertEquals(0, result);
 	}
+
+	public static String findByIdWithTraditional(String id) {
+		if (id != null) {
+			return id;
+		} else {
+			throw new IllegalArgumentException(id);
+		}
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void findByIdWithTraditional() {
+		String result = findByIdWithTraditional("Beef");
+		System.out.println(result);
+		assertEquals("Beef", result);
+
+		result = findByIdWithTraditional(null);
+		System.out.println(result);
+		assertNull(result);
+	}
+
+	public static String findByIdWithIsPresent(String id) {
+		Optional<String> opt = Optional.ofNullable(id);
+		if (opt.isPresent()) {
+			return opt.get();
+		} else {
+			throw new IllegalArgumentException(id);
+		}
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void findByIdWithIsPresent() {
+		String result = findByIdWithIsPresent("Beef");
+		System.out.println(result);
+		assertEquals("Beef", result);
+
+		result = findByIdWithIsPresent(null);
+		System.out.println(result);
+		assertNull(result);
+	}
+
+	public static String findByIdWithOrElseThrow(String id) {
+		Optional<String> opt = Optional.ofNullable(id);
+		return opt.orElseThrow(() -> new IllegalArgumentException(id));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void findByIdWithOrElseThrow() {
+		String result = findByIdWithOrElseThrow("Beef");
+		System.out.println(result);
+		assertEquals("Beef", result);
+
+		result = findByIdWithOrElseThrow(null);
+		System.out.println(result);
+		assertNull(result);
+	}
 }
