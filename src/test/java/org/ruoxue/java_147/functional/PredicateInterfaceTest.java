@@ -7,8 +7,47 @@ import org.junit.Test;
 public class PredicateInterfaceTest {
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void List_removeIf() {
+
 	}
 
+	@Test
+	public void Collectors_partitioningBy() {
+
+	}
+
+	@Test
+	public void Pattern_asMatchPredicate() {
+
+	}
+
+	@Test
+	public void Pattern_asPredicate() {
+
+	}
+
+	@Test
+	public void Stream_allMatch() {
+
+	}
+
+	@Test
+	public void Stream_iterate() {
+
+	}
+
+	@Test
+	public void listOfPredicates() {
+
+	}
+
+	@Test
+	public void methodReference() {
+
+	}
+	
+	@Test
+	public void methodParameter() {
+
+	}
 }
