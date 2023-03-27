@@ -19,6 +19,17 @@ import lombok.Setter;
 
 public class InitializeOptionalTest {
 
+	@Test
+	public void empty() {
+		Optional<String> emptyOpt = Optional.empty();
+		System.out.println(emptyOpt);
+		assertFalse(emptyOpt.isPresent());
+
+		System.out.println(emptyOpt);
+		emptyOpt = Optional.ofNullable(null);
+		assertFalse(emptyOpt.isPresent());
+	}
+
 	@NoArgsConstructor
 	@Getter
 	@Setter
@@ -57,17 +68,6 @@ public class InitializeOptionalTest {
 		public int hashCode() {
 			return new HashCodeBuilder().append(getName()).toHashCode();
 		}
-	}
-
-	@Test
-	public void empty() {
-		Optional<String> emptyOpt = Optional.empty();
-		System.out.println(emptyOpt);
-		assertFalse(emptyOpt.isPresent());
-
-		System.out.println(emptyOpt);
-		emptyOpt = Optional.ofNullable(null);
-		assertFalse(emptyOpt.isPresent());
 	}
 
 	@Test
@@ -141,7 +141,7 @@ public class InitializeOptionalTest {
 		System.out.println(intOpt);
 		assertFalse(intOpt.isPresent());
 		System.out.println(intOpt.orElse(0));
-		
+
 		Optional<Food> foodOpt = Optional.ofNullable(null);
 		System.out.println(foodOpt);
 		assertFalse(foodOpt.isPresent());
