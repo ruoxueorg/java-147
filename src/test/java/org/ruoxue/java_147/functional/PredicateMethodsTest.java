@@ -130,4 +130,23 @@ public class PredicateMethodsTest {
 		System.out.println(result);
 		assertFalse(result);
 	}
+
+	public static class LengthGreaterThan<E> implements Predicate<String> {
+		@Override
+		public boolean test(String t) {
+			return t.length() > 3;
+		}
+	}
+
+	@Test
+	public void predicate() {
+		Predicate<String> lengthGreaterThan = new LengthGreaterThan<String>();
+		Predicate<String> contains = o -> o.contains("o");
+		boolean result = lengthGreaterThan.and(contains).test("Bacon");
+		System.out.println(result);
+		assertTrue(result);
+		result = lengthGreaterThan.and(contains).test("Ham");
+		System.out.println(result);
+		assertFalse(result);
+	}
 }

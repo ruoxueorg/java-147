@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -152,17 +152,70 @@ public class PredicateInterfaceTest {
 	}
 
 	@Test
-	public void listOfPredicates() {
+	public void methodReference() {
+		int expectedSize = 2;
+		List<String> list = new ArrayList<>(Arrays.asList("Bacon", "", "Ham", "Pork", ""));
+		Predicate<String> isEmpty = String::isEmpty;
+		List<String> result = list.stream().filter(isEmpty).collect(Collectors.toList());
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
 
+		List<Food> foodList = new ArrayList<>(
+				Arrays.asList(new Food("Bacon", 1, 1), null, new Food("Ham", 2, 1), new Food("Pork", 3, 1), null));
+		Predicate<Food> nonNull = Objects::nonNull;
+		Predicate<Food> contains = o -> o.name.contains("o");
+		List<Food> foodResult = foodList.stream().filter(nonNull.and(contains)).collect(Collectors.toList());
+		System.out.println(foodResult);
+		assertEquals(expectedSize, foodResult.size());
 	}
 
-	@Test
-	public void methodReference() {
+	public static List<String> filter(List<String> list, Predicate<String> predicate) {
+		return list.stream().filter(predicate).collect(Collectors.toList());
+	}
 
+	public static List<Food> foodFilter(List<Food> list, Predicate<Food> predicate) {
+		return list.stream().filter(predicate).collect(Collectors.toList());
 	}
 
 	@Test
 	public void methodParameter() {
+		int expectedSize = 2;
+		List<String> list = new ArrayList<>(Arrays.asList("Bacon", "Ham", "Pork"));
+		Predicate<String> lengthGreaterThan = s -> s.length() > 3;
+		List<String> result = filter(list, lengthGreaterThan);
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
 
+		List<Food> foodList = new ArrayList<>(
+				Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1)));
+		Predicate<Food> lengthLessThan = o -> o.name.length() < 6;
+		Predicate<Food> contains = o -> o.name.contains("o");
+		List<Food> foodResult = foodFilter(foodList, lengthLessThan.and(contains));
+		System.out.println(foodResult);
+		assertEquals(expectedSize, foodResult.size());
+	}
+
+	@Test
+	public void listOfPredicates() {
+		int expectedSize = 2;
+		List<String> list = new ArrayList<>(Arrays.asList("Bacon", null, "Ham", "Pork", ""));
+		Predicate<String> nonNull = Objects::nonNull;
+		Predicate<String> lengthGreaterThan = s -> s.length() > 3;
+		Predicate<String> contains = s -> s.contains("o");
+		List<Predicate<String>> predicateList = Arrays.asList(nonNull, lengthGreaterThan, contains);
+		List<String> result = list.stream().filter(predicateList.stream().reduce(x -> true, Predicate::and))
+				.collect(Collectors.toList());
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
+
+		List<Integer> intList = new ArrayList<>(Arrays.asList(1, null, 2, 3, 4, 5, 6, null));
+		Predicate<Integer> intNonNull = Objects::nonNull;
+		Predicate<Integer> greaterThan = i -> i > 3;
+		Predicate<Integer> lessThan = i -> i < 6;
+		List<Predicate<Integer>> intPredicateList = Arrays.asList(intNonNull, greaterThan, lessThan);
+		List<Integer> intResult = intList.stream().filter(intPredicateList.stream().reduce(x -> true, Predicate::and))
+				.collect(Collectors.toList());
+		System.out.println(intResult);
+		assertEquals(expectedSize, intResult.size());
 	}
 }
