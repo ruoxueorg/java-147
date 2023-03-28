@@ -59,12 +59,12 @@ public class PredicateWithExamplesTest {
 
 	@Test
 	public void test() {
-		Predicate<Food> lessThan = o -> o.quantity < 6;
-		Food food = new Food("Pork", 3, 1);
+		Predicate<Food> lessThan = o -> o.quantity < 3;
+		Food food = new Food("Bacon", 1, 1);
 		boolean result = lessThan.test(food);
 		System.out.println(result);
 		assertTrue(result);
-		food = new Food("Pork", 6, 1);
+		food = new Food("Pork", 3, 1);
 		result = lessThan.test(food);
 		System.out.println(result);
 		assertFalse(result);
@@ -72,12 +72,12 @@ public class PredicateWithExamplesTest {
 
 	@Test
 	public void negate() {
-		Predicate<Food> lessThan = o -> o.quantity < 6;
-		Food food = new Food("Pork", 3, 1);
+		Predicate<Food> lessThan = o -> o.quantity < 3;
+		Food food = new Food("Bacon", 1, 1);
 		boolean result = lessThan.negate().test(food);
 		System.out.println(result);
 		assertFalse(result);
-		food = new Food("Pork", 6, 1);
+		food = new Food("Pork", 3, 1);
 		result = lessThan.negate().test(food);
 		System.out.println(result);
 		assertTrue(result);
@@ -87,7 +87,7 @@ public class PredicateWithExamplesTest {
 	public void and() {
 		Predicate<Food> nonNull = Objects::nonNull;
 		Predicate<Food> contains = o -> o.name.contains("o");
-		Food food = new Food("Pork", 3, 1);
+		Food food = new Food("Bacon", 1, 1);
 		boolean result = nonNull.and(contains).test(food);
 		System.out.println(result);
 		assertTrue(result);
@@ -140,7 +140,7 @@ public class PredicateWithExamplesTest {
 	public static class LengthGreaterThan<E> implements Predicate<Food> {
 		@Override
 		public boolean test(Food t) {
-			return t.name.length() > 4;
+			return t.name.length() > 3;
 		}
 	}
 
@@ -152,7 +152,7 @@ public class PredicateWithExamplesTest {
 		boolean result = lengthGreaterThan.and(contains).test(food);
 		System.out.println(result);
 		assertTrue(result);
-		food = new Food("Pork", 3, 1);
+		food = new Food("Ham", 2, 1);
 		result = lengthGreaterThan.and(contains).test(food);
 		System.out.println(result);
 		assertFalse(result);

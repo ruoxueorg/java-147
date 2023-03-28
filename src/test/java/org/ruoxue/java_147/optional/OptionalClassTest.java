@@ -2,6 +2,8 @@ package org.ruoxue.java_147.optional;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -66,13 +68,24 @@ public class OptionalClassTest {
 		System.out.println(result);
 		assertTrue(result);
 
-		opt = Optional.ofNullable(null);
-		newOpt = opt.filter(e -> e.contains("B"));
-		System.out.println(newOpt);
-		assertEquals(Optional.empty(), newOpt);
-		result = newOpt.isPresent();
-		System.out.println(result);
-		assertFalse(result);
+		Optional<Integer> intOpt = Optional.of(147);
+		System.out.println(intOpt);
+		assertTrue(intOpt.isPresent());
+		System.out.println(intOpt.get());
+
+		Food food = new Food("Chicken", 2, 1);
+		Optional<Food> foodOpt = Optional.of(food);
+		System.out.println(foodOpt);
+		assertTrue(foodOpt.isPresent());
+		System.out.println(foodOpt.get());
+
+		List<Food> list = new ArrayList<>();
+		list.add(food);
+		list.add(new Food("Duck", 3, 1));
+		Optional<List<Food>> listOpt = Optional.of(list);
+		System.out.println(listOpt);
+		assertTrue(listOpt.isPresent());
+		System.out.println(listOpt.get());
 	}
 
 	@Test
