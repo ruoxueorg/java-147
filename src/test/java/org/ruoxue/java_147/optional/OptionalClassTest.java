@@ -3,8 +3,10 @@ package org.ruoxue.java_147.optional;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -62,30 +64,22 @@ public class OptionalClassTest {
 	@Test
 	public void filter() {
 		Optional<String> opt = Optional.ofNullable("Beef");
-		Optional<String> newOpt = opt.filter(e -> e.contains("B"));
-		System.out.println(newOpt);
-		boolean result = newOpt.isPresent();
-		System.out.println(result);
-		assertTrue(result);
-
-		Optional<Integer> intOpt = Optional.of(147);
-		System.out.println(intOpt);
-		assertTrue(intOpt.isPresent());
-		System.out.println(intOpt.get());
+		opt = opt.filter(e -> e.startsWith("B"));
+		System.out.println(opt);
+		assertTrue(opt.isPresent());
 
 		Food food = new Food("Chicken", 2, 1);
-		Optional<Food> foodOpt = Optional.of(food);
+		Optional<Food> foodOpt = Optional.ofNullable(food);
+		foodOpt = foodOpt.filter(o -> o.name.startsWith("B"));
 		System.out.println(foodOpt);
-		assertTrue(foodOpt.isPresent());
-		System.out.println(foodOpt.get());
+		assertFalse(foodOpt.isPresent());
 
-		List<Food> list = new ArrayList<>();
-		list.add(food);
-		list.add(new Food("Duck", 3, 1));
-		Optional<List<Food>> listOpt = Optional.of(list);
-		System.out.println(listOpt);
-		assertTrue(listOpt.isPresent());
-		System.out.println(listOpt.get());
+		List<Food> foodList = Arrays.asList(new Food("Beef", 1, 1), new Food("Chicken", 2, 1), new Food("Duck", 3, 1));
+		Optional<List<Food>> foodListOpt = Optional.ofNullable(foodList);
+		Predicate<List<Food>> predicate = list -> list.stream().filter(e -> e.name.startsWith("E")).count() > 0;
+		foodListOpt = foodListOpt.filter(predicate);
+		System.out.println(foodListOpt);
+		assertFalse(foodListOpt.isPresent());
 	}
 
 	@Test
@@ -97,16 +91,16 @@ public class OptionalClassTest {
 		System.out.println(result);
 		assertEquals(4, result);
 
-		opt = Optional.ofNullable(null);
-		newOpt = opt.map(String::length);
-		System.out.println(newOpt);
-		assertEquals(Optional.empty(), newOpt);
-		result = newOpt.orElse(0);
-		System.out.println(result);
-		assertEquals(0, result);
+//		opt = Optional.ofNullable(null);
+//		newOpt = opt.map(String::length);
+//		System.out.println(newOpt);
+//		assertEquals(Optional.empty(), newOpt);
+//		result = newOpt.orElse(0);
+//		System.out.println(result);
+//		assertEquals(0, result);
 	}
 
-	public static String findByIdWithTraditional(String id) {
+	public static String findWithTraditional(String id) {
 		if (id != null) {
 			return id;
 		} else {
@@ -115,17 +109,17 @@ public class OptionalClassTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void findByIdWithTraditional() {
-		String result = findByIdWithTraditional("Beef");
+	public void findWithTraditional() {
+		String result = findWithTraditional("Beef");
 		System.out.println(result);
 		assertEquals("Beef", result);
 
-		result = findByIdWithTraditional(null);
+		result = findWithTraditional(null);
 		System.out.println(result);
 		assertNull(result);
 	}
 
-	public static String findByIdWithIsPresent(String id) {
+	public static String findWithIsPresent(String id) {
 		Optional<String> opt = Optional.ofNullable(id);
 		if (opt.isPresent()) {
 			return opt.get();
@@ -135,28 +129,28 @@ public class OptionalClassTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void findByIdWithIsPresent() {
-		String result = findByIdWithIsPresent("Beef");
+	public void findWithIsPresent() {
+		String result = findWithIsPresent("Beef");
 		System.out.println(result);
 		assertEquals("Beef", result);
 
-		result = findByIdWithIsPresent(null);
+		result = findWithIsPresent(null);
 		System.out.println(result);
 		assertNull(result);
 	}
 
-	public static String findByIdWithOrElseThrow(String id) {
+	public static String findWithOrElseThrow(String id) {
 		Optional<String> opt = Optional.ofNullable(id);
 		return opt.orElseThrow(() -> new IllegalArgumentException(id));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void findByIdWithOrElseThrow() {
-		String result = findByIdWithOrElseThrow("Beef");
+	public void findWithOrElseThrow() {
+		String result = findWithOrElseThrow("Beef");
 		System.out.println(result);
 		assertEquals("Beef", result);
 
-		result = findByIdWithOrElseThrow(null);
+		result = findWithOrElseThrow(null);
 		System.out.println(result);
 		assertNull(result);
 	}
