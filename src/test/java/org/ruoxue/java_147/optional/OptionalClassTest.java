@@ -14,7 +14,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,16 +23,19 @@ public class OptionalClassTest {
 	@NoArgsConstructor
 	@Getter
 	@Setter
-	@Builder
 	public static class Food {
 		private String name;
 		private double quantity;
 		private int type;
 
+		private List<String> origins;
+		private Optional<String> id;
+
 		public Food(String name, double quantity, int type) {
 			this.name = name;
 			this.quantity = quantity;
 			this.type = type;
+			this.id = Optional.ofNullable(name).map(s -> s.toUpperCase());
 		}
 
 		public String toString() {
@@ -64,7 +66,7 @@ public class OptionalClassTest {
 	@Test
 	public void filter() {
 		Optional<String> opt = Optional.ofNullable("Beef");
-		opt = opt.filter(e -> e.startsWith("B"));
+		opt = opt.filter(s -> s.startsWith("B"));
 		System.out.println(opt);
 		assertTrue(opt.isPresent());
 
@@ -76,7 +78,7 @@ public class OptionalClassTest {
 
 		List<Food> foodList = Arrays.asList(new Food("Beef", 1, 1), new Food("Chicken", 2, 1), new Food("Duck", 3, 1));
 		Optional<List<Food>> foodListOpt = Optional.ofNullable(foodList);
-		Predicate<List<Food>> predicate = list -> list.stream().filter(e -> e.name.startsWith("E")).count() > 0;
+		Predicate<List<Food>> predicate = list -> list.stream().filter(e -> e.name.startsWith("A")).count() > 0;
 		foodListOpt = foodListOpt.filter(predicate);
 		System.out.println(foodListOpt);
 		assertFalse(foodListOpt.isPresent());
@@ -85,19 +87,39 @@ public class OptionalClassTest {
 	@Test
 	public void map() {
 		Optional<String> opt = Optional.ofNullable("Beef");
-		Optional<Integer> newOpt = opt.map(e -> e.length());
-		System.out.println(newOpt);
-		int result = newOpt.orElse(0);
+		Optional<Integer> intOpt = opt.map(String::length);
+		System.out.println(intOpt);
+		int result = intOpt.orElse(0);
 		System.out.println(result);
 		assertEquals(4, result);
 
-//		opt = Optional.ofNullable(null);
-//		newOpt = opt.map(String::length);
-//		System.out.println(newOpt);
-//		assertEquals(Optional.empty(), newOpt);
-//		result = newOpt.orElse(0);
-//		System.out.println(result);
-//		assertEquals(0, result);
+		Food food = new Food("Chicken", 2, 1);
+		Optional<Food> foodOpt = Optional.ofNullable(food);
+		Optional<String> stringOpt = foodOpt.map(o -> o.name).map(String::trim).map(s -> s.toUpperCase())
+				.filter(s -> s.contains("E"));
+		System.out.println(stringOpt);
+		String stringResult = stringOpt.orElseGet(() -> null);
+		System.out.println(stringResult);
+		assertNotNull(stringResult);
+
+		food = new Food("Duck", 3, 1);
+		foodOpt = Optional.ofNullable(food);
+		Optional<List<String>> listOpt = foodOpt.map(o -> o.origins);
+		System.out.println(listOpt);
+		List<String> listResult = listOpt.orElseGet(ArrayList::new);
+		System.out.println(listResult);
+		assertNotNull(listResult);
+	}
+
+	@Test
+	public void flatMap() {
+		Food food = new Food("Beef", 1, 1);
+		Optional<Food> foodOpt = Optional.ofNullable(food);
+		Optional<String> stringOpt = foodOpt.flatMap(o -> o.id);
+		System.out.println(stringOpt);
+		String stringResult = stringOpt.orElseGet(() -> null);
+		System.out.println(stringResult);
+		assertNotNull(stringResult);
 	}
 
 	public static String findWithTraditional(String id) {
