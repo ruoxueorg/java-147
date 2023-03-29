@@ -67,7 +67,7 @@ public class PredicateInterfaceTest {
 	@Test
 	public void Collection_removeIf() {
 		int expectedSize = 1;
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
+		List<String> list = new ArrayList<>(Arrays.asList("Bacon", "Ham", "Pork"));
 		Predicate<String> lengthGreaterThan = s -> s.length() > 3;
 		list.removeIf(lengthGreaterThan);
 		System.out.println(list);

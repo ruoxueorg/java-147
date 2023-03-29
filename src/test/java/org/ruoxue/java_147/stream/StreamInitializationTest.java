@@ -83,7 +83,6 @@ public class StreamInitializationTest {
 	public void intStream() {
 		int expectedCount = 3;
 		IntStream intStream = IntStream.of(10, 20, 30);
-		System.out.println(intStream);
 		long count = intStream.peek(System.out::println).count();
 		assertEquals(expectedCount, count);
 	}
