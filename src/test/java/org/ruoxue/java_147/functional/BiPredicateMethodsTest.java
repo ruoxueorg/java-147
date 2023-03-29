@@ -2,9 +2,7 @@ package org.ruoxue.java_147.functional;
 
 import static org.junit.Assert.*;
 
-import java.util.Objects;
 import java.util.function.BiPredicate;
-import java.util.function.Predicate;
 
 import org.junit.Test;
 
@@ -117,40 +115,21 @@ public class BiPredicateMethodsTest {
 		assertTrue(result);
 	}
 
-	@Test
-	public void isEqual() {
-		Predicate<String> isEqual = Predicate.isEqual("Bacon");
-		boolean result = isEqual.test("Bacon");
-		System.out.println(result);
-		assertTrue(result);
-		result = isEqual.test("Ham");
-		System.out.println(result);
-		assertFalse(result);
-
-		Predicate<Integer> intIsEqual = Predicate.isEqual(6);
-		result = intIsEqual.test(6);
-		System.out.println(result);
-		assertTrue(result);
-		result = intIsEqual.test(3);
-		System.out.println(result);
-		assertFalse(result);
-	}
-
-	public static class LengthGreaterThan<E> implements Predicate<String> {
+	public static class LengthGreaterThan<E, F> implements BiPredicate<String, Integer> {
 		@Override
-		public boolean test(String t) {
-			return t.length() > 3;
+		public boolean test(String t, Integer u) {
+			return t.length() > u;
 		}
 	}
 
 	@Test
-	public void predicate() {
-		Predicate<String> lengthGreaterThan = new LengthGreaterThan<String>();
-		Predicate<String> contains = o -> o.contains("o");
-		boolean result = lengthGreaterThan.and(contains).test("Bacon");
+	public void biPredicate() {
+		BiPredicate<String, Integer> lengthGreaterThan = new LengthGreaterThan<String, Integer>();
+		BiPredicate<String, Integer> mod = (s, i) -> s.length() % i == 1;
+		boolean result = lengthGreaterThan.and(mod).test("Bacon", 4);
 		System.out.println(result);
 		assertTrue(result);
-		result = lengthGreaterThan.and(contains).test("Ham");
+		result = lengthGreaterThan.and(mod).test("Ham", 3);
 		System.out.println(result);
 		assertFalse(result);
 	}
