@@ -145,7 +145,7 @@ public class PredicateWithExamplesTest {
 	}
 
 	@Test
-	public void predicate() {
+	public void traditional() {
 		Predicate<Food> lengthGreaterThan = new LengthGreaterThan<Food>();
 		Predicate<Food> contains = o -> o.name.contains("o");
 		Food food = new Food("Bacon", 1, 1);
