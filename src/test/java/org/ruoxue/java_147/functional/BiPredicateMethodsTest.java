@@ -123,7 +123,7 @@ public class BiPredicateMethodsTest {
 	}
 
 	@Test
-	public void biPredicate() {
+	public void traditional() {
 		BiPredicate<String, Integer> lengthGreaterThan = new LengthGreaterThan<String, Integer>();
 		BiPredicate<String, Integer> mod = (s, i) -> s.length() % i == 1;
 		boolean result = lengthGreaterThan.and(mod).test("Bacon", 4);
