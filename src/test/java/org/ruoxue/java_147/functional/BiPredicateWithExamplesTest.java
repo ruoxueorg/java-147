@@ -3,7 +3,6 @@ package org.ruoxue.java_147.functional;
 import static org.junit.Assert.*;
 
 import java.util.function.BiPredicate;
-import java.util.Objects;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
