@@ -48,7 +48,7 @@ public class BiPredicateMethodsTest {
 
 	@Test
 	public void and() {
-		BiPredicate<String, String> startsWith = (s, s2) -> s.startsWith(s2);
+		BiPredicate<String, String> startsWith = String::startsWith;
 		BiPredicate<String, String> endsWith = (s, s2) -> s.endsWith(s2);
 		boolean result = startsWith.and(endsWith).test("BaconB", "B");
 		System.out.println(result);
@@ -69,7 +69,7 @@ public class BiPredicateMethodsTest {
 
 	@Test
 	public void or() {
-		BiPredicate<String, String> startsWith = (s, s2) -> s.startsWith(s2);
+		BiPredicate<String, String> startsWith = String::startsWith;
 		BiPredicate<String, String> endsWith = (s, s2) -> s.endsWith(s2);
 		boolean result = startsWith.or(endsWith).test("BaconB", "B");
 		System.out.println(result);
@@ -91,8 +91,8 @@ public class BiPredicateMethodsTest {
 	@Test
 	public void chaining() {
 		BiPredicate<String, String> contains = (s, s2) -> s.contains(s2);
-		BiPredicate<String, String> startsWith = (s, s2) -> s.startsWith(s2);
-		BiPredicate<String, String> endsWith = (s, s2) -> s.endsWith(s2);
+		BiPredicate<String, String> startsWith = String::startsWith;
+		BiPredicate<String, String> endsWith = String::endsWith;
 		boolean result = contains.and(startsWith).or(endsWith).test("BaconB", "B");
 		System.out.println(result);
 		assertTrue(result);

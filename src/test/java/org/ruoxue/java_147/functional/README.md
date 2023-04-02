@@ -8,3 +8,4 @@
 5. [Java BiPredicate Methods](https://www.ruoxue.org/java-147-java-bipredicate-methods/)
 6. [BiPredicate in Java with Examples](https://www.ruoxue.org/java-147-bipredicate-in-java-with-examples/)
 7. [Java BiPredicate Interface](https://www.ruoxue.org/java-147-java-bipredicate-interface/)
+8. [BiPredicate Functional Interface in Java](https://www.ruoxue.org/java-147-bipredicate-functional-interface-in-java/)

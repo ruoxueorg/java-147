@@ -3,7 +3,6 @@ package org.ruoxue.java_147.functional;
 import static org.junit.Assert.*;
 
 import java.util.function.BiPredicate;
-import java.util.function.Predicate;
 import java.util.Objects;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -60,7 +59,7 @@ public class BiPredicateWithExamplesTest {
 
 	@Test
 	public void test() {
-		BiPredicate<Food, String> startsWith = (s, s2) -> s.name.startsWith(s2);
+		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
 		Food food = new Food("Bacon", 1, 1);
 		boolean result = startsWith.test(food, "B");
 		System.out.println(result);
@@ -73,7 +72,7 @@ public class BiPredicateWithExamplesTest {
 
 	@Test
 	public void negate() {
-		BiPredicate<Food, String> startsWith = (s, s2) -> s.name.startsWith(s2);
+		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
 		Food food = new Food("Bacon", 1, 1);
 		boolean result = startsWith.negate().test(food, "B");
 		System.out.println(result);
@@ -86,76 +85,63 @@ public class BiPredicateWithExamplesTest {
 
 	@Test
 	public void and() {
-		BiPredicate<Food, String> startsWith = (s, s2) -> s.name.startsWith(s2);
-		BiPredicate<Food, String> endsWith = (s, s2) -> s.name.endsWith(s2);
-		Food food = new Food("BaconB", 1, 1);
-		boolean result = startsWith.and(endsWith).test(food,"B");
+		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
+		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
+		Food food = new Food("Bacon", 1, 1);
+		boolean result = startsWith.and(contains).test(food, "B");
 		System.out.println(result);
 		assertTrue(result);
 		food = new Food("Ham", 3, 1);
-		result = startsWith.and(endsWith).test(food, "B");
+		result = startsWith.and(contains).test(food, "B");
 		System.out.println(result);
 		assertFalse(result);
 	}
 
 	@Test
 	public void or() {
-		Predicate<Food> isNull = Objects::isNull;
-		Predicate<Food> contains = o -> o.name.contains("o");
+		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
+		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
 		Food food = new Food("Pork", 3, 1);
-		boolean result = isNull.or(contains).test(food);
+		boolean result = startsWith.or(contains).test(food, "o");
 		System.out.println(result);
 		assertTrue(result);
-		result = isNull.or(contains).test(null);
+		result = startsWith.or(contains).test(food, "k");
 		System.out.println(result);
 		assertTrue(result);
 	}
 
 	@Test
 	public void chaining() {
-		Predicate<Food> nonNull = Objects::nonNull;
-		Predicate<Food> startsWith = o -> o.name.startsWith("B");
-		Predicate<Food> endsWith = o -> o.name.endsWith("n");
-		Food food = new Food("Bacon", 1, 1);
-		boolean result = nonNull.and(startsWith).or(endsWith).test(food);
+		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
+		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
+		BiPredicate<Food, String> endsWith = (o, s) -> o.name.endsWith(s);
+		Food food = new Food("BaconB", 1, 1);
+		boolean result = contains.and(startsWith).or(endsWith).test(food, "B");
 		System.out.println(result);
 		assertTrue(result);
 		food = new Food("Ham", 2, 1);
-		result = nonNull.and(startsWith).or(endsWith).test(food);
+		result = contains.and(startsWith).or(endsWith).test(food, "B");
 		System.out.println(result);
 		assertFalse(result);
 	}
 
-	@Test
-	public void isEqual() {
-		Food food = new Food("Bacon", 1, 1);
-		Predicate<Food> isEqual = Predicate.isEqual(food);
-		boolean result = isEqual.test(food);
-		System.out.println(result);
-		assertTrue(result);
-		food = new Food("Ham", 2, 1);
-		result = isEqual.test(food);
-		System.out.println(result);
-		assertFalse(result);
-	}
-
-	public static class LengthGreaterThan<E> implements Predicate<Food> {
+	public static class StartsWith<E> implements BiPredicate<Food, String> {
 		@Override
-		public boolean test(Food t) {
-			return t.name.length() > 3;
+		public boolean test(Food t, String u) {
+			return t.name.startsWith(u);
 		}
 	}
 
 	@Test
 	public void traditional() {
-		Predicate<Food> lengthGreaterThan = new LengthGreaterThan<Food>();
-		Predicate<Food> contains = o -> o.name.contains("o");
+		BiPredicate<Food, String> startsWith = new StartsWith<Food>();
+		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
 		Food food = new Food("Bacon", 1, 1);
-		boolean result = lengthGreaterThan.and(contains).test(food);
+		boolean result = startsWith.and(contains).test(food, "B");
 		System.out.println(result);
 		assertTrue(result);
 		food = new Food("Ham", 2, 1);
-		result = lengthGreaterThan.and(contains).test(food);
+		result = startsWith.and(contains).test(food, "B");
 		System.out.println(result);
 		assertFalse(result);
 	}
