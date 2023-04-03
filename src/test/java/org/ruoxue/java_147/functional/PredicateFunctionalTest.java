@@ -128,8 +128,8 @@ public class PredicateFunctionalTest {
 		Predicate<String> lengthGreaterThan = s -> s.length() > 3;
 		Predicate<String> contains = s -> s.contains("o");
 		List<Predicate<String>> predicateList = Arrays.asList(nonNull, lengthGreaterThan, contains);
-		list = list.stream().filter(predicateList.stream().reduce(x -> true, Predicate::and))
-				.collect(Collectors.toList());
+		Predicate<String> predicate = predicateList.stream().reduce(x -> true, Predicate::and);
+		list = list.stream().filter(predicate).collect(Collectors.toList());
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 

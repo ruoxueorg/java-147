@@ -60,21 +60,6 @@ public class BiPredicateFunctionalTest {
 		}
 	}
 
-//	@Test
-//	public void Pattern_asPredicate() {
-//		int expectedSize = 2;
-//		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-//		Predicate<String> contains = Pattern.compile("\\wo").asPredicate();
-//		list = list.stream().filter(contains).collect(Collectors.toList());
-//		System.out.println(list);
-//		assertEquals(expectedSize, list.size());
-//
-//		Predicate<String> startsWith = Pattern.compile("^B").asPredicate();
-//		list = list.stream().filter(startsWith.and(contains)).collect(Collectors.toList());
-//		System.out.println(list);
-//		assertEquals(1, list.size());
-//	}
-//
 	@Test
 	public void methodReference() {
 		int expectedSize = 1;
@@ -117,26 +102,28 @@ public class BiPredicateFunctionalTest {
 		assertEquals(1, foodList.size());
 	}
 
-//	@Test
-//	public void listOfPredicates() {
-//		int expectedSize = 2;
-//		List<String> list = Arrays.asList("Bacon", null, "Ham", "Pork", "");
-//		BiPredicate<String, Integer> lengthGreaterThan = (s, i) -> s.length() > i;
-//		BiPredicate<String, Integer> substring = (s, i) -> s.substring(i).length() > 0;
-//		List<BiPredicate<String, Integer>> predicateList = Arrays.asList(lengthGreaterThan, substring);
-//		list = list.stream().filter(predicateList.stream().reduce(x -> true, BiPredicate::and))
-//				.collect(Collectors.toList());
-//		System.out.println(list);
-//		assertEquals(expectedSize, list.size());
-//
-//		List<Integer> intList = Arrays.asList(1, null, 2, 3, 4, 5, 6, null);
-//		Predicate<Integer> intNonNull = Objects::nonNull;
-//		Predicate<Integer> greaterThan = i -> i > 3;
-//		Predicate<Integer> lessThan = i -> i < 6;
-//		List<Predicate<Integer>> intPredicateList = Arrays.asList(intNonNull, greaterThan, lessThan);
-//		intList = intList.stream().filter(intPredicateList.stream().reduce(x -> true, Predicate::and))
-//				.collect(Collectors.toList());
-//		System.out.println(intList);
-//		assertEquals(expectedSize, intList.size());
-//	}
+	@Test
+	public void listOfBiPredicates() {
+		int expectedSize = 2;
+		List<String> list = Arrays.asList("Bacon", "Ham", "Pork", "");
+		BiPredicate<String, Integer> lengthGreaterThan = (s, i) -> s.length() > i;
+		BiPredicate<String, Integer> substring = (s, i) -> s.substring(i).length() > 0;
+		List<BiPredicate<String, Integer>> predicateList = Arrays.asList(lengthGreaterThan, substring);
+		BiPredicate<String, Integer> biPredicate = predicateList.stream().reduce((s, i) -> true, BiPredicate::and);
+		list = list.stream().filter(e -> biPredicate.test(e, 3)).collect(Collectors.toList());
+		System.out.println(list);
+		assertEquals(expectedSize, list.size());
+
+		List<Integer> intList = Arrays.asList(1, 2, 3, 4, 5, 6);
+		BiPredicate<Integer, Integer> greaterThan = (i, i2) -> i > i2;
+		BiPredicate<Integer, Integer> lessThan = (i, i2) -> i < i2 + 3;
+		List<BiPredicate<Integer, Integer>> intPredicateList = Arrays.asList(greaterThan, lessThan);
+		intList = intList.stream()
+				.filter(e -> intPredicateList.stream().reduce((s, i) -> true, BiPredicate::and).test(e, 3))
+				.collect(Collectors.toList());
+		System.out.println(intList);
+		assertEquals(expectedSize, intList.size());
+
+	}
+
 }
