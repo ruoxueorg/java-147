@@ -125,5 +125,4 @@ public class BiPredicateFunctionalTest {
 		assertEquals(expectedSize, intList.size());
 
 	}
-
 }
