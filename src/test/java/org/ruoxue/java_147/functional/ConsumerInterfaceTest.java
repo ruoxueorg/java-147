@@ -1,14 +1,9 @@
 package org.ruoxue.java_147.functional;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -66,7 +61,7 @@ public class ConsumerInterfaceTest {
 	@Test
 	public void Stream_forEach() {
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Consumer<String> println = System.out::println;
+		Consumer<String> println = s -> System.out.println(s);
 		list.stream().forEach(println);
 
 		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
@@ -78,7 +73,7 @@ public class ConsumerInterfaceTest {
 	@Test
 	public void Stream_forEachOrdered() {
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Consumer<String> println = System.out::println;
+		Consumer<String> println = s -> System.out.println(s);
 		list.parallelStream().forEachOrdered(println);
 
 		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
@@ -90,12 +85,28 @@ public class ConsumerInterfaceTest {
 	@Test
 	public void Stream_peek() {
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Consumer<String> println = System.out::println;
+		Consumer<String> println = s -> System.out.println(s);
 		list.stream().peek(println).count();
 
 		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
 		Consumer<Food> lengthLessThan = o -> System.out.println(o.name.length() < 6);
 		Consumer<Food> contains = o -> System.out.println(o.name.contains("o"));
 		foodList.stream().peek(lengthLessThan.andThen(contains)).count();
+	}
+
+	@Test
+	public void Optional_ifPresent() {
+		Optional<String> opt = Optional.ofNullable("Bacon");
+		Consumer<String> println = s -> System.out.println(s);
+		opt.ifPresent(println);
+		opt = Optional.ofNullable(null);
+		opt.ifPresent(println);
+
+		Optional<Food> foodOpt = Optional.ofNullable(new Food("Bacon", 1, 1));
+		Consumer<Food> lengthLessThan = o -> System.out.println(o.name.length() < 6);
+		Consumer<Food> contains = o -> System.out.println(o.name.contains("o"));
+		foodOpt.ifPresent(lengthLessThan.andThen(contains));
+		foodOpt = Optional.ofNullable(null);
+		foodOpt.ifPresent(lengthLessThan.andThen(contains));
 	}
 }

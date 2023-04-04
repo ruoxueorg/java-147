@@ -9,3 +9,7 @@
 6. [BiPredicate in Java with Examples](https://www.ruoxue.org/java-147-bipredicate-in-java-with-examples/)
 7. [Java BiPredicate Interface](https://www.ruoxue.org/java-147-java-bipredicate-interface/)
 8. [BiPredicate Functional Interface in Java](https://www.ruoxue.org/java-147-bipredicate-functional-interface-in-java/)
+9. [Java Consumer Methods](https://www.ruoxue.org/java-147-java-consumer-methods/)
+10. [Consumer in Java with Examples](https://www.ruoxue.org/java-147-consumer-in-java-with-examples/)
+11. [Java Consumer Interface](https://www.ruoxue.org/java-147-java-consumer-interface/)
+12. [Consumer Functional Interface in Java](https://www.ruoxue.org/java-147-consumer-functional-interface-in-java/)
