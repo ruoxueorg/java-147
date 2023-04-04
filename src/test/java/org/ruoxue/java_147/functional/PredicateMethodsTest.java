@@ -141,7 +141,7 @@ public class PredicateMethodsTest {
 	@Test
 	public void traditional() {
 		Predicate<String> lengthGreaterThan = new LengthGreaterThan<String>();
-		Predicate<String> contains = o -> o.contains("o");
+		Predicate<String> contains = s -> s.contains("o");
 		boolean result = lengthGreaterThan.and(contains).test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
