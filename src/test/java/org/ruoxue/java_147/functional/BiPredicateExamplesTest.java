@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.BiPredicate;
+import java.util.function.Predicate;
+
 import org.junit.Test;
 
 public class BiPredicateExamplesTest {
@@ -24,7 +26,9 @@ public class BiPredicateExamplesTest {
 		result = listAdd.test(list, "Ham");
 		System.out.println(result);
 		assertTrue(result);
-		result = listAdd.test(list, "Pork");
+
+		Predicate<String> listAddPredicate = list::add;
+		result = listAddPredicate.test("Pork");
 		System.out.println(result);
 		assertTrue(result);
 		System.out.println(list);
@@ -97,7 +101,9 @@ public class BiPredicateExamplesTest {
 		result = queueOffer.test(queue, "Ham");
 		System.out.println(result);
 		assertTrue(result);
-		result = queueOffer.test(queue, "Pork");
+
+		Predicate<String> queueOfferPredicate = queue::offer;
+		result = queueOfferPredicate.test("Pork");
 		System.out.println(result);
 		assertTrue(result);
 		System.out.println(queue);
