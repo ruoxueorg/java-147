@@ -72,7 +72,7 @@ public class BiConsumerInterfaceTest {
 		foodMap.put(new Food("Ham", 2, 1), 2);
 		foodMap.put(new Food("Pork", 3, 1), 3);
 		BiConsumer<Food, Integer> lengthGreaterThan = (o, i) -> System.out.println(o.name.length() > i);
-		BiConsumer<Food, Integer> mod = (o, i) -> System.out.println(o.name.length() % i == 1);
-		foodMap.forEach(lengthGreaterThan.andThen(mod));
+		BiConsumer<Food, Integer> lengthMod = (o, i) -> System.out.println(o.name.length() % i == 1);
+		foodMap.forEach(lengthGreaterThan.andThen(lengthMod));
 	}
 }
