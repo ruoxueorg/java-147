@@ -1,9 +1,8 @@
 package org.ruoxue.java_147.functional;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -59,54 +58,21 @@ public class BiConsumerInterfaceTest {
 	}
 
 	@Test
-	public void Stream_forEach() {
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Consumer<String> println = s -> System.out.println(s);
-		list.stream().forEach(println);
+	public void Map_forEach() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Bacon", 1);
+		map.put("Ham", 2);
+		map.put("Pork", 3);
 
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		Consumer<Food> lengthLessThan = o -> System.out.println(o.name.length() < 6);
-		Consumer<Food> contains = o -> System.out.println(o.name.contains("o"));
-		foodList.stream().forEach(lengthLessThan.andThen(contains));
-	}
+		BiConsumer<String, Integer> println = (s, i) -> System.out.println(s + ", " + i);
+		map.forEach(println);
 
-	@Test
-	public void Stream_forEachOrdered() {
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Consumer<String> println = s -> System.out.println(s);
-		list.parallelStream().forEachOrdered(println);
-
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		Consumer<Food> lengthLessThan = o -> System.out.println(o.name.length() < 6);
-		Consumer<Food> contains = o -> System.out.println(o.name.contains("o"));
-		foodList.parallelStream().forEachOrdered(lengthLessThan.andThen(contains));
-	}
-
-	@Test
-	public void Stream_peek() {
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Consumer<String> println = s -> System.out.println(s);
-		list.stream().peek(println).count();
-
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		Consumer<Food> lengthLessThan = o -> System.out.println(o.name.length() < 6);
-		Consumer<Food> contains = o -> System.out.println(o.name.contains("o"));
-		foodList.stream().peek(lengthLessThan.andThen(contains)).count();
-	}
-
-	@Test
-	public void Optional_ifPresent() {
-		Optional<String> opt = Optional.ofNullable("Bacon");
-		Consumer<String> println = s -> System.out.println(s);
-		opt.ifPresent(println);
-		opt = Optional.ofNullable(null);
-		opt.ifPresent(println);
-
-		Optional<Food> foodOpt = Optional.ofNullable(new Food("Bacon", 1, 1));
-		Consumer<Food> lengthLessThan = o -> System.out.println(o.name.length() < 6);
-		Consumer<Food> contains = o -> System.out.println(o.name.contains("o"));
-		foodOpt.ifPresent(lengthLessThan.andThen(contains));
-		foodOpt = Optional.ofNullable(null);
-		foodOpt.ifPresent(lengthLessThan.andThen(contains));
+		Map<Food, Integer> foodMap = new HashMap<Food, Integer>();
+		foodMap.put(new Food("Bacon", 1, 1), 1);
+		foodMap.put(new Food("Ham", 2, 1), 2);
+		foodMap.put(new Food("Pork", 3, 1), 3);
+		BiConsumer<Food, Integer> lengthGreaterThan = (o, i) -> System.out.println(o.name.length() > i);
+		BiConsumer<Food, Integer> mod = (o, i) -> System.out.println(o.name.length() % i == 1);
+		foodMap.forEach(lengthGreaterThan.andThen(mod));
 	}
 }
