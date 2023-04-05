@@ -1,9 +1,6 @@
 package org.ruoxue.java_147.functional;
 
 import java.util.function.BiConsumer;
-import java.util.function.BiPredicate;
-import java.util.function.Consumer;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -11,7 +8,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
-import org.ruoxue.java_147.functional.BiPredicateWithExamplesTest.Food;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -71,42 +67,44 @@ public class BiConsumerWithExamplesTest {
 
 	@Test
 	public void andThen() {
-		BiConsumer<Food, String> startsWith = (o, s) -> System.out.println(o.name.startsWith(s));
+		BiConsumer<Food, String> startsWith = (o, s) -> {
+			Optional<Food> opt = Optional.ofNullable(o);
+			opt.ifPresent(e -> System.out.println(e.name.startsWith(s)));
+		};
 		BiConsumer<Food, String> contains = (o, s) -> {
 			Optional<Food> opt = Optional.ofNullable(o);
-			System.out.println("isPresent:"+opt.isPresent());
 			opt.ifPresent(e -> System.out.println(e.name.contains(s)));
 		};
 		Food food = new Food("Bacon", 1, 1);
 		startsWith.andThen(contains).accept(food, "B");
-		startsWith.accept(null, "B");
+		startsWith.andThen(contains).accept(null, "B");
 	}
 
 	@Test
 	public void chaining() {
-		Consumer<Food> nonNull = o -> System.out.println(Objects.nonNull(o));
-		Consumer<Food> startsWith = o -> System.out.println(o.name.startsWith("B"));
-		Consumer<Food> endsWith = o -> System.out.println(o.name.endsWith("n"));
+		BiConsumer<Food, String> contains = (o, s) -> System.out.println(o.name.contains(s));
+		BiConsumer<Food, String> startsWith = (o, s) -> System.out.println(o.name.startsWith(s));
+		BiConsumer<Food, String> endsWith = (o, s) -> System.out.println(o.name.endsWith(s));
 		Food food = new Food("Bacon", 1, 1);
-		nonNull.andThen(startsWith).andThen(endsWith).accept(food);
+		contains.andThen(startsWith).andThen(endsWith).accept(food, "B");
 		food = new Food("Ham", 2, 1);
-		nonNull.andThen(startsWith).andThen(endsWith).accept(food);
+		contains.andThen(startsWith).andThen(endsWith).accept(food, "B");
 	}
 
-	public static class LengthGreaterThan<E> implements Consumer<Food> {
+	public static class LengthGreaterThan<E> implements BiConsumer<Food, Integer> {
 		@Override
-		public void accept(Food t) {
-			System.out.println(t.name.length() > 3);
+		public void accept(Food t, Integer u) {
+			System.out.println(t.name.length() > u);
 		}
 	}
 
 	@Test
 	public void traditional() {
-		Consumer<Food> lengthGreaterThan = new LengthGreaterThan<Food>();
-		Consumer<Food> contains = o -> System.out.println(o.name.contains("o"));
+		BiConsumer<Food, Integer> lengthGreaterThan = new LengthGreaterThan<Food>();
+		BiConsumer<Food, Integer> mod = (o, i) -> System.out.println(o.name.length() % i == 1);
 		Food food = new Food("Bacon", 1, 1);
-		lengthGreaterThan.andThen(contains).accept(food);
+		lengthGreaterThan.andThen(mod).accept(food, 4);
 		food = new Food("Ham", 2, 1);
-		lengthGreaterThan.andThen(contains).accept(food);
+		lengthGreaterThan.andThen(mod).accept(food, 3);
 	}
 }

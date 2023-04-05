@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class ConsumerInterfaceTest {
+public class BiConsumerInterfaceTest {
 
 	@NoArgsConstructor
 	@Getter
@@ -56,18 +56,6 @@ public class ConsumerInterfaceTest {
 		public int hashCode() {
 			return new HashCodeBuilder().append(getName()).toHashCode();
 		}
-	}
-
-	@Test
-	public void Iterable_forEach() {
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Consumer<String> println = s -> System.out.println(s);
-		list.forEach(println);
-
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		Consumer<Food> lengthLessThan = o -> System.out.println(o.name.length() < 6);
-		Consumer<Food> contains = o -> System.out.println(o.name.contains("o"));
-		foodList.forEach(lengthLessThan.andThen(contains));
 	}
 
 	@Test
