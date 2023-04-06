@@ -9,35 +9,37 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-public class BiPredicateExamplesTest {
+public class PredicateExamplesTest {
 
 	@Test
 	public void stringContains() {
-		int expectedSize = 2;
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		BiPredicate<String, String> contains = String::contains;
-		list = list.stream().filter(e -> contains.test(e, "o")).collect(Collectors.toList());
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
+		String value = "Bacon";
+		Predicate<String> contains = value::contains;
+		boolean result = contains.test(value);
+		System.out.println(result);
+		assertTrue(result);
+
+		value = "Bread";
+		result = contains.test(value);
+		System.out.println(result);
+		assertFalse(result);
 	}
 
 	@Test
 	public void listAdd() {
 		List<String> list = new ArrayList<String>();
-		BiPredicate<List<String>, String> listAdd = List::add;
-		boolean result = listAdd.test(list, "Bacon");
+		Predicate<String> listAdd = list::add;
+		boolean result = listAdd.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = listAdd.test(list, "Ham");
+		result = listAdd.test("Ham");
 		System.out.println(result);
 		assertTrue(result);
-		result = listAdd.test(list, "Pork");
+		result = listAdd.test("Pork");
 		System.out.println(result);
 		assertTrue(result);
 		System.out.println(list);
@@ -46,11 +48,11 @@ public class BiPredicateExamplesTest {
 	@Test
 	public void listRemove() {
 		List<String> list = new ArrayList<String>(Arrays.asList("Bacon", "Ham", "Pork"));
-		BiPredicate<List<String>, String> listRemove = List::remove;
-		boolean result = listRemove.test(list, "Bacon");
+		Predicate<String> listRemove = list::remove;
+		boolean result = listRemove.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = listRemove.test(list, "Bread");
+		result = listRemove.test("Bread");
 		System.out.println(result);
 		assertFalse(result);
 		System.out.println(list);
@@ -59,11 +61,11 @@ public class BiPredicateExamplesTest {
 	@Test
 	public void listContains() {
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		BiPredicate<List<String>, String> listContains = List::contains;
-		boolean result = listContains.test(list, "Bacon");
+		Predicate<String> listContains = list::contains;
+		boolean result = listContains.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = listContains.test(list, "Bread");
+		result = listContains.test("Bread");
 		System.out.println(result);
 		assertFalse(result);
 	}
@@ -75,11 +77,11 @@ public class BiPredicateExamplesTest {
 		map.put("Ham", 2);
 		map.put("Pork", 3);
 
-		BiPredicate<Map<String, Integer>, String> mapContainsKey = Map::containsKey;
-		boolean result = mapContainsKey.test(map, "Bacon");
+		Predicate<String> mapContainsKey = map::containsKey;
+		boolean result = mapContainsKey.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = mapContainsKey.test(map, "Bread");
+		result = mapContainsKey.test("Bread");
 		System.out.println(result);
 		assertFalse(result);
 	}
@@ -91,11 +93,11 @@ public class BiPredicateExamplesTest {
 		map.put("Ham", 2);
 		map.put("Pork", 3);
 
-		BiPredicate<Map<String, Integer>, Integer> mapContainsValue = Map::containsValue;
-		boolean result = mapContainsValue.test(map, 1);
+		Predicate<Integer> mapContainsValue = map::containsValue;
+		boolean result = mapContainsValue.test(1);
 		System.out.println(result);
 		assertTrue(result);
-		result = mapContainsValue.test(map, 9);
+		result = mapContainsValue.test(9);
 		System.out.println(result);
 		assertFalse(result);
 	}
@@ -103,11 +105,11 @@ public class BiPredicateExamplesTest {
 	@Test
 	public void queueOffer() {
 		Queue<String> queue = new ConcurrentLinkedQueue<String>();
-		BiPredicate<Queue<String>, String> queueOffer = Queue::offer;
-		boolean result = queueOffer.test(queue, "Bacon");
+		Predicate<String> queueOffer = queue::offer;
+		boolean result = queueOffer.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = queueOffer.test(queue, "Ham");
+		result = queueOffer.test("Ham");
 		System.out.println(result);
 		assertTrue(result);
 
@@ -121,11 +123,11 @@ public class BiPredicateExamplesTest {
 	@Test
 	public void queueRemove() {
 		Queue<String> queue = new ConcurrentLinkedQueue<String>(Arrays.asList("Bacon", "Ham", "Pork"));
-		BiPredicate<Queue<String>, String> queueRemove = Queue::remove;
-		boolean result = queueRemove.test(queue, "Bacon");
+		Predicate<String> queueRemove = queue::remove;
+		boolean result = queueRemove.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = queueRemove.test(queue, "Bread");
+		result = queueRemove.test("Bread");
 		System.out.println(result);
 		assertFalse(result);
 		System.out.println(queue);
@@ -134,11 +136,11 @@ public class BiPredicateExamplesTest {
 	@Test
 	public void queueContains() {
 		Queue<String> queue = new ConcurrentLinkedQueue<String>(Arrays.asList("Bacon", "Ham", "Pork"));
-		BiPredicate<Queue<String>, String> queueContains = Queue::contains;
-		boolean result = queueContains.test(queue, "Bacon");
+		Predicate<String> queueContains = queue::contains;
+		boolean result = queueContains.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = queueContains.test(queue, "Bread");
+		result = queueContains.test("Bread");
 		System.out.println(result);
 		assertFalse(result);
 	}
