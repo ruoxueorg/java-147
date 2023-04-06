@@ -146,6 +146,5 @@ public class BiPredicateFunctionalTest {
 				.collect(Collectors.toList());
 		System.out.println(intList);
 		assertEquals(expectedSize, intList.size());
-
 	}
 }
