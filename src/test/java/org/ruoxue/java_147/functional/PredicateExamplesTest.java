@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Predicate;
@@ -16,50 +17,63 @@ import org.junit.Test;
 public class PredicateExamplesTest {
 
 	@Test
-	public void stringContains() {
+	public void Objects_nonNull() {
+		Predicate<String> nonNull = Objects::nonNull;
+		boolean result = nonNull.test("Bacon");
+		System.out.println(result);
+		assertTrue(result);
+
+		result = nonNull.test(null);
+		System.out.println(result);
+		assertFalse(result);
+	}
+
+	@Test
+	public void String_contains() {
 		String value = "Bacon";
 		Predicate<String> contains = value::contains;
-		boolean result = contains.test(value);
+		boolean result = contains.test("o");
 		System.out.println(result);
 		assertTrue(result);
 
-		value = "Bread";
-		result = contains.test(value);
+		value = "Ham";
+		contains = value::contains;
+		result = contains.test("o");
 		System.out.println(result);
 		assertFalse(result);
 	}
 
 	@Test
-	public void listAdd() {
+	public void List_add() {
 		List<String> list = new ArrayList<String>();
-		Predicate<String> listAdd = list::add;
-		boolean result = listAdd.test("Bacon");
+		Predicate<String> add = list::add;
+		boolean result = add.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = listAdd.test("Ham");
+		result = add.test("Ham");
 		System.out.println(result);
 		assertTrue(result);
-		result = listAdd.test("Pork");
+		result = add.test("Pork");
 		System.out.println(result);
 		assertTrue(result);
 		System.out.println(list);
 	}
 
 	@Test
-	public void listRemove() {
+	public void List_remove() {
 		List<String> list = new ArrayList<String>(Arrays.asList("Bacon", "Ham", "Pork"));
-		Predicate<String> listRemove = list::remove;
-		boolean result = listRemove.test("Bacon");
+		Predicate<String> remove = list::remove;
+		boolean result = remove.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = listRemove.test("Bread");
+		result = remove.test("Bread");
 		System.out.println(result);
 		assertFalse(result);
 		System.out.println(list);
 	}
 
 	@Test
-	public void listContains() {
+	public void List_contains() {
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
 		Predicate<String> listContains = list::contains;
 		boolean result = listContains.test("Bacon");
@@ -71,7 +85,7 @@ public class PredicateExamplesTest {
 	}
 
 	@Test
-	public void mapContainsKey() {
+	public void Map_containsKey() {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Bacon", 1);
 		map.put("Ham", 2);

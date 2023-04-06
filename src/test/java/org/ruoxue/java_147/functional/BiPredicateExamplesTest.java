@@ -11,7 +11,6 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -19,12 +18,16 @@ public class BiPredicateExamplesTest {
 
 	@Test
 	public void stringContains() {
-		int expectedSize = 2;
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
+		String value = "Bacon";
 		BiPredicate<String, String> contains = String::contains;
-		list = list.stream().filter(e -> contains.test(e, "o")).collect(Collectors.toList());
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
+		boolean result = contains.test(value, "o");
+		System.out.println(result);
+		assertTrue(result);
+
+		value = "Ham";
+		result = contains.test(value, "o");
+		System.out.println(result);
+		assertFalse(result);
 	}
 
 	@Test
