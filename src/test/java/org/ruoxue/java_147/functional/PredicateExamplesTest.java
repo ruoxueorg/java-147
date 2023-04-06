@@ -75,11 +75,11 @@ public class PredicateExamplesTest {
 	@Test
 	public void List_contains() {
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Predicate<String> listContains = list::contains;
-		boolean result = listContains.test("Bacon");
+		Predicate<String> contains = list::contains;
+		boolean result = contains.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = listContains.test("Bread");
+		result = contains.test("Bread");
 		System.out.println(result);
 		assertFalse(result);
 	}
@@ -91,39 +91,39 @@ public class PredicateExamplesTest {
 		map.put("Ham", 2);
 		map.put("Pork", 3);
 
-		Predicate<String> mapContainsKey = map::containsKey;
-		boolean result = mapContainsKey.test("Bacon");
+		Predicate<String> containsKey = map::containsKey;
+		boolean result = containsKey.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = mapContainsKey.test("Bread");
+		result = containsKey.test("Bread");
 		System.out.println(result);
 		assertFalse(result);
 	}
 
 	@Test
-	public void mapContainsValue() {
+	public void Map_containsValue() {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Bacon", 1);
 		map.put("Ham", 2);
 		map.put("Pork", 3);
 
-		Predicate<Integer> mapContainsValue = map::containsValue;
-		boolean result = mapContainsValue.test(1);
+		Predicate<Integer> containsValue = map::containsValue;
+		boolean result = containsValue.test(1);
 		System.out.println(result);
 		assertTrue(result);
-		result = mapContainsValue.test(9);
+		result = containsValue.test(9);
 		System.out.println(result);
 		assertFalse(result);
 	}
 
 	@Test
-	public void queueOffer() {
+	public void Queue_offer() {
 		Queue<String> queue = new ConcurrentLinkedQueue<String>();
-		Predicate<String> queueOffer = queue::offer;
-		boolean result = queueOffer.test("Bacon");
+		Predicate<String> offer = queue::offer;
+		boolean result = offer.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = queueOffer.test("Ham");
+		result = offer.test("Ham");
 		System.out.println(result);
 		assertTrue(result);
 
@@ -135,26 +135,26 @@ public class PredicateExamplesTest {
 	}
 
 	@Test
-	public void queueRemove() {
+	public void Queue_remove() {
 		Queue<String> queue = new ConcurrentLinkedQueue<String>(Arrays.asList("Bacon", "Ham", "Pork"));
-		Predicate<String> queueRemove = queue::remove;
-		boolean result = queueRemove.test("Bacon");
+		Predicate<String> remove = queue::remove;
+		boolean result = remove.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = queueRemove.test("Bread");
+		result = remove.test("Bread");
 		System.out.println(result);
 		assertFalse(result);
 		System.out.println(queue);
 	}
 
 	@Test
-	public void queueContains() {
+	public void Queue_contains() {
 		Queue<String> queue = new ConcurrentLinkedQueue<String>(Arrays.asList("Bacon", "Ham", "Pork"));
-		Predicate<String> queueContains = queue::contains;
-		boolean result = queueContains.test("Bacon");
+		Predicate<String> contains = queue::contains;
+		boolean result = contains.test("Bacon");
 		System.out.println(result);
 		assertTrue(result);
-		result = queueContains.test("Bread");
+		result = contains.test("Bread");
 		System.out.println(result);
 		assertFalse(result);
 	}
