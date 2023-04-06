@@ -121,7 +121,7 @@ public class PredicateFunctionalTest {
 	}
 
 	@Test
-	public void listOfPredicates() {
+	public void listOfPredicatesAnd() {
 		int expectedSize = 2;
 		List<String> list = Arrays.asList("Bacon", null, "Ham", "Pork", "");
 		Predicate<String> nonNull = Objects::nonNull;
@@ -139,6 +139,30 @@ public class PredicateFunctionalTest {
 		Predicate<Integer> lessThan = i -> i < 6;
 		List<Predicate<Integer>> intPredicateList = Arrays.asList(intNonNull, greaterThan, lessThan);
 		intList = intList.stream().filter(intPredicateList.stream().reduce(x -> true, Predicate::and))
+				.collect(Collectors.toList());
+		System.out.println(intList);
+		assertEquals(expectedSize, intList.size());
+	}
+
+	@Test
+	public void listOfPredicatesOr() {
+		int expectedSize = 2;
+		List<String> list = Arrays.asList("Bacon", "", "Ham", "Pork", "");
+		Predicate<String> isNull = Objects::isNull;
+		Predicate<String> lengthGreaterThan = s -> s.length() > 3;
+		Predicate<String> contains = s -> s.contains("o");
+		List<Predicate<String>> predicateList = Arrays.asList(isNull, lengthGreaterThan, contains);
+		Predicate<String> predicate = predicateList.stream().reduce(x -> false, Predicate::or);
+		list = list.stream().filter(predicate).collect(Collectors.toList());
+		System.out.println(list);
+		assertEquals(expectedSize, list.size());
+
+		List<Integer> intList = Arrays.asList(1, 5, 2, 3, 4, 5, 6, 5);
+		Predicate<Integer> intIsNull = Objects::isNull;
+		Predicate<Integer> greaterThan = i -> i > 6;
+		Predicate<Integer> lessThan = i -> i < 3;
+		List<Predicate<Integer>> intPredicateList = Arrays.asList(intIsNull, greaterThan, lessThan);
+		intList = intList.stream().filter(intPredicateList.stream().reduce(x -> false, Predicate::or))
 				.collect(Collectors.toList());
 		System.out.println(intList);
 		assertEquals(expectedSize, intList.size());
