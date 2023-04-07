@@ -22,7 +22,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class OptionalOrElseVSOrElseGet {
+public class OptionalOrElseVSOrElseGetTest {
 
 	@Rule
 	public BenchmarkRule benchmarkRule = new BenchmarkRule();
