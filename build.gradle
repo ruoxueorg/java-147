@@ -47,6 +47,7 @@ dependencies {
 
 	testImplementation "junit:junit:${junit4Version}"
 	testImplementation "org.assertj:assertj-core:${assertjVersion}"
+	testImplementation 'com.carrotsearch:junit-benchmarks:0.7.2'	
 }
 
 task helloWorld {
