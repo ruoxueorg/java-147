@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 
 import org.junit.Test;
 
-public class PredicateExamplesTest {
+public class PredicateReferenceTest {
 
 	@Test
 	public void Objects_nonNull() {
