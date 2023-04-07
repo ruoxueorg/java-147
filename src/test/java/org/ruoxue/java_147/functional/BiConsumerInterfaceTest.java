@@ -1,8 +1,12 @@
 package org.ruoxue.java_147.functional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -74,5 +78,13 @@ public class BiConsumerInterfaceTest {
 		BiConsumer<Food, Integer> lengthGreaterThan = (o, i) -> System.out.println(o.name.length() > i);
 		BiConsumer<Food, Integer> lengthMod = (o, i) -> System.out.println(o.name.length() % i == 1);
 		foodMap.forEach(lengthGreaterThan.andThen(lengthMod));
+	}
+
+	@Test
+	public void Stream_collect() {
+		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6);
+		List<Integer> result = list.parallelStream().filter(e -> e > 3).collect(() -> new ArrayList<>(),
+				(c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
+		System.out.println(result);
 	}
 }
