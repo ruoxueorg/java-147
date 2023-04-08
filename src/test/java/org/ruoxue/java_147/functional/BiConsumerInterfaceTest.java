@@ -86,14 +86,19 @@ public class BiConsumerInterfaceTest {
 	public void Stream_collect() {
 		int expectedSize = 2;
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		list = list.parallelStream().filter(e -> e.contains("o")).collect(() -> new ArrayList<>(), (c, e) -> c.add(e),
-				(c1, c2) -> c1.addAll(c2));
+		list = list.stream().parallel().filter(e -> e.contains("o")).collect(() -> new ArrayList<>(),
+				(c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
 
 		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		foodList = foodList.parallelStream().filter(e -> e.quantity > 1).collect(() -> new ArrayList<>(),
+		foodList = foodList.stream().parallel().filter(e -> e.quantity > 1).collect(() -> new ArrayList<>(),
 				(c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
+		System.out.println(foodList);
+		assertEquals(expectedSize, foodList.size());
+
+		foodList = foodList.stream().parallel().filter(e -> e.quantity > 1).collect(ArrayList::new, ArrayList::add,
+				ArrayList::addAll);
 		System.out.println(foodList);
 		assertEquals(expectedSize, foodList.size());
 	}
