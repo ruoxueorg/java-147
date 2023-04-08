@@ -40,7 +40,7 @@ public class DifferenceOptionalOrElseOrElseGetTest {
 
 	public static String getDefaultValue() {
 		System.out.println("Call getDefaultValue()");
-		int index = secureRandom.nextInt(3);
+		int index = secureRandom.nextInt(defaultValues.size());
 		return defaultValues.get(index);
 	}
 
@@ -63,7 +63,7 @@ public class DifferenceOptionalOrElseOrElseGetTest {
 	}
 
 	public static String defaultValue() {
-		int index = secureRandom.nextInt(3);
+		int index = secureRandom.nextInt(defaultValues.size());
 		return defaultValues.get(index);
 	}
 

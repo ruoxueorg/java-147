@@ -88,7 +88,7 @@ public class OptionalOrElseVSOrElseGetTest {
 
 	public static Food getDefaultValue() {
 		System.out.println("Call getDefaultValue()");
-		int index = secureRandom.nextInt(3);
+		int index = secureRandom.nextInt(defaultValues.size());
 		return defaultValues.get(index);
 	}
 
@@ -111,7 +111,7 @@ public class OptionalOrElseVSOrElseGetTest {
 	}
 
 	public static Food defaultValue() {
-		int index = secureRandom.nextInt(3);
+		int index = secureRandom.nextInt(defaultValues.size());
 		return defaultValues.get(index);
 	}
 
