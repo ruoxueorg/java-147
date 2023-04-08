@@ -1,18 +1,20 @@
 package org.ruoxue.java_147.functional;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
+import org.ruoxue.java_147.functional.ConsumerInterfaceTest.Food;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -82,9 +84,17 @@ public class BiConsumerInterfaceTest {
 
 	@Test
 	public void Stream_collect() {
-		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6);
-		List<Integer> result = list.parallelStream().filter(e -> e > 3).collect(() -> new ArrayList<>(),
+		int expectedSize = 2;
+		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
+		list = list.parallelStream().filter(e -> e.contains("o")).collect(() -> new ArrayList<>(), (c, e) -> c.add(e),
+				(c1, c2) -> c1.addAll(c2));
+		System.out.println(list);
+		assertEquals(expectedSize, list.size());
+
+		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
+		foodList = foodList.parallelStream().filter(e -> e.quantity > 1).collect(() -> new ArrayList<>(),
 				(c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
-		System.out.println(result);
+		System.out.println(foodList);
+		assertEquals(expectedSize, foodList.size());
 	}
 }
