@@ -1,16 +1,22 @@
 package org.ruoxue.java_147.functional;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
+import org.ruoxue.java_147.functional.BiConsumerInterfaceTest.Food;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -61,20 +67,64 @@ public class BiConsumerFunctionalTest {
 
 	@Test
 	public void methodReference() {
-		List<String> list = Arrays.asList("Bacon", "", "Ham", "Pork", "");
-		Consumer<String> println = System.out::println;
-		list.stream().forEach(println);
+		int expectedSize = 2;
+		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
+		List<String> result = list.stream().parallel().filter(e -> e.contains("o")).collect(() -> new ArrayList<>(),
+				(c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
 
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), null, new Food("Ham", 2, 1),
-				new Food("Pork", 3, 1), null);
-		Consumer<Food> nonNull = o -> System.out.println(Objects.nonNull(o));
-		Consumer<Food> contains = o -> {
-			Optional<Food> opt = Optional.ofNullable(o);
-			opt.ifPresent(e -> System.out.println(e.name.contains("o")));
-		};
-		foodList.stream().forEach(nonNull.andThen(contains));
+		Supplier<List<String>> supplier = () -> new ArrayList<>();
+		BiConsumer<List<String>, String> accumulator = (l, i) -> l.add(i);
+		BiConsumer<List<String>, List<String>> combiner = (l, l2) -> l.addAll(l2);
+
+		result = list.stream().parallel().filter(e -> e.contains("o")).collect(supplier, accumulator, combiner);
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
+
+		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
+		foodList = foodList.stream().parallel().filter(e -> e.quantity > 1).collect(() -> new ArrayList<>(),
+				(c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
+		System.out.println(foodList);
+		assertEquals(expectedSize, foodList.size());
+
+		foodList = foodList.stream().parallel().filter(e -> e.quantity > 1).collect(ArrayList::new, ArrayList::add,
+				ArrayList::addAll);
+		System.out.println(foodList);
+		assertEquals(expectedSize, foodList.size());
 	}
 
+	@Test
+	public void aaa() {
+		int expectedSize = 2;
+		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
+		List<String> result = list.stream().parallel().filter(e -> e.contains("o")).collect(() -> new ArrayList<>(),
+				(c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
+
+		Supplier<List<String>> supplier = () -> new ArrayList<>();
+		BiConsumer<List<String>, String> accumulator = (l, i) -> l.add(i);
+		BiConsumer<List<String>, List<String>> combiner = (l, l2) -> l.addAll(l2);
+		result = list.stream().parallel().filter(e -> e.contains("o")).collect(supplier, accumulator, combiner);
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
+
+		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
+		List<Food> foodResult = foodList.stream().parallel().filter(e -> e.quantity > 1)
+				.collect(() -> new ArrayList<>(), (c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
+		System.out.println(foodResult);
+		assertEquals(expectedSize, foodResult.size());
+
+		Supplier<List<Food>> foodSupplier = () -> new ArrayList<>();
+		BiConsumer<List<Food>, Food> foodAccumulator = (l, i) -> l.add(i);
+		BiConsumer<List<Food>, List<Food>> foodCombiner = (l, l2) -> l.addAll(l2);
+
+		foodResult = foodList.stream().parallel().filter(e -> e.quantity > 1).collect(foodSupplier, foodAccumulator,
+				foodCombiner);
+		System.out.println(foodResult);
+		assertEquals(expectedSize, foodResult.size());
+	}
 	public static void forEach(List<String> list, Consumer<String> consumer) {
 		list.stream().forEach(consumer);
 	}
