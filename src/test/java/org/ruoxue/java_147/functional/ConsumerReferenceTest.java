@@ -4,7 +4,9 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Consumer;
@@ -12,6 +14,16 @@ import java.util.function.Consumer;
 import org.junit.Test;
 
 public class ConsumerReferenceTest {
+
+	@Test
+	public void StringBuilder_append() {
+		StringBuilder value = new StringBuilder();
+		Consumer<String> append = value::append;
+		append.accept("Bacon, ");
+		append.accept("Ham, ");
+		append.accept("Pork");
+		System.out.println(value);
+	}
 
 	@Test
 	public void List_add() {
@@ -34,6 +46,20 @@ public class ConsumerReferenceTest {
 		remove.accept("Bread");
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
+	}
+
+	@Test
+	public void Map_remove() {
+		int expectedSize = 2;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Bacon", 1);
+		map.put("Ham", 2);
+		map.put("Pork", 3);
+		Consumer<String> remove = map::remove;
+		remove.accept("Bacon");
+		remove.accept("Bread");
+		System.out.println(map);
+		assertEquals(expectedSize, map.size());
 	}
 
 	@Test

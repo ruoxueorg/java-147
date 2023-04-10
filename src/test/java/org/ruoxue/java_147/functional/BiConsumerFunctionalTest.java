@@ -67,7 +67,7 @@ public class BiConsumerFunctionalTest {
 		int expectedSize = 2;
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
 		List<String> result = list.stream().parallel().filter(e -> e.contains("o")).collect(() -> new ArrayList<>(),
-				(c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
+				(l, e) -> l.add(e), (l1, l2) -> l1.addAll(l2));
 		System.out.println(result);
 		assertEquals(expectedSize, result.size());
 
@@ -78,7 +78,7 @@ public class BiConsumerFunctionalTest {
 
 		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
 		List<Food> foodResult = foodList.stream().parallel().filter(e -> e.quantity > 1)
-				.collect(() -> new ArrayList<>(), (c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
+				.collect(() -> new ArrayList<>(), (l, e) -> l.add(e), (l1, l2) -> l1.addAll(l2));
 		System.out.println(foodResult);
 		assertEquals(expectedSize, foodResult.size());
 

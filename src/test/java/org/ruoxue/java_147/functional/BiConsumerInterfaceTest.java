@@ -87,12 +87,12 @@ public class BiConsumerInterfaceTest {
 		int expectedSize = 2;
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
 		List<String> result = list.stream().parallel().filter(e -> e.contains("o")).collect(() -> new ArrayList<>(),
-				(c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
+				(l, e) -> l.add(e), (l1, l2) -> l1.addAll(l2));
 		System.out.println(result);
 		assertEquals(expectedSize, result.size());
 
 		Supplier<List<String>> supplier = () -> new ArrayList<>();
-		BiConsumer<List<String>, String> accumulator = (l, i) -> l.add(i);
+		BiConsumer<List<String>, String> accumulator = (l, s) -> l.add(s);
 		BiConsumer<List<String>, List<String>> combiner = (l, l2) -> l.addAll(l2);
 		result = list.stream().parallel().filter(e -> e.contains("o")).collect(supplier, accumulator, combiner);
 		System.out.println(result);
@@ -100,12 +100,12 @@ public class BiConsumerInterfaceTest {
 
 		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
 		List<Food> foodResult = foodList.stream().parallel().filter(e -> e.quantity > 1)
-				.collect(() -> new ArrayList<>(), (c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
+				.collect(() -> new ArrayList<>(), (l, e) -> l.add(e), (l1, l2) -> l1.addAll(l2));
 		System.out.println(foodResult);
 		assertEquals(expectedSize, foodResult.size());
 
 		Supplier<List<Food>> foodSupplier = () -> new ArrayList<>();
-		BiConsumer<List<Food>, Food> foodAccumulator = (l, i) -> l.add(i);
+		BiConsumer<List<Food>, Food> foodAccumulator = (l, o) -> l.add(o);
 		BiConsumer<List<Food>, List<Food>> foodCombiner = (l, l2) -> l.addAll(l2);
 
 		foodResult = foodList.stream().parallel().filter(e -> e.quantity > 1).collect(foodSupplier, foodAccumulator,
