@@ -2,6 +2,7 @@ package org.ruoxue.java_147.functional;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -79,6 +80,11 @@ public class SupplierFunctionalTest {
 		Map<Food, Integer> map = mapSupplier.get();
 		System.out.println(map);
 		assertEquals(0, map.size());
+
+		Supplier<LocalDateTime> localDateTimeSupplier = LocalDateTime::now;
+		LocalDateTime localDateTime = localDateTimeSupplier.get();
+		System.out.println(localDateTime);
+		assertNotNull(localDateTime);
 	}
 
 	public static Optional<String> createOptional(Supplier<Optional<String>> supplier) {
