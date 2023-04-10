@@ -62,6 +62,10 @@ public class SupplierWithExamplesTest {
 		Food result = value.get();
 		System.out.println(result);
 		assertNotNull(result);
+		value = () -> new Food("Ham", 2, 1);
+		result = value.get();
+		System.out.println(result);
+		assertNotNull(result);
 		value = () -> new Food("Pork", 3, 1);
 		result = value.get();
 		System.out.println(result);
@@ -71,7 +75,7 @@ public class SupplierWithExamplesTest {
 	public static class DefaultValue<E> implements Supplier<Food> {
 		@Override
 		public Food get() {
-			return new Food("DEFAULT_Bacon", 1, 1);
+			return new Food("DEFAULT_FOOD", 1, 1);
 		}
 	}
 

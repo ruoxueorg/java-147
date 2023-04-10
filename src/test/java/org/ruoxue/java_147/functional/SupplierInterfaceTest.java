@@ -5,9 +5,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -64,63 +66,64 @@ public class SupplierInterfaceTest {
 
 	@Test
 	public void Optional_orElseGet() {
-		int expectedSize = 1;
-		List<String> list = new ArrayList<>(Arrays.asList("Bacon", "Ham", "Pork"));
-		Predicate<String> lengthGreaterThan = s -> s.length() > 3;
-		list.removeIf(lengthGreaterThan);
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
+		Optional<String> opt = Optional.ofNullable(null);
+		Supplier<String> defaultValue = () -> "DEFAULT_VALUE";
+		String result = opt.orElseGet(defaultValue);
+		System.out.println(result);
+		assertEquals("DEFAULT_VALUE", result);
 
-		List<Food> foodList = new ArrayList<>(
-				Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1)));
-		Predicate<Food> lengthLessThan = o -> o.name.length() < 6;
-		Predicate<Food> contains = o -> o.name.contains("o");
-		foodList.removeIf(lengthLessThan.and(contains));
-		System.out.println(foodList);
-		assertEquals(expectedSize, foodList.size());
+		Optional<Integer> intOpt = Optional.ofNullable(null);
+		Supplier<Integer> intSupplier = () -> 0;
+		int intResult = intOpt.orElseGet(intSupplier);
+		System.out.println(intResult);
+		assertEquals(0, intResult);
+
+		Optional<List<String>> listOpt = Optional.ofNullable(null);
+		Supplier<List<String>> listSupplier = ArrayList::new;
+		List<String> listResult = listOpt.orElseGet(listSupplier);
+		System.out.println(listResult);
+		assertEquals(0, listResult.size());
+
+		Optional<Food> foodOpt = Optional.ofNullable(null);
+		Supplier<Food> foodSupplier = () -> new Food("DEFAULT_FOOD", 1, 1);
+		Food foodResult = foodOpt.orElseGet(foodSupplier);
+		System.out.println(foodResult);
+		assertEquals("DEFAULT_FOOD", foodResult.getName());
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void Optional_orElseThrow() {
-		int expectedSize = 2;
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Predicate<String> lengthGreaterThan = s -> s.length() > 3;
-		Map<Boolean, List<String>> map = list.stream().collect(Collectors.partitioningBy(lengthGreaterThan));
-		System.out.println(map);
-		assertEquals(expectedSize, map.size());
-
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		Predicate<Food> lengthLessThan = o -> o.name.length() < 6;
-		Predicate<Food> contains = o -> o.name.contains("o");
-		Map<Boolean, List<Food>> foodMap = foodList.stream()
-				.collect(Collectors.partitioningBy(lengthLessThan.and(contains)));
-		System.out.println(foodMap);
-		assertEquals(expectedSize, foodMap.size());
+		Optional<String> opt = Optional.ofNullable(null);
+		String result = opt.orElseThrow(IllegalArgumentException::new);
+		System.out.println(result);
+		assertFalse(opt.isPresent());
 	}
 
 	@Test
 	public void Stream_collect() {
 		int expectedSize = 2;
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		list = list.stream().parallel().filter(e -> e.contains("o")).collect(() -> new ArrayList<>(),
-				(c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
-
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		foodList = foodList.stream().parallel().filter(e -> e.quantity > 1).collect(() -> new ArrayList<>(),
-				(c, e) -> c.add(e), (c1, c2) -> c1.addAll(c2));
-		System.out.println(foodList);
-		assertEquals(expectedSize, foodList.size());
-
-		foodList = foodList.stream().parallel().filter(e -> e.quantity > 1).collect(ArrayList::new, ArrayList::add,
-				ArrayList::addAll);
-		System.out.println(foodList);
-		assertEquals(expectedSize, foodList.size());
+		Supplier<List<String>> supplier = () -> new ArrayList<>();
+		BiConsumer<List<String>, String> accumulator = (l, s) -> l.add(s);
+		BiConsumer<List<String>, List<String>> combiner = (l, l2) -> l.addAll(l2);
+		List<String> result = list.stream().parallel().filter(e -> e.length() > 3).collect(supplier, accumulator,
+				combiner);
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
 	}
 
 	@Test
 	public void Stream_generate() {
+		Stream.generate(() -> "Bacon").limit(1).forEach(e -> System.out.println(e));
 
+		Supplier<Integer> intSupplier = () -> 0;
+		Consumer<Integer> intConsumer = System.out::println;
+		Stream.generate(intSupplier).limit(1).forEach(intConsumer);
+
+		Supplier<List<String>> listSupplier = ArrayList::new;
+		Stream.generate(listSupplier).limit(1).forEach(System.out::println);
+
+		Supplier<Food> foodSupplier = () -> new Food("Bacon", 1, 1);
+		Stream.generate(foodSupplier).limit(1).forEach(System.out::println);
 	}
 }
