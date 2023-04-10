@@ -87,5 +87,4 @@ public class BiConsumerReferenceTest {
 		System.out.println(queue);
 		assertEquals(expectedSize, queue.size());
 	}
-
 }
