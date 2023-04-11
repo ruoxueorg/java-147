@@ -21,3 +21,7 @@
 18. [Java BiConsumer Interface](https://www.ruoxue.org/java-147-java-biconsumer-interface/)
 19. [BiConsumer Functional Interface in Java](https://www.ruoxue.org/java-147-biconsumer-functional-interface-in-java/)
 20. [Java BiConsumer Method Reference](https://www.ruoxue.org/java-147-java-biconsumer-method-reference/)
+21. [Java Supplier Methods](https://www.ruoxue.org/java-147-java-supplier-methods/)
+22. [Supplier in Java with Examples](https://www.ruoxue.org/java-147-supplier-in-java-with-examples/)
+23. [Java Supplier Interface](https://www.ruoxue.org/java-147-java-supplier-interface/)
+24. [Supplier Functional Interface in Java](https://www.ruoxue.org/java-147-supplier-functional-interface-in-java/)
