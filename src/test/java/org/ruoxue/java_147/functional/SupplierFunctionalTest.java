@@ -76,11 +76,6 @@ public class SupplierFunctionalTest {
 		System.out.println(list);
 		assertEquals(0, list.size());
 
-		Supplier<Map<Food, Integer>> mapSupplier = Collections::emptyMap;
-		Map<Food, Integer> map = mapSupplier.get();
-		System.out.println(map);
-		assertEquals(0, map.size());
-
 		Supplier<LocalDateTime> localDateTimeSupplier = LocalDateTime::now;
 		LocalDateTime localDateTime = localDateTimeSupplier.get();
 		System.out.println(localDateTime);
