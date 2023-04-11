@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.functional;
+package org.ruoxue.java_147.functional.predicate;
 
 import static org.junit.Assert.*;
 

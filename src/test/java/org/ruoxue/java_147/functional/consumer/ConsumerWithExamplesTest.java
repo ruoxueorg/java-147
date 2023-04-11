@@ -1,10 +1,8 @@
-package org.ruoxue.java_147.functional;
+package org.ruoxue.java_147.functional.consumer;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.function.Consumer;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -17,7 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class ConsumerFunctionalTest {
+public class ConsumerWithExamplesTest {
 
 	@NoArgsConstructor
 	@Getter
@@ -60,38 +58,51 @@ public class ConsumerFunctionalTest {
 	}
 
 	@Test
-	public void methodReference() {
-		List<String> list = Arrays.asList("Bacon", "", "Ham", "Pork", "");
-		Consumer<String> println = System.out::println;
-		list.stream().forEach(println);
+	public void accept() {
+		Consumer<Food> lessThan = o -> System.out.println(o.quantity < 3);
+		Food food = new Food("Bacon", 1, 1);
+		lessThan.accept(food);
+		food = new Food("Pork", 3, 1);
+		lessThan.accept(food);
+	}
 
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), null, new Food("Ham", 2, 1),
-				new Food("Pork", 3, 1), null);
+	@Test
+	public void andThen() {
 		Consumer<Food> nonNull = o -> System.out.println(Objects.nonNull(o));
 		Consumer<Food> contains = o -> {
 			Optional<Food> opt = Optional.ofNullable(o);
 			opt.ifPresent(e -> System.out.println(e.name.contains("o")));
 		};
-		foodList.stream().forEach(nonNull.andThen(contains));
-	}
-
-	public static void forEach(List<String> list, Consumer<String> consumer) {
-		list.stream().forEach(consumer);
-	}
-
-	public static void foodForEach(List<Food> list, Consumer<Food> consumer) {
-		list.stream().forEach(consumer);
+		Food food = new Food("Bacon", 1, 1);
+		nonNull.andThen(contains).accept(food);
+		nonNull.andThen(contains).accept(null);
 	}
 
 	@Test
-	public void methodParameter() {
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Consumer<String> lengthGreaterThan = s -> System.out.println(s.length() > 3);
-		forEach(list, lengthGreaterThan);
+	public void chaining() {
+		Consumer<Food> nonNull = o -> System.out.println(Objects.nonNull(o));
+		Consumer<Food> startsWith = o -> System.out.println(o.name.startsWith("B"));
+		Consumer<Food> endsWith = o -> System.out.println(o.name.endsWith("n"));
+		Food food = new Food("Bacon", 1, 1);
+		nonNull.andThen(startsWith).andThen(endsWith).accept(food);
+		food = new Food("Ham", 2, 1);
+		nonNull.andThen(startsWith).andThen(endsWith).accept(food);
+	}
 
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		Consumer<Food> lengthLessThan = o -> System.out.println(o.name.length() < 6);
+	public static class LengthGreaterThan<E> implements Consumer<Food> {
+		@Override
+		public void accept(Food t) {
+			System.out.println(t.name.length() > 3);
+		}
+	}
+
+	@Test
+	public void traditional() {
+		Consumer<Food> lengthGreaterThan = new LengthGreaterThan<Food>();
 		Consumer<Food> contains = o -> System.out.println(o.name.contains("o"));
-		foodForEach(foodList, lengthLessThan.andThen(contains));
+		Food food = new Food("Bacon", 1, 1);
+		lengthGreaterThan.andThen(contains).accept(food);
+		food = new Food("Ham", 2, 1);
+		lengthGreaterThan.andThen(contains).accept(food);
 	}
 }

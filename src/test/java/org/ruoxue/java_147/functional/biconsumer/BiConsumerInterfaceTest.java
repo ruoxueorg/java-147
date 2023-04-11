@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.functional;
+package org.ruoxue.java_147.functional.biconsumer;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -20,7 +21,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class BiConsumerFunctionalTest {
+public class BiConsumerInterfaceTest {
 
 	@NoArgsConstructor
 	@Getter
@@ -63,7 +64,26 @@ public class BiConsumerFunctionalTest {
 	}
 
 	@Test
-	public void methodReference() {
+	public void Map_forEach() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Bacon", 1);
+		map.put("Ham", 2);
+		map.put("Pork", 3);
+
+		BiConsumer<String, Integer> println = (s, i) -> System.out.println(s + ", " + i);
+		map.forEach(println);
+
+		Map<Food, Integer> foodMap = new HashMap<Food, Integer>();
+		foodMap.put(new Food("Bacon", 1, 1), 1);
+		foodMap.put(new Food("Ham", 2, 1), 2);
+		foodMap.put(new Food("Pork", 3, 1), 3);
+		BiConsumer<Food, Integer> lengthGreaterThan = (o, i) -> System.out.println(o.name.length() > i);
+		BiConsumer<Food, Integer> lengthMod = (o, i) -> System.out.println(o.name.length() % i == 1);
+		foodMap.forEach(lengthGreaterThan.andThen(lengthMod));
+	}
+
+	@Test
+	public void Stream_collect() {
 		int expectedSize = 2;
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
 		List<String> result = list.stream().parallel().filter(e -> e.contains("o")).collect(() -> new ArrayList<>(),
@@ -71,8 +91,10 @@ public class BiConsumerFunctionalTest {
 		System.out.println(result);
 		assertEquals(expectedSize, result.size());
 
-		result = list.stream().parallel().filter(e -> e.contains("o")).collect(ArrayList::new, ArrayList::add,
-				ArrayList::addAll);
+		Supplier<List<String>> supplier = () -> new ArrayList<>();
+		BiConsumer<List<String>, String> accumulator = (l, s) -> l.add(s);
+		BiConsumer<List<String>, List<String>> combiner = (l, l2) -> l.addAll(l2);
+		result = list.stream().parallel().filter(e -> e.contains("o")).collect(supplier, accumulator, combiner);
 		System.out.println(result);
 		assertEquals(expectedSize, result.size());
 
@@ -82,36 +104,13 @@ public class BiConsumerFunctionalTest {
 		System.out.println(foodResult);
 		assertEquals(expectedSize, foodResult.size());
 
-		foodResult = foodList.stream().parallel().filter(e -> e.quantity > 1).collect(ArrayList::new, ArrayList::add,
-				ArrayList::addAll);
+		Supplier<List<Food>> foodSupplier = () -> new ArrayList<>();
+		BiConsumer<List<Food>, Food> foodAccumulator = (l, o) -> l.add(o);
+		BiConsumer<List<Food>, List<Food>> foodCombiner = (l, l2) -> l.addAll(l2);
+
+		foodResult = foodList.stream().parallel().filter(e -> e.quantity > 1).collect(foodSupplier, foodAccumulator,
+				foodCombiner);
 		System.out.println(foodResult);
 		assertEquals(expectedSize, foodResult.size());
-	}
-
-	public static void forEach(Map<String, Integer> map, BiConsumer<String, Integer> biConsumer) {
-		map.forEach(biConsumer);
-	}
-
-	public static void foodForEach(Map<Food, Integer> map, BiConsumer<Food, Integer> biConsumer) {
-		map.forEach(biConsumer);
-	}
-
-	@Test
-	public void methodParameter() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Bacon", 1);
-		map.put("Ham", 2);
-		map.put("Pork", 3);
-
-		BiConsumer<String, Integer> println = (s, i) -> System.out.println(s + ", " + i);
-		forEach(map, println);
-
-		Map<Food, Integer> foodMap = new HashMap<Food, Integer>();
-		foodMap.put(new Food("Bacon", 1, 1), 1);
-		foodMap.put(new Food("Ham", 2, 1), 2);
-		foodMap.put(new Food("Pork", 3, 1), 3);
-		BiConsumer<Food, Integer> lengthGreaterThan = (o, i) -> System.out.println(o.name.length() > i);
-		BiConsumer<Food, Integer> lengthMod = (o, i) -> System.out.println(o.name.length() % i == 1);
-		foodForEach(foodMap, lengthGreaterThan.andThen(lengthMod));
 	}
 }

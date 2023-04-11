@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.functional;
+package org.ruoxue.java_147.functional.biconsumer;
 
 import java.util.function.BiConsumer;
 import java.util.Optional;

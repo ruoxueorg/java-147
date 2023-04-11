@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.functional;
+package org.ruoxue.java_147.functional.consumer;
 
 import java.util.Objects;
 import java.util.function.Consumer;
