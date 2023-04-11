@@ -69,7 +69,6 @@ public class BiConsumerInterfaceTest {
 		map.put("Bacon", 1);
 		map.put("Ham", 2);
 		map.put("Pork", 3);
-
 		BiConsumer<String, Integer> println = (s, i) -> System.out.println(s + ", " + i);
 		map.forEach(println);
 
