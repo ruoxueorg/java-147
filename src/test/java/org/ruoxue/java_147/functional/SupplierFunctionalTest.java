@@ -5,9 +5,7 @@ import static org.junit.Assert.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -90,7 +88,7 @@ public class SupplierFunctionalTest {
 		return supplier.get();
 	}
 
-	public static Map<Food, Integer> createMap(Supplier<Map<Food, Integer>> supplier) {
+	public static LocalDateTime createLocalDateTime(Supplier<LocalDateTime> supplier) {
 		return supplier.get();
 	}
 
@@ -104,8 +102,8 @@ public class SupplierFunctionalTest {
 		System.out.println(list);
 		assertEquals(0, list.size());
 
-		Map<Food, Integer> map = createMap(() -> new HashMap<>());
-		System.out.println(map);
-		assertEquals(0, map.size());
+		LocalDateTime localDateTime = createLocalDateTime(() -> LocalDateTime.now());
+		System.out.println(localDateTime);
+		assertNotNull(localDateTime);
 	}
 }
