@@ -5,11 +5,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -66,14 +66,6 @@ public class FunctionInterfaceTest {
 		}
 	}
 
-//	Optional.flatMap
-
-//	Stream.flatMap
-
-//	Map.computeIfAbsent 
-//	Collectors.toMap  
-//	Collectors.groupingBy
-
 	@Test
 	public void Optional_map() {
 		Optional<String> opt = Optional.ofNullable("Bacon");
@@ -116,6 +108,11 @@ public class FunctionInterfaceTest {
 	}
 
 	@Test
+	public void Stream_flatMap() {
+
+	}
+
+	@Test
 	public void Map_computeIfAbsent() {
 		Integer expected = 5;
 		Map<String, Integer> map = new HashMap<String, Integer>();
@@ -139,20 +136,35 @@ public class FunctionInterfaceTest {
 	}
 
 	@Test
-	public void Stream_filter() {
-		int expectedSize = 2;
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Predicate<String> lengthGreaterThan = s -> s.length() > 3;
-		list = list.stream().filter(lengthGreaterThan).collect(Collectors.toList());
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
+	public void Collectors_toMap() {
+		int expectedSize = 3;
+		List<String> list = Arrays.asList("Bacon", "Ham", "Pork", "Pork");
+		Function<String, String> key = s -> s.toUpperCase();
+		Function<String, Integer> length = s -> s.length();
+		Map<String, Integer> map = list.stream()
+				.collect(Collectors.toMap(key, length, (oldValue, newValue) -> oldValue));
+		System.out.println(map);
+		assertEquals(expectedSize, map.size());
 
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		Predicate<Food> lengthLessThan = o -> o.name.length() < 6;
-		Predicate<Food> contains = o -> o.name.contains("o");
-		foodList = foodList.stream().filter(lengthLessThan.and(contains)).collect(Collectors.toList());
-		System.out.println(foodList);
-		assertEquals(expectedSize, foodList.size());
+		map = list.stream()
+				.collect(Collectors.toMap(Function.identity(), String::length, (oldValue, newValue) -> oldValue));
+		System.out.println(map);
+		assertEquals(expectedSize, map.size());
+
+		List<Food> foodList = new ArrayList<>(Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1),
+				new Food("Pork", 3, 1), new Food("Pork", 3, 1)));
+		Function<Food, String> foodKey = o -> o.name;
+		Function<Food, Integer> foodLength = o -> o.name.length();
+		Function<Integer, Integer> twice = i -> i * i;
+		Map<String, Integer> foodMap = foodList.stream().collect(Collectors.toMap(foodKey, foodLength.andThen(twice),
+				(oldValue, newValue) -> oldValue, LinkedHashMap::new));
+		System.out.println(foodMap);
+		assertEquals(expectedSize, foodMap.size());
 	}
 
+	@Test
+	public void Collectors_groupingBy() {
+		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
+		Function<String, Integer> length = s -> s.length();
+	}
 }
