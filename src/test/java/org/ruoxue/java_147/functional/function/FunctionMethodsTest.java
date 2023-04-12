@@ -42,6 +42,12 @@ public class FunctionMethodsTest {
 		assertEquals(10, intResult);
 	}
 
+	@Test(expected = NullPointerException.class)
+	public void andThenThrowException() {
+		Function<Double, Double> half = d -> d / 2;
+		half = half.andThen(null);
+	}
+
 	@Test
 	public void compose() {
 		Function<Double, Double> half = d -> d / 2;
@@ -51,12 +57,22 @@ public class FunctionMethodsTest {
 		assertEquals(12.5, result, 2);
 	}
 
+	@Test(expected = NullPointerException.class)
+	public void composeThrowException() {
+		Function<Double, Double> half = d -> d / 2;
+		half = half.compose(null);
+	}
+
 	@Test
 	public void identity() {
 		Function<String, String> identity = Function.identity();
 		String result = identity.apply("Bacon");
 		System.out.println(result);
 		assertEquals("Bacon", result);
+
+		Object objResult = Function.identity().apply("Ham");
+		System.out.println(objResult);
+		assertEquals("Ham", objResult);
 
 		Function<Integer, Integer> intIdentity = i -> i;
 		int intResult = intIdentity.apply(7);

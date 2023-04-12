@@ -90,21 +90,37 @@ public class FunctionWithExamplesTest {
 		assertEquals(6, intResult);
 	}
 
+	@Test(expected = NullPointerException.class)
+	public void andThenThrowException() {
+		Function<Food, Double> half = d -> d.quantity / 2;
+		half = half.andThen(null);
+	}
+
 	@Test
 	public void compose() {
 		Function<Double, Double> half = d -> d / 2;
-		Function<Food, Double> twice = d -> d.quantity * ;
-		double result = half.compose(twice).apply(5d);
+		Function<Food, Double> twice = d -> d.quantity * d.quantity;
+		double result = half.compose(twice).apply(new Food("Bacon", 1, 1));
 		System.out.println(result);
-		assertEquals(12.5, result, 2);
+		assertEquals(0.5, result, 2);
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void composeThrowException() {
+		Function<Double, Double> half = d -> d / 2;
+		half = half.compose(null);
 	}
 
 	@Test
 	public void identity() {
-		Function<String, String> identity = Function.identity();
-		String result = identity.apply("Bacon");
+		Function<Food, Food> identity = Function.identity();
+		Food result = identity.apply(new Food("Bacon", 1, 1));
 		System.out.println(result);
-		assertEquals("Bacon", result);
+		assertEquals("Bacon", result.getName());
+
+		Object objResult = Function.identity().apply(new Food("Ham", 2, 1));
+		System.out.println(objResult);
+		assertEquals("Ham", ((Food) objResult).getName());
 
 		Function<Integer, Integer> intIdentity = i -> i;
 		int intResult = intIdentity.apply(7);
