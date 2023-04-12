@@ -25,9 +25,9 @@ public class BiConsumerMethodsTest {
 		startsWith.andThen(endsWith).accept("Ham", "B");
 
 		BiConsumer<String, Integer> lengthGreaterThan = (s, i) -> System.out.println(s.length() > i);
-		BiConsumer<String, Integer> mod = (s, i) -> System.out.println(s.length() % i == 1);
-		lengthGreaterThan.andThen(mod).accept("BaconB", 5);
-		lengthGreaterThan.andThen(mod).accept("Ham", 6);
+		BiConsumer<String, Integer> lengthMod = (s, i) -> System.out.println(s.length() % i == 1);
+		lengthGreaterThan.andThen(lengthMod).accept("BaconB", 5);
+		lengthGreaterThan.andThen(lengthMod).accept("Ham", 6);
 	}
 
 	@Test
@@ -44,9 +44,9 @@ public class BiConsumerMethodsTest {
 			System.out.println(false);
 		};
 		BiConsumer<String, Integer> lengthGreaterThan = (s, i) -> System.out.println(s.length() > i);
-		BiConsumer<String, Integer> mod = (s, i) -> System.out.println(s.length() % i == 1);
-		parseInt.andThen(lengthGreaterThan).andThen(mod).accept("777", 2);
-		parseInt.andThen(lengthGreaterThan).andThen(mod).accept("7", 2);
+		BiConsumer<String, Integer> lengthMod = (s, i) -> System.out.println(s.length() % i == 1);
+		parseInt.andThen(lengthGreaterThan).andThen(lengthMod).accept("777", 2);
+		parseInt.andThen(lengthGreaterThan).andThen(lengthMod).accept("7", 2);
 	}
 
 	public static class LengthGreaterThan<E> implements BiConsumer<String, Integer> {
@@ -59,8 +59,8 @@ public class BiConsumerMethodsTest {
 	@Test
 	public void traditional() {
 		BiConsumer<String, Integer> lengthGreaterThan = new LengthGreaterThan<String>();
-		BiConsumer<String, Integer> mod = (s, i) -> System.out.println(s.length() % i == 1);
-		lengthGreaterThan.andThen(mod).accept("Bacon", 4);
-		lengthGreaterThan.andThen(mod).accept("Ham", 3);
+		BiConsumer<String, Integer> lengthMod = (s, i) -> System.out.println(s.length() % i == 1);
+		lengthGreaterThan.andThen(lengthMod).accept("Bacon", 4);
+		lengthGreaterThan.andThen(lengthMod).accept("Ham", 3);
 	}
 }

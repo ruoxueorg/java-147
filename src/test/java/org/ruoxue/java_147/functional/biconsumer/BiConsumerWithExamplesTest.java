@@ -101,10 +101,10 @@ public class BiConsumerWithExamplesTest {
 	@Test
 	public void traditional() {
 		BiConsumer<Food, Integer> lengthGreaterThan = new LengthGreaterThan<Food>();
-		BiConsumer<Food, Integer> mod = (o, i) -> System.out.println(o.name.length() % i == 1);
+		BiConsumer<Food, Integer> lengthMod = (o, i) -> System.out.println(o.name.length() % i == 1);
 		Food food = new Food("Bacon", 1, 1);
-		lengthGreaterThan.andThen(mod).accept(food, 4);
+		lengthGreaterThan.andThen(lengthMod).accept(food, 4);
 		food = new Food("Ham", 2, 1);
-		lengthGreaterThan.andThen(mod).accept(food, 3);
+		lengthGreaterThan.andThen(lengthMod).accept(food, 3);
 	}
 }
