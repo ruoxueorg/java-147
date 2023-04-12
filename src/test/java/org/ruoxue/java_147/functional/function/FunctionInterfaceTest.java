@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -66,25 +67,26 @@ public class FunctionInterfaceTest {
 	}
 
 //	Optional.flatMap
-//	Stream.map
+
 //	Stream.flatMap
+
 //	Map.computeIfAbsent 
 //	Collectors.toMap  
 //	Collectors.groupingBy
 
 	@Test
 	public void Optional_map() {
-		String value = "Bacon";
-		Optional<String> opt = Optional.ofNullable(value);
+		Optional<String> opt = Optional.ofNullable("Bacon");
 		Function<String, Integer> length = s -> s.length();
-		Optional<Integer> intOpt = opt.map(length);
-		int result = intOpt.orElse(0);
+		Optional<Integer> lengthOpt = opt.map(length);
+		int result = lengthOpt.orElse(0);
 		System.out.println(result);
-		assertEquals(value.length(), result);
+		assertEquals(5, result);
 
 		Optional<Food> foodOpt = Optional.ofNullable(new Food("Ham", 1, 1));
-		Function<Food, Boolean> lengthMod = o -> o.name.length() % 2 == 1;
-		Optional<Boolean> booleanOpt = foodOpt.map(lengthMod);
+		Function<Food, Integer> foodLength = o -> o.name.length();
+		Function<Integer, Boolean> lengthLessThan = i -> i > 1;
+		Optional<Boolean> booleanOpt = foodOpt.map(foodLength.andThen(lengthLessThan));
 		boolean booleanResult = booleanOpt.orElse(false);
 		System.out.println(booleanResult);
 		assertTrue(booleanResult);
@@ -99,36 +101,41 @@ public class FunctionInterfaceTest {
 	public void Stream_map() {
 		int expectedSize = 3;
 		List<String> list = new ArrayList<>(Arrays.asList("Bacon", "Ham", "Pork"));
-		Function<String, Integer> length = s -> s.length();
+		Function<String, Integer> length = String::length;
 		Stream<Integer> stream = list.stream().map(length);
 		long count = stream.peek(System.out::println).count();
 		assertEquals(expectedSize, count);
 
-//		List<Food> foodList = new ArrayList<>(
-//				Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1)));
-//		Predicate<Food> lengthLessThan = o -> o.name.length() < 6;
-//		Predicate<Food> contains = o -> o.name.contains("o");
-//		foodList.removeIf(lengthLessThan.and(contains));
-//		System.out.println(foodList);
-//		assertEquals(expectedSize, foodList.size());
+		List<Food> foodList = new ArrayList<>(
+				Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1)));
+		Function<Food, Integer> foodLength = o -> o.name.length();
+		Function<Integer, Integer> twice = i -> i * i;
+		stream = foodList.stream().map(foodLength.andThen(twice));
+		count = stream.peek(System.out::println).count();
+		assertEquals(expectedSize, count);
 	}
 
 	@Test
-	public void Collectors_partitioningBy() {
-		int expectedSize = 2;
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Predicate<String> lengthGreaterThan = s -> s.length() > 3;
-		Map<Boolean, List<String>> map = list.stream().collect(Collectors.partitioningBy(lengthGreaterThan));
+	public void Map_computeIfAbsent() {
+		Integer expected = 5;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Bacon", 1);
+		map.put("Ham", 2);
+		map.put("Pork", 3);
+		Function<String, Integer> length = s -> s.length();
+		Integer result = map.computeIfAbsent("Bread", length);
 		System.out.println(map);
-		assertEquals(expectedSize, map.size());
+		assertEquals(expected, result);
 
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		Predicate<Food> lengthLessThan = o -> o.name.length() < 6;
-		Predicate<Food> contains = o -> o.name.contains("o");
-		Map<Boolean, List<Food>> foodMap = foodList.stream()
-				.collect(Collectors.partitioningBy(lengthLessThan.and(contains)));
+		Map<Food, Integer> foodMap = new HashMap<Food, Integer>();
+		foodMap.put(new Food("Bacon", 1, 1), 1);
+		foodMap.put(new Food("Ham", 2, 1), 2);
+		foodMap.put(new Food("Pork", 3, 1), 3);
+		Function<Food, Integer> foodLength = o -> o.name.length();
+		Function<Integer, Integer> twice = i -> i * i;
+		result = foodMap.computeIfAbsent(new Food("Bread", 1, 1), foodLength.andThen(twice));
 		System.out.println(foodMap);
-		assertEquals(expectedSize, foodMap.size());
+		assertEquals(new Integer(25), result);
 	}
 
 	@Test
@@ -148,19 +155,4 @@ public class FunctionInterfaceTest {
 		assertEquals(expectedSize, foodList.size());
 	}
 
-	@Test
-	public void Stream_allMatch() {
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Predicate<String> lengthGreaterThan = s -> s.length() > 2;
-		boolean result = list.stream().allMatch(lengthGreaterThan);
-		System.out.println(result);
-		assertTrue(result);
-
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		Predicate<Food> lengthLessThan = o -> o.name.length() < 6;
-		Predicate<Food> contains = o -> o.name.contains("o");
-		result = foodList.stream().allMatch(lengthLessThan.and(contains));
-		System.out.println(result);
-		assertFalse(result);
-	}
 }
