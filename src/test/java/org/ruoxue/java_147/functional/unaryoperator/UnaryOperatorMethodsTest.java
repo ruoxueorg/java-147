@@ -2,7 +2,6 @@ package org.ruoxue.java_147.functional.unaryoperator;
 
 import static org.junit.Assert.*;
 
-import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 import org.junit.Test;
@@ -65,37 +64,37 @@ public class UnaryOperatorMethodsTest {
 
 	@Test
 	public void identity() {
-		Function<String, String> identity = Function.identity();
+		UnaryOperator<String> identity = UnaryOperator.identity();
 		String result = identity.apply("Bacon");
 		System.out.println(result);
 		assertEquals("Bacon", result);
 
-		Object objResult = Function.identity().apply("Ham");
+		Object objResult = UnaryOperator.identity().apply("Ham");
 		System.out.println(objResult);
 		assertEquals("Ham", objResult);
 
-		Function<Integer, Integer> intIdentity = i -> i;
+		UnaryOperator<Integer> intIdentity = i -> i;
 		int intResult = intIdentity.apply(7);
 		System.out.println(intResult);
 		assertEquals(7, intResult);
 	}
 
-	public static class Length<E, F> implements Function<String, Integer> {
+	public static class ToUpperCase<E> implements UnaryOperator<String> {
 		@Override
-		public Integer apply(String t) {
-			return t.length();
+		public String apply(String t) {
+			return t.toUpperCase();
 		}
 	}
 
 	@Test
 	public void traditional() {
-		Function<String, Integer> length = new Length<String, Integer>();
-		Function<Integer, Integer> multiply = i -> i * 2;
-		int result = length.andThen(multiply).apply("Bacon");
+		UnaryOperator<String> toUpperCase = new ToUpperCase<String>();
+		UnaryOperator<String> toString = s -> s.toString();
+		String result = toUpperCase.andThen(toString).apply("Bacon");
 		System.out.println(result);
-		assertEquals(10, result);
-		result = length.andThen(multiply).apply("Ham");
+		assertEquals("BACON", result);
+		result = toUpperCase.andThen(toString).apply("Ham");
 		System.out.println(result);
-		assertEquals(6, result);
+		assertEquals("HAM", result);
 	}
 }
