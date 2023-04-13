@@ -40,7 +40,7 @@ public class UnaryOperatorMethodsTest {
 		assertEquals("baconB", stringResult);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Test(expected = NullPointerException.class)
 	public void andThenThrowException() {
 		UnaryOperator<Double> half = d -> d / 2;
@@ -49,17 +49,18 @@ public class UnaryOperatorMethodsTest {
 
 	@Test
 	public void compose() {
-		Function<Double, Double> half = d -> d / 2;
-		Function<Double, Double> twice = d -> d * d;
+		UnaryOperator<Double> half = d -> d / 2;
+		UnaryOperator<Double> twice = d -> d * d;
 		double result = half.compose(twice).apply(5d);
 		System.out.println(result);
 		assertEquals(12.5, result, 2);
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Test(expected = NullPointerException.class)
 	public void composeThrowException() {
-		Function<Double, Double> half = d -> d / 2;
-		half = half.compose(null);
+		UnaryOperator<Double> half = d -> d / 2;
+		half = (UnaryOperator) half.compose(null);
 	}
 
 	@Test
