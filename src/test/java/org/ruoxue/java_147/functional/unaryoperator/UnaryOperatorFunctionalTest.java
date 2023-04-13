@@ -1,10 +1,11 @@
-package org.ruoxue.java_147.functional.function;
+package org.ruoxue.java_147.functional.unaryoperator;
 
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -18,7 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class FunctionFunctionalTest {
+public class UnaryOperatorFunctionalTest {
 
 	@NoArgsConstructor
 	@Getter
@@ -64,24 +65,30 @@ public class FunctionFunctionalTest {
 	public void methodReference() {
 		int expectedSize = 3;
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Function<String, String> toUpperCase = String::toUpperCase;
+		UnaryOperator<String> toUpperCase = String::toUpperCase;
 		List<String> result = list.stream().map(toUpperCase).collect(Collectors.toList());
 		System.out.println(result);
 		assertEquals(expectedSize, result.size());
 
 		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		Function<Food, String> getName = Food::getName;
-		Function<String, String> toLowerCase = String::toLowerCase;
-		result = foodList.stream().map(getName.andThen(toLowerCase)).collect(Collectors.toList());
-		System.out.println(result);
-		assertEquals(expectedSize, result.size());
+		UnaryOperator<Food> addition = o -> {
+			o.setQuantity(o.getQuantity() + 3);
+			return o;
+		};
+		UnaryOperator<Food> multiply = o -> {
+			o.setQuantity(o.getQuantity() * 2);
+			return o;
+		};
+		List<Food> foodResult = foodList.stream().map(addition.andThen(multiply)).collect(Collectors.toList());
+		System.out.println(foodResult);
+		assertEquals(expectedSize, foodResult.size());
 	}
 
-	public static List<String> map(List<String> list, Function<String, String> function) {
-		return list.stream().map(function).collect(Collectors.toList());
+	public static List<String> map(List<String> list, UnaryOperator<String> unaryOperator) {
+		return list.stream().map(unaryOperator).collect(Collectors.toList());
 	}
 
-	public static List<String> foodMap(List<Food> list, Function<Food, String> function) {
+	public static List<Food> foodMap(List<Food> list, Function<Food, Food> function) {
 		return list.stream().map(function).collect(Collectors.toList());
 	}
 
@@ -89,16 +96,22 @@ public class FunctionFunctionalTest {
 	public void methodParameter() {
 		int expectedSize = 3;
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		Function<String, String> toUpperCase = s -> s.toUpperCase();
+		UnaryOperator<String> toUpperCase = s -> s.toUpperCase();
 		List<String> result = map(list, toUpperCase);
 		System.out.println(result);
 		assertEquals(expectedSize, result.size());
 
 		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		Function<Food, String> getName = o -> o.name;
-		Function<String, String> toLowerCase = s -> s.toUpperCase();
-		result = foodMap(foodList, getName.andThen(toLowerCase));
-		System.out.println(result);
-		assertEquals(expectedSize, result.size());
+		UnaryOperator<Food> addition = o -> {
+			o.setQuantity(o.getQuantity() + 3);
+			return o;
+		};
+		UnaryOperator<Food> multiply = o -> {
+			o.setQuantity(o.getQuantity() * 2);
+			return o;
+		};
+		List<Food> foodResult = foodMap(foodList, addition.andThen(multiply));
+		System.out.println(foodResult);
+		assertEquals(expectedSize, foodResult.size());
 	}
 }
