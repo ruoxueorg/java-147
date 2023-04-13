@@ -2,8 +2,8 @@ package org.ruoxue.java_147.functional.function;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,20 +85,27 @@ public class FunctionInterfaceTest {
 
 	@Test
 	public void Optional_flatMap() {
+		Optional<String> opt = Optional.ofNullable("Bacon");
+		Function<String, Optional<String>> toUpperCase = s -> Optional.ofNullable(s.toUpperCase());
+		Optional<Optional<String>> mapOpt = opt.map(toUpperCase);
+		System.out.println(mapOpt);
+		assertEquals(Optional.ofNullable(Optional.ofNullable("BACON")), mapOpt);
 
+		Optional<String> flatMapOpt = opt.flatMap(toUpperCase);
+		System.out.println(flatMapOpt);
+		assertEquals(Optional.ofNullable("BACON"), flatMapOpt);
 	}
 
 	@Test
 	public void Stream_map() {
 		int expectedSize = 3;
-		List<String> list = new ArrayList<>(Arrays.asList("Bacon", "Ham", "Pork"));
+		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
 		Function<String, Integer> length = String::length;
 		Stream<Integer> stream = list.stream().map(length);
 		long count = stream.peek(System.out::println).count();
 		assertEquals(expectedSize, count);
 
-		List<Food> foodList = new ArrayList<>(
-				Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1)));
+		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
 		Function<Food, Integer> foodLength = o -> o.name.length();
 		Function<Integer, Integer> twice = i -> i * i;
 		stream = foodList.stream().map(foodLength.andThen(twice));
@@ -108,7 +115,18 @@ public class FunctionInterfaceTest {
 
 	@Test
 	public void Stream_flatMap() {
+		int expectedSize = 3;
+		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
+		Function<String, String> toUpperCase = String::toUpperCase;
+		List<String> result = list.stream().map(toUpperCase).collect(Collectors.toList());
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
 
+		List<List<String>> nestedlist = Arrays.asList(Arrays.asList("Bacon"), Arrays.asList("Ham"),
+				Arrays.asList("Pork"));
+		List<String> nestedResult = nestedlist.stream().flatMap(Collection::stream).collect(Collectors.toList());
+		System.out.println(nestedResult);
+		assertEquals(expectedSize, nestedResult.size());
 	}
 
 	@Test
@@ -144,8 +162,7 @@ public class FunctionInterfaceTest {
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
 
-		List<Food> foodList = new ArrayList<>(
-				Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1)));
+		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
 		Function<Food, String> foodKey = o -> o.name;
 		Function<Food, Integer> foodLength = o -> o.name.length();
 		Function<Integer, Integer> twice = i -> i * i;
@@ -163,8 +180,8 @@ public class FunctionInterfaceTest {
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
 
-		List<Food> foodList = new ArrayList<>(Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1),
-				new Food("Pork", 3, 2), new Food("Bread", 4, 3)));
+		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 2),
+				new Food("Bread", 4, 3));
 		Map<Integer, List<Food>> foodMap = foodList.stream().collect(Collectors.groupingBy(Food::getType));
 		System.out.println(foodMap);
 		assertEquals(expectedSize, foodMap.size());
