@@ -9,7 +9,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
-import org.ruoxue.java_147.functional.unaryoperator.UnaryOperatorFunctionalTest.Food;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -159,15 +158,15 @@ public class UnaryOperatorWithExamplesTest {
 	@Test
 	public void traditional() {
 		UnaryOperator<Food> toUpperCase = new ToUpperCase<Food>();
-		UnaryOperator<Food> toString = o -> {
-			o.getName().toString();
+		UnaryOperator<Food> toLowerCase = o -> {
+			o.setName(o.getName().toLowerCase());
 			return o;
 		};
-		Food result = toUpperCase.andThen(toString).apply(new Food("Bacon", 1, 1));
+		Food result = toUpperCase.andThen(toLowerCase).apply(new Food("Bacon", 1, 1));
 		System.out.println(result);
-		assertEquals("BACON", result.getName());
-		result = toUpperCase.andThen(toString).apply(new Food("Ham", 3, 1));
+		assertEquals("bacon", result.getName());
+		result = toUpperCase.andThen(toLowerCase).apply(new Food("Ham", 3, 1));
 		System.out.println(result);
-		assertEquals("HAM", result.getName());
+		assertEquals("ham", result.getName());
 	}
 }

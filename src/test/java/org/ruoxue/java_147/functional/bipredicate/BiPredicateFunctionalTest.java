@@ -65,16 +65,17 @@ public class BiPredicateFunctionalTest {
 		int expectedSize = 1;
 		List<String> list = Arrays.asList("Bacon", "", "Ham", "Pork", "");
 		BiPredicate<String, String> startsWith = String::startsWith;
-		list = list.stream().filter(e -> startsWith.test(e, "B")).collect(Collectors.toList());
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
+		List<String> result = list.stream().filter(e -> startsWith.test(e, "B")).collect(Collectors.toList());
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
 
 		List<Food> foodList = Arrays.asList(new Food("BaconB", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
 		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
 		BiPredicate<Food, String> endsWith = (o, s) -> o.name.endsWith(s);
-		foodList = foodList.stream().filter(e -> contains.and(endsWith).test(e, "B")).collect(Collectors.toList());
-		System.out.println(foodList);
-		assertEquals(expectedSize, foodList.size());
+		List<Food> foodResult = foodList.stream().filter(e -> contains.and(endsWith).test(e, "B"))
+				.collect(Collectors.toList());
+		System.out.println(foodResult);
+		assertEquals(expectedSize, foodResult.size());
 	}
 
 	public static List<String> filter(List<String> list, BiPredicate<String, Integer> biPredicate) {
@@ -90,16 +91,16 @@ public class BiPredicateFunctionalTest {
 		int expectedSize = 2;
 		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
 		BiPredicate<String, Integer> lengthGreaterThan = (s, i) -> s.length() > i;
-		list = filter(list, lengthGreaterThan);
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
+		List<String> result = filter(list, lengthGreaterThan);
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
 
 		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
 		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
 		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
-		foodList = foodFilter(foodList, startsWith.and(contains));
-		System.out.println(foodList);
-		assertEquals(1, foodList.size());
+		List<Food> foodResult = foodFilter(foodList, startsWith.and(contains));
+		System.out.println(foodResult);
+		assertEquals(1, foodResult.size());
 	}
 
 	@Test
@@ -110,19 +111,19 @@ public class BiPredicateFunctionalTest {
 		BiPredicate<String, Integer> substring = (s, i) -> s.substring(i).length() > 0;
 		List<BiPredicate<String, Integer>> predicateList = Arrays.asList(lengthGreaterThan, substring);
 		BiPredicate<String, Integer> biPredicate = predicateList.stream().reduce((s, i) -> true, BiPredicate::and);
-		list = list.stream().filter(e -> biPredicate.test(e, 3)).collect(Collectors.toList());
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
+		List<String> result = list.stream().filter(e -> biPredicate.test(e, 3)).collect(Collectors.toList());
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
 
 		List<Integer> intList = Arrays.asList(1, 2, 3, 4, 5, 6);
 		BiPredicate<Integer, Integer> greaterThan = (i, i2) -> i > i2;
 		BiPredicate<Integer, Integer> lessThan = (i, i2) -> i < i2 + 3;
 		List<BiPredicate<Integer, Integer>> intPredicateList = Arrays.asList(greaterThan, lessThan);
-		intList = intList.stream()
+		List<Integer> intResult = intList.stream()
 				.filter(e -> intPredicateList.stream().reduce((s, i) -> true, BiPredicate::and).test(e, 3))
 				.collect(Collectors.toList());
-		System.out.println(intList);
-		assertEquals(expectedSize, intList.size());
+		System.out.println(intResult);
+		assertEquals(expectedSize, intResult.size());
 	}
 
 	@Test
@@ -133,18 +134,18 @@ public class BiPredicateFunctionalTest {
 		BiPredicate<String, Integer> substring = (s, i) -> s.substring(i).length() > 0;
 		List<BiPredicate<String, Integer>> predicateList = Arrays.asList(lengthGreaterThan, substring);
 		BiPredicate<String, Integer> biPredicate = predicateList.stream().reduce((s, i) -> false, BiPredicate::or);
-		list = list.stream().filter(e -> biPredicate.test(e, 3)).collect(Collectors.toList());
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
+		List<String> result = list.stream().filter(e -> biPredicate.test(e, 3)).collect(Collectors.toList());
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
 
 		List<Integer> intList = Arrays.asList(1, 2, 3, 4, 5, 6);
 		BiPredicate<Integer, Integer> greaterThan = (i, i2) -> i < i2;
 		BiPredicate<Integer, Integer> lessThan = (i, i2) -> i > i2 + 3;
 		List<BiPredicate<Integer, Integer>> intPredicateList = Arrays.asList(greaterThan, lessThan);
-		intList = intList.stream()
+		List<Integer> intResult = intList.stream()
 				.filter(e -> intPredicateList.stream().reduce((s, i) -> false, BiPredicate::or).test(e, 3))
 				.collect(Collectors.toList());
-		System.out.println(intList);
-		assertEquals(expectedSize, intList.size());
+		System.out.println(intResult);
+		assertEquals(expectedSize, intResult.size());
 	}
 }

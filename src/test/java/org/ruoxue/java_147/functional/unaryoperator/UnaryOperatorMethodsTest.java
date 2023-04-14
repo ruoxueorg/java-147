@@ -89,12 +89,12 @@ public class UnaryOperatorMethodsTest {
 	@Test
 	public void traditional() {
 		UnaryOperator<String> toUpperCase = new ToUpperCase<String>();
-		UnaryOperator<String> toString = s -> s.toString();
-		String result = toUpperCase.andThen(toString).apply("Bacon");
+		UnaryOperator<String> toLowerCase = s -> s.toLowerCase();
+		String result = toUpperCase.andThen(toLowerCase).apply("Bacon");
 		System.out.println(result);
-		assertEquals("BACON", result);
-		result = toUpperCase.andThen(toString).apply("Ham");
+		assertEquals("bacon", result);
+		result = toUpperCase.andThen(toLowerCase).apply("Ham");
 		System.out.println(result);
-		assertEquals("HAM", result);
+		assertEquals("ham", result);
 	}
 }
