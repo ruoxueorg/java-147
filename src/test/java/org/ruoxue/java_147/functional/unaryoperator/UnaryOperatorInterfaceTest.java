@@ -89,19 +89,6 @@ public class UnaryOperatorInterfaceTest {
 		assertNotNull(foodResult);
 	}
 
-//	@Test
-//	public void Optional_flatMap() {
-//		Optional<Optional<String>> opt = Optional.ofNullable(Optional.ofNullable("Bacon"));
-//		UnaryOperator<Optional<Optional<String>>> toUpperCase = s -> s;
-//		Optional<Optional<String>> mapOpt = opt.map(toUpperCase);
-//		System.out.println(mapOpt);
-//		assertEquals(Optional.ofNullable(Optional.ofNullable("BACON")), mapOpt);
-//
-//		Optional<String> flatMapOpt = opt.flatMap(toUpperCase);
-//		System.out.println(flatMapOpt);
-//		assertEquals(Optional.ofNullable("BACON"), flatMapOpt);
-//	}
-
 	@Test
 	public void Stream_map() {
 		int expectedSize = 3;
@@ -180,27 +167,17 @@ public class UnaryOperatorInterfaceTest {
 		assertEquals(expectedSize, map.size());
 
 		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		UnaryOperator<Food> foodKey = o -> o.name;
-		UnaryOperator<Food> foodLength = o -> o.name.length();
-		UnaryOperator<Integer, Integer> twice = i -> i * i;
-		Map<String, Integer> foodMap = foodList.stream().collect(Collectors.toMap(foodKey, foodLength.andThen(twice)));
+		UnaryOperator<Food> foodKey = o -> o;
+		UnaryOperator<Food> half = o -> {
+			o.setQuantity(o.getQuantity() / 2);
+			return o;
+		};
+		UnaryOperator<Food> twice = o -> {
+			o.setQuantity(o.getQuantity() * o.getQuantity());
+			return o;
+		};
+		Map<Food, Food> foodMap = foodList.stream().collect(Collectors.toMap(foodKey, half.andThen(twice)));
 		System.out.println(foodMap);
 		assertEquals(expectedSize, foodMap.size());
 	}
-//
-//	@Test
-//	public void Collectors_groupingBy() {
-//		int expectedSize = 3;
-//		List<String> list = Arrays.asList("Bacon", "Ham", "Pork", "Bread");
-//		UnaryOperator<String, Integer> length = s -> s.length();
-//		Map<Integer, List<String>> map = list.stream().collect(Collectors.groupingBy(length));
-//		System.out.println(map);
-//		assertEquals(expectedSize, map.size());
-//
-//		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 2),
-//				new Food("Bread", 4, 3));
-//		Map<Integer, List<Food>> foodMap = foodList.stream().collect(Collectors.groupingBy(Food::getType));
-//		System.out.println(foodMap);
-//		assertEquals(expectedSize, foodMap.size());
-//	}
 }
