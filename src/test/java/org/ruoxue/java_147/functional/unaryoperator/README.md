@@ -1,4 +1,4 @@
-# Java 147 Functional Interface
+# Java 147 UnaryOperator Functional Interface
 
 ## Related Articles
 1. [Java UnaryOperator Methods](https://www.ruoxue.org/java-147-java-unaryoperator-methods/)

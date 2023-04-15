@@ -1,4 +1,4 @@
-# Java 147 Functional Interface
+# Java 147 Function Functional Interface
 
 ## Related Articles
 1. [Java Function Methods](https://www.ruoxue.org/java-147-java-function-methods/)

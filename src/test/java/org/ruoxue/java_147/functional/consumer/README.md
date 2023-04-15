@@ -1,4 +1,4 @@
-# Java 147 Functional Interface
+# Java 147 Consumer Functional Interface
 
 ## Related Articles
 1. [Java Consumer Methods](https://www.ruoxue.org/java-147-java-consumer-methods/)

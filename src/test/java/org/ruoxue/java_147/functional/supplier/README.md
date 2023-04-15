@@ -1,4 +1,4 @@
-# Java 147 Functional Interface
+# Java 147 Supplier Functional Interface
 
 ## Related Articles
 1. [Java Supplier Methods](https://www.ruoxue.org/java-147-java-supplier-methods/)

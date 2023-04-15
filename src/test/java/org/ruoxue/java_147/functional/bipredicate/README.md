@@ -1,4 +1,4 @@
-# Java 147 Functional Interface
+# Java 147 BiPredicate Functional Interface
 
 ## Related Articles
 1. [Java BiPredicate Methods](https://www.ruoxue.org/java-147-java-bipredicate-methods/)

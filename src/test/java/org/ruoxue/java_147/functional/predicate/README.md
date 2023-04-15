@@ -1,4 +1,4 @@
-# Java 147 Functional Interface
+# Java 147 Predicate Functional Interface
 
 ## Related Articles
 1. [Java Predicate Methods](https://www.ruoxue.org/java-147-java-predicate-methods/)
