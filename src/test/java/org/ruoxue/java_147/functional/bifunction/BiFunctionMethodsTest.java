@@ -49,22 +49,22 @@ public class BiFunctionMethodsTest {
 		addition = addition.andThen(null);
 	}
 
-	public static class CompareLength<E, F, D> implements BiFunction<String, String, Boolean> {
+	public static class Addition<E, F, D> implements BiFunction<Double, Double, Double> {
 		@Override
-		public Boolean apply(String t, String u) {
-			return t.length() > u.length();
+		public Double apply(Double t, Double u) {
+			return t + u;
 		}
 	}
 
 	@Test
 	public void traditional() {
-		Function<String, Integer> compareLength = new CompareLength<String, Integer>();
-		Function<Integer, Integer> multiply = i -> i * 2;
-		int result = length.andThen(multiply).apply("Bacon");
+		BiFunction<Double, Double, Double> addition = new Addition<Double, Double, Double>();
+		Function<Double, Double> multiply = i -> i * 2;
+		double result = addition.andThen(multiply).apply(1d, 2d);
 		System.out.println(result);
-		assertEquals(10, result);
-		result = length.andThen(multiply).apply("Ham");
+		assertEquals(6.0, result, 2);
+		result = addition.andThen(multiply).apply(5d, 6d);
 		System.out.println(result);
-		assertEquals(6, result);
+		assertEquals(22.0, result, 2);
 	}
 }

@@ -20,7 +20,7 @@ public class UnaryOperatorMethodsTest {
 
 		UnaryOperator<Integer> addition = i -> i + 3;
 		Integer intResult = addition.apply(5);
-		System.out.println(result);
+		System.out.println(intResult);
 		assertEquals(new Integer(8), intResult);
 	}
 
