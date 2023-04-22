@@ -2,7 +2,9 @@ package org.ruoxue.java_147.functional.bifunction;
 
 import static org.junit.Assert.*;
 
-import java.util.function.BiPredicate;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -57,91 +59,56 @@ public class BiFunctionWithExamplesTest {
 	}
 
 	@Test
-	public void test() {
-		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
+	public void apply() {
+		BiFunction<Food, String, Boolean> startsWith = (o, s) -> o.name.startsWith(s);
 		Food food = new Food("Bacon", 1, 1);
-		boolean result = startsWith.test(food, "B");
+		boolean result = startsWith.apply(food, "B");
 		System.out.println(result);
 		assertTrue(result);
 		food = new Food("Ham", 3, 1);
-		result = startsWith.test(food, "B");
+		result = startsWith.apply(food, "B");
 		System.out.println(result);
 		assertFalse(result);
 	}
 
 	@Test
-	public void negate() {
-		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
+	public void andThen() {
+		BiFunction<Food, String, String> concat = (o, s) -> o.name.concat(s);
+		Function<String, Integer> multiply = s -> s.length() * 2;
 		Food food = new Food("Bacon", 1, 1);
-		boolean result = startsWith.negate().test(food, "B");
+		int result = concat.andThen(multiply).apply(food, "B");
 		System.out.println(result);
-		assertFalse(result);
+		assertEquals(12, result);
 		food = new Food("Ham", 3, 1);
-		result = startsWith.negate().test(food, "B");
+		result = concat.andThen(multiply).apply(food, "B");
 		System.out.println(result);
-		assertTrue(result);
+		assertEquals(8, result);
 	}
 
-	@Test
-	public void and() {
-		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
-		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
-		Food food = new Food("Bacon", 1, 1);
-		boolean result = startsWith.and(contains).test(food, "B");
-		System.out.println(result);
-		assertTrue(result);
-		food = new Food("Ham", 3, 1);
-		result = startsWith.and(contains).test(food, "B");
-		System.out.println(result);
-		assertFalse(result);
+	@Test(expected = NullPointerException.class)
+	public void andThenThrowException() {
+		BiFunction<Food, String, String> concat = (o, s) -> o.name.concat(s);
+		concat = concat.andThen(null);
 	}
 
-	@Test
-	public void or() {
-		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
-		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
-		Food food = new Food("Pork", 3, 1);
-		boolean result = startsWith.or(contains).test(food, "o");
-		System.out.println(result);
-		assertTrue(result);
-		result = startsWith.or(contains).test(food, "k");
-		System.out.println(result);
-		assertTrue(result);
-	}
-
-	@Test
-	public void chaining() {
-		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
-		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
-		BiPredicate<Food, String> endsWith = (o, s) -> o.name.endsWith(s);
-		Food food = new Food("BaconB", 1, 1);
-		boolean result = contains.and(startsWith).or(endsWith).test(food, "B");
-		System.out.println(result);
-		assertTrue(result);
-		food = new Food("Ham", 2, 1);
-		result = contains.and(startsWith).or(endsWith).test(food, "B");
-		System.out.println(result);
-		assertFalse(result);
-	}
-
-	public static class StartsWith<E> implements BiPredicate<Food, String> {
+	public static class Concat<E> implements BiFunction<Food, String, String> {
 		@Override
-		public boolean test(Food t, String u) {
-			return t.name.startsWith(u);
+		public String apply(Food t, String u) {
+			return t.name.concat(u);
 		}
 	}
 
 	@Test
 	public void traditional() {
-		BiPredicate<Food, String> startsWith = new StartsWith<Food>();
-		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
+		BiFunction<Food, String, String> concat = new Concat<>();
+		Function<String, Integer> multiply = s -> s.length() * 2;
 		Food food = new Food("Bacon", 1, 1);
-		boolean result = startsWith.and(contains).test(food, "B");
+		int result = concat.andThen(multiply).apply(food, "B");
 		System.out.println(result);
-		assertTrue(result);
+		assertEquals(12, result);
 		food = new Food("Ham", 2, 1);
-		result = startsWith.and(contains).test(food, "B");
+		result = concat.andThen(multiply).apply(food, "B");
 		System.out.println(result);
-		assertFalse(result);
+		assertEquals(8, result);
 	}
 }
