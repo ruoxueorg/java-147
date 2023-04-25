@@ -4,9 +4,12 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -14,6 +17,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
+import org.ruoxue.java_147.functional.function.FunctionInterfaceTest.Food;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -63,72 +67,60 @@ public class BiFunctionInterfaceTest {
 	}
 
 	@Test
-	public void Collection_removeIf() {
-		int expectedSize = 1;
-		List<String> list = new ArrayList<>(Arrays.asList("Bacon", "Ham", "Pork"));
-		BiPredicate<String, Integer> lengthGreaterThan = (s, i) -> s.length() > i;
-		list.removeIf(e -> lengthGreaterThan.test(e, 3));
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
-
-		List<Food> foodList = new ArrayList<>(
-				Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1)));
-		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
-		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
-		foodList.removeIf(e -> startsWith.and(contains).test(e, "B"));
-		System.out.println(foodList);
-		assertEquals(2, foodList.size());
-	}
-
-	@Test
-	public void Collectors_partitioningBy() {
-		int expectedSize = 2;
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		BiPredicate<String, Integer> lengthGreaterThan = (s, i) -> s.length() > i;
-		Map<Boolean, List<String>> map = list.stream()
-				.collect(Collectors.partitioningBy(e -> lengthGreaterThan.test(e, 3)));
+	public void Map_compute() {
+		Integer expected = 2;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Bacon", 1);
+		map.put("Ham", 2);
+		map.put("Pork", 3);
+		String key = "Bacon";
+		BiFunction<String, Integer, Integer> addition = (s, i) -> i + 1;
+		map.compute(key, addition);
 		System.out.println(map);
-		assertEquals(expectedSize, map.size());
+		assertEquals(expected, map.get(key));
 
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
-		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
-		Map<Boolean, List<Food>> foodMap = foodList.stream()
-				.collect(Collectors.partitioningBy(e -> startsWith.and(contains).test(e, "B")));
+		Map<Food, Integer> foodMap = new HashMap<Food, Integer>();
+		foodMap.put(new Food("Bacon", 1, 1), 1);
+		foodMap.put(new Food("Ham", 2, 1), 2);
+		foodMap.put(new Food("Pork", 3, 1), 3);
+		BiFunction<Food, Integer, Integer> multiply = (o, i) -> (int) o.quantity * 2;
+		Food foodKey = new Food("Bacon", 1, 1);
+		foodMap.compute(foodKey, multiply);
 		System.out.println(foodMap);
-		assertEquals(expectedSize, foodMap.size());
+		assertEquals(expected, foodMap.get(foodKey));
 	}
 
 	@Test
-	public void Stream_filter() {
-		int expectedSize = 2;
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		BiPredicate<String, Integer> lengthGreaterThan = (s, i) -> s.length() > i;
-		list = list.stream().filter(e -> lengthGreaterThan.test(e, 3)).collect(Collectors.toList());
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
-
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
-		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
-		foodList = foodList.stream().filter(e -> startsWith.and(contains).test(e, "B")).collect(Collectors.toList());
-		System.out.println(foodList);
-		assertEquals(1, foodList.size());
-	}
-
-	@Test
-	public void Stream_allMatch() {
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		BiPredicate<String, Integer> lengthGreaterThan = (s, i) -> s.length() > i;
-		boolean result = list.stream().allMatch(e -> lengthGreaterThan.test(e, 2));
+	public void Map_computeIfPresent() {
+		Integer expected = 2;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Bacon", 1);
+		map.put("Ham", 2);
+		map.put("Pork", 3);
+		String key = "Bacon";
+		BiFunction<String, Integer, Integer> addition = (s, i) -> i + 1;
+		Integer result = map.computeIfPresent(key, addition);
 		System.out.println(result);
-		assertTrue(result);
-
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
-		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
-		result = foodList.stream().allMatch(e -> startsWith.and(contains).test(e, "B"));
+		assertEquals(expected, result);
+		key = "Bread";
+		result = map.computeIfPresent(key, addition);
 		System.out.println(result);
-		assertFalse(result);
+		assertNull(result);
+		System.out.println(map);
+
+		Map<Food, Integer> foodMap = new HashMap<Food, Integer>();
+		foodMap.put(new Food("Bacon", 1, 1), 1);
+		foodMap.put(new Food("Ham", 2, 1), 2);
+		foodMap.put(new Food("Pork", 3, 1), 3);
+		BiFunction<Food, Integer, Integer> multiply = (o, i) -> (int) o.quantity * 2;
+		Food foodKey = new Food("Bacon", 1, 1);
+		Integer foodResult = foodMap.computeIfPresent(foodKey, multiply);
+		System.out.println(foodResult);
+		assertEquals(expected, foodResult);
+		foodKey = new Food("Bread", 1, 1);
+		foodResult = foodMap.computeIfPresent(foodKey, multiply);
+		System.out.println(foodResult);
+		assertNull(foodResult);
+		System.out.println(foodMap);
 	}
 }
