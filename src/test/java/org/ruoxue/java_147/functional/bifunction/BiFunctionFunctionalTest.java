@@ -2,16 +2,18 @@ package org.ruoxue.java_147.functional.bifunction;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BiPredicate;
-import java.util.stream.Collectors;
+import java.util.Locale;
+import java.util.function.BiFunction;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
+import org.ruoxue.java_147.functional.predicate.PredicateFunctionalTest.Food;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -62,90 +64,38 @@ public class BiFunctionFunctionalTest {
 
 	@Test
 	public void methodReference() {
-		int expectedSize = 1;
-		List<String> list = Arrays.asList("Bacon", "", "Ham", "Pork", "");
-		BiPredicate<String, String> startsWith = String::startsWith;
-		List<String> result = list.stream().filter(e -> startsWith.test(e, "B")).collect(Collectors.toList());
+		BiFunction<String, String, Locale> locale = Locale::new;
+		Locale result = locale.apply("zh", "TW");
 		System.out.println(result);
-		assertEquals(expectedSize, result.size());
+		assertNotNull(result);
 
-		List<Food> foodList = Arrays.asList(new Food("BaconB", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
-		BiPredicate<Food, String> endsWith = (o, s) -> o.name.endsWith(s);
-		List<Food> foodResult = foodList.stream().filter(e -> contains.and(endsWith).test(e, "B"))
-				.collect(Collectors.toList());
-		System.out.println(foodResult);
-		assertEquals(expectedSize, foodResult.size());
+		BiFunction<String, String, String> concat = String::concat;
+		String stringResult = concat.apply("Bacon", "Ham");
+		System.out.println(stringResult);
+		assertNotNull(stringResult);
+
+		BiFunction<Integer, Integer, Integer> max = Integer::max;
+		int intResult = max.apply(1, 10);
+		System.out.println(intResult);
+		assertEquals(10, intResult);
 	}
 
-	public static List<String> filter(List<String> list, BiPredicate<String, Integer> biPredicate) {
-		return list.stream().filter(e -> biPredicate.test(e, 3)).collect(Collectors.toList());
+	public static double calc(double d1, double d2, BiFunction<Double, Double, Double> biFunction) {
+		return biFunction.apply(d1, d2);
 	}
 
-	public static List<Food> foodFilter(List<Food> list, BiPredicate<Food, String> biPredicate) {
-		return list.stream().filter(e -> biPredicate.test(e, "B")).collect(Collectors.toList());
+	public static double foodCalc(Food o1, Food o2, BiFunction<Food, Food, Double> biFunction) {
+		return biFunction.apply(o1, o2);
 	}
 
 	@Test
 	public void methodParameter() {
-		int expectedSize = 2;
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		BiPredicate<String, Integer> lengthGreaterThan = (s, i) -> s.length() > i;
-		List<String> result = filter(list, lengthGreaterThan);
+		double result = calc(1d, 10d, (d1, d2) -> d1 + d2);
 		System.out.println(result);
-		assertEquals(expectedSize, result.size());
+		assertEquals(11d, result, 2);
 
-		List<Food> foodList = Arrays.asList(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), new Food("Pork", 3, 1));
-		BiPredicate<Food, String> startsWith = (o, s) -> o.name.startsWith(s);
-		BiPredicate<Food, String> contains = (o, s) -> o.name.contains(s);
-		List<Food> foodResult = foodFilter(foodList, startsWith.and(contains));
-		System.out.println(foodResult);
-		assertEquals(1, foodResult.size());
-	}
-
-	@Test
-	public void listOfBiPredicatesAnd() {
-		int expectedSize = 2;
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork", "");
-		BiPredicate<String, Integer> lengthGreaterThan = (s, i) -> s.length() > i;
-		BiPredicate<String, Integer> substring = (s, i) -> s.substring(i).length() > 0;
-		List<BiPredicate<String, Integer>> predicateList = Arrays.asList(lengthGreaterThan, substring);
-		BiPredicate<String, Integer> biPredicate = predicateList.stream().reduce((s, i) -> true, BiPredicate::and);
-		List<String> result = list.stream().filter(e -> biPredicate.test(e, 3)).collect(Collectors.toList());
+		result = foodCalc(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), (o1, o2) -> o1.quantity + o2.quantity);
 		System.out.println(result);
-		assertEquals(expectedSize, result.size());
-
-		List<Integer> intList = Arrays.asList(1, 2, 3, 4, 5, 6);
-		BiPredicate<Integer, Integer> greaterThan = (i, i2) -> i > i2;
-		BiPredicate<Integer, Integer> lessThan = (i, i2) -> i < i2 + 3;
-		List<BiPredicate<Integer, Integer>> intPredicateList = Arrays.asList(greaterThan, lessThan);
-		List<Integer> intResult = intList.stream()
-				.filter(e -> intPredicateList.stream().reduce((s, i) -> true, BiPredicate::and).test(e, 3))
-				.collect(Collectors.toList());
-		System.out.println(intResult);
-		assertEquals(expectedSize, intResult.size());
-	}
-
-	@Test
-	public void listOfBiPredicatesOr() {
-		int expectedSize = 2;
-		List<String> list = Arrays.asList("Bacon", "Ham", "Pork");
-		BiPredicate<String, Integer> lengthGreaterThan = (s, i) -> s.length() > i;
-		BiPredicate<String, Integer> substring = (s, i) -> s.substring(i).length() > 0;
-		List<BiPredicate<String, Integer>> predicateList = Arrays.asList(lengthGreaterThan, substring);
-		BiPredicate<String, Integer> biPredicate = predicateList.stream().reduce((s, i) -> false, BiPredicate::or);
-		List<String> result = list.stream().filter(e -> biPredicate.test(e, 3)).collect(Collectors.toList());
-		System.out.println(result);
-		assertEquals(expectedSize, result.size());
-
-		List<Integer> intList = Arrays.asList(1, 2, 3, 4, 5, 6);
-		BiPredicate<Integer, Integer> greaterThan = (i, i2) -> i < i2;
-		BiPredicate<Integer, Integer> lessThan = (i, i2) -> i > i2 + 3;
-		List<BiPredicate<Integer, Integer>> intPredicateList = Arrays.asList(greaterThan, lessThan);
-		List<Integer> intResult = intList.stream()
-				.filter(e -> intPredicateList.stream().reduce((s, i) -> false, BiPredicate::or).test(e, 3))
-				.collect(Collectors.toList());
-		System.out.println(intResult);
-		assertEquals(expectedSize, intResult.size());
+		assertEquals(3d, result, 2);
 	}
 }
