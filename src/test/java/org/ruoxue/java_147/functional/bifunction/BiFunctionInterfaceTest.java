@@ -75,9 +75,10 @@ public class BiFunctionInterfaceTest {
 		map.put("Pork", 3);
 		String key = "Bacon";
 		BiFunction<String, Integer, Integer> addition = (s, i) -> i + 1;
-		map.compute(key, addition);
+		Integer result = map.compute(key, addition);
+		System.out.println(result);
 		System.out.println(map);
-		assertEquals(expected, map.get(key));
+		assertEquals(expected, result);
 
 		Map<Food, Integer> foodMap = new HashMap<Food, Integer>();
 		foodMap.put(new Food("Bacon", 1, 1), 1);
@@ -85,9 +86,10 @@ public class BiFunctionInterfaceTest {
 		foodMap.put(new Food("Pork", 3, 1), 3);
 		BiFunction<Food, Integer, Integer> multiply = (o, i) -> (int) o.quantity * 2;
 		Food foodKey = new Food("Bacon", 1, 1);
-		foodMap.compute(foodKey, multiply);
+		Integer foodResult = foodMap.compute(foodKey, multiply);
+		System.out.println(foodResult);
+		assertEquals(expected, foodResult);
 		System.out.println(foodMap);
-		assertEquals(expected, foodMap.get(foodKey));
 	}
 
 	@Test
@@ -121,6 +123,55 @@ public class BiFunctionInterfaceTest {
 		foodResult = foodMap.computeIfPresent(foodKey, multiply);
 		System.out.println(foodResult);
 		assertNull(foodResult);
+		System.out.println(foodMap);
+	}
+
+	@Test
+	public void Map_merge() {
+		Integer expected = 11;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Bacon", 1);
+		map.put("Ham", 2);
+		map.put("Pork", 3);
+		String key = "Bacon";
+		BiFunction<Integer, Integer, Integer> addition = (i, i2) -> i + i2;
+		Integer result = map.merge(key, 10, addition);
+		System.out.println(result);
+		assertEquals(expected, result);
+
+		key = "Bread";
+		result = map.merge(key, 11, addition);
+		System.out.println(result);
+		assertEquals(expected, result);
+		System.out.println(map);
+
+		Map<Food, Integer> foodMap = new HashMap<Food, Integer>();
+		foodMap.put(new Food("Bacon", 1, 1), 1);
+		foodMap.put(new Food("Ham", 2, 1), 2);
+		foodMap.put(new Food("Pork", 3, 1), 3);
+		BiFunction<Integer, Integer, Integer> multiply = (i, i2) -> (int) i * i2;
+		Food foodKey = new Food("Bacon", 1, 1);
+		Integer foodResult = foodMap.merge(foodKey, 11, multiply);
+		System.out.println(foodMap);
+		assertEquals(expected, foodResult);
+	}
+
+	@Test
+	public void Map_replaceAll() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Bacon", 1);
+		map.put("Ham", 2);
+		map.put("Pork", 3);
+		BiFunction<String, Integer, Integer> length = (s, i) -> s.length() + i;
+		map.replaceAll(length);
+		System.out.println(map);
+
+		Map<Food, Integer> foodMap = new HashMap<Food, Integer>();
+		foodMap.put(new Food("Bacon", 1, 1), 1);
+		foodMap.put(new Food("Ham", 2, 1), 2);
+		foodMap.put(new Food("Pork", 3, 1), 3);
+		BiFunction<Food, Integer, Integer> multiply = (o, i) -> (int) o.name.length() * i;
+		foodMap.replaceAll(multiply);
 		System.out.println(foodMap);
 	}
 }
