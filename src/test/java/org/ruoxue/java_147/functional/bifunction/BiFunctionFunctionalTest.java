@@ -2,10 +2,8 @@ package org.ruoxue.java_147.functional.bifunction;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.function.BiFunction;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -13,7 +11,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
-import org.ruoxue.java_147.functional.predicate.PredicateFunctionalTest.Food;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -78,6 +75,11 @@ public class BiFunctionFunctionalTest {
 		int intResult = max.apply(1, 10);
 		System.out.println(intResult);
 		assertEquals(10, intResult);
+
+		BiFunction<String, String, Boolean> equals = Objects::equals;
+		boolean booleanResult = equals.apply("Bacon", "Ham");
+		System.out.println(booleanResult);
+		assertFalse(booleanResult);
 	}
 
 	public static double calc(double d1, double d2, BiFunction<Double, Double, Double> biFunction) {

@@ -61,13 +61,13 @@ public class BiFunctionInterfaceTest {
 
 	@Test
 	public void Map_compute() {
-		Integer expected = 2;
+		Integer expected = 7;
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Bacon", 1);
 		map.put("Ham", 2);
 		map.put("Pork", 3);
 		String key = "Bacon";
-		BiFunction<String, Integer, Integer> addition = (s, i) -> i + 1;
+		BiFunction<String, Integer, Integer> addition = (s, i) -> s.length() + i + 1;
 		Integer result = map.compute(key, addition);
 		System.out.println(result);
 		System.out.println(map);
@@ -77,7 +77,7 @@ public class BiFunctionInterfaceTest {
 		foodMap.put(new Food("Bacon", 1, 1), 1);
 		foodMap.put(new Food("Ham", 2, 1), 2);
 		foodMap.put(new Food("Pork", 3, 1), 3);
-		BiFunction<Food, Integer, Integer> multiply = (o, i) -> (int) o.quantity * 2;
+		BiFunction<Food, Integer, Integer> multiply = (o, i) -> (int) (o.name.length() + o.quantity * 2);
 		Food foodKey = new Food("Bacon", 1, 1);
 		Integer foodResult = foodMap.compute(foodKey, multiply);
 		System.out.println(foodResult);
