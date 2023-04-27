@@ -69,6 +69,14 @@ public class BiFunctionWithExamplesTest {
 		result = startsWith.apply(food, "B");
 		System.out.println(result);
 		assertFalse(result);
+
+		BiFunction<Food, Integer, Boolean> greaterThan = (o, i) -> o.name.length() > i;
+		result = greaterThan.apply(new Food("Bacon", 1, 1), 3);
+		System.out.println(result);
+		assertTrue(result);
+		result = greaterThan.apply(new Food("Ham", 3, 1), 3);
+		System.out.println(result);
+		assertFalse(result);
 	}
 
 	@Test
@@ -79,10 +87,12 @@ public class BiFunctionWithExamplesTest {
 		int result = concat.andThen(multiply).apply(food, "B");
 		System.out.println(result);
 		assertEquals(12, result);
-		food = new Food("Ham", 3, 1);
-		result = concat.andThen(multiply).apply(food, "B");
-		System.out.println(result);
-		assertEquals(8, result);
+
+		BiFunction<Food, Integer, Integer> length = (o, i) -> o.name.length() + i;
+		Function<Integer, Integer> twice = i -> i * i;
+		int intResult = length.andThen(twice).apply(new Food("Ham", 3, 1), 1);
+		System.out.println(intResult);
+		assertEquals(16, intResult);
 	}
 
 	@Test(expected = NullPointerException.class)
