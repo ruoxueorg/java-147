@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -61,48 +62,52 @@ public class BinaryOperatorInterfaceTest {
 
 	@Test
 	public void Map_compute() {
-		Integer expected = 7;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Bacon", 1);
-		map.put("Ham", 2);
-		map.put("Pork", 3);
+		Map<String, String> map = new HashMap<>();
+		map.put("Bacon", "1");
+		map.put("Ham", "2");
+		map.put("Pork", "3");
 		String key = "Bacon";
-		BiFunction<String, Integer, Integer> addition = (s, i) -> s.length() + i + 1;
-		Integer result = map.compute(key, addition);
+		BinaryOperator<String> addition = (k, v) -> k.length() + v + 1;
+		String result = map.compute(key, addition);
 		System.out.println(result);
 		System.out.println(map);
-		assertEquals(expected, result);
+		assertEquals("511", result);
 
-		Map<Food, Integer> foodMap = new HashMap<Food, Integer>();
-		foodMap.put(new Food("Bacon", 1, 1), 1);
-		foodMap.put(new Food("Ham", 2, 1), 2);
-		foodMap.put(new Food("Pork", 3, 1), 3);
-		BiFunction<Food, Integer, Integer> multiply = (o, i) -> (int) (o.name.length() + o.quantity * 2);
+		Map<Food, Food> foodMap = new HashMap<>();
+		foodMap.put(new Food("Bacon", 1, 1), null);
+		foodMap.put(new Food("Ham", 2, 1), null);
+		foodMap.put(new Food("Pork", 3, 1), null);
+		BinaryOperator<Food> multiply = (k, v) -> {
+			Food food = new Food();
+			food.setName(k.name + v);
+			food.setQuantity(k.name.length());
+			return food;
+		};
 		Food foodKey = new Food("Bacon", 1, 1);
-		Integer foodResult = foodMap.compute(foodKey, multiply);
+		Food foodResult = foodMap.compute(foodKey, multiply);
 		System.out.println(foodResult);
-		assertEquals(expected, foodResult);
+		assertNotNull(foodResult);
 		System.out.println(foodMap);
 	}
 
 	@Test
 	public void Map_computeIfPresent() {
 		Integer expected = 2;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Bacon", 1);
-		map.put("Ham", 2);
-		map.put("Pork", 3);
+		Map<String, String> map = new HashMap<>();
+		map.put("Bacon", "1");
+		map.put("Ham", "2");
+		map.put("Pork", "3");
 		String key = "Bacon";
-		BiFunction<String, Integer, Integer> addition = (s, i) -> i + 1;
-		Integer result = map.computeIfPresent(key, addition);
+		BinaryOperator<String> addition = (k, v) -> k.length() + v + 1;
+		String result = map.computeIfPresent(key, addition);
 		System.out.println(result);
-		assertEquals(expected, result);
+		assertEquals("511", result);
 		key = "Bread";
 		result = map.computeIfPresent(key, addition);
 		System.out.println(result);
 		assertNull(result);
 		System.out.println(map);
-
+xxx
 		Map<Food, Integer> foodMap = new HashMap<Food, Integer>();
 		foodMap.put(new Food("Bacon", 1, 1), 1);
 		foodMap.put(new Food("Ham", 2, 1), 2);
