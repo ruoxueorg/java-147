@@ -2,9 +2,7 @@ package org.ruoxue.java_147.functional.binaryoperator;
 
 import static org.junit.Assert.*;
 
-import java.util.Locale;
 import java.util.Objects;
-import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -62,11 +60,6 @@ public class BinaryOperatorFunctionalTest {
 
 	@Test
 	public void methodReference() {
-		BinaryOperator<String, String, Locale> locale = Locale::new;
-		Locale result = locale.apply("zh", "TW");
-		System.out.println(result);
-		assertNotNull(result);
-
 		BinaryOperator<String> concat = String::concat;
 		String stringResult = concat.apply("Bacon", "Ham");
 		System.out.println(stringResult);
@@ -78,17 +71,17 @@ public class BinaryOperatorFunctionalTest {
 		assertEquals(10, intResult);
 
 		BinaryOperator<Boolean> equals = Objects::equals;
-		boolean booleanResult = equals.apply("Bacon", "Ham");
+		boolean booleanResult = equals.apply(Boolean.TRUE, Boolean.FALSE);
 		System.out.println(booleanResult);
 		assertFalse(booleanResult);
 	}
 
-	public static double calc(double d1, double d2, BiFunction<Double, Double, Double> biFunction) {
-		return biFunction.apply(d1, d2);
+	public static double calc(double d1, double d2, BinaryOperator<Double> binaryOperator) {
+		return binaryOperator.apply(d1, d2);
 	}
 
-	public static double foodCalc(Food o1, Food o2, BiFunction<Food, Food, Double> biFunction) {
-		return biFunction.apply(o1, o2);
+	public static Food foodCalc(Food o1, Food o2, BinaryOperator<Food> binaryOperator) {
+		return binaryOperator.apply(o1, o2);
 	}
 
 	@Test
@@ -97,8 +90,12 @@ public class BinaryOperatorFunctionalTest {
 		System.out.println(result);
 		assertEquals(11d, result, 2);
 
-		result = foodCalc(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), (o1, o2) -> o1.quantity + o2.quantity);
-		System.out.println(result);
-		assertEquals(3d, result, 2);
+		Food foodResult = foodCalc(new Food("Bacon", 1, 1), new Food("Ham", 2, 1), (o1, o2) -> {
+			Food food = new Food("Pork", 3, 1);
+			food.setQuantity(o1.quantity + o2.quantity);
+			return food;
+		});
+		System.out.println(foodResult);
+		assertEquals(3d, foodResult.getQuantity(), 2);
 	}
 }
