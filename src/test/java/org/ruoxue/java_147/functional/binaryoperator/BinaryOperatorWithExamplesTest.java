@@ -79,19 +79,24 @@ public class BinaryOperatorWithExamplesTest {
 		assertEquals(5d, result.getQuantity(), 2);
 	}
 
-//	@Test
-//	public void andThen() {
-//		BiFunction<Food, String, String> concat = (o, s) -> o.name.concat(s);
-//		Function<String, Integer> multiply = s -> s.length() * 2;
-//		Food food = new Food("Bacon", 1, 1);
-//		int result = concat.andThen(multiply).apply(food, "B");
-//		System.out.println(result);
-//		assertEquals(12, result);
-//		food = new Food("Ham", 3, 1);
-//		result = concat.andThen(multiply).apply(food, "B");
-//		System.out.println(result);
-//		assertEquals(8, result);
-//	}
+	@Test
+	public void andThen() {
+		BinaryOperator<Food> concat = (o, o1) -> {
+			o.setName(o.name.concat(o1.name));
+			return o;
+		};
+		Function<Food, Integer> multiply = o -> o.name.length() * 2;
+		Food food = new Food("Bacon", 1, 1);
+		Food food2 = new Food("Ham", 2, 1);
+		int result = concat.andThen(multiply).apply(food, food2);
+		System.out.println(result);
+		assertEquals(16, result);
+
+		Food food3 = new Food("Pork", 3, 1);
+		result = concat.andThen(multiply).apply(food2, food3);
+		System.out.println(result);
+		assertEquals(14, result);
+	}
 
 	@Test(expected = NullPointerException.class)
 	public void andThenThrowException() {
