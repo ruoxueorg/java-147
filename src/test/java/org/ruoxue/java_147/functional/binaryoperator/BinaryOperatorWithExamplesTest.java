@@ -135,13 +135,6 @@ public class BinaryOperatorWithExamplesTest {
 		assertEquals(food2, result);
 	}
 
-	public static class Addition<E> implements BinaryOperator<Double> {
-		@Override
-		public Double apply(Double t, Double u) {
-			return t + u;
-		}
-	}
-
 	public static class Merge<E> implements BinaryOperator<Food> {
 		@Override
 		public Food apply(Food t, Food u) {
