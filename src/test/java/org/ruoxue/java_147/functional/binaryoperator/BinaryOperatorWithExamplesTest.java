@@ -2,6 +2,7 @@ package org.ruoxue.java_147.functional.binaryoperator;
 
 import static org.junit.Assert.*;
 
+import java.util.Comparator;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 
@@ -102,6 +103,41 @@ public class BinaryOperatorWithExamplesTest {
 	public void andThenThrowException() {
 		BinaryOperator<Food> ret = (o, o2) -> o2;
 		ret.andThen(null);
+	}
+
+	@Test
+	public void maxBy() {
+		BinaryOperator<Food> maxBy = BinaryOperator.maxBy(Comparator.comparingDouble(Food::getQuantity));
+		Food food = new Food("Bacon", 1, 1);
+		Food food2 = new Food("Ham", 2, 1);
+		Food result = maxBy.apply(food, food2);
+		System.out.println(result);
+		assertEquals(food2, result);
+		Food food3 = new Food("Port", 3, 1);
+		result = maxBy.apply(food2, food3);
+		System.out.println(result);
+		assertEquals(food3, result);
+	}
+
+	@Test
+	public void minBy() {
+		BinaryOperator<Food> minBy = BinaryOperator.minBy(Comparator.comparing(Food::getQuantity));
+		Food food = new Food("Bacon", 1, 1);
+		Food food2 = new Food("Ham", 2, 1);
+		Food result = minBy.apply(food, food2);
+		System.out.println(result);
+		assertEquals(food, result);
+		Food food3 = new Food("Port", 3, 1);
+		result = minBy.apply(food2, food3);
+		System.out.println(result);
+		assertEquals(food2, result);
+	}
+
+	public static class Addition<E> implements BinaryOperator<Double> {
+		@Override
+		public Double apply(Double t, Double u) {
+			return t + u;
+		}
 	}
 
 	public static class Merge<E> implements BinaryOperator<Food> {
