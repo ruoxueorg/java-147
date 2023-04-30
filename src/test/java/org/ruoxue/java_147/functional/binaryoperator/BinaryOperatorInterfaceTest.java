@@ -73,19 +73,19 @@ public class BinaryOperatorInterfaceTest {
 		assertEquals("511", result);
 
 		Map<Food, Food> foodMap = new HashMap<>();
-		foodMap.put(new Food("Bacon", 1, 1), null);
-		foodMap.put(new Food("Ham", 2, 1), null);
-		foodMap.put(new Food("Pork", 3, 1), null);
+		foodMap.put(new Food("Bacon", 1, 1), new Food("Bacon", 1, 1));
+		foodMap.put(new Food("Ham", 2, 1), new Food("Ham", 2, 1));
+		foodMap.put(new Food("Pork", 3, 1), new Food("Pork", 3, 1));
 		BinaryOperator<Food> multiply = (k, v) -> {
 			Food food = new Food();
 			food.setName(k.name + v);
-			food.setQuantity(k.name.length());
+			food.setQuantity(k.name.length() * 2);
 			return food;
 		};
 		Food foodKey = new Food("Bacon", 1, 1);
 		Food foodResult = foodMap.compute(foodKey, multiply);
 		System.out.println(foodResult);
-		assertNotNull(foodResult);
+		assertEquals(10d, foodResult.getQuantity(), 2);
 		System.out.println(foodMap);
 	}
 
@@ -107,19 +107,19 @@ public class BinaryOperatorInterfaceTest {
 		System.out.println(map);
 
 		Map<Food, Food> foodMap = new HashMap<>();
-		foodMap.put(new Food("Bacon", 1, 1), null);
-		foodMap.put(new Food("Ham", 2, 1), null);
-		foodMap.put(new Food("Pork", 3, 1), null);
+		foodMap.put(new Food("Bacon", 1, 1), new Food("Bacon", 1, 1));
+		foodMap.put(new Food("Ham", 2, 1), new Food("Ham", 2, 1));
+		foodMap.put(new Food("Pork", 3, 1), new Food("Pork", 3, 1));
 		BinaryOperator<Food> multiply = (k, v) -> {
 			Food food = new Food();
 			food.setName(k.name + v);
-			food.setQuantity(k.name.length());
+			food.setQuantity(k.name.length() * 2);
 			return food;
 		};
 		Food foodKey = new Food("Bacon", 1, 1);
 		Food foodResult = foodMap.computeIfPresent(foodKey, multiply);
 		System.out.println(foodResult);
-		assertNull(foodResult);
+		assertEquals(10d, foodResult.getQuantity(), 2);
 		foodKey = new Food("Bread", 1, 1);
 		foodResult = foodMap.computeIfPresent(foodKey, multiply);
 		System.out.println(foodResult);
@@ -146,13 +146,13 @@ public class BinaryOperatorInterfaceTest {
 		System.out.println(map);
 
 		Map<Food, Food> foodMap = new HashMap<>();
-		foodMap.put(new Food("Bacon", 1, 1), null);
-		foodMap.put(new Food("Ham", 2, 1), null);
-		foodMap.put(new Food("Pork", 3, 1), null);
+		foodMap.put(new Food("Bacon", 1, 1), new Food("Bacon", 1, 1));
+		foodMap.put(new Food("Ham", 2, 1), new Food("Ham", 2, 1));
+		foodMap.put(new Food("Pork", 3, 1), new Food("Pork", 3, 1));
 		BinaryOperator<Food> multiply = (k, v) -> {
 			Food food = new Food();
 			food.setName(k.name + v);
-			food.setQuantity(k.name.length());
+			food.setQuantity(k.name.length() * 2);
 			return food;
 		};
 		Food foodKey = new Food("Bacon", 1, 1);
@@ -164,21 +164,21 @@ public class BinaryOperatorInterfaceTest {
 	@Test
 	public void Map_replaceAll() {
 		Map<String, String> map = new HashMap<>();
-		map.put("Bacon", null);
-		map.put("Ham", null);
-		map.put("Pork", null);
+		map.put("Bacon", "1");
+		map.put("Ham", "2");
+		map.put("Pork", "3");
 		BinaryOperator<String> addition = (k, v) -> k.length() + v + 1;
 		map.replaceAll(addition);
 		System.out.println(map);
 
 		Map<Food, Food> foodMap = new HashMap<>();
-		foodMap.put(new Food("Bacon", 1, 1), null);
-		foodMap.put(new Food("Ham", 2, 1), null);
-		foodMap.put(new Food("Pork", 3, 1), null);
+		foodMap.put(new Food("Bacon", 1, 1), new Food("Bacon", 1, 1));
+		foodMap.put(new Food("Ham", 2, 1), new Food("Ham", 2, 1));
+		foodMap.put(new Food("Pork", 3, 1), new Food("Pork", 3, 1));
 		BinaryOperator<Food> multiply = (k, v) -> {
 			Food food = new Food();
 			food.setName(k.name + v);
-			food.setQuantity(k.name.length());
+			food.setQuantity(k.name.length() * 2);
 			return food;
 		};
 		foodMap.replaceAll(multiply);
