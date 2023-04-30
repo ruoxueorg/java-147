@@ -3,6 +3,7 @@ package org.ruoxue.java_147.functional.binaryoperator;
 import static org.junit.Assert.*;
 
 import java.util.Comparator;
+import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 
@@ -102,7 +103,8 @@ public class BinaryOperatorWithExamplesTest {
 	@Test(expected = NullPointerException.class)
 	public void andThenThrowException() {
 		BinaryOperator<Food> ret = (o, o2) -> o2;
-		ret.andThen(null);
+		BiFunction<Food, Food, Food> biFunction = ret.andThen(null);
+		assertNotNull(biFunction);
 	}
 
 	@Test
