@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
