@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -17,6 +18,15 @@ public class CollectorsToSetTest {
 		int expectedSize = 3;
 		Stream<String> stream = Stream.of("Blueberry", "Melon", "Fig", "Blueberry", "Melon");
 		Set<String> result = stream.collect(Collectors.toSet());
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
+	}
+
+	@Test
+	public void toCollection() {
+		int expectedSize = 3;
+		Stream<String> stream = Stream.of("Blueberry", "Melon", "Fig", "Blueberry", "Melon");
+		Set<String> result = stream.collect(Collectors.toCollection(TreeSet::new));
 		System.out.println(result);
 		assertEquals(expectedSize, result.size());
 	}
