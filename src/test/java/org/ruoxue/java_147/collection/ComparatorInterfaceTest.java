@@ -68,7 +68,7 @@ public class ComparatorInterfaceTest {
 	};
 
 	@Test
-	public void compare() {
+	public void traditional() {
 		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1, 1), new Fruit("Peach", 3, 1), new Fruit("Orange", 2, 1));
 		System.out.println(list);
 
@@ -76,18 +76,21 @@ public class ComparatorInterfaceTest {
 		System.out.println(list);
 		assertEquals("Mango", list.get(0).getName());
 		assertEquals("Orange", list.get(1).getName());
+		assertEquals("Peach", list.get(2).getName());
 	}
 
 	@Test
-	public void compareWithLambda() {
-		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1, 1), new Fruit("Peach", 3, 1), new Fruit("Orange", 2, 1));
+	public void compare() {
+		List<Fruit> list = Arrays.asList(new Fruit("Mango", Double.MAX_VALUE, 1), new Fruit("Peach", -1d, 1),
+				new Fruit("Orange", 2, 1));
 		System.out.println(list);
 
-		Comparator<Fruit> lengthComparator = (o, o2) -> Integer.compare(o.name.length(), o2.name.length());
-		Collections.sort(list, lengthComparator);
+		Comparator<Fruit> quantityComparator = (o, o2) -> Double.compare(o.quantity, o2.quantity);
+		Collections.sort(list, quantityComparator);
 		System.out.println(list);
-		assertEquals("Mango", list.get(0).getName());
-		assertEquals("Peach", list.get(1).getName());
+		assertEquals("Peach", list.get(0).getName());
+		assertEquals("Orange", list.get(1).getName());
+		assertEquals("Mango", list.get(2).getName());
 	}
 
 	@Test
@@ -100,6 +103,7 @@ public class ComparatorInterfaceTest {
 		System.out.println(list);
 		assertEquals("Orange", list.get(0).getName());
 		assertEquals("Mango", list.get(1).getName());
+		assertEquals("Peach", list.get(2).getName());
 	}
 
 	@Test
@@ -114,6 +118,7 @@ public class ComparatorInterfaceTest {
 		System.out.println(list);
 		assertEquals("Peach", list.get(0).getName());
 		assertEquals("Mango", list.get(1).getName());
+		assertEquals("Orange", list.get(2).getName());
 	}
 
 	@Test
@@ -127,6 +132,7 @@ public class ComparatorInterfaceTest {
 		System.out.println(list);
 		assertEquals("Peach", list.get(0).getName());
 		assertEquals("Mango", list.get(1).getName());
+		assertEquals("Orange", list.get(2).getName());
 	}
 
 	@Test
@@ -141,5 +147,6 @@ public class ComparatorInterfaceTest {
 		System.out.println(list);
 		assertEquals("Peach", list.get(0).getName());
 		assertEquals("Mango", list.get(1).getName());
+		assertEquals("Orange", list.get(2).getName());
 	}
 }

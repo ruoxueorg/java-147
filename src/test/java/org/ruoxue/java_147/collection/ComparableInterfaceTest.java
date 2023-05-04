@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -61,72 +60,24 @@ public class ComparableInterfaceTest {
 
 		@Override
 		public int compareTo(Fruit o) {
-			return name.compareTo(o.name);
+			int ret = name.compareTo(o.name);
+			if (ret == 0)
+				ret = Double.compare(quantity, o.quantity);
+			return ret;
 		}
 	}
 
 	@Test
 	public void compareTo() {
-		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1, 1), new Fruit("Peach", 3, 1), new Fruit("Orange", 2, 1));
+		List<Fruit> list = Arrays.asList(new Fruit("Mango", Double.MAX_VALUE, 1), new Fruit("Mango", -1, 3),
+				new Fruit("Peach", 3, 1), new Fruit("Orange", 2, 1));
 		System.out.println(list);
 
 		Collections.sort(list);
 		System.out.println(list);
 		assertEquals("Mango", list.get(0).getName());
-		assertEquals("Orange", list.get(1).getName());
-	}
-
-	@Test
-	public void compareWithLambda() {
-		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1, 1), new Fruit("Peach", 3, 1), new Fruit("Orange", 2, 1));
-		System.out.println(list);
-
-		Comparator<Fruit> lengthComparator = (o, o2) -> Integer.compare(o.name.length(), o2.name.length());
-		Collections.sort(list, lengthComparator);
-		System.out.println(list);
-		assertEquals("Mango", list.get(0).getName());
-		assertEquals("Peach", list.get(1).getName());
-	}
-
-	@Test
-	public void thenComparing() {
-		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1.2, 1), new Fruit("Peach", 1.1, 1),
-				new Fruit("Orange", 2, 1));
-		System.out.println(list);
-
-		Comparator<Fruit> lengthComparator = (o, o2) -> Integer.compare(o.name.length(), o2.name.length());
-		Comparator<Fruit> quantityComparator = (o, o2) -> Double.compare(o.quantity, o2.quantity);
-		Collections.sort(list, lengthComparator.thenComparing(quantityComparator));
-		System.out.println(list);
-		assertEquals("Peach", list.get(0).getName());
 		assertEquals("Mango", list.get(1).getName());
+		assertEquals("Orange", list.get(2).getName());
+		assertEquals("Peach", list.get(3).getName());
 	}
-
-	@Test
-	public void thenComparingWithKey() {
-		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1.2, 1), new Fruit("Peach", 1.1, 1),
-				new Fruit("Orange", 2, 1));
-		System.out.println(list);
-
-		Comparator<Fruit> lengthComparator = (o, o2) -> Integer.compare(o.name.length(), o2.name.length());
-		Collections.sort(list, lengthComparator.thenComparing(Fruit::getQuantity));
-		System.out.println(list);
-		assertEquals("Peach", list.get(0).getName());
-		assertEquals("Mango", list.get(1).getName());
-	}
-
-	@Test
-	public void thenComparingWithKeyComparator() {
-		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1.2, 1), new Fruit("Peach", 1.1, 1),
-				new Fruit("Orange", 2, 1));
-		System.out.println(list);
-
-		Comparator<Fruit> lengthComparator = (o, o2) -> Integer.compare(o.name.length(), o2.name.length());
-		Comparator<Double> doubleCmparator = (o, o2) -> o.compareTo(o2);
-		Collections.sort(list, lengthComparator.thenComparing(Fruit::getQuantity, doubleCmparator));
-		System.out.println(list);
-		assertEquals("Peach", list.get(0).getName());
-		assertEquals("Mango", list.get(1).getName());
-	}
-
 }

@@ -68,6 +68,7 @@ public class ComparatorWithExamplesTest {
 		System.out.println(list);
 		assertEquals("Mango", list.get(0).getName());
 		assertEquals("Orange", list.get(1).getName());
+		assertEquals("Peach", list.get(2).getName());
 	}
 
 	@Test
@@ -80,6 +81,7 @@ public class ComparatorWithExamplesTest {
 		System.out.println(list);
 		assertEquals("Peach", list.get(0).getName());
 		assertEquals("Mango", list.get(1).getName());
+		assertEquals("Orange", list.get(2).getName());
 	}
 
 	@Test
@@ -92,6 +94,7 @@ public class ComparatorWithExamplesTest {
 		System.out.println(list);
 		assertEquals("Mango", list.get(0).getName());
 		assertEquals("Orange", list.get(1).getName());
+		assertEquals("Peach", list.get(2).getName());
 	}
 
 	@Test
@@ -104,6 +107,7 @@ public class ComparatorWithExamplesTest {
 		System.out.println(list);
 		assertEquals("Orange", list.get(0).getName());
 		assertEquals("Mango", list.get(1).getName());
+		assertEquals("Peach", list.get(2).getName());
 	}
 
 	@Test
@@ -115,6 +119,7 @@ public class ComparatorWithExamplesTest {
 		System.out.println(list);
 		assertEquals(1L, list.get(0).longValue());
 		assertEquals(3L, list.get(1).longValue());
+		assertEquals(5L, list.get(2).longValue());
 	}
 
 	@Test
@@ -127,6 +132,7 @@ public class ComparatorWithExamplesTest {
 		System.out.println(list);
 		assertEquals("Peach", list.get(0).getName());
 		assertEquals("Mango", list.get(1).getName());
+		assertEquals("Orange", list.get(2).getName());
 	}
 
 	@Test
@@ -140,6 +146,8 @@ public class ComparatorWithExamplesTest {
 		System.out.println(list);
 		assertNull(list.get(0));
 		assertEquals("Mango", list.get(1).getName());
+		assertEquals("Orange", list.get(2).getName());
+		assertEquals("Peach", list.get(3).getName());
 	}
 
 	@Test
@@ -152,7 +160,9 @@ public class ComparatorWithExamplesTest {
 		list.sort(Comparator.nullsLast(nameComparator));
 		System.out.println(list);
 		assertEquals("Mango", list.get(0).getName());
-		assertNull(list.get(list.size() - 1));
+		assertEquals("Orange", list.get(1).getName());
+		assertEquals("Peach", list.get(2).getName());
+		assertNull(list.get(3));
 	}
 
 	@Test
@@ -164,6 +174,7 @@ public class ComparatorWithExamplesTest {
 		System.out.println(list);
 		assertEquals("Mango", list.get(0));
 		assertEquals("Orange", list.get(1));
+		assertEquals("Peach", list.get(2));
 	}
 
 	@Test
@@ -175,5 +186,6 @@ public class ComparatorWithExamplesTest {
 		System.out.println(list);
 		assertEquals("Peach", list.get(0));
 		assertEquals("Orange", list.get(1));
+		assertEquals("Mango", list.get(2));
 	}
 }
