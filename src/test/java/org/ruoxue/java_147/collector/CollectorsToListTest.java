@@ -2,8 +2,8 @@ package org.ruoxue.java_147.collector;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -26,7 +26,7 @@ public class CollectorsToListTest {
 	public void toCollection() {
 		int expectedSize = 5;
 		Stream<String> stream = Stream.of("Blueberry", "Melon", "Fig", "Blueberry", "Melon");
-		List<String> result = stream.collect(Collectors.toCollection(ArrayList::new));
+		List<String> result = stream.collect(Collectors.toCollection(LinkedList::new));
 		System.out.println(result);
 		assertEquals(expectedSize, result.size());
 	}
@@ -41,7 +41,7 @@ public class CollectorsToListTest {
 	}
 
 	@Test
-	public void intToList() {
+	public void arrayToList() {
 		int expectedSize = 5;
 		int[] array = { 1, 2, 3, 1, 2 };
 		Stream<int[]> stream = Stream.of(array);

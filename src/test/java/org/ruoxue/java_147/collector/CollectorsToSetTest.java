@@ -41,7 +41,7 @@ public class CollectorsToSetTest {
 	}
 
 	@Test
-	public void intToSet() {
+	public void arrayToSet() {
 		int expectedSize = 3;
 		int[] array = { 1, 2, 3, 1, 2 };
 		Stream<int[]> stream = Stream.of(array);

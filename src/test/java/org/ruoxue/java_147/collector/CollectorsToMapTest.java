@@ -45,7 +45,7 @@ public class CollectorsToMapTest {
 	}
 
 	@Test
-	public void toMapDuplicateKey() {
+	public void toMapWithDuplicateKey() {
 		int expectedSize = 3;
 		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig","Blueberry", "Melon");
 		Function<String, String> key = s -> s.toUpperCase();

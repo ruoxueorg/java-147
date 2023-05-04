@@ -12,5 +12,26 @@ public class ComparatorInterfaceTest {
 	public void compare() {
 		Comparator<String> comparator = (s, s2) -> s.length() - s2.length();
 	}
+	
+	@Test
+	public void reversed() {
+		
+	}
+	
+	@Test
+	public void thenComparing() {
+		
+	}
+	
+	@Test
+	public void thenComparingFunction() {
+		
+	}
+	
+	@Test
+	public void thenComparingFunctionComparator() {
+		
+	}
+
 
 }

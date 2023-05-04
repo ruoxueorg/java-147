@@ -14,6 +14,11 @@ public class ComparatorWithExamplesTest {
 	}
 
 	@Test
+	public void comparingFunctionComparator() {
+		Comparator.comparing(null, null);
+	}
+
+	@Test
 	public void comparingInt() {
 		Comparator.comparingInt(null);
 	}
@@ -26,5 +31,25 @@ public class ComparatorWithExamplesTest {
 	@Test
 	public void comparingDouble() {
 		Comparator.comparingDouble(null);
+	}
+
+	@Test
+	public void nullsFirst() {
+		Comparator.nullsFirst(null);
+	}
+
+	@Test
+	public void nullsLast() {
+		Comparator.nullsLast(null);
+	}
+
+	@Test
+	public void naturalOrder() {
+		Comparator.naturalOrder();
+	}
+
+	@Test
+	public void reverseOrder() {
+		Comparator.reverseOrder();
 	}
 }
