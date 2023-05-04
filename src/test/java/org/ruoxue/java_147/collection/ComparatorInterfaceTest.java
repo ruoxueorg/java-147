@@ -91,6 +91,18 @@ public class ComparatorInterfaceTest {
 	}
 
 	@Test
+	public void reversed() {
+		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1, 1), new Fruit("Peach", 3, 1), new Fruit("Orange", 2, 1));
+		System.out.println(list);
+
+		Comparator<Fruit> lengthComparator = (o, o2) -> Integer.compare(o.name.length(), o2.name.length());
+		Collections.sort(list, lengthComparator.reversed());
+		System.out.println(list);
+		assertEquals("Orange", list.get(0).getName());
+		assertEquals("Mango", list.get(1).getName());
+	}
+
+	@Test
 	public void thenComparing() {
 		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1.2, 1), new Fruit("Peach", 1.1, 1),
 				new Fruit("Orange", 2, 1));
@@ -124,7 +136,7 @@ public class ComparatorInterfaceTest {
 		System.out.println(list);
 
 		Comparator<Fruit> lengthComparator = (o, o2) -> Integer.compare(o.name.length(), o2.name.length());
-		Comparator<Double> doubleCmparator = (o, o2) -> o.compareTo(o2);
+		Comparator<Double> doubleCmparator = (d, d2) -> d.compareTo(d2);
 		Collections.sort(list, lengthComparator.thenComparing(Fruit::getQuantity, doubleCmparator));
 		System.out.println(list);
 		assertEquals("Peach", list.get(0).getName());

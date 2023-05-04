@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -65,10 +64,10 @@ public class ComparatorWithExamplesTest {
 		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1, 1), new Fruit("Peach", 3, 1), new Fruit("Orange", 2, 1));
 		System.out.println(list);
 
-		List<Fruit> result = list.stream().sorted(Comparator.comparing(Fruit::getName)).collect(Collectors.toList());
-		System.out.println(result);
-		assertEquals("Mango", result.get(0).getName());
-		assertEquals("Orange", result.get(1).getName());
+		list.sort(Comparator.comparing(Fruit::getName));
+		System.out.println(list);
+		assertEquals("Mango", list.get(0).getName());
+		assertEquals("Orange", list.get(1).getName());
 	}
 
 	@Test
@@ -77,11 +76,10 @@ public class ComparatorWithExamplesTest {
 				new Fruit("Orange", 2, 1));
 		System.out.println(list);
 
-		List<Fruit> result = list.stream().sorted(Comparator.comparing(Fruit::getQuantity, (o, o2) -> o.compareTo(o2)))
-				.collect(Collectors.toList());
-		System.out.println(result);
-		assertEquals("Peach", result.get(0).getName());
-		assertEquals("Mango", result.get(1).getName());
+		list.sort(Comparator.comparing(Fruit::getQuantity, (o, o2) -> o.compareTo(o2)));
+		System.out.println(list);
+		assertEquals("Peach", list.get(0).getName());
+		assertEquals("Mango", list.get(1).getName());
 	}
 
 	@Test
@@ -90,12 +88,10 @@ public class ComparatorWithExamplesTest {
 				new Fruit("Orange", 2, 1));
 		System.out.println(list);
 
-		List<Fruit> result = list.stream()
-				.sorted(Comparator.comparing(Fruit::getName).thenComparing(Fruit::getQuantity))
-				.collect(Collectors.toList());
-		System.out.println(result);
-		assertEquals("Mango", result.get(0).getName());
-		assertEquals("Orange", result.get(1).getName());
+		list.sort(Comparator.comparing(Fruit::getName).thenComparing(Fruit::getQuantity));
+		System.out.println(list);
+		assertEquals("Mango", list.get(0).getName());
+		assertEquals("Orange", list.get(1).getName());
 	}
 
 	@Test
@@ -104,10 +100,10 @@ public class ComparatorWithExamplesTest {
 				new Fruit("Orange", 2, 1));
 		System.out.println(list);
 
-		List<Fruit> result = list.stream().sorted(Comparator.comparingInt(Fruit::getType)).collect(Collectors.toList());
-		System.out.println(result);
-		assertEquals("Orange", result.get(0).getName());
-		assertEquals("Mango", result.get(1).getName());
+		list.sort(Comparator.comparingInt(Fruit::getType));
+		System.out.println(list);
+		assertEquals("Orange", list.get(0).getName());
+		assertEquals("Mango", list.get(1).getName());
 	}
 
 	@Test
@@ -115,10 +111,10 @@ public class ComparatorWithExamplesTest {
 		List<Long> list = Arrays.asList(3L, 1L, 5L, 9L, 7L);
 		System.out.println(list);
 
-		List<Long> result = list.stream().sorted(Comparator.comparingLong(e -> e)).collect(Collectors.toList());
-		System.out.println(result);
-		assertEquals(1L, result.get(0).longValue());
-		assertEquals(3L, result.get(1).longValue());
+		list.sort(Comparator.comparingLong(e -> e));
+		System.out.println(list);
+		assertEquals(1L, list.get(0).longValue());
+		assertEquals(3L, list.get(1).longValue());
 	}
 
 	@Test
@@ -127,11 +123,10 @@ public class ComparatorWithExamplesTest {
 				new Fruit("Orange", 2, 1));
 		System.out.println(list);
 
-		List<Fruit> result = list.stream().sorted(Comparator.comparingDouble(Fruit::getQuantity))
-				.collect(Collectors.toList());
-		System.out.println(result);
-		assertEquals("Peach", result.get(0).getName());
-		assertEquals("Mango", result.get(1).getName());
+		list.sort(Comparator.comparingDouble(Fruit::getQuantity));
+		System.out.println(list);
+		assertEquals("Peach", list.get(0).getName());
+		assertEquals("Mango", list.get(1).getName());
 	}
 
 	@Test
@@ -141,10 +136,10 @@ public class ComparatorWithExamplesTest {
 		System.out.println(list);
 
 		Comparator<Fruit> nameComparator = Comparator.comparing(Fruit::getName);
-		List<Fruit> result = list.stream().sorted(Comparator.nullsFirst(nameComparator)).collect(Collectors.toList());
-		System.out.println(result);
-		assertNull(result.get(0));
-		assertEquals("Mango", result.get(1).getName());
+		list.sort(Comparator.nullsFirst(nameComparator));
+		System.out.println(list);
+		assertNull(list.get(0));
+		assertEquals("Mango", list.get(1).getName());
 	}
 
 	@Test
@@ -154,10 +149,10 @@ public class ComparatorWithExamplesTest {
 		System.out.println(list);
 
 		Comparator<Fruit> nameComparator = Comparator.comparing(Fruit::getName);
-		List<Fruit> result = list.stream().sorted(Comparator.nullsLast(nameComparator)).collect(Collectors.toList());
-		System.out.println(result);
-		assertEquals("Mango", result.get(0).getName());
-		assertNull(result.get(list.size() - 1));
+		list.sort(Comparator.nullsLast(nameComparator));
+		System.out.println(list);
+		assertEquals("Mango", list.get(0).getName());
+		assertNull(list.get(list.size() - 1));
 	}
 
 	@Test
@@ -165,10 +160,10 @@ public class ComparatorWithExamplesTest {
 		List<String> list = Arrays.asList("Mango", "Peach", "Orange");
 		System.out.println(list);
 
-		List<String> result = list.stream().sorted(Comparator.naturalOrder()).collect(Collectors.toList());
-		System.out.println(result);
-		assertEquals("Mango", result.get(0));
-		assertEquals("Orange", result.get(1));
+		list.sort(Comparator.naturalOrder());
+		System.out.println(list);
+		assertEquals("Mango", list.get(0));
+		assertEquals("Orange", list.get(1));
 	}
 
 	@Test
@@ -176,9 +171,9 @@ public class ComparatorWithExamplesTest {
 		List<String> list = Arrays.asList("Mango", "Peach", "Orange");
 		System.out.println(list);
 
-		List<String> result = list.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
-		System.out.println(result);
-		assertEquals("Peach", result.get(0));
-		assertEquals("Orange", result.get(1));
+		list.sort(Comparator.reverseOrder());
+		System.out.println(list);
+		assertEquals("Peach", list.get(0));
+		assertEquals("Orange", list.get(1));
 	}
 }
