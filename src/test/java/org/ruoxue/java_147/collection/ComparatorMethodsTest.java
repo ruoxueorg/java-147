@@ -56,7 +56,7 @@ public class ComparatorMethodsTest {
 
 		Integer[] array = new Integer[] { 3, 1, 2 };
 		System.out.println(Arrays.toString(array));
-		Arrays.sort(array, Comparator.comparing(Integer::intValue));
+		Arrays.sort(array, Comparator.comparing(e -> e));
 		System.out.println(Arrays.toString(array));
 		assertEquals(1, array[0].intValue());
 		assertEquals(2, array[1].intValue());
@@ -75,7 +75,7 @@ public class ComparatorMethodsTest {
 
 		Integer[] array = new Integer[] { 3, 1, 2 };
 		System.out.println(Arrays.toString(array));
-		Arrays.sort(array, Comparator.comparing(Integer::intValue, (i, i2) -> Integer.compare(i, i2)));
+		Arrays.sort(array, Comparator.comparing(e -> e, (i, i2) -> Integer.compare(i, i2)));
 		System.out.println(Arrays.toString(array));
 		assertEquals(1, array[0].intValue());
 		assertEquals(2, array[1].intValue());
@@ -134,7 +134,7 @@ public class ComparatorMethodsTest {
 
 		Integer[] array = new Integer[] { 3, 1, 2, null };
 		System.out.println(Arrays.toString(array));
-		Comparator<Integer> intComparator = Comparator.comparing(Integer::intValue);
+		Comparator<Integer> intComparator = Comparator.comparing(e -> e);
 		Arrays.sort(array, Comparator.nullsFirst(intComparator));
 		System.out.println(Arrays.toString(array));
 		assertNull(array[0]);
@@ -157,7 +157,7 @@ public class ComparatorMethodsTest {
 
 		Integer[] array = new Integer[] { null, 3, 1, 2 };
 		System.out.println(Arrays.toString(array));
-		Comparator<Integer> intComparator = Comparator.comparing(Integer::intValue);
+		Comparator<Integer> intComparator = Comparator.comparing(e -> e);
 		Arrays.sort(array, Comparator.nullsLast(intComparator));
 		System.out.println(Arrays.toString(array));
 		assertEquals(1, array[0].intValue());
