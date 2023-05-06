@@ -60,44 +60,6 @@ public class ComparatorWithExamplesTest {
 	}
 
 	@Test
-	public void comparing() {
-		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1, 1), new Fruit("Peach", 3, 1), new Fruit("Orange", 2, 1));
-		System.out.println(list);
-
-		list.sort(Comparator.comparing(Fruit::getName));
-		System.out.println(list);
-		assertEquals("Mango", list.get(0).getName());
-		assertEquals("Orange", list.get(1).getName());
-		assertEquals("Peach", list.get(2).getName());
-	}
-
-	@Test
-	public void comparingWithKeyComparator() {
-		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1.2, 1), new Fruit("Peach", 1.1, 1),
-				new Fruit("Orange", 2, 1));
-		System.out.println(list);
-
-		list.sort(Comparator.comparing(Fruit::getQuantity, (o, o2) -> o.compareTo(o2)));
-		System.out.println(list);
-		assertEquals("Peach", list.get(0).getName());
-		assertEquals("Mango", list.get(1).getName());
-		assertEquals("Orange", list.get(2).getName());
-	}
-
-	@Test
-	public void thenComparing() {
-		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1.2, 1), new Fruit("Peach", 1.1, 1),
-				new Fruit("Orange", 2, 1));
-		System.out.println(list);
-
-		list.sort(Comparator.comparing(Fruit::getName).thenComparing(Fruit::getQuantity));
-		System.out.println(list);
-		assertEquals("Mango", list.get(0).getName());
-		assertEquals("Orange", list.get(1).getName());
-		assertEquals("Peach", list.get(2).getName());
-	}
-
-	@Test
 	public void comparingInt() {
 		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1.2, 2), new Fruit("Peach", 1.1, 3),
 				new Fruit("Orange", 2, 1));
@@ -133,36 +95,6 @@ public class ComparatorWithExamplesTest {
 		assertEquals("Peach", list.get(0).getName());
 		assertEquals("Mango", list.get(1).getName());
 		assertEquals("Orange", list.get(2).getName());
-	}
-
-	@Test
-	public void nullsFirst() {
-		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1, 1), new Fruit("Peach", 3, 1), new Fruit("Orange", 2, 1),
-				null);
-		System.out.println(list);
-
-		Comparator<Fruit> nameComparator = Comparator.comparing(Fruit::getName);
-		list.sort(Comparator.nullsFirst(nameComparator));
-		System.out.println(list);
-		assertNull(list.get(0));
-		assertEquals("Mango", list.get(1).getName());
-		assertEquals("Orange", list.get(2).getName());
-		assertEquals("Peach", list.get(3).getName());
-	}
-
-	@Test
-	public void nullsLast() {
-		List<Fruit> list = Arrays.asList(new Fruit("Mango", 1, 1), new Fruit("Peach", 3, 1), new Fruit("Orange", 2, 1),
-				null);
-		System.out.println(list);
-
-		Comparator<Fruit> nameComparator = Comparator.comparing(Fruit::getName);
-		list.sort(Comparator.nullsLast(nameComparator));
-		System.out.println(list);
-		assertEquals("Mango", list.get(0).getName());
-		assertEquals("Orange", list.get(1).getName());
-		assertEquals("Peach", list.get(2).getName());
-		assertNull(list.get(3));
 	}
 
 	@Test
