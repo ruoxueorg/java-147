@@ -85,8 +85,8 @@ public class BinaryOperatorInterfaceTest {
 		Food foodKey = new Food("Bacon", 1, 1);
 		Food foodResult = foodMap.compute(foodKey, multiply);
 		System.out.println(foodResult);
-		assertEquals(10d, foodResult.getQuantity(), 2);
 		System.out.println(foodMap);
+		assertEquals(10d, foodResult.getQuantity(), 2);
 	}
 
 	@Test
@@ -123,8 +123,8 @@ public class BinaryOperatorInterfaceTest {
 		foodKey = new Food("Bread", 1, 1);
 		foodResult = foodMap.computeIfPresent(foodKey, multiply);
 		System.out.println(foodResult);
-		assertNull(foodResult);
 		System.out.println(foodMap);
+		assertNull(foodResult);
 	}
 
 	@Test
