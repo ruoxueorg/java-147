@@ -17,7 +17,7 @@ public class ComparatorMethodsTest {
 		}
 	};
 
-	public static Comparator<Integer> integerComparator = new Comparator<Integer>() {
+	public static class IntegerComparator implements Comparator<Integer> {
 		@Override
 		public int compare(Integer o1, Integer o2) {
 			return Integer.compare(o1, o2);
@@ -36,6 +36,7 @@ public class ComparatorMethodsTest {
 
 		Integer[] array = new Integer[] { 3, 1, 2 };
 		System.out.println(Arrays.toString(array));
+		IntegerComparator integerComparator = new IntegerComparator();
 		Arrays.sort(array, integerComparator);
 		System.out.println(Arrays.toString(array));
 		assertEquals(1, array[0].intValue());
