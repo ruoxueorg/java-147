@@ -7,3 +7,4 @@
 4. [Java Comparator Interface](https://www.ruoxue.org/java-147-java-comparator-interface/)
 5. [Java Comparable Interface](https://www.ruoxue.org/java-147-java-comparable-interface/)
 6. [Difference Between Comparable and Comparator in Java](https://www.ruoxue.org/java-147-difference-between-comparable-and-comparator-in-java/)
+7. [Comparable vs Comparator in Java](https://www.ruoxue.org/java-147-comparable-vs-comparator-in-java/)
