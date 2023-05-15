@@ -44,10 +44,7 @@ public class DifferenceComparableComparatorTest {
 
 		@Override
 		public int compareTo(Fruit o) {
-			int ret = this.name.compareTo(o.name);
-			if (ret == 0)
-				ret = Double.compare(this.quantity, o.quantity);
-			return ret;
+			return Double.compare(this.quantity, o.quantity);
 		}
 	}
 
