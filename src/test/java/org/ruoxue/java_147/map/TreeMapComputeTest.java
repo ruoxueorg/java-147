@@ -11,6 +11,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
+import org.ruoxue.java_147.map.TreeMapMethodsTest.Fruit;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +24,8 @@ public class TreeMapComputeTest {
 	@Getter
 	@Setter
 	@Builder
-	public static class Fruit {
+	public static class Fruit implements Comparable<Fruit> {
+
 		private String name;
 		private double quantity;
 		private int type;
@@ -57,23 +59,28 @@ public class TreeMapComputeTest {
 		public int hashCode() {
 			return new HashCodeBuilder().append(getName()).toHashCode();
 		}
+
+		@Override
+		public int compareTo(Fruit o) {
+			return this.name.compareTo(o.name);
+		}
 	}
 
 	@Test
 	public void compute() {
-		double expected = 2d;
-		Map<String, Fruit> map = new TreeMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Integer expected = 2;
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
 		System.out.println(map);
-		String key = "Grape";
+		Fruit key = new Fruit("Grape", 1, 1);
 		map.compute(key, (k, v) -> {
-			v.setQuantity(v.getQuantity() + 1);
+			v += 1;
 			return v;
 		});
 		System.out.println(map);
-		assertEquals(expected, map.get(key).getQuantity(), 0);
+		assertEquals(expected, map.get(key));
 	}
 
 	@Test
@@ -92,39 +99,39 @@ public class TreeMapComputeTest {
 
 	@Test
 	public void computeIfAbsent() {
-		double expected = 4d;
-		Map<String, Fruit> map = new TreeMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Integer expected = 4;
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
 		System.out.println(map);
-		String key = "Mango";
-		Fruit result = map.computeIfAbsent(key, k -> new Fruit("Mango", 4, 1));
+		Fruit key = new Fruit("Mango", 4, 1);
+		Integer result = map.computeIfAbsent(key, k -> 4);
 		System.out.println(map);
-		assertEquals(expected, result.getQuantity(), 0);
-		key = "Grape";
-		result = map.computeIfAbsent(key, k -> new Fruit("Grape", 2, 1));
-		assertEquals(1d, result.getQuantity(), 0);
+		assertEquals(expected, result);
+		key = new Fruit("Grape", 1, 1);
+		result = map.computeIfAbsent(key, k -> 2);
+		assertEquals(new Integer(1), result);
 	}
 
 	@Test
 	public void computeIfPresent() {
-		double expected = 2d;
-		Map<String, Fruit> map = new TreeMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Integer expected = 2;
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
 		System.out.println(map);
-		String key = "Grape";
-		Fruit result = map.computeIfPresent(key, (k, v) -> {
-			v.setQuantity(v.getQuantity() + 1);
+		Fruit key = new Fruit("Grape", 1, 1);
+		Integer result = map.computeIfPresent(key, (k, v) -> {
+			v += 1;
 			return v;
 		});
 		System.out.println(map);
-		assertEquals(expected, result.getQuantity(), 0);
-		key = "Mango";
+		assertEquals(expected, result);
+		key = new Fruit("Mango", 4, 1);
 		result = map.computeIfPresent(key, (k, v) -> {
-			v.setQuantity(4);
+			v = 4;
 			return v;
 		});
 		assertNull(result);

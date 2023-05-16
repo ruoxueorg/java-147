@@ -2,15 +2,17 @@ package org.ruoxue.java_147.map;
 
 import static org.junit.Assert.*;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.Comparator;
 import java.util.Map;
+import java.util.SortedMap;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
-
-import com.google.common.collect.ImmutableMap;
+import org.ruoxue.java_147.collection.ComparatorInterfaceTest.Fruit;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +25,7 @@ public class InitializeTreeMapTest {
 	@Getter
 	@Setter
 	@Builder
-	public static class Fruit {
+	public static class Fruit implements Comparable<Fruit> {
 
 		private String name;
 		private double quantity;
@@ -58,15 +60,20 @@ public class InitializeTreeMapTest {
 		public int hashCode() {
 			return new HashCodeBuilder().append(getName()).toHashCode();
 		}
+
+		@Override
+		public int compareTo(Fruit o) {
+			return this.name.compareTo(o.name);
+		}
 	}
 
 	@Test
 	public void put() {
 		int expectedSize = 3;
-		Map<String, Fruit> map = new TreeMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
 	}
@@ -74,12 +81,12 @@ public class InitializeTreeMapTest {
 	@Test
 	public void doubleBrace() {
 		int expectedSize = 3;
-		Map<String, Fruit> map = new TreeMap<String, Fruit>() {
+		Map<Fruit, Integer> map = new TreeMap<Fruit, Integer>() {
 			private static final long serialVersionUID = -1234223135233714632L;
 			{
-				put("Grape", new Fruit("Grape", 1, 1));
-				put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-				put("Lemon", new Fruit("Lemon", 3, 1));
+				put(new Fruit("Grape", 1, 1), 1);
+				put(new Fruit("Lemon", 3, 1), 3);
+				put(new Fruit("Kiwifruit", 2, 1), 2);
 			}
 		};
 		System.out.println(map);
@@ -89,11 +96,11 @@ public class InitializeTreeMapTest {
 	@Test
 	public void putAll() {
 		int expectedSize = 3;
-		Map<String, Fruit> map = new TreeMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		Map<String, Fruit> newMap = new TreeMap<>();
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Map<Fruit, Integer> newMap = new TreeMap<>();
 		newMap.putAll(map);
 		System.out.println(newMap);
 		assertEquals(expectedSize, newMap.size());
@@ -102,31 +109,36 @@ public class InitializeTreeMapTest {
 	@Test
 	public void constructor() {
 		int expectedSize = 3;
-		Map<String, Fruit> map = new TreeMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		Map<String, Fruit> newMap = new TreeMap<>(map);
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Map<Fruit, Integer> newMap = new TreeMap<>(map);
 		System.out.println(newMap);
 		assertEquals(expectedSize, newMap.size());
 	}
 
 	@Test
-	public void immutableMap() {
+	public void comparator() {
 		int expectedSize = 3;
-		Map<String, Fruit> map = ImmutableMap.of("Grape", new Fruit("Grape", 1, 1), "Kiwifruit",
-				new Fruit("Kiwifruit", 2, 1), "Lemon", new Fruit("Lemon", 3, 1));
+		Comparator<Fruit> quantityComparator = (o, o2) -> Double.compare(o.quantity, o2.quantity);
+		Map<Fruit, Integer> map = new TreeMap<>(quantityComparator);
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
 	}
 
-	@Test(expected = UnsupportedOperationException.class)
-	public void removeThrowException() {
+	@Test
+	public void sortedMap() {
 		int expectedSize = 3;
-		Map<String, Fruit> map = ImmutableMap.of("Grape", new Fruit("Grape", 1, 1), "Kiwifruit",
-				new Fruit("Kiwifruit", 2, 1), "Lemon", new Fruit("Lemon", 3, 1));
-		System.out.println(map);
-		assertEquals(expectedSize, map.size());
-		map.remove("Grape");
+		SortedMap<Fruit, Integer> map = new ConcurrentSkipListMap<Fruit, Integer>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Map<Fruit, Integer> newMap = new TreeMap<>(map);
+		System.out.println(newMap);
+		assertEquals(expectedSize, newMap.size());
 	}
 }
