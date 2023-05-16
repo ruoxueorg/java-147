@@ -24,7 +24,8 @@ public class TreeMapClassTest {
 	@Getter
 	@Setter
 	@Builder
-	public static class Fruit {
+	public static class Fruit implements Comparable<Fruit> {
+
 		private String name;
 		private double quantity;
 		private int type;
@@ -58,26 +59,32 @@ public class TreeMapClassTest {
 		public int hashCode() {
 			return new HashCodeBuilder().append(getName()).toHashCode();
 		}
+
+		@Override
+		public int compareTo(Fruit o) {
+			return this.name.compareTo(o.name);
+		}
 	}
 
 	@Test
 	public void containsKey() {
-		Map<String, Fruit> map = new TreeMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		boolean containsKey = map.containsKey("Lemon");
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		Fruit key = new Fruit("Lemon", 3, 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		boolean containsKey = map.containsKey(key);
 		System.out.println(containsKey);
 		assertTrue(containsKey);
 	}
 
 	@Test
 	public void containsValue() {
-		Map<String, Fruit> map = new TreeMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		boolean containsValue = map.containsValue(new Fruit("Grape", 1, 1));
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		boolean containsValue = map.containsValue(3);
 		System.out.println(containsValue);
 		assertTrue(containsValue);
 	}
@@ -85,21 +92,21 @@ public class TreeMapClassTest {
 	@Test
 	public void stream() {
 		int expectedSize = 2;
-		Map<String, Fruit> map = new TreeMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		Set<String> set = map.keySet().stream().filter(e -> e.length() < 6).collect(Collectors.toSet());
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Set<Fruit> set = map.keySet().stream().filter(e -> e.name.length() < 6).collect(Collectors.toSet());
 		System.out.println(set);
 		assertEquals(expectedSize, set.size());
 	}
 
 	@Test
 	public void parallelStream() {
-		Map<String, Fruit> map = new TreeMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
 		map.keySet().parallelStream().forEach(System.out::println);
 		System.out.println("----------");
 		map.keySet().parallelStream().forEachOrdered(System.out::println);
@@ -107,24 +114,25 @@ public class TreeMapClassTest {
 
 	@Test
 	public void replace() {
-		double expected = 10d;
-		Map<String, Fruit> map = new TreeMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		map.replace("Grape", new Fruit("Grape", 10, 1));
+		Integer expected = 10;
+		Map<Fruit, Integer> map = new TreeMap<>();
+		Fruit key = new Fruit("Grape", 1, 1);
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		map.replace(key, 10);
 		System.out.println(map);
-		assertEquals(expected, map.get("Grape").getQuantity(), 0);
+		assertEquals(expected, map.get(key));
 	}
 
 	@Test
 	public void replaceAll() {
-		Map<String, Fruit> map = new TreeMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
 		map.replaceAll((k, v) -> {
-			v.setQuantity(v.getQuantity() * 10);
+			v = (int) k.getQuantity() * 10;
 			return v;
 		});
 		System.out.println(map);
@@ -132,23 +140,25 @@ public class TreeMapClassTest {
 
 	@Test
 	public void merge() {
-		double expected = 11d;
-		Map<String, Fruit> map = new TreeMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		Fruit replaced = map.merge("Grape", new Fruit("Grape", 10, 1), (oldValue, newValue) -> {
-			newValue.setQuantity(oldValue.getQuantity() + newValue.getQuantity());
+		Integer expected = 11;
+		Map<Fruit, Integer> map = new TreeMap<>();
+		Fruit key = new Fruit("Grape", 1, 1);
+		map.put(key, 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Integer replaced = map.merge(key, 10, (oldValue, newValue) -> {
+			newValue += oldValue;
 			return newValue;
 		});
 		System.out.println(map);
-		assertEquals(expected, replaced.getQuantity(), 0);
+		assertEquals(expected, replaced);
 
-		replaced = map.merge("Papaya", new Fruit("Papaya", 4, 1), (oldValue, newValue) -> {
-			newValue.setQuantity(oldValue.getQuantity() + newValue.getQuantity());
+		Fruit newKey = new Fruit("Papaya", 4, 1);
+		replaced = map.merge(newKey, 4, (oldValue, newValue) -> {
+			newValue += oldValue;
 			return newValue;
 		});
 		System.out.println(map);
-		assertEquals(4d, replaced.getQuantity(), 0);
+		assertEquals(new Integer(4), replaced);
 	}
 }
