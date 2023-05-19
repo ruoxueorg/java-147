@@ -16,3 +16,8 @@
 13. [Java LinkedHashMap Class](https://www.ruoxue.org/java-147-java-linkedhashmap-class/)
 14. [Java LinkedHashMap Compute Method](https://www.ruoxue.org/java-147-java-linkedhashmap-compute-method/)
 15. [Initialize LinkedHashMap in Java](https://www.ruoxue.org/java-147-initialize-linkedhashmap-in-java/)
+16. [Java TreeMap Methods](https://www.ruoxue.org/java-147-java-treemap-methods/)
+17. [TreeMap in Java with Examples](https://www.ruoxue.org/java-147-treemap-in-java-with-examples/)
+18. [Java TreeMap Class](https://www.ruoxue.org/java-147-java-treemap-class/)
+19. [Java TreeMap Compute Method](https://www.ruoxue.org/java-147-java-treemap-compute-method/)
+20. [Initialize TreeMap in Java](https://www.ruoxue.org/java-147-initialize-treemap-in-java/)
