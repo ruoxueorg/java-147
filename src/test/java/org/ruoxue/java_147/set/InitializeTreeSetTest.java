@@ -1,14 +1,10 @@
-package org.ruoxue.java_147.map;
+package org.ruoxue.java_147.set;
 
 import static org.junit.Assert.*;
-import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.Comparator;
-import java.util.Map;
 import java.util.Set;
-import java.util.SortedMap;
 import java.util.SortedSet;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -140,8 +136,8 @@ public class InitializeTreeSetTest {
 		set.add(new Fruit("Longan", 1, 1));
 		set.add(new Fruit("Tomato", 3, 1));
 		set.add(new Fruit("Pear", 2, 1));
-		Set<Fruit> newSet = new TreeSet<>(set);
-		System.out.println(newSet);
-		assertEquals(expectedSize, newSet.size());
+		Set<Fruit> newMap = new TreeSet<>(set);
+		System.out.println(newMap);
+		assertEquals(expectedSize, newMap.size());
 	}
 }
