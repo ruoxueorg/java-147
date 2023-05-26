@@ -130,14 +130,14 @@ public class InitializeTreeSetTest {
 	}
 
 	@Test
-	public void sortedMap() {
+	public void sortedSet() {
 		int expectedSize = 3;
 		SortedSet<Fruit> set = new ConcurrentSkipListSet<Fruit>();
 		set.add(new Fruit("Longan", 1, 1));
 		set.add(new Fruit("Tomato", 3, 1));
 		set.add(new Fruit("Pear", 2, 1));
-		Set<Fruit> newMap = new TreeSet<>(set);
-		System.out.println(newMap);
-		assertEquals(expectedSize, newMap.size());
+		Set<Fruit> newSet = new TreeSet<>(set);
+		System.out.println(newSet);
+		assertEquals(expectedSize, newSet.size());
 	}
 }
