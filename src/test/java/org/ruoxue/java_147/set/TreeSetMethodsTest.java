@@ -20,25 +20,6 @@ public class TreeSetMethodsTest {
 		assertEquals(expectedSize, set.size());
 	}
 
-
-	@Test
-	public void addAll() {
-		int expectedSize = 6;
-		Set<String> set = new TreeSet<String>();
-		set.add("Longan");
-		set.add("Tomato");
-		set.add("Pear");
-
-		Set<String> set2 = new TreeSet<String>();
-		set2.add("Grape");
-		set2.add("Lemon");
-		set2.add("Mango");
-
-		set.addAll(set2);
-		System.out.println(set);
-		assertEquals(expectedSize, set.size());
-	}
-
 	@Test
 	public void remove() {
 		int expectedSize = 2;
@@ -88,6 +69,24 @@ public class TreeSetMethodsTest {
 		set.add("Tomato");
 		set.add("Pear");
 		System.out.println(set.size());
+		assertEquals(expectedSize, set.size());
+	}
+
+	@Test
+	public void addAll() {
+		int expectedSize = 6;
+		Set<String> set = new TreeSet<String>();
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
+
+		Set<String> set2 = new TreeSet<String>();
+		set2.add("Grape");
+		set2.add("Lemon");
+		set2.add("Mango");
+
+		set.addAll(set2);
+		System.out.println(set);
 		assertEquals(expectedSize, set.size());
 	}
 
