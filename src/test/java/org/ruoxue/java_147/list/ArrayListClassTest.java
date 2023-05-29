@@ -11,10 +11,6 @@ import org.junit.Test;
 
 public class ArrayListClassTest {
 
-	public ArrayListClassTest() {
-
-	}
-
 	@Test
 	public void contains() {
 		List<String> list = new ArrayList<String>();

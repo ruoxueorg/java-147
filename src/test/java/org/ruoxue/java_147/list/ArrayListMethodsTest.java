@@ -9,10 +9,6 @@ import org.junit.Test;
 
 public class ArrayListMethodsTest {
 
-	public ArrayListMethodsTest() {
-
-	}
-
 	@Test
 	public void add() {
 		int expectedSize = 3;

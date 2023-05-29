@@ -12,10 +12,6 @@ import org.junit.Test;
 
 public class ArrayListWithExamplesTest {
 
-	public ArrayListWithExamplesTest() {
-
-	}
-
 	@Test
 	public void loop() {
 		List<String> list = new ArrayList<String>();
