@@ -1,7 +1,6 @@
 package org.ruoxue.java_147.conversion;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
