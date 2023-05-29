@@ -27,4 +27,5 @@
 24. [Convert Array to List in Java with Examples](https://www.ruoxue.org/java-147-convert-array-to-list-in-java-with-examples/)
 25. [Java Convert List to Array](https://www.ruoxue.org/java-147-java-convert-list-to-array/)
 26. [Java Convert int Array to Iteger Array](https://www.ruoxue.org/java-convert-int-array-to-iteger-array/)
-
+27. [Java Convert List to Map](https://www.ruoxue.org/java-147-java-convert-list-to-map/)
+28. [Java Convert Integer Array to int Array](https://www.ruoxue.org/java-147-java-convert-integer-array-to-int-array/)
