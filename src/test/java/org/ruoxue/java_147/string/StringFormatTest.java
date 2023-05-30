@@ -8,18 +8,16 @@ public class StringFormatTest {
 
 	@Test
 	public void string() {
-		String value = "Ruoxue";
+		String value = "Java 147";
 		String formatted = String.format("String is: %s", value);
 		System.out.println(formatted);
-
-		value = "Ruoxue";
 		formatted = String.format("String is: %10s", value);
 		System.out.println(formatted);
 	}
 
 	@Test
 	public void charz() {
-		char value = 'R';
+		char value = 'J';
 		String formatted = String.format("Char is: %c", value);
 		System.out.println(formatted);
 
