@@ -10,10 +10,6 @@ import org.junit.Test;
 
 public class HashMapComputeTest {
 
-	public HashMapComputeTest() {
-
-	}
-
 	@Test
 	public void compute() {
 		Integer expected = 2;

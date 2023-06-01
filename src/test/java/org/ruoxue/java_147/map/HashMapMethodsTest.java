@@ -9,10 +9,6 @@ import org.junit.Test;
 
 public class HashMapMethodsTest {
 
-	public HashMapMethodsTest() {
-
-	}
-
 	@Test
 	public void put() {
 		int expectedSize = 3;
