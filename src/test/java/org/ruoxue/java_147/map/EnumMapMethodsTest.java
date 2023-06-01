@@ -13,7 +13,9 @@ public class EnumMapMethodsTest {
 		GRAPE,
 		KIWIFRUIT,
 		LEMON,
+		
 		EMPTY,
+		
 		APPLE,
 		BANANA,
 		CHERRY

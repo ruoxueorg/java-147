@@ -21,3 +21,7 @@
 18. [Java TreeMap Class](https://www.ruoxue.org/java-147-java-treemap-class/)
 19. [Java TreeMap Compute Method](https://www.ruoxue.org/java-147-java-treemap-compute-method/)
 20. [Initialize TreeMap in Java](https://www.ruoxue.org/java-147-initialize-treemap-in-java/)
+21. [Java EnumMap Methods](https://www.ruoxue.org/java-147-java-enummap-methods/)
+22. [EnumMap in Java with Examples](https://www.ruoxue.org/java-147-enummap-in-java-with-examples/)
+23. [Java EnumMap Class](https://www.ruoxue.org/java-147-java-enummap-class/)
+24. [Initialize EnumMap in Java](https://www.ruoxue.org/java-147-initialize-enummap-in-java/)
