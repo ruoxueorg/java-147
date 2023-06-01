@@ -24,4 +24,5 @@
 21. [Java EnumMap Methods](https://www.ruoxue.org/java-147-java-enummap-methods/)
 22. [EnumMap in Java with Examples](https://www.ruoxue.org/java-147-enummap-in-java-with-examples/)
 23. [Java EnumMap Class](https://www.ruoxue.org/java-147-java-enummap-class/)
-24. [Initialize EnumMap in Java](https://www.ruoxue.org/java-147-initialize-enummap-in-java/)
+24. [Java EnumMap Compute Method](https://www.ruoxue.org/java-147-java-enummap-compute-method/)
+25. [Initialize EnumMap in Java](https://www.ruoxue.org/java-147-initialize-enummap-in-java/)
