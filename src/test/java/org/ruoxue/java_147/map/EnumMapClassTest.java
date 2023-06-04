@@ -12,17 +12,13 @@ import org.junit.Test;
 public class EnumMapClassTest {
 
 	public enum Fruit {
-		GRAPE,
-		KIWIFRUIT,
-		LEMON,
-		
+		GRAPE, KIWIFRUIT, LEMON,
+
 		EMPTY,
-		
-		APPLE,
-		BANANA,
-		CHERRY
+
+		APPLE, BANANA, CHERRY
 	}
-	
+
 	@Test
 	public void containsKey() {
 		Map<Fruit, Integer> map = new EnumMap<>(Fruit.class);

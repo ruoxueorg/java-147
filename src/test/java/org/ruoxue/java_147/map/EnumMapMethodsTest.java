@@ -10,17 +10,13 @@ import org.junit.Test;
 public class EnumMapMethodsTest {
 
 	public enum Fruit {
-		GRAPE,
-		KIWIFRUIT,
-		LEMON,
-		
+		GRAPE, KIWIFRUIT, LEMON,
+
 		EMPTY,
-		
-		APPLE,
-		BANANA,
-		CHERRY
+
+		APPLE, BANANA, CHERRY
 	}
-	
+
 	@Test
 	public void put() {
 		int expectedSize = 3;

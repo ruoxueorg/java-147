@@ -11,17 +11,13 @@ import org.junit.Test;
 public class EnumMapComputeTest {
 
 	public enum Fruit {
-		GRAPE,
-		KIWIFRUIT,
-		LEMON,
-		
+		GRAPE, KIWIFRUIT, LEMON,
+
 		EMPTY,
-		
-		APPLE,
-		BANANA,
-		CHERRY
+
+		APPLE, BANANA, CHERRY
 	}
-	
+
 	@Test
 	public void compute() {
 		Integer expected = 2;

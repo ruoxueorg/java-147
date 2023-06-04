@@ -1,20 +1,30 @@
 package org.ruoxue.java_147.map;
 
 import static org.junit.Assert.*;
-import java.util.HashMap;
+
+import java.util.EnumMap;
 import java.util.Map;
 import org.junit.Test;
+
 import com.google.common.collect.ImmutableMap;
 
 public class InitializeHashMapTest {
 
+	public enum Fruit {
+		GRAPE, KIWIFRUIT, LEMON,
+
+		EMPTY,
+
+		APPLE, BANANA, CHERRY
+	}
+
 	@Test
 	public void put() {
 		int expectedSize = 3;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
+		Map<Fruit, Integer> map = new EnumMap<>(Fruit.class);
+		map.put(Fruit.GRAPE, 1);
+		map.put(Fruit.KIWIFRUIT, 2);
+		map.put(Fruit.LEMON, 3);
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
 	}
@@ -22,39 +32,45 @@ public class InitializeHashMapTest {
 	@Test
 	public void doubleBrace() {
 		int expectedSize = 3;
-		Map<String, Integer> map = new HashMap<String, Integer>() {
-			private static final long serialVersionUID = -5487223135233714632L;
+		Map<Fruit, Integer> map = new EnumMap<>(Fruit.class);
+		{
 			{
-				put("Grape", 1);
-				put("Kiwifruit", 2);
-				put("Lemon", 3);
+				map.put(Fruit.GRAPE, 1);
+				map.put(Fruit.KIWIFRUIT, 2);
+				map.put(Fruit.LEMON, 3);
 			}
-		};
+		}
+		;
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
 	}
 
 	@Test
 	public void putAll() {
-		int expectedSize = 3;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		Map<String, Integer> newMap = new HashMap<String, Integer>();
-		newMap.putAll(map);
-		System.out.println(newMap);
-		assertEquals(expectedSize, newMap.size());
+		int expectedSize = 6;
+		Map<Fruit, Integer> map = new EnumMap<>(Fruit.class);
+		map.put(Fruit.APPLE, 1);
+		map.put(Fruit.BANANA, 2);
+		map.put(Fruit.CHERRY, 3);
+
+		Map<Fruit, Integer> map2 = new EnumMap<>(Fruit.class);
+		map.put(Fruit.GRAPE, 1);
+		map.put(Fruit.KIWIFRUIT, 2);
+		map.put(Fruit.LEMON, 3);
+
+		map.putAll(map2);
+		System.out.println(map);
+		assertEquals(expectedSize, map.size());
 	}
 
 	@Test
 	public void constructor() {
 		int expectedSize = 3;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Grape", 1);
-		map.put("Kiwifruit", 2);
-		map.put("Lemon", 3);
-		Map<String, Integer> newMap = new HashMap<String, Integer>(map);
+		Map<Fruit, Integer> map = new EnumMap<>(Fruit.class);
+		map.put(Fruit.GRAPE, 1);
+		map.put(Fruit.KIWIFRUIT, 2);
+		map.put(Fruit.LEMON, 3);
+		Map<Fruit, Integer> newMap = new EnumMap<>(map);
 		System.out.println(newMap);
 		assertEquals(expectedSize, newMap.size());
 	}
@@ -62,17 +78,17 @@ public class InitializeHashMapTest {
 	@Test
 	public void immutableMap() {
 		int expectedSize = 3;
-		Map<String, Integer> map = ImmutableMap.of("Grape", 1, "Kiwifruit", 2, "Lemon", 3);
-		System.out.println(map);
+		Map<Fruit, Integer> map = ImmutableMap.of(Fruit.GRAPE, 1, Fruit.KIWIFRUIT, 2, Fruit.LEMON, 3);
+		System.out.println(map.getClass());
 		assertEquals(expectedSize, map.size());
 	}
 
 	@Test(expected = UnsupportedOperationException.class)
 	public void removeThrowException() {
 		int expectedSize = 3;
-		Map<String, Integer> map = ImmutableMap.of("Grape", 1, "Kiwifruit", 2, "Lemon", 3);
+		Map<Fruit, Integer> map = ImmutableMap.of(Fruit.GRAPE, 1, Fruit.KIWIFRUIT, 2, Fruit.LEMON, 3);
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
-		map.remove("Grape");
+		map.remove(Fruit.GRAPE);
 	}
 }
