@@ -2,9 +2,6 @@ package org.ruoxue.java_147.string;
 
 import static org.junit.Assert.*;
 
-import java.util.TreeSet;
-import java.util.Set;
-
 import org.junit.Test;
 
 public class StringBuilderMethodsTest {
@@ -19,6 +16,16 @@ public class StringBuilderMethodsTest {
 		builder.append(147);
 		builder.append(", ");
 		builder.append(new StringBuilder().append("Spring boot 168"));
+		System.out.println(builder);
+		assertEquals(expectedSize, builder.length());
+	}
+
+	@Test
+	public void insert() {
+		int expectedSize = 23;
+		StringBuilder builder = new StringBuilder();
+		builder.append("Java 147");
+		builder.insert(5, "Spring boot 168");
 		System.out.println(builder);
 		assertEquals(expectedSize, builder.length());
 	}
@@ -43,16 +50,15 @@ public class StringBuilderMethodsTest {
 		assertEquals(expectedSize, builder.length());
 	}
 
-
 	@Test
-	public void isEmpty() {
-		Set<String> set = new TreeSet<String>();
-		System.out.println(set.isEmpty());
-		assertTrue(set.isEmpty());
-		set.add("Longan");
-		set.add("Tomato");
-		set.add("Pear");
-		System.out.println(set.isEmpty());
-		assertFalse(set.isEmpty());
+	public void capacity() {
+		int expectedSize = 36;
+		StringBuilder builder = new StringBuilder();
+		builder.append("Java 147, ");
+		builder.append("Spring boot 168, ");
+		builder.append("Junit 151");
+		System.out.println(builder.length());
+		System.out.println(builder.capacity());
+		assertEquals(expectedSize, builder.length());
 	}
 }
