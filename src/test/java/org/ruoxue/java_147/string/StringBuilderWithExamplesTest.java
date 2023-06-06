@@ -56,6 +56,16 @@ public class StringBuilderWithExamplesTest {
 		System.out.println(result);
 		assertEquals(expected, result);
 	}
+	
+	@Test
+	public void offsetByCodePoints() {
+		int expected = 5;
+		StringBuilder builder = new StringBuilder();
+		builder.append("Java 147");
+		int result = builder.offsetByCodePoints(1, 4);
+		System.out.println(result);
+		assertEquals(expected, result);
+	}
 
 	@Test
 	public void subSequence() {
