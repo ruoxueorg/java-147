@@ -40,6 +40,15 @@ public class StringBuilderMethodsTest {
 	}
 
 	@Test
+	public void deleteCharAt() {
+		int expectedSize = 7;
+		StringBuilder builder = new StringBuilder("Java 147");
+		builder.deleteCharAt(5);
+		System.out.println(builder);
+		assertEquals(expectedSize, builder.length());
+	}
+
+	@Test
 	public void length() {
 		int expectedSize = 36;
 		StringBuilder builder = new StringBuilder();
@@ -52,13 +61,25 @@ public class StringBuilderMethodsTest {
 
 	@Test
 	public void capacity() {
+		int expectedSize = 70;
+		StringBuilder builder = new StringBuilder();
+		builder.append("Java 147, ");
+		builder.append("Spring boot 168, ");
+		builder.append("Junit 151");
+		System.out.println(builder.capacity());
+		assertEquals(expectedSize, builder.capacity());
+	}
+
+	@Test
+	public void trimToSize() {
 		int expectedSize = 36;
 		StringBuilder builder = new StringBuilder();
 		builder.append("Java 147, ");
 		builder.append("Spring boot 168, ");
 		builder.append("Junit 151");
-		System.out.println(builder.length());
 		System.out.println(builder.capacity());
-		assertEquals(expectedSize, builder.length());
+		builder.trimToSize();
+		System.out.println(builder.capacity());
+		assertEquals(expectedSize, builder.capacity());
 	}
 }

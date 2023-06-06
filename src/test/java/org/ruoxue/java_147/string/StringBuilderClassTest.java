@@ -1,0 +1,59 @@
+package org.ruoxue.java_147.string;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class StringBuilderClassTest {
+
+	@Test
+	public void charAt() {
+		int expectedSize = 25;
+		StringBuilder builder = new StringBuilder();
+		builder.append("Jav");
+		builder.append('a');
+		builder.append(" ");
+		builder.append(147);
+		builder.append(", ");
+		builder.append(new StringBuilder().append("Spring boot 168"));
+		System.out.println(builder);
+		assertEquals(expectedSize, builder.length());
+	}
+
+	@Test
+	public void getChars() {
+		int expectedSize = 70;
+		StringBuilder builder = new StringBuilder();
+		builder.append("Java 147, ");
+		builder.append("Spring boot 168, ");
+		builder.append("Junit 151");
+		System.out.println(builder.length());
+		System.out.println(builder.capacity());
+		assertEquals(expectedSize, builder.capacity());
+	}
+
+	@Test
+	public void indexOf() {
+
+	}
+
+	@Test
+	public void lastIndexOf() {
+
+	}
+
+	@Test
+	public void setCharAt() {
+
+	}
+
+	@Test
+	public void substring() {
+
+	}
+	
+	@Test
+	public void replace() {
+
+	}
+}
