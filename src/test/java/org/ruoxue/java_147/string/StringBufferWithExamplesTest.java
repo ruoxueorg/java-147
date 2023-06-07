@@ -8,13 +8,13 @@ import java.util.stream.IntStream;
 
 import org.junit.Test;
 
-public class StringBuilderWithExamplesTest {
+public class StringBufferWithExamplesTest {
 
 	@Test
 	public void appendCodePoint() {
-		int expectedSize = 10;
+		int expectedSize = 17;
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
+		builder.append("Spring boot 168");
 		builder.appendCodePoint(32);
 		builder.appendCodePoint(65);
 		System.out.println(builder);
@@ -24,7 +24,7 @@ public class StringBuilderWithExamplesTest {
 	@Test
 	public void codePoints() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
+		builder.append("Spring boot 168");
 		IntStream stream = builder.codePoints();
 		List<Integer> list = stream.boxed().collect(Collectors.toList());
 		System.out.println(list);
@@ -32,30 +32,30 @@ public class StringBuilderWithExamplesTest {
 
 	@Test
 	public void codePointAt() {
-		int expected = 97;
+		int expected = 103;
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
-		int result = builder.codePointAt(3);
+		builder.append("Spring boot 168");
+		int result = builder.codePointAt(5);
 		System.out.println(result);
 		assertEquals(expected, result);
 	}
 
 	@Test
 	public void codePointBefore() {
-		int expected = 118;
+		int expected = 110;
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
-		int result = builder.codePointBefore(3);
+		builder.append("Spring boot 168");
+		int result = builder.codePointBefore(5);
 		System.out.println(result);
 		assertEquals(expected, result);
 	}
 
 	@Test
 	public void codePointCount() {
-		int expected = 3;
+		int expected = 5;
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
-		int result = builder.codePointCount(0, 3);
+		builder.append("Spring boot 168");
+		int result = builder.codePointCount(0, 5);
 		System.out.println(result);
 		assertEquals(expected, result);
 	}
@@ -64,7 +64,7 @@ public class StringBuilderWithExamplesTest {
 	public void offsetByCodePoints() {
 		int expected = 5;
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
+		builder.append("Spring boot 168");
 		int result = builder.offsetByCodePoints(1, 4);
 		System.out.println(result);
 		assertEquals(expected, result);
@@ -72,10 +72,10 @@ public class StringBuilderWithExamplesTest {
 
 	@Test
 	public void subSequence() {
-		CharSequence expected = "Java";
+		CharSequence expected = "Spring";
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
-		CharSequence result = builder.subSequence(0, 4);
+		builder.append("Spring boot 168");
+		CharSequence result = builder.subSequence(0, 6);
 		System.out.println(result);
 		assertEquals(expected, result);
 	}
@@ -83,8 +83,8 @@ public class StringBuilderWithExamplesTest {
 	@Test
 	public void reverse() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147, ");
-		builder.append("Spring boot 168");
+		builder.append("Spring boot 168, ");
+		builder.append("JUnit 151");
 		StringBuilder result = builder.reverse();
 		System.out.println(result);
 	}

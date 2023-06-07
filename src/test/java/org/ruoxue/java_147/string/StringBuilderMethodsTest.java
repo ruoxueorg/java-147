@@ -54,7 +54,7 @@ public class StringBuilderMethodsTest {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Java 147, ");
 		builder.append("Spring boot 168, ");
-		builder.append("Junit 151");
+		builder.append("JUnit 151");
 		System.out.println(builder);
 		assertEquals(expectedSize, builder.length());
 	}
@@ -65,7 +65,7 @@ public class StringBuilderMethodsTest {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Java 147, ");
 		builder.append("Spring boot 168, ");
-		builder.append("Junit 151");
+		builder.append("JUnit 151");
 		System.out.println(builder.capacity());
 		assertEquals(expectedSize, builder.capacity());
 	}
@@ -76,7 +76,7 @@ public class StringBuilderMethodsTest {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Java 147, ");
 		builder.append("Spring boot 168, ");
-		builder.append("Junit 151");
+		builder.append("JUnit 151");
 		System.out.println(builder.capacity());
 		builder.trimToSize();
 		System.out.println(builder.capacity());

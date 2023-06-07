@@ -8,14 +8,14 @@ import java.util.stream.IntStream;
 
 import org.junit.Test;
 
-public class StringBuilderClassTest {
+public class StringBufferClassTest {
 
 	@Test
 	public void charAt() {
-		char expected = 'a';
+		char expected = 'g';
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
-		char result = builder.charAt(3);
+		builder.append("Spring boot 168");
+		char result = builder.charAt(5);
 		System.out.println(result);
 		assertEquals(expected, result);
 	}
@@ -23,7 +23,7 @@ public class StringBuilderClassTest {
 	@Test
 	public void getChars() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
+		builder.append("Spring boot 168");
 		IntStream stream = builder.chars();
 		List<Integer> list = stream.boxed().collect(Collectors.toList());
 		System.out.println(list);
@@ -31,14 +31,14 @@ public class StringBuilderClassTest {
 
 	@Test
 	public void indexOf() {
-		int expected = 1;
+		int expected = 3;
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
-		int result = builder.indexOf("a");
+		builder.append("Spring boot 168");
+		int result = builder.indexOf("i");
 		System.out.println(result);
 		assertEquals(expected, result);
 
-		result = builder.indexOf("a", 2);
+		result = builder.indexOf("i", 2);
 		System.out.println(result);
 		assertEquals(3, result);
 	}
@@ -47,44 +47,44 @@ public class StringBuilderClassTest {
 	public void lastIndexOf() {
 		int expected = 3;
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
-		int result = builder.lastIndexOf("a");
+		builder.append("Spring boot 168");
+		int result = builder.lastIndexOf("i");
 		System.out.println(result);
 		assertEquals(expected, result);
 
-		result = builder.lastIndexOf("a", 2);
+		result = builder.lastIndexOf("i", 5);
 		System.out.println(result);
-		assertEquals(1, result);
+		assertEquals(3, result);
 	}
 
 	@Test
 	public void setCharAt() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
-		builder.setCharAt(3, 'A');
+		builder.append("Spring boot 168");
+		builder.setCharAt(3, 'I');
 		System.out.println(builder);
-		assertEquals("JavA 147", builder.toString());
+		assertEquals("SprIng boot 168", builder.toString());
 	}
 
 	@Test
 	public void substring() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
-		String result = builder.substring(3);
+		builder.append("Spring boot 168");
+		String result = builder.substring(5);
 		System.out.println(result);
-		assertEquals("a 147", result);
+		assertEquals("g boot 168", result);
 
-		result = builder.substring(0, 3);
+		result = builder.substring(0, 5);
 		System.out.println(result);
-		assertEquals("Jav", result);
+		assertEquals("Sprin", result);
 	}
 
 	@Test
 	public void replace() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147");
-		builder.replace(0, 2, "JAVA");
+		builder.append("Spring boot 168");
+		builder.replace(0, 4, "SPRING");
 		System.out.println(builder);
-		assertEquals("JAVAva 147", builder.toString());
+		assertEquals("SPRINGng boot 168", builder.toString());
 	}
 }

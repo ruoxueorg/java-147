@@ -17,7 +17,7 @@ public class StringBufferMethodsTest {
 		builder.append(" ");
 		builder.append(168);
 		builder.append(", ");
-		builder.append(new StringBuffer().append("Junit 151"));
+		builder.append(new StringBuffer().append("JUnit 151"));
 		System.out.println(builder);
 		assertEquals(expectedSize, builder.length());
 	}
@@ -27,7 +27,7 @@ public class StringBufferMethodsTest {
 		int expectedSize = 24;
 		StringBuffer builder = new StringBuffer();
 		builder.append("Spring boot 168");
-		builder.insert(12, "Junit 151");
+		builder.insert(12, "JUnit 151");
 		System.out.println(builder);
 		assertEquals(expectedSize, builder.length());
 	}
@@ -56,7 +56,7 @@ public class StringBufferMethodsTest {
 		StringBuffer builder = new StringBuffer();
 		builder.append("Java 147, ");
 		builder.append("Spring boot 168, ");
-		builder.append("Junit 151");
+		builder.append("JUnit 151");
 		System.out.println(builder);
 		assertEquals(expectedSize, builder.length());
 	}
@@ -67,7 +67,7 @@ public class StringBufferMethodsTest {
 		StringBuffer builder = new StringBuffer();
 		builder.append("Java 147, ");
 		builder.append("Spring boot 168, ");
-		builder.append("Junit 151");
+		builder.append("JUnit 151");
 		System.out.println(builder.capacity());
 		assertEquals(expectedSize, builder.capacity());
 	}
@@ -78,7 +78,7 @@ public class StringBufferMethodsTest {
 		StringBuffer builder = new StringBuffer();
 		builder.append("Java 147, ");
 		builder.append("Spring boot 168, ");
-		builder.append("Junit 151");
+		builder.append("JUnit 151");
 		System.out.println(builder.capacity());
 		builder.trimToSize();
 		System.out.println(builder.capacity());
