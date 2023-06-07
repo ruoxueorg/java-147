@@ -71,7 +71,7 @@ public class StringBuilderWithExamplesTest {
 	public void subSequence() {
 		int expectedSize = 3;
 		StringBuilder builder = new StringBuilder();
-		builder.append("Java 147, ");
+		builder.append("Java 147");
 		CharSequence result = builder.subSequence(0, 3);
 		System.out.println(result);
 		assertEquals(expectedSize, result.length());

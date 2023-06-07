@@ -8,4 +8,7 @@
 5. [Java StringBuilder Methods](https://www.ruoxue.org/java-147-java-stringbuilder-methods/)
 6. [StringBuilder in Java with Examples](https://www.ruoxue.org/java-147-stringbuilder-in-java-with-examples/)
 7. [Java StringBuilder Class](https://www.ruoxue.org/java-147-java-stringbuilder-class/)
+8. [Java StringBuffer Methods](https://www.ruoxue.org/java-147-java-stringbuffer-methods/)
+9. [StringBuffer in Java with Examples](https://www.ruoxue.org/java-147-stringbuffer-in-java-with-examples/)
+10. [Java StringBuffer Class](https://www.ruoxue.org/java-147-java-stringbuffer-class/)
 
