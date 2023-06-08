@@ -79,7 +79,7 @@ public class InitializeEnumMapTest {
 	public void immutableMap() {
 		int expectedSize = 3;
 		Map<Fruit, Integer> map = ImmutableMap.of(Fruit.GRAPE, 1, Fruit.KIWIFRUIT, 2, Fruit.LEMON, 3);
-		System.out.println(map.getClass());
+		System.out.println(map);
 		assertEquals(expectedSize, map.size());
 	}
 
