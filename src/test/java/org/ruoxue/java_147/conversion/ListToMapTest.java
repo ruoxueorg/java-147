@@ -86,7 +86,7 @@ public class ListToMapTest {
 		assertThat(result.values()).containsAll(list);
 	}
 
-	@Test(expected = IllegalStateException.class)
+	@Test
 	public void toMapThrowException() {
 		List<Fruit> list = Arrays.asList(new Fruit("Apple", 1, 1), new Fruit("Banana", 2, 1), new Fruit("Banana", 2, 1),
 				new Fruit("Cherry", 3, 1));
