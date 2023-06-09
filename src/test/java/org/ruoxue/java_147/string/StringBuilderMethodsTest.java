@@ -55,7 +55,7 @@ public class StringBuilderMethodsTest {
 		builder.append("Java 147, ");
 		builder.append("Spring boot 168, ");
 		builder.append("JUnit 151");
-		System.out.println(builder);
+		System.out.println(builder.length());
 		assertEquals(expectedSize, builder.length());
 	}
 
