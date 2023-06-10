@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.string;
+package org.ruoxue.java_147.string.stringbuffer;
 
 import static org.junit.Assert.*;
 
@@ -13,7 +13,7 @@ public class StringBufferClassTest {
 	@Test
 	public void charAt() {
 		char expected = 'g';
-		StringBuilder builder = new StringBuilder();
+		StringBuffer builder = new StringBuffer();
 		builder.append("Spring boot 168");
 		char result = builder.charAt(5);
 		System.out.println(result);
@@ -22,7 +22,7 @@ public class StringBufferClassTest {
 
 	@Test
 	public void getChars() {
-		StringBuilder builder = new StringBuilder();
+		StringBuffer builder = new StringBuffer();
 		builder.append("Spring boot 168");
 		IntStream stream = builder.chars();
 		List<Integer> list = stream.boxed().collect(Collectors.toList());
@@ -32,7 +32,7 @@ public class StringBufferClassTest {
 	@Test
 	public void indexOf() {
 		int expected = 3;
-		StringBuilder builder = new StringBuilder();
+		StringBuffer builder = new StringBuffer();
 		builder.append("Spring boot 168");
 		int result = builder.indexOf("i");
 		System.out.println(result);
@@ -46,7 +46,7 @@ public class StringBufferClassTest {
 	@Test
 	public void lastIndexOf() {
 		int expected = 3;
-		StringBuilder builder = new StringBuilder();
+		StringBuffer builder = new StringBuffer();
 		builder.append("Spring boot 168");
 		int result = builder.lastIndexOf("i");
 		System.out.println(result);
@@ -59,7 +59,7 @@ public class StringBufferClassTest {
 
 	@Test
 	public void setCharAt() {
-		StringBuilder builder = new StringBuilder();
+		StringBuffer builder = new StringBuffer();
 		builder.append("Spring boot 168");
 		builder.setCharAt(3, 'I');
 		System.out.println(builder);
@@ -68,7 +68,7 @@ public class StringBufferClassTest {
 
 	@Test
 	public void substring() {
-		StringBuilder builder = new StringBuilder();
+		StringBuffer builder = new StringBuffer();
 		builder.append("Spring boot 168");
 		String result = builder.substring(5);
 		System.out.println(result);
@@ -81,7 +81,7 @@ public class StringBufferClassTest {
 
 	@Test
 	public void replace() {
-		StringBuilder builder = new StringBuilder();
+		StringBuffer builder = new StringBuffer();
 		builder.append("Spring boot 168");
 		builder.replace(0, 4, "SPRING");
 		System.out.println(builder);

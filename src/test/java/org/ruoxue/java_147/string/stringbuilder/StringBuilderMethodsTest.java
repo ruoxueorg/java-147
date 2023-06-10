@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.string;
+package org.ruoxue.java_147.string.stringbuilder;
 
 import static org.junit.Assert.*;
 
