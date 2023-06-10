@@ -28,6 +28,10 @@ public class EnumMapClassTest {
 		boolean containsKey = map.containsKey(Fruit.LEMON);
 		System.out.println(containsKey);
 		assertTrue(containsKey);
+		
+		containsKey = map.containsKey(Fruit.EMPTY);
+		System.out.println(containsKey);
+		assertFalse(containsKey);
 	}
 
 	@Test
@@ -39,6 +43,10 @@ public class EnumMapClassTest {
 		boolean containsValue = map.containsValue(3);
 		System.out.println(containsValue);
 		assertTrue(containsValue);
+		
+		containsValue = map.containsValue(4);
+		System.out.println(containsValue);
+		assertFalse(containsValue);
 	}
 
 	@Test
