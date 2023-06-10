@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.map;
+package org.ruoxue.java_147.map.enummap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
