@@ -18,6 +18,10 @@ public class StringBuilderClassTest {
 		char result = builder.charAt(3);
 		System.out.println(result);
 		assertEquals(expected, result);
+		
+		result = builder.charAt(5);
+		System.out.println(result);
+		assertEquals('1', result);
 	}
 
 	@Test
