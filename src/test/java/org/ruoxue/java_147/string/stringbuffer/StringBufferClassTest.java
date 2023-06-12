@@ -18,6 +18,10 @@ public class StringBufferClassTest {
 		char result = builder.charAt(5);
 		System.out.println(result);
 		assertEquals(expected, result);
+		
+		result = builder.charAt(7);
+		System.out.println(result);
+		assertEquals('b', result);
 	}
 
 	@Test
