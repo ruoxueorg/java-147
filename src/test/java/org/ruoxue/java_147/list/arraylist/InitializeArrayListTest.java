@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.list;
+package org.ruoxue.java_147.list.arraylist;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
