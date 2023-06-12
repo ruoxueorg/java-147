@@ -1,10 +1,11 @@
-package org.ruoxue.java_147.map;
+package org.ruoxue.java_147.map.treemap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
+import static org.junit.Assert.*;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.Comparator;
 import java.util.Map;
+import java.util.SortedMap;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -17,7 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class TreeMapComputeTest {
+public class InitializeTreeMapTest {
 
 	@NoArgsConstructor
 	@Getter
@@ -66,73 +67,77 @@ public class TreeMapComputeTest {
 	}
 
 	@Test
-	public void compute() {
-		Integer expected = 2;
+	public void put() {
+		int expectedSize = 3;
 		Map<Fruit, Integer> map = new TreeMap<>();
 		map.put(new Fruit("Grape", 1, 1), 1);
 		map.put(new Fruit("Lemon", 3, 1), 3);
 		map.put(new Fruit("Kiwifruit", 2, 1), 2);
 		System.out.println(map);
-		Fruit key = new Fruit("Grape", 1, 1);
-		map.compute(key, (k, v) -> {
-			v += 1;
-			return v;
-		});
-		System.out.println(map);
-		assertEquals(expected, map.get(key));
+		assertEquals(expectedSize, map.size());
 	}
 
 	@Test
-	public void computeCount() {
-		String value = "Hello World, Java Learn";
-		Map<String, Integer> map = new TreeMap<String, Integer>();
-		for (int i = 0; i < value.length(); i++) {
-			String key = String.valueOf(value.charAt(i));
-			map.compute(key, (k, v) -> {
-				v = (v == null ? 1 : v + 1);
-				return v;
-			});
-		}
+	public void doubleBrace() {
+		int expectedSize = 3;
+		Map<Fruit, Integer> map = new TreeMap<Fruit, Integer>() {
+			private static final long serialVersionUID = -1234223135233714632L;
+			{
+				put(new Fruit("Grape", 1, 1), 1);
+				put(new Fruit("Lemon", 3, 1), 3);
+				put(new Fruit("Kiwifruit", 2, 1), 2);
+			}
+		};
 		System.out.println(map);
+		assertEquals(expectedSize, map.size());
 	}
 
 	@Test
-	public void computeIfAbsent() {
-		Integer expected = 4;
+	public void putAll() {
+		int expectedSize = 3;
 		Map<Fruit, Integer> map = new TreeMap<>();
 		map.put(new Fruit("Grape", 1, 1), 1);
 		map.put(new Fruit("Lemon", 3, 1), 3);
 		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-		System.out.println(map);
-		Fruit key = new Fruit("Mango", 4, 1);
-		Integer result = map.computeIfAbsent(key, k -> 4);
-		System.out.println(map);
-		assertEquals(expected, result);
-		key = new Fruit("Grape", 1, 1);
-		result = map.computeIfAbsent(key, k -> 2);
-		assertEquals(new Integer(1), result);
+		Map<Fruit, Integer> newMap = new TreeMap<>();
+		newMap.putAll(map);
+		System.out.println(newMap);
+		assertEquals(expectedSize, newMap.size());
 	}
 
 	@Test
-	public void computeIfPresent() {
-		Integer expected = 2;
+	public void constructor() {
+		int expectedSize = 3;
 		Map<Fruit, Integer> map = new TreeMap<>();
 		map.put(new Fruit("Grape", 1, 1), 1);
 		map.put(new Fruit("Lemon", 3, 1), 3);
 		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Map<Fruit, Integer> newMap = new TreeMap<>(map);
+		System.out.println(newMap);
+		assertEquals(expectedSize, newMap.size());
+	}
+
+	@Test
+	public void comparator() {
+		int expectedSize = 3;
+		Comparator<Fruit> quantityComparator = (o, o2) -> Double.compare(o.quantity, o2.quantity);
+		Map<Fruit, Integer> map = new TreeMap<>(quantityComparator);
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
 		System.out.println(map);
-		Fruit key = new Fruit("Grape", 1, 1);
-		Integer result = map.computeIfPresent(key, (k, v) -> {
-			v += 1;
-			return v;
-		});
-		System.out.println(map);
-		assertEquals(expected, result);
-		key = new Fruit("Mango", 4, 1);
-		result = map.computeIfPresent(key, (k, v) -> {
-			v = 4;
-			return v;
-		});
-		assertNull(result);
+		assertEquals(expectedSize, map.size());
+	}
+
+	@Test
+	public void sortedMap() {
+		int expectedSize = 3;
+		SortedMap<Fruit, Integer> map = new ConcurrentSkipListMap<Fruit, Integer>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Map<Fruit, Integer> newMap = new TreeMap<>(map);
+		System.out.println(newMap);
+		assertEquals(expectedSize, newMap.size());
 	}
 }

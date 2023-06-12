@@ -1,11 +1,8 @@
-package org.ruoxue.java_147.map;
+package org.ruoxue.java_147.map.linkedhashmap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
+import static org.junit.Assert.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -13,18 +10,21 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
 
+import com.google.common.collect.ImmutableMap;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class LinkedHashMapComputeTest {
+public class InitializeLinkedHashMapTest {
 
 	@NoArgsConstructor
 	@Getter
 	@Setter
 	@Builder
 	public static class Fruit {
+
 		private String name;
 		private double quantity;
 		private int type;
@@ -61,73 +61,72 @@ public class LinkedHashMapComputeTest {
 	}
 
 	@Test
-	public void compute() {
-		double expected = 2d;
+	public void put() {
+		int expectedSize = 3;
 		Map<String, Fruit> map = new LinkedHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		System.out.println(map);
-		String key = "Grape";
-		map.compute(key, (k, v) -> {
-			v.setQuantity(v.getQuantity() + 1);
-			return v;
-		});
-		System.out.println(map);
-		assertEquals(expected, map.get(key).getQuantity(), 0);
+		assertEquals(expectedSize, map.size());
 	}
 
 	@Test
-	public void computeCount() {
-		String value = "Hello World, Java Learn";
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		for (int i = 0; i < value.length(); i++) {
-			String key = String.valueOf(value.charAt(i));
-			map.compute(key, (k, v) -> {
-				v = (v == null ? 1 : v + 1);
-				return v;
-			});
-		}
+	public void doubleBrace() {
+		int expectedSize = 3;
+		Map<String, Fruit> map = new LinkedHashMap<String, Fruit>() {
+			private static final long serialVersionUID = -1234223135233714632L;
+			{
+				put("Grape", new Fruit("Grape", 1, 1));
+				put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+				put("Lemon", new Fruit("Lemon", 3, 1));
+			}
+		};
 		System.out.println(map);
+		assertEquals(expectedSize, map.size());
 	}
 
 	@Test
-	public void computeIfAbsent() {
-		double expected = 4d;
+	public void putAll() {
+		int expectedSize = 3;
 		Map<String, Fruit> map = new LinkedHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		System.out.println(map);
-		String key = "Mango";
-		Fruit result = map.computeIfAbsent(key, k -> new Fruit("Mango", 4, 1));
-		System.out.println(map);
-		assertEquals(expected, result.getQuantity(), 0);
-		key = "Grape";
-		result = map.computeIfAbsent(key, k -> new Fruit("Grape", 2, 1));
-		assertEquals(1d, result.getQuantity(), 0);
+		Map<String, Fruit> newMap = new LinkedHashMap<>();
+		newMap.putAll(map);
+		System.out.println(newMap);
+		assertEquals(expectedSize, newMap.size());
 	}
 
 	@Test
-	public void computeIfPresent() {
-		double expected = 2d;
+	public void constructor() {
+		int expectedSize = 3;
 		Map<String, Fruit> map = new LinkedHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Map<String, Fruit> newMap = new LinkedHashMap<>(map);
+		System.out.println(newMap);
+		assertEquals(expectedSize, newMap.size());
+	}
+
+	@Test
+	public void immutableMap() {
+		int expectedSize = 3;
+		Map<String, Fruit> map = ImmutableMap.of("Grape", new Fruit("Grape", 1, 1), "Kiwifruit",
+				new Fruit("Kiwifruit", 2, 1), "Lemon", new Fruit("Lemon", 3, 1));
 		System.out.println(map);
-		String key = "Grape";
-		Fruit result = map.computeIfPresent(key, (k, v) -> {
-			v.setQuantity(v.getQuantity() + 1);
-			return v;
-		});
+		assertEquals(expectedSize, map.size());
+	}
+
+	@Test(expected = UnsupportedOperationException.class)
+	public void removeThrowException() {
+		int expectedSize = 3;
+		Map<String, Fruit> map = ImmutableMap.of("Grape", new Fruit("Grape", 1, 1), "Kiwifruit",
+				new Fruit("Kiwifruit", 2, 1), "Lemon", new Fruit("Lemon", 3, 1));
 		System.out.println(map);
-		assertEquals(expected, result.getQuantity(), 0);
-		key = "Mango";
-		result = map.computeIfPresent(key, (k, v) -> {
-			v.setQuantity(4);
-			return v;
-		});
-		assertNull(result);
+		assertEquals(expectedSize, map.size());
+		map.remove("Grape");
 	}
 }

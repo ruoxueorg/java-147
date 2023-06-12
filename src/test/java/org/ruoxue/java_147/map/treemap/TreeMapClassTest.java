@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.map;
+package org.ruoxue.java_147.map.treemap;
 
 import static org.junit.Assert.*;
 

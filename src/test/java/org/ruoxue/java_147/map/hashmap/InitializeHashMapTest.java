@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.map;
+package org.ruoxue.java_147.map.hashmap;
 
 import static org.junit.Assert.*;
 import java.util.HashMap;

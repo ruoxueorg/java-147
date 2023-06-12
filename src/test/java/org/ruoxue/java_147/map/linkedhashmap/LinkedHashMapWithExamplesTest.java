@@ -1,9 +1,9 @@
-package org.ruoxue.java_147.map;
+package org.ruoxue.java_147.map.linkedhashmap;
 
 import static org.junit.Assert.*;
 
 import java.util.Collection;
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -19,14 +19,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class TreeMapWithExamplesTest {
+public class LinkedHashMapWithExamplesTest {
 	
 	@NoArgsConstructor
 	@Getter
 	@Setter
 	@Builder
-	public static class Fruit implements Comparable<Fruit> {
-
+	public static class Fruit {
 		private String name;
 		private double quantity;
 		private int type;
@@ -60,50 +59,45 @@ public class TreeMapWithExamplesTest {
 		public int hashCode() {
 			return new HashCodeBuilder().append(getName()).toHashCode();
 		}
-
-		@Override
-		public int compareTo(Fruit o) {
-			return this.name.compareTo(o.name);
-		}
 	}
 
 	@Test
 	public void entrySet() {
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-		for (Map.Entry<Fruit, Integer> e : map.entrySet()) {
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		for (Map.Entry<String, Fruit> e : map.entrySet()) {
 			System.out.println(e.getKey() + ", " + e.getValue());
 		}
 	}
 
 	@Test
 	public void forEach() {
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		map.forEach((k, v) -> System.out.println(k + ", " + v));
 	}
 
 	@Test
 	public void keyForEach() {
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		map.keySet().forEach(e -> System.out.println(e));
 	}
 
 	@Test
 	public void keyForEachRemaining() {
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-		Set<Fruit> set = map.keySet();
-		Iterator<Fruit> it = set.iterator();
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Set<String> set = map.keySet();
+		Iterator<String> it = set.iterator();
 		int i = 0;
 		while (it.hasNext()) {
 			System.out.println(it.next());
@@ -120,11 +114,11 @@ public class TreeMapWithExamplesTest {
 
 	@Test
 	public void keyIterator() {
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-		Iterator<Fruit> it = map.keySet().iterator();
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Iterator<String> it = map.keySet().iterator();
 		while (it.hasNext()) {
 			System.out.println(it.next());
 		}
@@ -132,21 +126,21 @@ public class TreeMapWithExamplesTest {
 
 	@Test
 	public void valueForEach() {
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		map.values().forEach(System.out::println);
 	}
 
 	@Test
 	public void valueForEachRemaining() {
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-		Collection<Integer> collection = map.values();
-		Iterator<Integer> it = collection.iterator();
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Collection<Fruit> collection = map.values();
+		Iterator<Fruit> it = collection.iterator();
 		int i = 0;
 		while (it.hasNext()) {
 			System.out.println(it.next());
@@ -163,11 +157,11 @@ public class TreeMapWithExamplesTest {
 
 	@Test
 	public void valueIterator() {
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-		Iterator<Integer> it = map.values().iterator();
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		Iterator<Fruit> it = map.values().iterator();
 		while (it.hasNext()) {
 			System.out.println(it.next());
 		}
@@ -176,14 +170,14 @@ public class TreeMapWithExamplesTest {
 	@Test
 	public void keyToArray() {
 		int expectedSize = 3;
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 
-		Fruit[] array = new Fruit[map.size()];
+		String[] array = new String[map.size()];
 		map.keySet().toArray(array);
-		for (Fruit e : array) {
+		for (String e : array) {
 			System.out.println(e);
 		}
 		assertEquals(expectedSize, array.length);
@@ -192,13 +186,13 @@ public class TreeMapWithExamplesTest {
 	@Test
 	public void keyStreamToArray() {
 		int expectedSize = 3;
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
 
-		Fruit[] array = map.keySet().stream().toArray(Fruit[]::new);
-		for (Fruit e : array) {
+		String[] array = map.keySet().stream().toArray(String[]::new);
+		for (String e : array) {
 			System.out.println(e);
 		}
 		assertEquals(expectedSize, array.length);

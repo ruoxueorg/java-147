@@ -1,9 +1,12 @@
-package org.ruoxue.java_147.map;
+package org.ruoxue.java_147.map.treemap;
 
 import static org.junit.Assert.*;
 
+import java.util.Collection;
 import java.util.TreeMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -16,8 +19,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class TreeMapMethodsTest {
-
+public class TreeMapWithExamplesTest {
+	
 	@NoArgsConstructor
 	@Getter
 	@Setter
@@ -65,130 +68,139 @@ public class TreeMapMethodsTest {
 	}
 
 	@Test
-	public void put() {
+	public void entrySet() {
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		for (Map.Entry<Fruit, Integer> e : map.entrySet()) {
+			System.out.println(e.getKey() + ", " + e.getValue());
+		}
+	}
+
+	@Test
+	public void forEach() {
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		map.forEach((k, v) -> System.out.println(k + ", " + v));
+	}
+
+	@Test
+	public void keyForEach() {
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		map.keySet().forEach(e -> System.out.println(e));
+	}
+
+	@Test
+	public void keyForEachRemaining() {
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Set<Fruit> set = map.keySet();
+		Iterator<Fruit> it = set.iterator();
+		int i = 0;
+		while (it.hasNext()) {
+			System.out.println(it.next());
+			if (i == 1) {
+				break;
+			}
+			i++;
+		}
+		System.out.println("----------");
+		it.forEachRemaining(e -> {
+			System.out.println(e);
+		});
+	}
+
+	@Test
+	public void keyIterator() {
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Iterator<Fruit> it = map.keySet().iterator();
+		while (it.hasNext()) {
+			System.out.println(it.next());
+		}
+	}
+
+	@Test
+	public void valueForEach() {
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		map.values().forEach(System.out::println);
+	}
+
+	@Test
+	public void valueForEachRemaining() {
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Collection<Integer> collection = map.values();
+		Iterator<Integer> it = collection.iterator();
+		int i = 0;
+		while (it.hasNext()) {
+			System.out.println(it.next());
+			if (i == 1) {
+				break;
+			}
+			i++;
+		}
+		System.out.println("----------");
+		it.forEachRemaining(e -> {
+			System.out.println(e);
+		});
+	}
+
+	@Test
+	public void valueIterator() {
+		Map<Fruit, Integer> map = new TreeMap<>();
+		map.put(new Fruit("Grape", 1, 1), 1);
+		map.put(new Fruit("Lemon", 3, 1), 3);
+		map.put(new Fruit("Kiwifruit", 2, 1), 2);
+		Iterator<Integer> it = map.values().iterator();
+		while (it.hasNext()) {
+			System.out.println(it.next());
+		}
+	}
+
+	@Test
+	public void keyToArray() {
 		int expectedSize = 3;
 		Map<Fruit, Integer> map = new TreeMap<>();
 		map.put(new Fruit("Grape", 1, 1), 1);
 		map.put(new Fruit("Lemon", 3, 1), 3);
 		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-		System.out.println(map);
-		assertEquals(expectedSize, map.size());
+
+		Fruit[] array = new Fruit[map.size()];
+		map.keySet().toArray(array);
+		for (Fruit e : array) {
+			System.out.println(e);
+		}
+		assertEquals(expectedSize, array.length);
 	}
 
 	@Test
-	public void putIfAbsent() {
-		int expectedSize = 3;
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		Integer put = map.putIfAbsent(new Fruit("Lemon", 3, 1), 3);
-		System.out.println(put);
-		assertNull(put);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-		System.out.println(map);
-		assertEquals(expectedSize, map.size());
-	}
-
-	@Test
-	public void get() {
-		Integer expected = 2;
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		Fruit key = new Fruit("Kiwifruit", 2, 1);
-		map.put(key, 2);
-		Integer value = map.get(key);
-		System.out.println(value);
-		assertEquals(expected, value);
-	}
-
-	@Test
-	public void getOrDefault() {
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-		Integer result = map.getOrDefault(new Fruit("Empty", 0, 0), new Integer(10));
-		System.out.println(result);
-		assertNotNull(result);
-	}
-
-	@Test
-	public void update() {
-		Integer expected = 10;
-		Map<Fruit, Integer> map = new TreeMap<>();
-		Fruit key = new Fruit("Grape", 1, 1);
-		map.put(key, 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-		System.out.println(map);
-
-		Integer put = map.put(key, new Integer(10));
-		assertEquals(1, put.intValue());
-		System.out.println(map);
-		assertEquals(expected, map.get(key));
-	}
-
-	@Test
-	public void remove() {
-		int expectedSize = 2;
-		Map<Fruit, Integer> map = new TreeMap<>();
-		Fruit key = new Fruit("Grape", 1, 1);
-		map.put(key, 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-		map.remove(key);
-		System.out.println(map);
-		assertEquals(expectedSize, map.size());
-	}
-
-	@Test
-	public void clear() {
-		int expectedSize = 0;
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-		map.clear();
-		System.out.println(map);
-		assertEquals(expectedSize, map.size());
-	}
-
-	@Test
-	public void size() {
+	public void keyStreamToArray() {
 		int expectedSize = 3;
 		Map<Fruit, Integer> map = new TreeMap<>();
 		map.put(new Fruit("Grape", 1, 1), 1);
 		map.put(new Fruit("Lemon", 3, 1), 3);
 		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-		System.out.println(map.size());
-		assertEquals(expectedSize, map.size());
-	}
 
-	@Test
-	public void putAll() {
-		int expectedSize = 6;
-		Map<Fruit, Integer> map = new TreeMap<>();
-		map.put(new Fruit("Grape", 1, 1), 1);
-		map.put(new Fruit("Lemon", 3, 1), 3);
-		map.put(new Fruit("Kiwifruit", 2, 1), 2);
-
-		Map<Fruit, Integer> newMap = new TreeMap<>();
-		newMap.put(new Fruit("Apple", 4, 1), 4);
-		newMap.put(new Fruit("Cherry", 6, 1), 6);
-		newMap.put(new Fruit("Banana", 5, 1), 5);
-
-		map.putAll(newMap);
-		System.out.println(map);
-		assertEquals(expectedSize, map.size());
-	}
-
-	@Test
-	public void isEmpty() {
-		Map<Fruit, Integer> map = new TreeMap<>();
-		System.out.println(map.isEmpty());
-		assertTrue(map.isEmpty());
-		map.put(new Fruit("Grape", 1, 1), 1);
-		System.out.println(map.isEmpty());
-		assertFalse(map.isEmpty());
+		Fruit[] array = map.keySet().stream().toArray(Fruit[]::new);
+		for (Fruit e : array) {
+			System.out.println(e);
+		}
+		assertEquals(expectedSize, array.length);
 	}
 }

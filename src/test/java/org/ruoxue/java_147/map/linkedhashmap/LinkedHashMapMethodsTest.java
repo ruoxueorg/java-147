@@ -1,11 +1,9 @@
-package org.ruoxue.java_147.map;
+package org.ruoxue.java_147.map.linkedhashmap;
 
 import static org.junit.Assert.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -18,13 +16,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class LinkedHashMapClassTest {
+public class LinkedHashMapMethodsTest {
 
 	@NoArgsConstructor
 	@Getter
 	@Setter
 	@Builder
 	public static class Fruit {
+
 		private String name;
 		private double quantity;
 		private int type;
@@ -61,94 +60,127 @@ public class LinkedHashMapClassTest {
 	}
 
 	@Test
-	public void containsKey() {
+	public void put() {
+		int expectedSize = 3;
 		Map<String, Fruit> map = new LinkedHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		boolean containsKey = map.containsKey("Lemon");
-		System.out.println(containsKey);
-		assertTrue(containsKey);
+		System.out.println(map);
+		assertEquals(expectedSize, map.size());
 	}
 
 	@Test
-	public void containsValue() {
+	public void putIfAbsent() {
+		int expectedSize = 3;
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		Fruit put = map.putIfAbsent("Lemon", new Fruit("Lemon", 3, 1));
+		System.out.println(put);
+		assertNull(put);
+		System.out.println(map);
+		assertEquals(expectedSize, map.size());
+	}
+
+	@Test
+	public void get() {
+		double expected = 2d;
 		Map<String, Fruit> map = new LinkedHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		boolean containsValue = map.containsValue(new Fruit("Grape", 1, 1));
-		System.out.println(containsValue);
-		assertTrue(containsValue);
+		Fruit value = map.get("Kiwifruit");
+		System.out.println(value);
+		assertEquals(expected, value.getQuantity(), 0);
 	}
 
 	@Test
-	public void stream() {
-		int expectedSize = 2;
+	public void getOrDefault() {
 		Map<String, Fruit> map = new LinkedHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		Set<String> set = map.keySet().stream().filter(e -> e.length() < 6).collect(Collectors.toSet());
-		System.out.println(set);
-		assertEquals(expectedSize, set.size());
+		Fruit result = map.getOrDefault("", new Fruit("Empty", 0, 0));
+		System.out.println(result);
+		assertNotNull(result);
 	}
 
 	@Test
-	public void parallelStream() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		map.keySet().parallelStream().forEach(System.out::println);
-		System.out.println("----------");
-		map.keySet().parallelStream().forEachOrdered(System.out::println);
-	}
-
-	@Test
-	public void replace() {
+	public void update() {
 		double expected = 10d;
 		Map<String, Fruit> map = new LinkedHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		map.replace("Grape", new Fruit("Grape", 10, 1));
+		System.out.println(map);
+
+		Fruit put = map.put("Grape", new Fruit("Grape", 10, 1));
+		assertEquals(1d, put.getQuantity(), 0);
 		System.out.println(map);
 		assertEquals(expected, map.get("Grape").getQuantity(), 0);
 	}
 
 	@Test
-	public void replaceAll() {
+	public void remove() {
+		int expectedSize = 2;
 		Map<String, Fruit> map = new LinkedHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		map.replaceAll((k, v) -> {
-			v.setQuantity(v.getQuantity() * 10);
-			return v;
-		});
+		map.remove("Grape");
 		System.out.println(map);
+		assertEquals(expectedSize, map.size());
 	}
 
 	@Test
-	public void merge() {
-		double expected = 11d;
+	public void clear() {
+		int expectedSize = 0;
 		Map<String, Fruit> map = new LinkedHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		Fruit replaced = map.merge("Grape", new Fruit("Grape", 10, 1), (oldValue, newValue) -> {
-			newValue.setQuantity(oldValue.getQuantity() + newValue.getQuantity());
-			return newValue;
-		});
+		map.clear();
 		System.out.println(map);
-		assertEquals(expected, replaced.getQuantity(), 0);
+		assertEquals(expectedSize, map.size());
+	}
 
-		replaced = map.merge("Papaya", new Fruit("Papaya", 4, 1), (oldValue, newValue) -> {
-			newValue.setQuantity(oldValue.getQuantity() + newValue.getQuantity());
-			return newValue;
-		});
+	@Test
+	public void size() {
+		int expectedSize = 3;
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		System.out.println(map.size());
+		assertEquals(expectedSize, map.size());
+	}
+
+	@Test
+	public void putAll() {
+		int expectedSize = 6;
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		
+		Map<String, Fruit> newMap = new LinkedHashMap<>();
+		newMap.put("Apple", new Fruit("Apple", 4, 1));
+		newMap.put("Banana", new Fruit("Banana", 5, 1));
+		newMap.put("Cherry", new Fruit("Cherry", 6, 1));
+
+		map.putAll(newMap);
 		System.out.println(map);
-		assertEquals(4d, replaced.getQuantity(), 0);
+		assertEquals(expectedSize, map.size());
+	}
+
+	@Test
+	public void isEmpty() {
+		Map<String, Fruit> map = new LinkedHashMap<>();
+		System.out.println(map.isEmpty());
+		assertTrue(map.isEmpty());
+		map.put("Grape", new Fruit("Grape", 1, 1));
+		System.out.println(map.isEmpty());
+		assertFalse(map.isEmpty());
 	}
 }
