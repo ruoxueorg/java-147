@@ -57,15 +57,14 @@ public class StringBufferMethodsTest {
 		builder.append("Java 147, ");
 		builder.append("Spring boot 168, ");
 		builder.append("JUnit 151");
-		System.out.println(builder);
+		System.out.println(builder.length());
 		assertEquals(expectedSize, builder.length());
 	}
 
 	@Test
 	public void capacity() {
-		int expectedSize = 70;
+		int expectedSize = 34;
 		StringBuffer builder = new StringBuffer();
-		builder.append("Java 147, ");
 		builder.append("Spring boot 168, ");
 		builder.append("JUnit 151");
 		System.out.println(builder.capacity());
@@ -74,9 +73,8 @@ public class StringBufferMethodsTest {
 
 	@Test
 	public void trimToSize() {
-		int expectedSize = 36;
+		int expectedSize = 26;
 		StringBuffer builder = new StringBuffer();
-		builder.append("Java 147, ");
 		builder.append("Spring boot 168, ");
 		builder.append("JUnit 151");
 		System.out.println(builder.capacity());
