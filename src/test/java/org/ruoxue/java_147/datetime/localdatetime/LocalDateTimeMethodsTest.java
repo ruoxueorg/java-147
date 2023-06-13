@@ -111,17 +111,17 @@ public class LocalDateTimeMethodsTest {
 		System.out.println(dayOfYear);
 		assertEquals(215, dayOfYear);
 
-		int hourOfDay = localDateTime.getHour();
-		System.out.println(hourOfDay);
-		assertEquals(1, hourOfDay);
+		int hour = localDateTime.getHour();
+		System.out.println(hour);
+		assertEquals(1, hour);
 
-		int minuteOfHour = localDateTime.getMinute();
-		System.out.println(minuteOfHour);
-		assertEquals(2, minuteOfHour);
+		int minute = localDateTime.getMinute();
+		System.out.println(minute);
+		assertEquals(2, minute);
 
-		int secondOfMinute = localDateTime.getSecond();
-		System.out.println(secondOfMinute);
-		assertEquals(3, secondOfMinute);
+		int second = localDateTime.getSecond();
+		System.out.println(second);
+		assertEquals(3, second);
 	}
 
 	@Test
