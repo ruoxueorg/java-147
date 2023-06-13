@@ -103,28 +103,32 @@ public class LocalDateMethodsTest {
 	}
 
 	@Test
-	public void withYearMonthDay() {
+	public void with() {
 		LocalDate localDate = LocalDate.of(2023, 6, 18);
 		LocalDate result = localDate.withYear(2024);
 		int year = result.getYear();
 		System.out.println(year);
 		assertEquals(2024, year);
 
-		result = localDate.withMonth(8);
+		result = localDate.withMonth(7);
 		int month = result.getMonthValue();
 		System.out.println(month);
-		assertEquals(8, month);
+		assertEquals(7, month);
 
-		result = localDate.withDayOfMonth(3);
+		result = localDate.withDayOfMonth(19);
 		int dayOfMonth = result.getDayOfMonth();
 		System.out.println(dayOfMonth);
-		assertEquals(3, dayOfMonth);
+		assertEquals(19, dayOfMonth);
 	}
 
 	@Test
-	public void with() {
+	public void withTemporalAdjuster() {
 		LocalDate localDate = LocalDate.of(2023, 6, 18);
-		LocalDate result = localDate.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+		LocalDate result = localDate.with(ChronoField.DAY_OF_MONTH, 19);
+		System.out.println(result);
+		assertEquals("2023-06-19", result.toString());
+
+		result = localDate.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
 		System.out.println(result);
 		assertEquals("2023-06-24", result.toString());
 
