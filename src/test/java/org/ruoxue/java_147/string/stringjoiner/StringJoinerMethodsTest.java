@@ -74,11 +74,11 @@ public class StringJoinerMethodsTest {
 	@Test
 	public void Collectors_joining() {
 		List<String> list = Arrays.asList("Java", "Spring", "JUnit");
-		String result = list.stream().map(color -> color.toString()).collect(Collectors.joining(","));
+		String result = list.stream().map(e -> e.toString()).collect(Collectors.joining(","));
 		System.out.println(result);
 		assertEquals("Java,Spring,JUnit", result);
 
-		result = list.stream().map(color -> color.toString()).collect(Collectors.joining(",", "[", "]"));
+		result = list.stream().map(e -> e.toString()).collect(Collectors.joining(",", "[", "]"));
 		System.out.println(result);
 		assertEquals("[Java,Spring,JUnit]", result);
 	}
