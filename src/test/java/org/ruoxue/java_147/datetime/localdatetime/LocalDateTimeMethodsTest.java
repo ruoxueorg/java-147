@@ -181,6 +181,5 @@ public class LocalDateTimeMethodsTest {
 		result = localDateTime.with(t -> t.plus(Duration.ofHours(1)));
 		System.out.println(result);
 		assertEquals("2023-08-03T02:02:03", result.toString());
-
 	}
 }
