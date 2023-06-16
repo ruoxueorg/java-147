@@ -55,6 +55,15 @@ public class LocalDateTimeMethodsTest {
 	}
 
 	@Test
+	public void ofDateTime() {
+		LocalDate localDate = LocalDate.of(2023, 8, 3);
+		LocalTime localTime = LocalTime.of(1, 2, 3);
+		LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+		System.out.println(localDateTime);
+		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
+	}
+
+	@Test
 	public void get() {
 		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
 		int year = localDateTime.get(ChronoField.YEAR);

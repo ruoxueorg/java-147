@@ -43,7 +43,6 @@ public class LocalDateTimeWithExamplesTest {
 		LocalDateTime result = LocalDateTime.from(localDateTime);
 		System.out.println(result);
 		assertEquals("2023-08-03T01:02:03", result.toString());
-
 	}
 
 	@Test
