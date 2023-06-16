@@ -5,7 +5,9 @@ import static org.junit.Assert.*;
 import java.time.Clock;
 import java.time.DayOfWeek;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.Period;
 import java.time.ZoneId;
@@ -181,5 +183,21 @@ public class LocalDateTimeMethodsTest {
 		result = localDateTime.with(t -> t.plus(Duration.ofHours(1)));
 		System.out.println(result);
 		assertEquals("2023-08-03T02:02:03", result.toString());
+	}
+
+	@Test
+	public void toLocalDate() {
+		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
+		LocalDate result = localDateTime.toLocalDate();
+		System.out.println(result);
+		assertEquals("2023-08-03", result.toString());
+	}
+
+	@Test
+	public void toLocalTime() {
+		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
+		LocalTime result = localDateTime.toLocalTime();
+		System.out.println(result);
+		assertEquals("01:02:03", result.toString());
 	}
 }
