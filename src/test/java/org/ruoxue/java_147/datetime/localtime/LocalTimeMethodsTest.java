@@ -17,11 +17,11 @@ public class LocalTimeMethodsTest {
 		LocalTime localTime = LocalTime.now();
 		System.out.println(localTime);
 
-		ZoneId zone = ZoneId.of("America/Chicago");
+		ZoneId zone = ZoneId.of("Europe/London");
 		localTime = LocalTime.now(zone);
 		System.out.println(localTime);
 
-		zone = ZoneId.of("UTC-4");
+		zone = ZoneId.of("UTC-12");
 		Clock clock = Clock.system(zone);
 		localTime = LocalTime.now(clock);
 		System.out.println(localTime);
