@@ -18,17 +18,17 @@ public class InitializeLocalDateTimeTest {
 
 	@Test
 	public void now() {
-		LocalDate localDate = LocalDate.now();
-		System.out.println(localDate);
+		LocalDateTime localDateTime = LocalDateTime.now();
+		System.out.println(localDateTime);
 
-		ZoneId zone = ZoneId.of("America/Chicago");
-		localDate = LocalDate.now(zone);
-		System.out.println(localDate);
+		ZoneId zone = ZoneId.of("Asia/Tokyo");
+		localDateTime = LocalDateTime.now(zone);
+		System.out.println(localDateTime);
 
-		zone = ZoneId.of("-4");
+		zone = ZoneId.of("UTC-8");
 		Clock clock = Clock.system(zone);
-		localDate = LocalDate.now(clock);
-		System.out.println(localDate);
+		localDateTime = LocalDateTime.now(clock);
+		System.out.println(localDateTime);
 	}
 
 	@Test
@@ -39,7 +39,7 @@ public class InitializeLocalDateTimeTest {
 
 		long epochSecond = localDateTime.toEpochSecond(ZoneOffset.UTC);
 		System.out.println(epochSecond);
-		assertEquals(1691024523, epochSecond);
+		assertEquals(1691024523L, epochSecond);
 
 		localDateTime = LocalDateTime.of(2023, Month.AUGUST, 4, 1, 2, 3);
 		System.out.println(localDateTime);

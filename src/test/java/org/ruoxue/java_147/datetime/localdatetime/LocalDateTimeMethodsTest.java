@@ -25,11 +25,11 @@ public class LocalDateTimeMethodsTest {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		System.out.println(localDateTime);
 
-		ZoneId zone = ZoneId.of("America/Chicago");
+		ZoneId zone = ZoneId.of("Asia/Tokyo");
 		localDateTime = LocalDateTime.now(zone);
 		System.out.println(localDateTime);
 
-		zone = ZoneId.of("UTC-4");
+		zone = ZoneId.of("UTC-8");
 		Clock clock = Clock.system(zone);
 		localDateTime = LocalDateTime.now(clock);
 		System.out.println(localDateTime);
@@ -43,7 +43,7 @@ public class LocalDateTimeMethodsTest {
 
 		long epochSecond = localDateTime.toEpochSecond(ZoneOffset.UTC);
 		System.out.println(epochSecond);
-		assertEquals(1691024523, epochSecond);
+		assertEquals(1691024523L, epochSecond);
 
 		localDateTime = LocalDateTime.of(2023, Month.AUGUST, 4, 1, 2, 3);
 		System.out.println(localDateTime);
