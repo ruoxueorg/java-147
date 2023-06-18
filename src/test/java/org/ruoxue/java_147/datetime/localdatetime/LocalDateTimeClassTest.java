@@ -170,6 +170,10 @@ public class LocalDateTimeClassTest {
 		boolean result = localDateTime.isAfter(localDateTime2);
 		System.out.println(result);
 		assertTrue(result);
+		
+		result = localDateTime2.isAfter(localDateTime);
+		System.out.println(result);
+		assertFalse(result);
 	}
 
 	@Test
