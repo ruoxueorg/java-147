@@ -32,12 +32,17 @@ public class InstantMethodsTest {
 		Clock clock = Clock.system(zone);
 		instant = Instant.now(clock);
 		System.out.println(instant.toEpochMilli());
+		
+		zone = ZoneId.of("UTC-4");
+		clock = Clock.system(zone);
+		instant = Instant.now(clock);
+		System.out.println(instant.toEpochMilli());
 	}
 
 	@Test
 	public void parse() {
-		Instant localDate = Instant.parse("2023-09-12T04:05:06.000Z");
-		System.out.println(localDate);
+		Instant instant = Instant.parse("2023-09-12T04:05:06.000+08:00[UTC+08:00]");
+		System.out.println(instant);
 		//assertEquals("2023-09-12", localDate.toString());
 
 //		long epochDay = localDate.toEpochDay();

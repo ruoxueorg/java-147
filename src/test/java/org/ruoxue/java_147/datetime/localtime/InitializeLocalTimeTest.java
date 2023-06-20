@@ -20,7 +20,7 @@ public class InitializeLocalTimeTest {
 		localTime = LocalTime.now(zone);
 		System.out.println(localTime);
 
-		zone = ZoneId.of("UTC-12");
+		zone = ZoneId.of("UTC+1");
 		Clock clock = Clock.system(zone);
 		localTime = LocalTime.now(clock);
 		System.out.println(localTime);

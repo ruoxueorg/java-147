@@ -29,7 +29,7 @@ public class LocalDateTimeMethodsTest {
 		localDateTime = LocalDateTime.now(zone);
 		System.out.println(localDateTime);
 
-		zone = ZoneId.of("UTC-8");
+		zone = ZoneId.of("UTC+9");
 		Clock clock = Clock.system(zone);
 		localDateTime = LocalDateTime.now(clock);
 		System.out.println(localDateTime);
