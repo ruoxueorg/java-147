@@ -6,18 +6,11 @@ import java.time.Clock;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.Period;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.time.format.TextStyle;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Locale;
-import java.util.Set;
 
 import org.junit.Test;
 
@@ -40,13 +33,9 @@ public class InstantMethodsTest {
 	}
 
 	@Test
-	public void ofEpochSecond() {
-		Instant instant = Instant.ofEpochSecond(1694491506L);
-		System.out.println(instant);
-		assertEquals("2023-09-12T04:05:06Z", instant.toString());
-
-		instant = Instant.ofEpochSecond(1694491506L, 123456789L);
-		System.out.println(instant);
+	public void parse() {
+		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
+		System.out.println(instant.toEpochMilli());
 		assertEquals("2023-09-12T04:05:06.123456789Z", instant.toString());
 	}
 
@@ -58,58 +47,34 @@ public class InstantMethodsTest {
 	}
 
 	@Test
-	public void parse() {
-		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
+	public void ofEpochSecond() {
+		Instant instant = Instant.ofEpochSecond(1694491506L);
+		System.out.println(instant);
+		assertEquals("2023-09-12T04:05:06Z", instant.toString());
+
+		instant = Instant.ofEpochSecond(1694491506L, 123456789L);
 		System.out.println(instant);
 		assertEquals("2023-09-12T04:05:06.123456789Z", instant.toString());
 	}
 
 	@Test
 	public void get() {
-		LocalDate localDate = LocalDate.of(2023, 6, 18);
-		int year = localDate.get(ChronoField.YEAR);
-		System.out.println(year);
-		assertEquals(2023, year);
+		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
+		int milli = instant.get(ChronoField.MILLI_OF_SECOND);
+		System.out.println(milli);
+		assertEquals(123, milli);
 
-		int month = localDate.get(ChronoField.MONTH_OF_YEAR);
-		System.out.println(month);
-		assertEquals(6, month);
-
-		int dayOfMonth = localDate.get(ChronoField.DAY_OF_MONTH);
-		System.out.println(dayOfMonth);
-		assertEquals(18, dayOfMonth);
-
-		int dayOfWeek = localDate.get(ChronoField.DAY_OF_WEEK);
-		System.out.println(dayOfWeek);
-		assertEquals(7, dayOfWeek);
-
-		int dayOfYear = localDate.get(ChronoField.DAY_OF_YEAR);
-		System.out.println(dayOfYear);
-		assertEquals(169, dayOfYear);
+		int nano = instant.get(ChronoField.NANO_OF_SECOND);
+		System.out.println(nano);
+		assertEquals(123456789, nano);
 	}
 
 	@Test
-	public void getValue() {
-		LocalDate localDate = LocalDate.of(2023, 6, 18);
-		int year = localDate.getYear();
-		System.out.println(year);
-		assertEquals(2023, year);
-
-		int month = localDate.getMonthValue();
-		System.out.println(month);
-		assertEquals(6, month);
-
-		int dayOfMonth = localDate.getDayOfMonth();
-		System.out.println(dayOfMonth);
-		assertEquals(18, dayOfMonth);
-
-		int dayOfWeek = localDate.getDayOfWeek().getValue();
-		System.out.println(dayOfWeek);
-		assertEquals(7, dayOfWeek);
-
-		int dayOfYear = localDate.getDayOfYear();
-		System.out.println(dayOfYear);
-		assertEquals(169, dayOfYear);
+	public void getNano() {
+		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
+		int nano = instant.get(ChronoField.NANO_OF_SECOND);
+		System.out.println(nano);
+		assertEquals(123456789, nano);
 	}
 
 	@Test
