@@ -26,40 +26,42 @@ public class InstantMethodsTest {
 	@Test
 	public void now() {
 		Instant instant = Instant.now();
-		System.out.println(instant.toEpochMilli());
+		System.out.println(instant);
 
 		ZoneId zone = ZoneId.of("America/New_York");
 		Clock clock = Clock.system(zone);
 		instant = Instant.now(clock);
-		System.out.println(instant.toEpochMilli());
-		
+		System.out.println(instant);
+
 		zone = ZoneId.of("UTC-4");
 		clock = Clock.system(zone);
 		instant = Instant.now(clock);
-		System.out.println(instant.toEpochMilli());
+		System.out.println(instant);
+	}
+
+	@Test
+	public void ofEpochSecond() {
+		Instant instant = Instant.ofEpochSecond(1694491506L);
+		System.out.println(instant);
+		assertEquals("2023-09-12T04:05:06Z", instant.toString());
+
+		instant = Instant.ofEpochSecond(1694491506L, 123456789L);
+		System.out.println(instant);
+		assertEquals("2023-09-12T04:05:06.123456789Z", instant.toString());
+	}
+
+	@Test
+	public void ofEpochMilli() {
+		Instant instant = Instant.ofEpochMilli(1694491506123L);
+		System.out.println(instant);
+		assertEquals("2023-09-12T04:05:06.123Z", instant.toString());
 	}
 
 	@Test
 	public void parse() {
-		Instant instant = Instant.parse("2023-09-12T04:05:06.000+08:00[UTC+08:00]");
+		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
 		System.out.println(instant);
-		//assertEquals("2023-09-12", localDate.toString());
-
-//		long epochDay = localDate.toEpochDay();
-//		System.out.println(epochDay);
-//		assertEquals(19526, epochDay);
-//
-//		localDate = LocalDate.of(2023, Month.JUNE, 19);
-//		System.out.println(localDate);
-//		assertEquals("2023-06-19", localDate.toString());
-//
-//		localDate = LocalDate.ofYearDay(2023, 171);
-//		System.out.println(localDate);
-//		assertEquals("2023-06-20", localDate.toString());
-//
-//		localDate = LocalDate.ofEpochDay(19529);
-//		System.out.println(localDate);
-//		assertEquals("2023-06-21", localDate.toString());
+		assertEquals("2023-09-12T04:05:06.123456789Z", instant.toString());
 	}
 
 	@Test
