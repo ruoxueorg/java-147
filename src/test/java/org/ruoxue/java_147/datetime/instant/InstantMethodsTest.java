@@ -3,14 +3,11 @@ package org.ruoxue.java_147.datetime.instant;
 import static org.junit.Assert.*;
 
 import java.time.Clock;
-import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.Period;
 import java.time.ZoneId;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjuster;
-import java.time.temporal.TemporalAdjusters;
 
 import org.junit.Test;
 
@@ -30,13 +27,6 @@ public class InstantMethodsTest {
 		clock = Clock.system(zone);
 		instant = Instant.now(clock);
 		System.out.println(instant);
-	}
-
-	@Test
-	public void parse() {
-		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
-		System.out.println(instant.toEpochMilli());
-		assertEquals("2023-09-12T04:05:06.123456789Z", instant.toString());
 	}
 
 	@Test
@@ -60,60 +50,57 @@ public class InstantMethodsTest {
 	@Test
 	public void get() {
 		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
-		int milli = instant.get(ChronoField.MILLI_OF_SECOND);
-		System.out.println(milli);
-		assertEquals(123, milli);
+		int milliOfSecond = instant.get(ChronoField.MILLI_OF_SECOND);
+		System.out.println(milliOfSecond);
+		assertEquals(123, milliOfSecond);
 
-		int nano = instant.get(ChronoField.NANO_OF_SECOND);
-		System.out.println(nano);
-		assertEquals(123456789, nano);
+		int nanoOfSecond = instant.get(ChronoField.NANO_OF_SECOND);
+		System.out.println(nanoOfSecond);
+		assertEquals(123456789, nanoOfSecond);
 	}
 
 	@Test
-	public void getNano() {
+	public void getValue() {
 		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
-		int nano = instant.get(ChronoField.NANO_OF_SECOND);
+		long epochSecond = instant.getEpochSecond();
+		System.out.println(epochSecond);
+		assertEquals(1694491506, epochSecond);
+
+		int nano = instant.getNano();
 		System.out.println(nano);
 		assertEquals(123456789, nano);
 	}
 
 	@Test
 	public void with() {
-		LocalDate localDate = LocalDate.of(2023, 6, 18);
-		LocalDate result = localDate.withYear(2024);
-		int year = result.getYear();
-		System.out.println(year);
-		assertEquals(2024, year);
+		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
+		Instant result = instant.with(ChronoField.MILLI_OF_SECOND, 223);
+		System.out.println(result);
+		assertEquals("2023-09-12T04:05:06.223Z", result.toString());
 
-		result = localDate.withMonth(7);
-		int month = result.getMonthValue();
-		System.out.println(month);
-		assertEquals(7, month);
-
-		result = localDate.withDayOfMonth(19);
-		int dayOfMonth = result.getDayOfMonth();
-		System.out.println(dayOfMonth);
-		assertEquals(19, dayOfMonth);
+		result = instant.with(ChronoField.NANO_OF_SECOND, 223456789);
+		System.out.println(result);
+		assertEquals("2023-09-12T04:05:06.223456789Z", result.toString());
 	}
 
 	@Test
 	public void withTemporalAdjuster() {
-		LocalDate localDate = LocalDate.of(2023, 6, 18);
-		LocalDate result = localDate.with(ChronoField.DAY_OF_MONTH, 19);
+		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
+		TemporalAdjuster temporalAdjuster = t -> t.plus(Duration.ofMillis(100));
+		Instant result = instant.with(temporalAdjuster);
 		System.out.println(result);
-		assertEquals("2023-06-19", result.toString());
+		assertEquals("2023-09-12T04:05:06.223456789Z", result.toString());
 
-		result = localDate.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+		result = instant.with(t -> t.plus(Duration.ofNanos(100000000)));
 		System.out.println(result);
-		assertEquals("2023-06-24", result.toString());
+		assertEquals("2023-09-12T04:05:06.223456789Z", result.toString());
+	}
 
-		result = localDate.with(TemporalAdjusters.lastDayOfMonth());
+	@Test
+	public void toEpochMilli() {
+		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
+		long result = instant.toEpochMilli();
 		System.out.println(result);
-		assertEquals("2023-06-30", result.toString());
-
-		TemporalAdjuster temporalAdjuster = t -> t.plus(Period.ofDays(14));
-		result = localDate.with(temporalAdjuster);
-		System.out.println(result);
-		assertEquals("2023-07-02", result.toString());
+		assertEquals(1694491506123L, result);
 	}
 }
