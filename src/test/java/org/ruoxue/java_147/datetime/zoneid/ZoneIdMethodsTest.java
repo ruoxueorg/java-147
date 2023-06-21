@@ -38,15 +38,14 @@ public class ZoneIdMethodsTest {
 		Map<String, String> result = new LinkedHashMap<>();
 		Map<String, List<String>> map = new HashMap<>();
 		LocalDateTime localDateTime = LocalDateTime.now();
-		for (String zoneId : zoneIds) {
-			ZoneId zone = ZoneId.of(zoneId);
+		zoneIds.forEach(e -> {
+			ZoneId zone = ZoneId.of(e);
 			ZonedDateTime zonedDateTime = localDateTime.atZone(zone);
 			ZoneOffset zoneOffset = zonedDateTime.getOffset();
 			String offset = zoneOffset.getId().replaceAll("Z", "+00:00");
-			List<String> list = map.computeIfAbsent(offset, k -> new ArrayList<>());
-			list.add(zoneId);
-		}
-
+			List<String> regionList = map.computeIfAbsent(offset, k -> new ArrayList<>());
+			regionList.add(e);
+		});
 		for (List<String> list : map.values()) {
 			list.sort(Comparator.comparing(e -> e, (o, o2) -> o.compareTo(o2)));
 		}
@@ -94,6 +93,12 @@ public class ZoneIdMethodsTest {
 		LocalDateTime localDateTime = LocalDateTime.now(zone);
 		System.out.println(localDateTime);
 
+		zone = ZoneId.of("+10");
+		System.out.println(zone);
+		assertEquals("+10:00", zone.getId());
+		localDateTime = LocalDateTime.now(zone);
+		System.out.println(localDateTime);
+
 		zone = ZoneId.of("UTC+10");
 		System.out.println(zone);
 		assertEquals("UTC+10:00", zone.getId());
@@ -117,26 +122,25 @@ public class ZoneIdMethodsTest {
 	public void ofOffset() {
 		ZoneId zone = ZoneId.ofOffset("UTC", ZoneOffset.UTC);
 		System.out.println(zone);
+		assertEquals("UTC", zone.getId());
 		LocalDateTime localDateTime = LocalDateTime.now(zone);
 		System.out.println(localDateTime);
 
+		zone = ZoneId.ofOffset("UTC", ZoneOffset.of("+10"));
+		System.out.println(zone);
+		assertEquals("UTC+10:00", zone.getId());
+		localDateTime = LocalDateTime.now(zone);
+		System.out.println(localDateTime);
+		
 		zone = ZoneId.ofOffset("UTC", ZoneOffset.of("+10:00"));
 		System.out.println(zone);
+		assertEquals("UTC+10:00", zone.getId());
 		localDateTime = LocalDateTime.now(zone);
 		System.out.println(localDateTime);
 
 		zone = ZoneId.ofOffset("GMT", ZoneOffset.ofHours(10));
 		System.out.println(zone);
-		localDateTime = LocalDateTime.now(zone);
-		System.out.println(localDateTime);
-
-		zone = ZoneId.ofOffset("GMT", ZoneOffset.MIN);
-		System.out.println(zone);
-		localDateTime = LocalDateTime.now(zone);
-		System.out.println(localDateTime);
-
-		zone = ZoneId.ofOffset("GMT", ZoneOffset.MAX);
-		System.out.println(zone);
+		assertEquals("GMT+10:00", zone.getId());
 		localDateTime = LocalDateTime.now(zone);
 		System.out.println(localDateTime);
 	}
@@ -144,11 +148,12 @@ public class ZoneIdMethodsTest {
 	@Test
 	public void from() {
 		ZonedDateTime zonedDateTime = ZonedDateTime.now();
-		ZoneId result = ZoneId.from(zonedDateTime);
-		System.out.println(result);
+		ZoneId zone = ZoneId.from(zonedDateTime);
+		System.out.println(zone);
 
-		zonedDateTime = ZonedDateTime.parse("2023-08-03T01:02:03.999+08:00[Australia/Sydney]");
-		result = ZoneId.from(zonedDateTime);
-		System.out.println(result);
+		zonedDateTime = ZonedDateTime.parse("2023-12-25T00:00:00.000+10:00[Australia/Sydney]");
+		zone = ZoneId.from(zonedDateTime);
+		System.out.println(zone);
+		assertEquals("Australia/Sydney", zone.getId());
 	}
 }
