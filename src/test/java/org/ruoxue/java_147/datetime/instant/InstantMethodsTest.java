@@ -50,10 +50,6 @@ public class InstantMethodsTest {
 	@Test
 	public void get() {
 		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
-		int second = instant.get(ChronoField.OFFSET_SECONDS);
-		System.out.println(second);
-		assertEquals(123, second);
-		
 		int milliOfSecond = instant.get(ChronoField.MILLI_OF_SECOND);
 		System.out.println(milliOfSecond);
 		assertEquals(123, milliOfSecond);
