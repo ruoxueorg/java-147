@@ -7,13 +7,14 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -35,18 +36,25 @@ public class ZoneIdMethodsTest {
 
 	public Map<String, String> sortZone(Set<String> zoneIds) {
 		Map<String, String> result = new LinkedHashMap<>();
-		Map<String, String> map = new HashMap<>();
+		Map<String, List<String>> map = new HashMap<>();
 		LocalDateTime localDateTime = LocalDateTime.now();
 		for (String zoneId : zoneIds) {
 			ZoneId zone = ZoneId.of(zoneId);
 			ZonedDateTime zonedDateTime = localDateTime.atZone(zone);
 			ZoneOffset zoneOffset = zonedDateTime.getOffset();
 			String offset = zoneOffset.getId().replaceAll("Z", "+00:00");
-			map.put(zoneId, offset);
+			List<String> list = map.computeIfAbsent(offset, k -> new ArrayList<>());
+			list.add(zoneId);
 		}
-		// sort by value
-		map.entrySet().stream().sorted(Map.Entry.<String, String>comparingByValue().reversed())
-				.forEach(e -> result.put(e.getKey(), e.getValue()));
+
+		for (List<String> list : map.values()) {
+			list.sort(Comparator.comparing(e -> e, (o, o2) -> o.compareTo(o2)));
+		}
+		map.entrySet().stream().sorted(Map.Entry.<String, List<String>>comparingByKey().reversed()).forEach((e) -> {
+			String offset = e.getKey();
+			List<String> ids = e.getValue();
+			ids.forEach(id -> result.put(id, offset));
+		});
 		return result;
 	}
 
