@@ -54,6 +54,10 @@ public class InstantMethodsTest {
 		System.out.println(milliOfSecond);
 		assertEquals(123, milliOfSecond);
 
+		int microOfSecond = instant.get(ChronoField.MICRO_OF_SECOND);
+		System.out.println(microOfSecond);
+		assertEquals(123456, microOfSecond);
+
 		int nanoOfSecond = instant.get(ChronoField.NANO_OF_SECOND);
 		System.out.println(nanoOfSecond);
 		assertEquals(123456789, nanoOfSecond);
@@ -78,9 +82,13 @@ public class InstantMethodsTest {
 		System.out.println(result);
 		assertEquals("2023-09-12T04:05:06.223Z", result.toString());
 
-		result = instant.with(ChronoField.NANO_OF_SECOND, 223456789);
+		result = instant.with(ChronoField.MICRO_OF_SECOND, 323456);
 		System.out.println(result);
-		assertEquals("2023-09-12T04:05:06.223456789Z", result.toString());
+		assertEquals("2023-09-12T04:05:06.323456Z", result.toString());
+
+		result = instant.with(ChronoField.NANO_OF_SECOND, 423456789);
+		System.out.println(result);
+		assertEquals("2023-09-12T04:05:06.423456789Z", result.toString());
 	}
 
 	@Test
@@ -91,9 +99,9 @@ public class InstantMethodsTest {
 		System.out.println(result);
 		assertEquals("2023-09-12T04:05:06.223456789Z", result.toString());
 
-		result = instant.with(t -> t.plus(Duration.ofNanos(100000000)));
+		result = instant.with(t -> t.plus(Duration.ofNanos(300000000)));
 		System.out.println(result);
-		assertEquals("2023-09-12T04:05:06.223456789Z", result.toString());
+		assertEquals("2023-09-12T04:05:06.423456789Z", result.toString());
 	}
 
 	@Test
