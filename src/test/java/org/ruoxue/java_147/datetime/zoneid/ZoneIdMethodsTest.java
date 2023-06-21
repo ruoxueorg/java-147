@@ -25,10 +25,7 @@ public class ZoneIdMethodsTest {
 		Set<String> zoneIds = ZoneId.getAvailableZoneIds();
 		Map<String, String> result = sortZone(zoneIds);
 
-		result.forEach((k, v) -> {
-			String out = String.format("%-35s (UTC%s)", k, v);
-			System.out.println(out);
-		});
+		result.forEach((k, v) -> System.out.println(String.format("%-36s (UTC%s)", k, v)));
 		System.out.println("----------");
 		System.out.println("size: " + zoneIds.size());
 		assertTrue(zoneIds.size() > 0);
@@ -131,7 +128,7 @@ public class ZoneIdMethodsTest {
 		assertEquals("UTC+10:00", zone.getId());
 		localDateTime = LocalDateTime.now(zone);
 		System.out.println(localDateTime);
-		
+
 		zone = ZoneId.ofOffset("UTC", ZoneOffset.of("+10:00"));
 		System.out.println(zone);
 		assertEquals("UTC+10:00", zone.getId());
