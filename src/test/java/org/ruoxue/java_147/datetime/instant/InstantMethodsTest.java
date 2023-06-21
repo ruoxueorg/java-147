@@ -91,7 +91,7 @@ public class InstantMethodsTest {
 		assertEquals("2023-09-12T04:05:06.423456789Z", result.toString());
 	}
 
-	@Test
+	@Test 
 	public void withTemporalAdjuster() {
 		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
 		TemporalAdjuster temporalAdjuster = t -> t.plus(Duration.ofMillis(100));
