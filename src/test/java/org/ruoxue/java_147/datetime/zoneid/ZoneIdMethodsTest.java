@@ -7,8 +7,13 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -17,8 +22,32 @@ public class ZoneIdMethodsTest {
 	@Test
 	public void getAvailableZoneIds() {
 		Set<String> zoneIds = ZoneId.getAvailableZoneIds();
+		Map<String, String> result = sortZone(zoneIds);
+
+		result.forEach((k, v) -> {
+			String out = String.format("%-35s (UTC%s)", k, v);
+			System.out.println(out);
+		});
+		System.out.println("----------");
 		System.out.println("size: " + zoneIds.size());
 		assertTrue(zoneIds.size() > 0);
+	}
+
+	public Map<String, String> sortZone(Set<String> zoneIds) {
+		Map<String, String> result = new LinkedHashMap<>();
+		Map<String, String> map = new HashMap<>();
+		LocalDateTime localDateTime = LocalDateTime.now();
+		for (String zoneId : zoneIds) {
+			ZoneId zone = ZoneId.of(zoneId);
+			ZonedDateTime zonedDateTime = localDateTime.atZone(zone);
+			ZoneOffset zoneOffset = zonedDateTime.getOffset();
+			String offset = zoneOffset.getId().replaceAll("Z", "+00:00");
+			map.put(zoneId, offset);
+		}
+		// sort by value
+		map.entrySet().stream().sorted(Map.Entry.<String, String>comparingByValue().reversed())
+				.forEach(e -> result.put(e.getKey(), e.getValue()));
+		return result;
 	}
 
 	@Test
@@ -62,7 +91,7 @@ public class ZoneIdMethodsTest {
 		assertEquals("UTC+10:00", zone.getId());
 		localDateTime = LocalDateTime.now(zone);
 		System.out.println(localDateTime);
-		
+
 		zone = ZoneId.of("GMT+10");
 		System.out.println(zone);
 		assertEquals("GMT+10:00", zone.getId());
