@@ -3,9 +3,11 @@ package org.ruoxue.java_147.datetime.localdate;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.Test;
 
@@ -104,6 +106,24 @@ public class LocalDateClassTest {
 		System.out.println(result);
 		assertTrue(result);
 	}
+	
+	@Test
+	public void until() {
+		LocalDate localDate = LocalDate.of(2023, 6, 18);
+		LocalDate localDate2 = LocalDate.of(2024, 6, 18);
+		long result = localDate.until(localDate2, ChronoUnit.YEARS);
+		System.out.println(result);
+		assertEquals(1, result);
+
+		result = localDate.until(localDate2, ChronoUnit.MONTHS);
+		System.out.println(result);
+		assertEquals(12, result);
+
+		result = localDate.until(localDate2, ChronoUnit.DAYS);
+		System.out.println(result);
+		assertEquals(366, result);
+	}
+
 
 	@Test
 	public void atStartOfDay() {

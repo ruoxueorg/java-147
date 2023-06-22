@@ -9,6 +9,7 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.Test;
 
@@ -157,7 +158,7 @@ public class LocalDateTimeClassTest {
 		boolean result = localDateTime.isBefore(localDateTime2);
 		System.out.println(result);
 		assertTrue(result);
-		
+
 		result = localDateTime2.isBefore(localDateTime);
 		System.out.println(result);
 		assertFalse(result);
@@ -170,10 +171,27 @@ public class LocalDateTimeClassTest {
 		boolean result = localDateTime.isAfter(localDateTime2);
 		System.out.println(result);
 		assertTrue(result);
-		
+
 		result = localDateTime2.isAfter(localDateTime);
 		System.out.println(result);
 		assertFalse(result);
+	}
+
+	@Test
+	public void until() {
+		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
+		LocalDateTime localDateTime2 = LocalDateTime.of(2023, 8, 4, 1, 2, 3);
+		long result = localDateTime.until(localDateTime2, ChronoUnit.DAYS);
+		System.out.println(result);
+		assertEquals(1, result);
+
+		result = localDateTime.until(localDateTime2, ChronoUnit.HOURS);
+		System.out.println(result);
+		assertEquals(24, result);
+
+		result = localDateTime.until(localDateTime2, ChronoUnit.MINUTES);
+		System.out.println(result);
+		assertEquals(1440, result);
 	}
 
 	@Test

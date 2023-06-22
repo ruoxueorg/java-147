@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.time.OffsetTime;
 import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.Test;
 
@@ -103,6 +104,23 @@ public class LocalTimeClassTest {
 		boolean result = localTime.isAfter(localTime2);
 		System.out.println(result);
 		assertTrue(result);
+	}
+
+	@Test
+	public void until() {
+		LocalTime localTime = LocalTime.of(9, 12, 5);
+		LocalTime localTime2 = LocalTime.of(10, 12, 5);
+		long result = localTime.until(localTime2, ChronoUnit.HOURS);
+		System.out.println(result);
+		assertEquals(1, result);
+
+		result = localTime.until(localTime2, ChronoUnit.MINUTES);
+		System.out.println(result);
+		assertEquals(60, result);
+
+		result = localTime.until(localTime2, ChronoUnit.SECONDS);
+		System.out.println(result);
+		assertEquals(3600, result);
 	}
 
 	@Test

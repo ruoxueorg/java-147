@@ -9,6 +9,8 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 import org.junit.Test;
 
@@ -20,12 +22,12 @@ public class InstantClassTest {
 		Instant result = instant.plusSeconds(1);
 		System.out.println(result);
 		assertEquals("2023-09-12T04:05:07.123456789Z", result.toString());
-		
+
 		result = instant.plusMillis(1);
 		int milliOfSecond = result.get(ChronoField.MILLI_OF_SECOND);
 		System.out.println(milliOfSecond);
 		assertEquals(124, milliOfSecond);
-		
+
 		result = instant.plusNanos(1);
 		int nanoOfSecond = result.get(ChronoField.NANO_OF_SECOND);
 		System.out.println(nanoOfSecond);
@@ -38,12 +40,12 @@ public class InstantClassTest {
 		Instant result = instant.plus(Duration.ofSeconds(1));
 		System.out.println(result);
 		assertEquals("2023-09-12T04:05:07.123456789Z", result.toString());
-		
+
 		result = instant.plus(Duration.ofMillis(1));
 		int milliOfSecond = result.get(ChronoField.MILLI_OF_SECOND);
 		System.out.println(milliOfSecond);
 		assertEquals(124, milliOfSecond);
-		
+
 		result = instant.plus(Duration.ofNanos(1));
 		int nanoOfSecond = result.get(ChronoField.NANO_OF_SECOND);
 		System.out.println(nanoOfSecond);
@@ -56,12 +58,12 @@ public class InstantClassTest {
 		Instant result = instant.minusSeconds(1);
 		System.out.println(result);
 		assertEquals("2023-09-12T04:05:05.123456789Z", result.toString());
-		
+
 		result = instant.minusMillis(1);
 		int milliOfSecond = result.get(ChronoField.MILLI_OF_SECOND);
 		System.out.println(milliOfSecond);
 		assertEquals(122, milliOfSecond);
-		
+
 		result = instant.minusNanos(1);
 		int nanoOfSecond = result.get(ChronoField.NANO_OF_SECOND);
 		System.out.println(nanoOfSecond);
@@ -74,12 +76,12 @@ public class InstantClassTest {
 		Instant result = instant.minus(Duration.ofSeconds(1));
 		System.out.println(result);
 		assertEquals("2023-09-12T04:05:05.123456789Z", result.toString());
-		
+
 		result = instant.minus(Duration.ofMillis(1));
 		int milliOfSecond = result.get(ChronoField.MILLI_OF_SECOND);
 		System.out.println(milliOfSecond);
 		assertEquals(122, milliOfSecond);
-		
+
 		result = instant.minus(Duration.ofNanos(1));
 		int nanoOfSecond = result.get(ChronoField.NANO_OF_SECOND);
 		System.out.println(nanoOfSecond);
@@ -93,7 +95,7 @@ public class InstantClassTest {
 		boolean result = instant.isBefore(instant2);
 		System.out.println(result);
 		assertTrue(result);
-		
+
 		result = instant2.isBefore(instant);
 		System.out.println(result);
 		assertFalse(result);
@@ -106,10 +108,31 @@ public class InstantClassTest {
 		boolean result = instant.isAfter(instant2);
 		System.out.println(result);
 		assertTrue(result);
-		
+
 		result = instant2.isAfter(instant);
 		System.out.println(result);
 		assertFalse(result);
+	}
+
+	@Test
+	public void until() {
+		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
+		Instant instant2 = Instant.parse("2023-09-12T04:06:06.123456789Z");
+		long result = instant.until(instant2, ChronoUnit.NANOS);
+		System.out.println(result);
+		assertEquals(60000000000L, result);
+
+		result = instant.until(instant2, ChronoUnit.MICROS);
+		System.out.println(result);
+		assertEquals(60000000L, result);
+
+		result = instant.until(instant2, ChronoUnit.MILLIS);
+		System.out.println(result);
+		assertEquals(60000L, result);
+
+		result = instant.until(instant2, ChronoUnit.SECONDS);
+		System.out.println(result);
+		assertEquals(60L, result);
 	}
 
 	@Test
