@@ -45,6 +45,11 @@ public class InstantWithExamplesTest {
 		Instant result = Instant.from(instant);
 		System.out.println(result);
 		assertEquals("2023-09-12T04:05:06.123456789Z", result.toString());
+
+		instant = Instant.parse("2023-09-12T04:05:06Z");
+		result = Instant.from(instant);
+		System.out.println(result);
+		assertEquals("2023-09-12T04:05:06Z", result.toString());
 	}
 
 	@Test
