@@ -34,6 +34,10 @@ public class InstantMethodsTest {
 		Instant instant = Instant.ofEpochMilli(1694491506123L);
 		System.out.println(instant);
 		assertEquals("2023-09-12T04:05:06.123Z", instant.toString());
+
+		instant = Instant.ofEpochMilli(1694491506000L);
+		System.out.println(instant);
+		assertEquals("2023-09-12T04:05:06Z", instant.toString());
 	}
 
 	@Test
@@ -91,7 +95,7 @@ public class InstantMethodsTest {
 		assertEquals("2023-09-12T04:05:06.423456789Z", result.toString());
 	}
 
-	@Test 
+	@Test
 	public void withTemporalAdjuster() {
 		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
 		TemporalAdjuster temporalAdjuster = t -> t.plus(Duration.ofMillis(100));
@@ -110,5 +114,10 @@ public class InstantMethodsTest {
 		long result = instant.toEpochMilli();
 		System.out.println(result);
 		assertEquals(1694491506123L, result);
+
+		instant = Instant.parse("2023-09-12T04:05:06Z");
+		result = instant.toEpochMilli();
+		System.out.println(result);
+		assertEquals(1694491506000L, result);
 	}
 }

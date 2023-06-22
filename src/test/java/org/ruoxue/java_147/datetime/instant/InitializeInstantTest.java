@@ -30,12 +30,12 @@ public class InitializeInstantTest {
 	public void parse() {
 		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
 		long result = instant.toEpochMilli();
-		System.out.println(instant.toEpochMilli());
+		System.out.println(result);
 		assertEquals(1694491506123L, result);
 
 		instant = Instant.parse("2023-09-12T04:05:06Z");
 		result = instant.toEpochMilli();
-		System.out.println(instant.toEpochMilli());
+		System.out.println(result);
 		assertEquals(1694491506000L, result);
 	}
 
@@ -45,13 +45,11 @@ public class InitializeInstantTest {
 		Instant result = Instant.from(instant);
 		System.out.println(result);
 		assertEquals("2023-09-12T04:05:06.123456789Z", result.toString());
-	}
 
-	@Test
-	public void ofEpochMilli() {
-		Instant instant = Instant.ofEpochMilli(1694491506123L);
-		System.out.println(instant);
-		assertEquals("2023-09-12T04:05:06.123Z", instant.toString());
+		instant = Instant.parse("2023-09-12T04:05:06Z");
+		result = Instant.from(instant);
+		System.out.println(result);
+		assertEquals("2023-09-12T04:05:06Z", result.toString());
 	}
 
 	@Test
@@ -63,5 +61,16 @@ public class InitializeInstantTest {
 		instant = Instant.ofEpochSecond(1694491506L, 123456789L);
 		System.out.println(instant);
 		assertEquals("2023-09-12T04:05:06.123456789Z", instant.toString());
+	}
+
+	@Test
+	public void ofEpochMilli() {
+		Instant instant = Instant.ofEpochMilli(1694491506123L);
+		System.out.println(instant);
+		assertEquals("2023-09-12T04:05:06.123Z", instant.toString());
+		
+		instant = Instant.ofEpochMilli(1694491506000L);
+		System.out.println(instant);
+		assertEquals("2023-09-12T04:05:06Z", instant.toString());
 	}
 }
