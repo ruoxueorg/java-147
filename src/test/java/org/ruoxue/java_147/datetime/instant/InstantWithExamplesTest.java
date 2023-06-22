@@ -30,12 +30,12 @@ public class InstantWithExamplesTest {
 	public void parse() {
 		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
 		long result = instant.toEpochMilli();
-		System.out.println(instant.toEpochMilli());
+		System.out.println(result);
 		assertEquals(1694491506123L, result);
 
 		instant = Instant.parse("2023-09-12T04:05:06Z");
 		result = instant.toEpochMilli();
-		System.out.println(instant.toEpochMilli());
+		System.out.println(result);
 		assertEquals(1694491506000L, result);
 	}
 
