@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAdjuster;
 
 import org.junit.Test;
 
@@ -104,8 +105,17 @@ public class LocalTimeMethodsTest {
 		System.out.println(result);
 		assertEquals("10:12:05", result.toString());
 
-		result = localTime.with(t -> t.plus(Duration.ofHours(2)));
+		TemporalAdjuster temporalAdjuster = t -> t.plus(Duration.ofHours(2));
+		result = localTime.with(temporalAdjuster);
 		System.out.println(result);
 		assertEquals("11:12:05", result.toString());
+
+		result = localTime.with(t -> t.plus(Duration.ofMinutes(1)));
+		System.out.println(result);
+		assertEquals("09:13:05", result.toString());
+		
+		result = localTime.with(t -> t.plus(Duration.ofSeconds(1)));
+		System.out.println(result);
+		assertEquals("09:12:06", result.toString());
 	}
 }
