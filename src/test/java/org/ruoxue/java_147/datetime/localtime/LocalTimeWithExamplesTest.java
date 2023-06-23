@@ -17,9 +17,9 @@ public class LocalTimeWithExamplesTest {
 		System.out.println(result);
 		assertEquals("09:12:05", result);
 
-		result = localTime.format(DateTimeFormatter.ofPattern("HHmmss"));
+		result = localTime.format(DateTimeFormatter.ofPattern("HH-mm-ss"));
 		System.out.println(result);
-		assertEquals("091205", result);
+		assertEquals("09-12-05", result);
 	}
 
 	@Test
@@ -28,7 +28,7 @@ public class LocalTimeWithExamplesTest {
 		System.out.println(localTime);
 		assertEquals("09:12:05", localTime.toString());
 
-		localTime = LocalTime.parse("091205", DateTimeFormatter.ofPattern("HHmmss"));
+		localTime = LocalTime.parse("09-12-05", DateTimeFormatter.ofPattern("HH-mm-ss"));
 		System.out.println(localTime);
 		assertEquals("09:12:05", localTime.toString());
 	}
