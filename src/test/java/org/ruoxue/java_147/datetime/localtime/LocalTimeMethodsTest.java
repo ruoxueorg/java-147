@@ -26,6 +26,10 @@ public class LocalTimeMethodsTest {
 		Clock clock = Clock.system(zone);
 		localTime = LocalTime.now(clock);
 		System.out.println(localTime);
+
+		zone = ZoneId.of("Etc/GMT-1");
+		localTime = LocalTime.now(zone);
+		System.out.println(localTime);
 	}
 
 	@Test
