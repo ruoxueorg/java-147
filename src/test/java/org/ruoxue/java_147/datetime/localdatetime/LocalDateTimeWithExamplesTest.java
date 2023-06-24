@@ -21,9 +21,14 @@ public class LocalDateTimeWithExamplesTest {
 		System.out.println(result);
 		assertEquals("2023-08-03T01:02:03", result);
 
-		result = localDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+		localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3, 123456789);
+		result = localDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 		System.out.println(result);
-		assertEquals("2023/08/03 01:02:03", result);
+		assertEquals("2023-08-03T01:02:03.123456789", result);
+
+		result = localDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS"));
+		System.out.println(result);
+		assertEquals("2023/08/03 01:02:03.123", result);
 	}
 
 	@Test
@@ -32,9 +37,14 @@ public class LocalDateTimeWithExamplesTest {
 		System.out.println(localDateTime);
 		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
 
-		localDateTime = LocalDateTime.parse("2023/08/03 01:02:03", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+		localDateTime = LocalDateTime.parse("2023-08-03T01:02:03.123456789");
 		System.out.println(localDateTime);
-		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
+		assertEquals("2023-08-03T01:02:03.123456789", localDateTime.toString());
+
+		localDateTime = LocalDateTime.parse("2023/08/03 01:02:03.123",
+				DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS"));
+		System.out.println(localDateTime);
+		assertEquals("2023-08-03T01:02:03.123", localDateTime.toString());
 	}
 
 	@Test
@@ -47,53 +57,74 @@ public class LocalDateTimeWithExamplesTest {
 
 	@Test
 	public void ofInstant() {
-		ZoneId zone = ZoneId.of("UTC+8");
-		Instant instant = Instant.ofEpochSecond(1690995723L, 0);
+		ZoneId zone = ZoneId.of("UTC+9");
+		Instant instant = Instant.ofEpochSecond(1690992123L);
 		LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
 		System.out.println(localDateTime);
 		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
+
+		instant = Instant.ofEpochSecond(1690992123L, 123456789);
+		localDateTime = LocalDateTime.ofInstant(instant, zone);
+		System.out.println(localDateTime);
+		assertEquals("2023-08-03T01:02:03.123456789", localDateTime.toString());
 	}
 
 	@Test
 	public void toEpochSecond() {
 		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		ZoneOffset zoneOffset = ZoneOffset.of("+08:00");
+		ZoneOffset zoneOffset = ZoneOffset.of("+09:00");
 		long result = localDateTime.toEpochSecond(zoneOffset);
 		System.out.println(result);
-		assertEquals(1690995723L, result);
+		assertEquals(1690992123L, result);
+
+		localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3, 123456789);
+		zoneOffset = ZoneOffset.of("+09:00");
+		result = localDateTime.toEpochSecond(zoneOffset);
+		System.out.println(result);
+		assertEquals(1690992123L, result);
 	}
 
 	@Test
 	public void toEpochMilli() {
 		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		ZoneId zone = ZoneId.of("UTC+8");
+		ZoneId zone = ZoneId.of("UTC+9");
 		Instant instant = localDateTime.atZone(zone).toInstant();
 		long result = instant.toEpochMilli();
 		System.out.println(result);
-		assertEquals(1690995723000L, result);
+		assertEquals(1690992123000L, result);
+
+		localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3, 123456789);
+		zone = ZoneId.of("UTC+9");
+		instant = localDateTime.atZone(zone).toInstant();
+		result = instant.toEpochMilli();
+		System.out.println(result);
+		assertEquals(1690992123123L, result);
 	}
 
 	@Test
 	public void ofEpochSecond() {
-		ZoneOffset zoneOffset = ZoneOffset.of("+08:00");
-		LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(1690995723L, 0, zoneOffset);
+		ZoneOffset zoneOffset = ZoneOffset.of("+09:00");
+		LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(1690992123L, 0, zoneOffset);
 		System.out.println(localDateTime);
 		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
 
-		ZoneId zone = ZoneId.of("UTC+8");
-		Instant instant = Instant.ofEpochSecond(1690995723L, 0);
-		localDateTime = LocalDateTime.ofInstant(instant, zone);
+		localDateTime = LocalDateTime.ofEpochSecond(1690992123L, 123456789, zoneOffset);
 		System.out.println(localDateTime);
-		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
+		assertEquals("2023-08-03T01:02:03.123456789", localDateTime.toString());
 	}
 
 	@Test
 	public void ofEpochMilli() {
-		ZoneId zone = ZoneId.of("UTC+8");
-		Instant instant = Instant.ofEpochMilli(1690995723000L);
+		ZoneId zone = ZoneId.of("UTC+9");
+		Instant instant = Instant.ofEpochMilli(1690992123000L);
 		LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
 		System.out.println(localDateTime);
 		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
+
+		instant = Instant.ofEpochMilli(1690992123123L);
+		localDateTime = LocalDateTime.ofInstant(instant, zone);
+		System.out.println(localDateTime);
+		assertEquals("2023-08-03T01:02:03.123", localDateTime.toString());
 	}
 
 	@Test
@@ -101,11 +132,15 @@ public class LocalDateTimeWithExamplesTest {
 		LocalDateTime localDateTime = new Timestamp(1690995723000L).toLocalDateTime();
 		System.out.println(localDateTime);
 		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
+
+		localDateTime = new Timestamp(1690995723123L).toLocalDateTime();
+		System.out.println(localDateTime);
+		assertEquals("2023-08-03T01:02:03.123", localDateTime.toString());
 	}
 
 	@Test
 	public void truncatedTo() {
-		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
+		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3, 123456789);
 		LocalDateTime result = localDateTime.truncatedTo(ChronoUnit.HOURS);
 		System.out.println(result);
 		assertEquals("2023-08-03T01:00", result.toString());
@@ -113,5 +148,9 @@ public class LocalDateTimeWithExamplesTest {
 		result = localDateTime.truncatedTo(ChronoUnit.DAYS);
 		System.out.println(result);
 		assertEquals("2023-08-03T00:00", result.toString());
+		
+		result = localDateTime.truncatedTo(ChronoUnit.MILLIS);
+		System.out.println(result);
+		assertEquals("2023-08-03T01:02:03.123", result.toString());
 	}
 }
