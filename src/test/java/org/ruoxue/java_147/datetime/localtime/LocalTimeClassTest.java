@@ -126,8 +126,13 @@ public class LocalTimeClassTest {
 	@Test
 	public void atOffset() {
 		LocalTime localTime = LocalTime.of(9, 12, 5);
-		OffsetTime result = localTime.atOffset(ZoneOffset.ofHours(-4));
+		OffsetTime result = localTime.atOffset(ZoneOffset.of("+01:00"));
 		System.out.println(result);
-		assertEquals("09:12:05-04:00", result.toString());
+		assertEquals("09:12:05+01:00", result.toString());
+
+		localTime = LocalTime.of(9, 12, 5, 123456789);
+		result = localTime.atOffset(ZoneOffset.ofHours(1));
+		System.out.println(result);
+		assertEquals("09:12:05.123456789+01:00", result.toString());
 	}
 }
