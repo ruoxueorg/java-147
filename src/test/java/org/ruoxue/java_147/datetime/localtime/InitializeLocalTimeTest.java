@@ -86,7 +86,6 @@ public class InitializeLocalTimeTest {
 		result = LocalTime.from(zonedDateTime);
 		System.out.println(result);
 		assertEquals("09:12:05", result.toString());
-
 	}
 
 	@Test
@@ -94,8 +93,11 @@ public class InitializeLocalTimeTest {
 		LocalTime localTime = LocalTime.ofSecondOfDay(33125L);
 		System.out.println(localTime);
 		assertEquals("09:12:05", localTime.toString());
+	}
 
-		localTime = LocalTime.ofNanoOfDay(33125123456789L);
+	@Test
+	public void ofNanoOfDay() {
+		LocalTime localTime = LocalTime.ofNanoOfDay(33125123456789L);
 		System.out.println(localTime);
 		assertEquals("09:12:05.123456789", localTime.toString());
 	}
