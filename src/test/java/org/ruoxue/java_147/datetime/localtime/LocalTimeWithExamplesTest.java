@@ -17,9 +17,14 @@ public class LocalTimeWithExamplesTest {
 		System.out.println(result);
 		assertEquals("09:12:05", result);
 
-		result = localTime.format(DateTimeFormatter.ofPattern("HH-mm-ss"));
+		localTime = LocalTime.of(9, 12, 5, 123456789);
+		result = localTime.format(DateTimeFormatter.ISO_LOCAL_TIME);
 		System.out.println(result);
-		assertEquals("09-12-05", result);
+		assertEquals("09:12:05.123456789", result);
+
+		result = localTime.format(DateTimeFormatter.ofPattern("HH-mm-ss.SSS"));
+		System.out.println(result);
+		assertEquals("09-12-05.123", result);
 	}
 
 	@Test
@@ -28,9 +33,13 @@ public class LocalTimeWithExamplesTest {
 		System.out.println(localTime);
 		assertEquals("09:12:05", localTime.toString());
 
-		localTime = LocalTime.parse("09-12-05", DateTimeFormatter.ofPattern("HH-mm-ss"));
+		localTime = LocalTime.parse("09:12:05.123456789");
 		System.out.println(localTime);
-		assertEquals("09:12:05", localTime.toString());
+		assertEquals("09:12:05.123456789", localTime.toString());
+
+		localTime = LocalTime.parse("09-12-05.123", DateTimeFormatter.ofPattern("HH-mm-ss.SSS"));
+		System.out.println(localTime);
+		assertEquals("09:12:05.123", localTime.toString());
 	}
 
 	@Test
@@ -55,10 +64,10 @@ public class LocalTimeWithExamplesTest {
 		System.out.println(localTime);
 		assertEquals("09:12:05", localTime.toString());
 	}
-	
+
 	@Test
 	public void truncatedTo() {
-		LocalTime localTime = LocalTime.of(9, 12, 5);
+		LocalTime localTime = LocalTime.of(9, 12, 5, 123456789);
 		LocalTime result = localTime.truncatedTo(ChronoUnit.HOURS);
 		System.out.println(result);
 		assertEquals("09:00", result.toString());
@@ -66,5 +75,9 @@ public class LocalTimeWithExamplesTest {
 		result = localTime.truncatedTo(ChronoUnit.MINUTES);
 		System.out.println(result);
 		assertEquals("09:12", result.toString());
+		
+		result = localTime.truncatedTo(ChronoUnit.MILLIS);
+		System.out.println(result);
+		assertEquals("09:12:05.123", result.toString());
 	}
 }
