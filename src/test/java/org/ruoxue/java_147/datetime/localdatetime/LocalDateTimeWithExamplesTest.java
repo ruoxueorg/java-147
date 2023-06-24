@@ -17,7 +17,7 @@ public class LocalDateTimeWithExamplesTest {
 	@Test
 	public void format() {
 		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		String result = localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
+		String result = localDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 		System.out.println(result);
 		assertEquals("2023-08-03T01:02:03", result);
 

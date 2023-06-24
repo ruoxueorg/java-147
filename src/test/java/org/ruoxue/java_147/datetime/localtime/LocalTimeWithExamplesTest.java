@@ -13,7 +13,7 @@ public class LocalTimeWithExamplesTest {
 	@Test
 	public void format() {
 		LocalTime localTime = LocalTime.of(9, 12, 5);
-		String result = localTime.format(DateTimeFormatter.ISO_TIME);
+		String result = localTime.format(DateTimeFormatter.ISO_LOCAL_TIME);
 		System.out.println(result);
 		assertEquals("09:12:05", result);
 

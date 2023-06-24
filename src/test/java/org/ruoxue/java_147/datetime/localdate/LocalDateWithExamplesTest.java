@@ -12,7 +12,7 @@ public class LocalDateWithExamplesTest {
 	@Test
 	public void format() {
 		LocalDate localDate = LocalDate.of(2023, 6, 18);
-		String result = localDate.format(DateTimeFormatter.ISO_DATE);
+		String result = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
 		System.out.println(result);
 		assertEquals("2023-06-18", result);
 
