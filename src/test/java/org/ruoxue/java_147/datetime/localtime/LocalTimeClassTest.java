@@ -95,6 +95,10 @@ public class LocalTimeClassTest {
 		boolean result = localTime.isBefore(localTime2);
 		System.out.println(result);
 		assertTrue(result);
+		
+		result = localTime2.isBefore(localTime);
+		System.out.println(result);
+		assertFalse(result);
 	}
 
 	@Test
@@ -104,6 +108,10 @@ public class LocalTimeClassTest {
 		boolean result = localTime.isAfter(localTime2);
 		System.out.println(result);
 		assertTrue(result);
+		
+		result = localTime2.isAfter(localTime);
+		System.out.println(result);
+		assertFalse(result);
 	}
 
 	@Test
