@@ -19,6 +19,10 @@ public class LocalDateWithExamplesTest {
 		String result = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
 		System.out.println(result);
 		assertEquals("2023-06-18", result);
+		
+		result = localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+		System.out.println(result);
+		assertEquals("20230618", result);
 
 		result = localDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 		System.out.println(result);
