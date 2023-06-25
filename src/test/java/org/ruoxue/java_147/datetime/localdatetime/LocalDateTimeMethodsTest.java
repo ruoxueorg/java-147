@@ -33,6 +33,10 @@ public class LocalDateTimeMethodsTest {
 		Clock clock = Clock.system(zone);
 		localDateTime = LocalDateTime.now(clock);
 		System.out.println(localDateTime);
+		
+		zone = ZoneId.of("Etc/GMT-9");
+		localDateTime = LocalDateTime.now(zone);
+		System.out.println(localDateTime);
 	}
 
 	@Test
