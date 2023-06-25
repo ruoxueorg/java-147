@@ -62,6 +62,11 @@ public class DateTimeFormatterMethodsTest {
 		System.out.println(result);
 		assertEquals("2023-03-14", result);
 
+		formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		result = formatter.format(localDate);
+		System.out.println(result);
+		assertEquals("20230314", result);
+
 		formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd", Locale.TRADITIONAL_CHINESE);
 		result = formatter.format(localDate);
 		System.out.println(result);
