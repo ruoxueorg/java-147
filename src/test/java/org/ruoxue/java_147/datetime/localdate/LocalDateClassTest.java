@@ -95,6 +95,10 @@ public class LocalDateClassTest {
 		boolean result = localDate.isBefore(localDate2);
 		System.out.println(result);
 		assertTrue(result);
+
+		result = localDate2.isBefore(localDate);
+		System.out.println(result);
+		assertFalse(result);
 	}
 
 	@Test
@@ -104,8 +108,12 @@ public class LocalDateClassTest {
 		boolean result = localDate.isAfter(localDate2);
 		System.out.println(result);
 		assertTrue(result);
+		
+		result = localDate2.isAfter(localDate);
+		System.out.println(result);
+		assertFalse(result);
 	}
-	
+
 	@Test
 	public void until() {
 		LocalDate localDate = LocalDate.of(2023, 6, 18);
@@ -122,7 +130,6 @@ public class LocalDateClassTest {
 		System.out.println(result);
 		assertEquals(366, result);
 	}
-
 
 	@Test
 	public void atStartOfDay() {
