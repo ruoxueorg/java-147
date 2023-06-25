@@ -5,8 +5,10 @@ import static org.junit.Assert.*;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
@@ -51,6 +53,19 @@ public class LocalDateTimeWithExamplesTest {
 	public void from() {
 		LocalDateTime localDateTime = LocalDateTime.parse("2023-08-03T01:02:03");
 		LocalDateTime result = LocalDateTime.from(localDateTime);
+		System.out.println(result);
+		assertEquals("2023-08-03T01:02:03", result.toString());
+		
+		localDateTime = LocalDateTime.parse("2023-08-03T01:02:03");
+		ZoneOffset zoneOffset = ZoneOffset.of("+09:00");
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(localDateTime, zoneOffset);
+		System.out.println(offsetDateTime);
+		result = LocalDateTime.from(offsetDateTime);
+		System.out.println(result);
+		assertEquals("2023-08-03T01:02:03", result.toString());
+
+		ZonedDateTime zonedDateTime = ZonedDateTime.parse("2023-08-03T01:02:03+09:00[Asia/Tokyo]");
+		result = LocalDateTime.from(zonedDateTime);
 		System.out.println(result);
 		assertEquals("2023-08-03T01:02:03", result.toString());
 	}
