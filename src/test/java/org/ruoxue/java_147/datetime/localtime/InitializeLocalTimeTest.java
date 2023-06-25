@@ -43,9 +43,9 @@ public class InitializeLocalTimeTest {
 		System.out.println(secondOfDay);
 		assertEquals(33125L, secondOfDay);
 
-		localTime = LocalTime.of(9, 12, 5, 123456789);
+		localTime = LocalTime.of(9, 12, 6, 123456789);
 		System.out.println(localTime);
-		assertEquals("09:12:05.123456789", localTime.toString());
+		assertEquals("09:12:06.123456789", localTime.toString());
 
 		localTime = LocalTime.ofSecondOfDay(33127L);
 		System.out.println(localTime);
