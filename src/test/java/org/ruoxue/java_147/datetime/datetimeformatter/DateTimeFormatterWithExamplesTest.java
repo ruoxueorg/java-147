@@ -91,15 +91,4 @@ public class DateTimeFormatterWithExamplesTest {
 	public void parsedLeapSecond() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 	}
-
-	@Test
-	public void with() {
-
-	}
-
-	@Test
-	public void toFormat() {
-
-	}
-
 }
