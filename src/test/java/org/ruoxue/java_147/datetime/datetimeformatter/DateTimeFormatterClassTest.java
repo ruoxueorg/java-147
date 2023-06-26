@@ -43,7 +43,7 @@ public class DateTimeFormatterClassTest {
 	public void predefined() {
 		LocalDateTime localDateTime = LocalDateTime.parse("2023-03-14T09:08:07.123456789");
 		OffsetDateTime offsetDateTime = OffsetDateTime.parse("2023-03-14T09:08:07.123456789+08:00");
-		ZonedDateTime zonedDateTime = ZonedDateTime.parse("2023-03-14T09:08:07.123456789+08:00[Asia/Taipei]");
+		ZonedDateTime zonedDateTime = ZonedDateTime.parse("2023-03-14T09:08:07.123456789+08:00[Asia/Singapore]");
 
 		String result = DateTimeFormatter.BASIC_ISO_DATE.format(localDateTime);
 		System.out.println("BASIC_ISO_DATE: " + result);
@@ -87,11 +87,11 @@ public class DateTimeFormatterClassTest {
 
 		result = DateTimeFormatter.ISO_DATE_TIME.format(zonedDateTime);
 		System.out.println("ISO_DATE_TIME: " + result);
-		assertEquals("2023-03-14T09:08:07.123456789+08:00[Asia/Taipei]", result);
+		assertEquals("2023-03-14T09:08:07.123456789+08:00[Asia/Singapore]", result);
 
 		result = DateTimeFormatter.ISO_ZONED_DATE_TIME.format(zonedDateTime);
 		System.out.println("ISO_ZONED_DATE_TIME: " + result);
-		assertEquals("2023-03-14T09:08:07.123456789+08:00[Asia/Taipei]", result);
+		assertEquals("2023-03-14T09:08:07.123456789+08:00[Asia/Singapore]", result);
 
 		result = DateTimeFormatter.ISO_ORDINAL_DATE.format(zonedDateTime);
 		System.out.println("ISO_ORDINAL_DATE: " + result);
