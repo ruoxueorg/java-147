@@ -62,23 +62,23 @@ public class DateTimeFormatterClassTest {
 		assertEquals("2023-03-14", result);
 
 		result = DateTimeFormatter.ISO_LOCAL_TIME.format(localDateTime);
-		System.out.println("ISO_LOCAL_DATE: " + result);
+		System.out.println("ISO_LOCAL_TIME: " + result);
 		assertEquals("09:08:07.123456789", result);
 
 		result = DateTimeFormatter.ISO_OFFSET_TIME.format(offsetDateTime);
-		System.out.println("ISO_OFFSET_DATE: " + result);
+		System.out.println("ISO_OFFSET_TIME: " + result);
 		assertEquals("09:08:07.123456789+08:00", result);
 
 		result = DateTimeFormatter.ISO_TIME.format(localDateTime);
-		System.out.println("ISO_DATE: " + result);
+		System.out.println("ISO_TIME: " + result);
 		assertEquals("09:08:07.123456789", result);
 
 		result = DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(localDateTime);
-		System.out.println("ISO_LOCAL_DATE: " + result);
+		System.out.println("ISO_LOCAL_DATE_TIME: " + result);
 		assertEquals("2023-03-14T09:08:07.123456789", result);
 
 		result = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(offsetDateTime);
-		System.out.println("ISO_OFFSET_DATE: " + result);
+		System.out.println("ISO_OFFSET_DATE_TIME: " + result);
 		assertEquals("2023-03-14T09:08:07.123456789+08:00", result);
 
 		result = DateTimeFormatter.ISO_DATE_TIME.format(localDateTime);
