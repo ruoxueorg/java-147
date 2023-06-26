@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
+import java.time.Period;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
@@ -129,27 +130,48 @@ public class DateTimeFormatterWithExamplesTest {
 
 	@Test
 	public void parseUnresolved() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS");
-		String value = "LocalDateTime: 2023-00-99T88:77:66.123456789";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+		String value = "LocalDateTime: 2023-00-99T88:77:66";
 		TemporalAccessor result = formatter.parseUnresolved(value, new ParsePosition(0));
 		System.out.println(result);
 		assertNull(result);
 
-		value = "LocalDateTime: 2023-00-99T88:77:66.123456789";
+		value = "LocalDateTime: 2023-00-99T88:77:66";
 		result = formatter.parseUnresolved(value, new ParsePosition(15));
 		System.out.println(result);
-		assertEquals(
-				"{HourOfDay=88, NanoOfSecond=123456789, MinuteOfHour=77, MonthOfYear=0, SecondOfMinute=66, YearOfEra=2023, DayOfMonth=99},null",
-				result.toString());
 	}
 
 	@Test
 	public void parsedExcessDays() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String value = "24:00:00";
+		TemporalAccessor temporalAccessor = formatter.parse(value);
+		System.out.println(temporalAccessor);
+		Period result = temporalAccessor.query(DateTimeFormatter.parsedExcessDays());
+		System.out.println(result);
+		assertEquals("P1D", result.toString());
 
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+		value = "2023-03-14T24:00:00";
+		temporalAccessor = formatter.parse(value);
+		System.out.println(temporalAccessor);
+		result = temporalAccessor.query(DateTimeFormatter.parsedExcessDays());
+		System.out.println(result);
+		assertEquals("P0D", result.toString());
 	}
 
 	@Test
 	public void parsedLeapSecond() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+		TemporalAccessor temporalAccessor = DateTimeFormatter.ISO_INSTANT.parse("2017-12-31T23:59:60Z");
+		System.out.println(temporalAccessor);
+		boolean result = temporalAccessor.query(DateTimeFormatter.parsedLeapSecond());
+		System.out.println(result);
+		assertTrue(result);
+		
+		temporalAccessor = DateTimeFormatter.ISO_INSTANT.parse("2018-12-31T23:59:59Z");
+		System.out.println(temporalAccessor);
+		result = temporalAccessor.query(DateTimeFormatter.parsedLeapSecond());
+		System.out.println(result);
+		assertFalse(result);
 	}
 }

@@ -11,7 +11,6 @@ public class DateTimeFormatterClassTest {
 	@Test
 	public void toFormat() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-		formatter.toFormat();
 		System.out.println(formatter.toFormat());
 	}
 
