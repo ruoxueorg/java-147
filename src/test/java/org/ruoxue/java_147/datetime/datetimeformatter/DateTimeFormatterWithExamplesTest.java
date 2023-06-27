@@ -163,13 +163,11 @@ public class DateTimeFormatterWithExamplesTest {
 	@Test
 	public void parsedLeapSecond() {
 		TemporalAccessor temporalAccessor = DateTimeFormatter.ISO_INSTANT.parse("2017-12-31T23:59:60Z");
-		System.out.println(temporalAccessor);
 		boolean result = temporalAccessor.query(DateTimeFormatter.parsedLeapSecond());
 		System.out.println(result);
 		assertTrue(result);
 		
 		temporalAccessor = DateTimeFormatter.ISO_INSTANT.parse("2018-12-31T23:59:59Z");
-		System.out.println(temporalAccessor);
 		result = temporalAccessor.query(DateTimeFormatter.parsedLeapSecond());
 		System.out.println(result);
 		assertFalse(result);
