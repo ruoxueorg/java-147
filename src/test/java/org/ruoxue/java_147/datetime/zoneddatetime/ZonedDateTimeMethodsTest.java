@@ -42,22 +42,23 @@ public class ZonedDateTimeMethodsTest {
 
 	@Test
 	public void of() {
+		String expected = "2023-06-06T07:08:09.123456789+03:00[Europe/Athens]";
 		ZoneId zone = ZoneId.of("Europe/Athens");
-		ZonedDateTime localDateTime = ZonedDateTime.of(2023, 12, 25, 1, 2, 3, 456, zone);
+		ZonedDateTime localDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 123456789, zone);
 		System.out.println(localDateTime);
-		assertEquals("2023-12-25T01:02:03.000000456+02:00[Europe/Athens]", localDateTime.toString());
+		assertEquals(expected, localDateTime.toString());
 
 		long epochSecond = localDateTime.toEpochSecond();
 		System.out.println(epochSecond);
-		assertEquals(1703458923L, epochSecond);
+		assertEquals(1686024489L, epochSecond);
 
-		localDateTime = ZonedDateTime.of(LocalDateTime.of(2023, 12, 25, 1, 2, 3, 456), zone);
+		localDateTime = ZonedDateTime.of(LocalDateTime.of(2023, 6, 6, 7, 8, 9, 123456789), zone);
 		System.out.println(localDateTime);
-		assertEquals("2023-12-25T01:02:03.000000456+02:00[Europe/Athens]", localDateTime.toString());
+		assertEquals(expected, localDateTime.toString());
 
-		localDateTime = ZonedDateTime.of(LocalDate.of(2023, 12, 25), LocalTime.of(1, 2, 3, 456), zone);
+		localDateTime = ZonedDateTime.of(LocalDate.of(2023, 6, 6), LocalTime.of(7, 8, 9, 123456789), zone);
 		System.out.println(localDateTime);
-		assertEquals("2023-12-25T01:02:03.000000456+02:00[Europe/Athens]", localDateTime.toString());
+		assertEquals(expected, localDateTime.toString());
 	}
 //
 //	@Test
