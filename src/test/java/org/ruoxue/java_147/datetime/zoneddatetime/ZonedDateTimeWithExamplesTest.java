@@ -18,35 +18,36 @@ public class ZonedDateTimeWithExamplesTest {
 
 	@Test
 	public void format() {
-		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		String result = localDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		String result = zonedDateTime.format(DateTimeFormatter.ISO_ZONED_DATE_TIME);
 		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03", result);
+		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", result);
 
-		localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3, 123456789);
-		result = localDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+		zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 123456789, zone);
+		result = zonedDateTime.format(DateTimeFormatter.ISO_ZONED_DATE_TIME);
 		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03.123456789", result);
+		assertEquals("2023-06-06T07:08:09.123456789+03:00[Europe/Athens]", result);
 
-		result = localDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS"));
+		result = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSSZ"));
 		System.out.println(result);
-		assertEquals("2023/08/03 01:02:03.123", result);
+		assertEquals("2023/06/06 07:08:09.123+0300", result);
 	}
 
 	@Test
 	public void parse() {
-		LocalDateTime localDateTime = LocalDateTime.parse("2023-08-03T01:02:03");
+		ZonedDateTime localDateTime = ZonedDateTime.parse("2023-06-06T07:08:09+03:00[Europe/Athens]");
 		System.out.println(localDateTime);
-		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
+		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", localDateTime.toString());
 
-		localDateTime = LocalDateTime.parse("2023-08-03T01:02:03.123456789");
+		localDateTime = ZonedDateTime.parse("2023-06-06T07:08:09.123456789+03:00[Europe/Athens]");
 		System.out.println(localDateTime);
-		assertEquals("2023-08-03T01:02:03.123456789", localDateTime.toString());
+		assertEquals("2023-06-06T07:08:09.123456789+03:00[Europe/Athens]", localDateTime.toString());
 
-		localDateTime = LocalDateTime.parse("2023/08/03 01:02:03.123",
-				DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS"));
+		localDateTime = ZonedDateTime.parse("2023/06/06 07:08:09.123+0300",
+				DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSSZ"));
 		System.out.println(localDateTime);
-		assertEquals("2023-08-03T01:02:03.123", localDateTime.toString());
+		assertEquals("2023-06-06T07:08:09.123+03:00", localDateTime.toString());
 	}
 
 	@Test
@@ -55,7 +56,7 @@ public class ZonedDateTimeWithExamplesTest {
 		LocalDateTime result = LocalDateTime.from(localDateTime);
 		System.out.println(result);
 		assertEquals("2023-08-03T01:02:03", result.toString());
-		
+
 		localDateTime = LocalDateTime.parse("2023-08-03T01:02:03");
 		ZoneOffset zoneOffset = ZoneOffset.of("+09:00");
 		OffsetDateTime offsetDateTime = OffsetDateTime.of(localDateTime, zoneOffset);
@@ -163,7 +164,7 @@ public class ZonedDateTimeWithExamplesTest {
 		result = localDateTime.truncatedTo(ChronoUnit.DAYS);
 		System.out.println(result);
 		assertEquals("2023-08-03T00:00", result.toString());
-		
+
 		result = localDateTime.truncatedTo(ChronoUnit.MILLIS);
 		System.out.println(result);
 		assertEquals("2023-08-03T01:02:03.123", result.toString());
