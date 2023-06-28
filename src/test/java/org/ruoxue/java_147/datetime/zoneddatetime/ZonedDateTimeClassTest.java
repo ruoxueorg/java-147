@@ -17,70 +17,72 @@ public class ZonedDateTimeClassTest {
 
 	@Test
 	public void plus() {
-		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime result = localDateTime.plusYears(1);
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		ZonedDateTime result = zonedDateTime.plusYears(1);
 		int year = result.getYear();
 		System.out.println(year);
 		assertEquals(2024, year);
 
-		result = localDateTime.plusMonths(1);
+		result = zonedDateTime.plusMonths(1);
 		int month = result.getMonthValue();
 		System.out.println(month);
-		assertEquals(9, month);
+		assertEquals(7, month);
 
-		result = localDateTime.plusDays(1);
+		result = zonedDateTime.plusDays(1);
 		int dayOfMonth = result.getDayOfMonth();
 		System.out.println(dayOfMonth);
-		assertEquals(4, dayOfMonth);
+		assertEquals(7, dayOfMonth);
 
-		result = localDateTime.plusHours(1);
+		result = zonedDateTime.plusHours(1);
 		int hour = result.getHour();
 		System.out.println(hour);
-		assertEquals(2, hour);
+		assertEquals(8, hour);
 
-		result = localDateTime.plusMinutes(1);
+		result = zonedDateTime.plusMinutes(1);
 		int minute = result.getMinute();
 		System.out.println(minute);
-		assertEquals(3, minute);
+		assertEquals(9, minute);
 
-		result = localDateTime.plusSeconds(1);
+		result = zonedDateTime.plusSeconds(1);
 		int second = result.getSecond();
 		System.out.println(second);
-		assertEquals(4, second);
+		assertEquals(10, second);
 	}
 
 	@Test
 	public void plusTemporalAmount() {
-		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime result = localDateTime.plus(Period.ofYears(1));
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		ZonedDateTime result = zonedDateTime.plus(Period.ofYears(1));
 		int year = result.getYear();
 		System.out.println(year);
 		assertEquals(2024, year);
 
-		result = localDateTime.plus(Period.ofMonths(1));
+		result = zonedDateTime.plus(Period.ofMonths(1));
 		int month = result.getMonthValue();
 		System.out.println(month);
-		assertEquals(9, month);
+		assertEquals(7, month);
 
-		result = localDateTime.plus(Period.ofDays(1));
+		result = zonedDateTime.plus(Period.ofDays(1));
 		int dayOfMonth = result.getDayOfMonth();
 		System.out.println(dayOfMonth);
-		assertEquals(4, dayOfMonth);
+		assertEquals(7, dayOfMonth);
 
-		result = localDateTime.plus(Duration.ofHours(1));
+		result = zonedDateTime.plus(Duration.ofHours(1));
 		int hour = result.getHour();
 		System.out.println(hour);
-		assertEquals(2, hour);
+		assertEquals(8, hour);
 
-		result = localDateTime.plus(Duration.ofMinutes(1));
+		result = zonedDateTime.plus(Duration.ofMinutes(1));
 		int minute = result.getMinute();
 		System.out.println(minute);
-		assertEquals(3, minute);
+		assertEquals(9, minute);
 
-		result = localDateTime.plus(Duration.ofSeconds(1));
+		result = zonedDateTime.plus(Duration.ofSeconds(1));
 		int second = result.getSecond();
 		System.out.println(second);
-		assertEquals(4, second);
+		assertEquals(10, second);
 	}
 
 	@Test
