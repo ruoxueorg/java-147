@@ -87,94 +87,98 @@ public class ZonedDateTimeClassTest {
 
 	@Test
 	public void minus() {
-		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime result = localDateTime.minusYears(1);
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		ZonedDateTime result = zonedDateTime.minusYears(1);
 		int year = result.getYear();
 		System.out.println(year);
 		assertEquals(2022, year);
 
-		result = localDateTime.minusMonths(1);
+		result = zonedDateTime.minusMonths(1);
 		int month = result.getMonthValue();
 		System.out.println(month);
-		assertEquals(7, month);
+		assertEquals(5, month);
 
-		result = localDateTime.minusDays(1);
+		result = zonedDateTime.minusDays(1);
 		int dayOfMonth = result.getDayOfMonth();
 		System.out.println(dayOfMonth);
-		assertEquals(2, dayOfMonth);
+		assertEquals(5, dayOfMonth);
 
-		result = localDateTime.minusHours(1);
+		result = zonedDateTime.minusHours(1);
 		int hour = result.getHour();
 		System.out.println(hour);
-		assertEquals(0, hour);
+		assertEquals(6, hour);
 
-		result = localDateTime.minusMinutes(1);
+		result = zonedDateTime.minusMinutes(1);
 		int minute = result.getMinute();
 		System.out.println(minute);
-		assertEquals(1, minute);
+		assertEquals(7, minute);
 
-		result = localDateTime.minusSeconds(1);
+		result = zonedDateTime.minusSeconds(1);
 		int second = result.getSecond();
 		System.out.println(second);
-		assertEquals(2, second);
+		assertEquals(8, second);
 	}
 
 	@Test
 	public void minusTemporalAmount() {
-		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime result = localDateTime.minus(Period.ofYears(1));
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		ZonedDateTime result = zonedDateTime.minus(Period.ofYears(1));
 		int year = result.getYear();
 		System.out.println(year);
 		assertEquals(2022, year);
 
-		result = localDateTime.minus(Period.ofMonths(1));
+		result = zonedDateTime.minus(Period.ofMonths(1));
 		int month = result.getMonthValue();
 		System.out.println(month);
-		assertEquals(7, month);
+		assertEquals(5, month);
 
-		result = localDateTime.minus(Period.ofDays(1));
+		result = zonedDateTime.minus(Period.ofDays(1));
 		int dayOfMonth = result.getDayOfMonth();
 		System.out.println(dayOfMonth);
-		assertEquals(2, dayOfMonth);
+		assertEquals(5, dayOfMonth);
 
-		result = localDateTime.minus(Duration.ofHours(1));
+		result = zonedDateTime.minus(Duration.ofHours(1));
 		int hour = result.getHour();
 		System.out.println(hour);
-		assertEquals(0, hour);
+		assertEquals(6, hour);
 
-		result = localDateTime.minus(Duration.ofMinutes(1));
+		result = zonedDateTime.minus(Duration.ofMinutes(1));
 		int minute = result.getMinute();
 		System.out.println(minute);
-		assertEquals(1, minute);
+		assertEquals(7, minute);
 
-		result = localDateTime.minus(Duration.ofSeconds(1));
+		result = zonedDateTime.minus(Duration.ofSeconds(1));
 		int second = result.getSecond();
 		System.out.println(second);
-		assertEquals(2, second);
+		assertEquals(8, second);
 	}
 
 	@Test
 	public void isBefore() {
-		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime localDateTime2 = LocalDateTime.of(2024, 8, 3, 1, 2, 3);
-		boolean result = localDateTime.isBefore(localDateTime2);
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		ZonedDateTime zonedDateTime2 = ZonedDateTime.of(2024, 6, 6, 7, 8, 9, 0, zone);
+		boolean result = zonedDateTime.isBefore(zonedDateTime2);
 		System.out.println(result);
 		assertTrue(result);
 
-		result = localDateTime2.isBefore(localDateTime);
+		result = zonedDateTime2.isBefore(zonedDateTime);
 		System.out.println(result);
 		assertFalse(result);
 	}
 
 	@Test
 	public void isAfter() {
-		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime localDateTime2 = LocalDateTime.of(2022, 8, 3, 1, 2, 3);
-		boolean result = localDateTime.isAfter(localDateTime2);
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		ZonedDateTime zonedDateTime2 = ZonedDateTime.of(2022, 6, 6, 7, 8, 9, 0, zone);
+		boolean result = zonedDateTime.isAfter(zonedDateTime2);
 		System.out.println(result);
 		assertTrue(result);
 
-		result = localDateTime2.isAfter(localDateTime);
+		result = zonedDateTime2.isAfter(zonedDateTime);
 		System.out.println(result);
 		assertFalse(result);
 	}
