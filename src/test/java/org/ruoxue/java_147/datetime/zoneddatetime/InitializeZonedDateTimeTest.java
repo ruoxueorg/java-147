@@ -7,7 +7,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -20,107 +19,113 @@ public class InitializeZonedDateTimeTest {
 
 	@Test
 	public void now() {
-		LocalDateTime localDateTime = LocalDateTime.now();
-		System.out.println(localDateTime);
+		ZonedDateTime zonedDateTime = ZonedDateTime.now();
+		System.out.println(zonedDateTime);
 
-		ZoneId zone = ZoneId.of("Asia/Tokyo");
-		localDateTime = LocalDateTime.now(zone);
-		System.out.println(localDateTime);
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		zonedDateTime = ZonedDateTime.now(zone);
+		System.out.println(zonedDateTime);
 
-		zone = ZoneId.of("UTC+9");
+		zone = ZoneId.of("UTC+3");
 		Clock clock = Clock.system(zone);
-		localDateTime = LocalDateTime.now(clock);
-		System.out.println(localDateTime);
-		
-		zone = ZoneId.of("Etc/GMT-9");
-		localDateTime = LocalDateTime.now(zone);
-		System.out.println(localDateTime);
+		zonedDateTime = ZonedDateTime.now(clock);
+		System.out.println(zonedDateTime);
+
+		zone = ZoneId.of("Etc/GMT-3");
+		zonedDateTime = ZonedDateTime.now(zone);
+		System.out.println(zonedDateTime);
 	}
 
 	@Test
 	public void of() {
-		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		System.out.println(localDateTime);
-		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		System.out.println(zonedDateTime);
+		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", zonedDateTime.toString());
 
-		long epochSecond = localDateTime.toEpochSecond(ZoneOffset.UTC);
+		long epochSecond = zonedDateTime.toEpochSecond();
 		System.out.println(epochSecond);
-		assertEquals(1691024523L, epochSecond);
+		assertEquals(1686024489L, epochSecond);
 
-		localDateTime = LocalDateTime.of(2023, Month.AUGUST, 4, 1, 2, 3);
-		System.out.println(localDateTime);
-		assertEquals("2023-08-04T01:02:03", localDateTime.toString());
+		zonedDateTime = ZonedDateTime.of(LocalDateTime.of(2023, 6, 6, 7, 8, 9, 0), zone);
+		System.out.println(zonedDateTime);
+		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", zonedDateTime.toString());
 
-		localDateTime = LocalDateTime.ofEpochSecond(1691197323, 0, ZoneOffset.UTC);
-		System.out.println(localDateTime);
-		assertEquals("2023-08-05T01:02:03", localDateTime.toString());
+		zonedDateTime = ZonedDateTime.of(LocalDate.of(2023, 6, 6), LocalTime.of(7, 8, 9, 0), zone);
+		System.out.println(zonedDateTime);
+		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", zonedDateTime.toString());
 	}
 
 	@Test
-	public void ofDateTime() {
-		LocalDate localDate = LocalDate.of(2023, 8, 3);
-		LocalTime localTime = LocalTime.of(1, 2, 3);
-		LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
-		System.out.println(localDateTime);
-		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
+	public void ofInstant() {
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(Instant.parse("2023-06-06T04:08:09Z"), zone);
+		System.out.println(zonedDateTime);
+		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", zonedDateTime.toString());
+
+		zonedDateTime = ZonedDateTime.ofInstant(LocalDateTime.of(2023, 6, 6, 7, 8, 9, 0), ZoneOffset.ofHours(3), zone);
+		System.out.println(zonedDateTime);
+		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", zonedDateTime.toString());
+	}
+
+	@Test
+	public void ofLocal() {
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.ofLocal(LocalDateTime.of(2023, 6, 6, 7, 8, 9, 0), zone,
+				ZoneOffset.ofHours(3));
+		System.out.println(zonedDateTime);
+		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", zonedDateTime.toString());
 	}
 
 	@Test
 	public void parse() {
-		LocalDateTime localDateTime = LocalDateTime.parse("2023-08-03T01:02:03");
-		System.out.println(localDateTime);
-		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
+		ZonedDateTime zonedDateTime = ZonedDateTime.parse("2023-06-06T07:08:09+03:00[Europe/Athens]");
+		System.out.println(zonedDateTime);
+		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", zonedDateTime.toString());
 
-		localDateTime = LocalDateTime.parse("20230803 010203", DateTimeFormatter.ofPattern("yyyyMMdd HHmmss"));
-		System.out.println(localDateTime);
-		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
-		
-		localDateTime = LocalDateTime.parse("2023/08/03 01:02:03", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
-		System.out.println(localDateTime);
-		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
+		zonedDateTime = ZonedDateTime.parse("2023-06-06T07:08:09.123456789+03:00[Europe/Athens]");
+		System.out.println(zonedDateTime);
+		assertEquals("2023-06-06T07:08:09.123456789+03:00[Europe/Athens]", zonedDateTime.toString());
+
+		zonedDateTime = ZonedDateTime.parse("2023/06/06 07:08:09.123+0300",
+				DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSSZ"));
+		System.out.println(zonedDateTime);
+		assertEquals("2023-06-06T07:08:09.123+03:00", zonedDateTime.toString());
 	}
 
 	@Test
 	public void from() {
-		LocalDateTime localDateTime = LocalDateTime.parse("2023-08-03T01:02:03");
-		LocalDateTime result = LocalDateTime.from(localDateTime);
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		ZonedDateTime result = ZonedDateTime.from(zonedDateTime);
 		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03", result.toString());
-		
-		localDateTime = LocalDateTime.parse("2023-08-03T01:02:03");
-		ZoneOffset zoneOffset = ZoneOffset.of("+09:00");
+		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", result.toString());
+
+		LocalDateTime localDateTime = LocalDateTime.parse("2023-06-06T07:08:09");
+		ZoneOffset zoneOffset = ZoneOffset.of("+03:00");
 		OffsetDateTime offsetDateTime = OffsetDateTime.of(localDateTime, zoneOffset);
 		System.out.println(offsetDateTime);
-		result = LocalDateTime.from(offsetDateTime);
+		result = ZonedDateTime.from(offsetDateTime);
 		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03", result.toString());
+		assertEquals("2023-06-06T07:08:09+03:00", result.toString());
 
-		ZonedDateTime zonedDateTime = ZonedDateTime.parse("2023-08-03T01:02:03+09:00[Asia/Tokyo]");
-		result = LocalDateTime.from(zonedDateTime);
+		offsetDateTime = OffsetDateTime.of(2023, 6, 6, 7, 8, 9, 0, zoneOffset);
+		result = ZonedDateTime.from(offsetDateTime);
 		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03", result.toString());
-	}
-
-	@Test
-	public void ofEpochSecond() {
-		ZoneOffset zoneOffset = ZoneOffset.of("+08:00");
-		LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(1690995723L, 0, zoneOffset);
-		System.out.println(localDateTime);
-		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
-
-		ZoneId zone = ZoneId.of("UTC+8");
-		Instant instant = Instant.ofEpochSecond(1690995723L, 0);
-		localDateTime = LocalDateTime.ofInstant(instant, zone);
-		System.out.println(localDateTime);
-		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
+		assertEquals("2023-06-06T07:08:09+03:00", result.toString());
 	}
 
 	@Test
 	public void ofEpochMilli() {
-		ZoneId zone = ZoneId.of("UTC+8");
-		Instant instant = Instant.ofEpochMilli(1690995723000L);
-		LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
-		System.out.println(localDateTime);
-		assertEquals("2023-08-03T01:02:03", localDateTime.toString());
+		ZoneId zone = ZoneId.of("UTC+3");
+		Instant instant = Instant.ofEpochMilli(1686024489000L);
+		ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(instant, zone);
+		System.out.println(zonedDateTime);
+		assertEquals("2023-06-06T07:08:09+03:00[UTC+03:00]", zonedDateTime.toString());
+
+		instant = Instant.ofEpochMilli(1686024489123L);
+		zonedDateTime = ZonedDateTime.ofInstant(instant, zone);
+		System.out.println(zonedDateTime);
+		assertEquals("2023-06-06T07:08:09.123+03:00[UTC+03:00]", zonedDateTime.toString());
 	}
 }
