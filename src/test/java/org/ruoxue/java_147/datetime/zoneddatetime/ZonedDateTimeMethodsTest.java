@@ -270,5 +270,4 @@ public class ZonedDateTimeMethodsTest {
 		System.out.println(result);
 		assertEquals("2023-06-06T04:08:09Z", result.toString());
 	}
-
 }
