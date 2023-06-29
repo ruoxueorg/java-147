@@ -185,35 +185,19 @@ public class ZonedDateTimeClassTest {
 
 	@Test
 	public void until() {
-		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime localDateTime2 = LocalDateTime.of(2023, 8, 4, 1, 2, 3);
-		long result = localDateTime.until(localDateTime2, ChronoUnit.DAYS);
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		ZonedDateTime zonedDateTime2 = ZonedDateTime.of(2023, 6, 7, 7, 8, 9, 0, zone);
+		long result = zonedDateTime.until(zonedDateTime2, ChronoUnit.DAYS);
 		System.out.println(result);
 		assertEquals(1, result);
 
-		result = localDateTime.until(localDateTime2, ChronoUnit.HOURS);
+		result = zonedDateTime.until(zonedDateTime2, ChronoUnit.HOURS);
 		System.out.println(result);
 		assertEquals(24, result);
 
-		result = localDateTime.until(localDateTime2, ChronoUnit.MINUTES);
+		result = zonedDateTime.until(zonedDateTime2, ChronoUnit.MINUTES);
 		System.out.println(result);
 		assertEquals(1440, result);
-	}
-
-	@Test
-	public void atZone() {
-		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		ZoneId zone = ZoneId.of("UTC+8");
-		ZonedDateTime result = localDateTime.atZone(zone);
-		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03+08:00[UTC+08:00]", result.toString());
-	}
-
-	@Test
-	public void atOffset() {
-		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		OffsetDateTime result = localDateTime.atOffset(ZoneOffset.ofHours(-4));
-		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03-04:00", result.toString());
 	}
 }
