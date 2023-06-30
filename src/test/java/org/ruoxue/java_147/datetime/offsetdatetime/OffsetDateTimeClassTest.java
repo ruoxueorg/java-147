@@ -8,7 +8,6 @@ import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
 import org.junit.Test;
@@ -17,8 +16,9 @@ public class OffsetDateTimeClassTest {
 
 	@Test
 	public void plus() {
-		LocalDateTime offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime result = offsetDateTime.plusYears(1);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		OffsetDateTime result = offsetDateTime.plusYears(1);
 		int year = result.getYear();
 		System.out.println(year);
 		assertEquals(2024, year);
@@ -26,22 +26,22 @@ public class OffsetDateTimeClassTest {
 		result = offsetDateTime.plusMonths(1);
 		int month = result.getMonthValue();
 		System.out.println(month);
-		assertEquals(9, month);
+		assertEquals(1, month);
 
 		result = offsetDateTime.plusDays(1);
 		int dayOfMonth = result.getDayOfMonth();
 		System.out.println(dayOfMonth);
-		assertEquals(4, dayOfMonth);
+		assertEquals(26, dayOfMonth);
 
 		result = offsetDateTime.plusHours(1);
 		int hour = result.getHour();
 		System.out.println(hour);
-		assertEquals(2, hour);
+		assertEquals(6, hour);
 
 		result = offsetDateTime.plusMinutes(1);
 		int minute = result.getMinute();
 		System.out.println(minute);
-		assertEquals(3, minute);
+		assertEquals(5, minute);
 
 		result = offsetDateTime.plusSeconds(1);
 		int second = result.getSecond();
@@ -51,8 +51,9 @@ public class OffsetDateTimeClassTest {
 
 	@Test
 	public void plusTemporalAmount() {
-		LocalDateTime offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime result = offsetDateTime.plus(Period.ofYears(1));
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		OffsetDateTime result = offsetDateTime.plus(Period.ofYears(1));
 		int year = result.getYear();
 		System.out.println(year);
 		assertEquals(2024, year);
@@ -60,22 +61,22 @@ public class OffsetDateTimeClassTest {
 		result = offsetDateTime.plus(Period.ofMonths(1));
 		int month = result.getMonthValue();
 		System.out.println(month);
-		assertEquals(9, month);
+		assertEquals(1, month);
 
 		result = offsetDateTime.plus(Period.ofDays(1));
 		int dayOfMonth = result.getDayOfMonth();
 		System.out.println(dayOfMonth);
-		assertEquals(4, dayOfMonth);
+		assertEquals(26, dayOfMonth);
 
 		result = offsetDateTime.plus(Duration.ofHours(1));
 		int hour = result.getHour();
 		System.out.println(hour);
-		assertEquals(2, hour);
+		assertEquals(6, hour);
 
 		result = offsetDateTime.plus(Duration.ofMinutes(1));
 		int minute = result.getMinute();
 		System.out.println(minute);
-		assertEquals(3, minute);
+		assertEquals(5, minute);
 
 		result = offsetDateTime.plus(Duration.ofSeconds(1));
 		int second = result.getSecond();
@@ -85,8 +86,9 @@ public class OffsetDateTimeClassTest {
 
 	@Test
 	public void minus() {
-		LocalDateTime offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime result = offsetDateTime.minusYears(1);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		OffsetDateTime result = offsetDateTime.minusYears(1);
 		int year = result.getYear();
 		System.out.println(year);
 		assertEquals(2022, year);
@@ -94,22 +96,22 @@ public class OffsetDateTimeClassTest {
 		result = offsetDateTime.minusMonths(1);
 		int month = result.getMonthValue();
 		System.out.println(month);
-		assertEquals(7, month);
+		assertEquals(11, month);
 
 		result = offsetDateTime.minusDays(1);
 		int dayOfMonth = result.getDayOfMonth();
 		System.out.println(dayOfMonth);
-		assertEquals(2, dayOfMonth);
+		assertEquals(24, dayOfMonth);
 
 		result = offsetDateTime.minusHours(1);
 		int hour = result.getHour();
 		System.out.println(hour);
-		assertEquals(0, hour);
+		assertEquals(4, hour);
 
 		result = offsetDateTime.minusMinutes(1);
 		int minute = result.getMinute();
 		System.out.println(minute);
-		assertEquals(1, minute);
+		assertEquals(3, minute);
 
 		result = offsetDateTime.minusSeconds(1);
 		int second = result.getSecond();
@@ -119,8 +121,9 @@ public class OffsetDateTimeClassTest {
 
 	@Test
 	public void minusTemporalAmount() {
-		LocalDateTime offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime result = offsetDateTime.minus(Period.ofYears(1));
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		OffsetDateTime result = offsetDateTime.minus(Period.ofYears(1));
 		int year = result.getYear();
 		System.out.println(year);
 		assertEquals(2022, year);
@@ -128,22 +131,22 @@ public class OffsetDateTimeClassTest {
 		result = offsetDateTime.minus(Period.ofMonths(1));
 		int month = result.getMonthValue();
 		System.out.println(month);
-		assertEquals(7, month);
+		assertEquals(11, month);
 
 		result = offsetDateTime.minus(Period.ofDays(1));
 		int dayOfMonth = result.getDayOfMonth();
 		System.out.println(dayOfMonth);
-		assertEquals(2, dayOfMonth);
+		assertEquals(24, dayOfMonth);
 
 		result = offsetDateTime.minus(Duration.ofHours(1));
 		int hour = result.getHour();
 		System.out.println(hour);
-		assertEquals(0, hour);
+		assertEquals(4, hour);
 
 		result = offsetDateTime.minus(Duration.ofMinutes(1));
 		int minute = result.getMinute();
 		System.out.println(minute);
-		assertEquals(1, minute);
+		assertEquals(3, minute);
 
 		result = offsetDateTime.minus(Duration.ofSeconds(1));
 		int second = result.getSecond();
@@ -153,8 +156,9 @@ public class OffsetDateTimeClassTest {
 
 	@Test
 	public void isBefore() {
-		LocalDateTime offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime offsetDateTime2 = LocalDateTime.of(2024, 8, 3, 1, 2, 3);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		OffsetDateTime offsetDateTime2 = OffsetDateTime.of(2024, 12, 25, 5, 4, 3, 0, offset);
 		boolean result = offsetDateTime.isBefore(offsetDateTime2);
 		System.out.println(result);
 		assertTrue(result);
@@ -166,8 +170,9 @@ public class OffsetDateTimeClassTest {
 
 	@Test
 	public void isAfter() {
-		LocalDateTime offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime offsetDateTime2 = LocalDateTime.of(2022, 8, 3, 1, 2, 3);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		OffsetDateTime offsetDateTime2 = OffsetDateTime.of(2022, 12, 25, 5, 4, 3, 0, offset);
 		boolean result = offsetDateTime.isAfter(offsetDateTime2);
 		System.out.println(result);
 		assertTrue(result);
@@ -179,8 +184,9 @@ public class OffsetDateTimeClassTest {
 
 	@Test
 	public void until() {
-		LocalDateTime offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		LocalDateTime offsetDateTime2 = LocalDateTime.of(2023, 8, 4, 1, 2, 3);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		OffsetDateTime offsetDateTime2 = OffsetDateTime.of(2023, 12, 26, 5, 4, 3, 0, offset);
 		long result = offsetDateTime.until(offsetDateTime2, ChronoUnit.DAYS);
 		System.out.println(result);
 		assertEquals(1, result);
@@ -192,22 +198,5 @@ public class OffsetDateTimeClassTest {
 		result = offsetDateTime.until(offsetDateTime2, ChronoUnit.MINUTES);
 		System.out.println(result);
 		assertEquals(1440, result);
-	}
-
-	@Test
-	public void atZone() {
-		LocalDateTime offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		ZoneId zone = ZoneId.of("UTC+8");
-		ZonedDateTime result = offsetDateTime.atZone(zone);
-		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03+08:00[UTC+08:00]", result.toString());
-	}
-
-	@Test
-	public void atOffset() {
-		LocalDateTime offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		OffsetDateTime result = offsetDateTime.atOffset(ZoneOffset.ofHours(-4));
-		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03-04:00", result.toString());
 	}
 }
