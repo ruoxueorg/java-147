@@ -2,13 +2,10 @@ package org.ruoxue.java_147.datetime.offsetdatetime;
 
 import static org.junit.Assert.*;
 
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
@@ -18,154 +15,100 @@ public class OffsetDateTimeWithExamplesTest {
 
 	@Test
 	public void format() {
-		LocalDateTime offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		String result = offsetDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		String result = offsetDateTime.format(DateTimeFormatter.ISO_ZONED_DATE_TIME);
 		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03", result);
+		assertEquals("2023-12-25T05:04:03+02:00", result);
 
-		offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3, 123456789);
-		result = offsetDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+		offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 123456789, offset);
+		result = offsetDateTime.format(DateTimeFormatter.ISO_ZONED_DATE_TIME);
 		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03.123456789", result);
+		assertEquals("2023-12-25T05:04:03.123456789+02:00", result);
 
-		result = offsetDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS"));
+		result = offsetDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSSZ"));
 		System.out.println(result);
-		assertEquals("2023/08/03 01:02:03.123", result);
+		assertEquals("2023/12/25 05:04:03.123+0200", result);
 	}
 
 	@Test
 	public void parse() {
-		LocalDateTime offsetDateTime = LocalDateTime.parse("2023-08-03T01:02:03");
+		OffsetDateTime offsetDateTime = OffsetDateTime.parse("2023-12-25T05:04:03+02:00");
 		System.out.println(offsetDateTime);
-		assertEquals("2023-08-03T01:02:03", offsetDateTime.toString());
+		assertEquals("2023-12-25T05:04:03+02:00", offsetDateTime.toString());
 
-		offsetDateTime = LocalDateTime.parse("2023-08-03T01:02:03.123456789");
+		offsetDateTime = OffsetDateTime.parse("2023-12-25T05:04:03.123456789+02:00");
 		System.out.println(offsetDateTime);
-		assertEquals("2023-08-03T01:02:03.123456789", offsetDateTime.toString());
+		assertEquals("2023-12-25T05:04:03.123456789+02:00", offsetDateTime.toString());
 
-		offsetDateTime = LocalDateTime.parse("2023/08/03 01:02:03.123",
-				DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS"));
+		offsetDateTime = OffsetDateTime.parse("2023/12/25 05:04:03.123+0200",
+				DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSSZ"));
 		System.out.println(offsetDateTime);
-		assertEquals("2023-08-03T01:02:03.123", offsetDateTime.toString());
+		assertEquals("2023-12-25T05:04:03.123+02:00", offsetDateTime.toString());
 	}
 
 	@Test
 	public void from() {
-		LocalDateTime offsetDateTime = LocalDateTime.parse("2023-08-03T01:02:03");
-		LocalDateTime result = LocalDateTime.from(offsetDateTime);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		OffsetDateTime result = OffsetDateTime.from(offsetDateTime);
 		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03", result.toString());
-		
-		offsetDateTime = LocalDateTime.parse("2023-08-03T01:02:03");
-		ZoneOffset zoneOffset = ZoneOffset.of("+09:00");
-		OffsetDateTime offsetDateTime = OffsetDateTime.of(offsetDateTime, zoneOffset);
-		System.out.println(offsetDateTime);
-		result = LocalDateTime.from(offsetDateTime);
-		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03", result.toString());
-
-		ZonedDateTime zonedDateTime = ZonedDateTime.parse("2023-08-03T01:02:03+09:00[Asia/Tokyo]");
-		result = LocalDateTime.from(zonedDateTime);
-		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03", result.toString());
-	}
-
-	@Test
-	public void ofInstant() {
-		ZoneId zone = ZoneId.of("UTC+9");
-		Instant instant = Instant.ofEpochSecond(1690992123L);
-		LocalDateTime offsetDateTime = LocalDateTime.ofInstant(instant, zone);
-		System.out.println(offsetDateTime);
-		assertEquals("2023-08-03T01:02:03", offsetDateTime.toString());
-
-		instant = Instant.ofEpochSecond(1690992123L, 123456789);
-		offsetDateTime = LocalDateTime.ofInstant(instant, zone);
-		System.out.println(offsetDateTime);
-		assertEquals("2023-08-03T01:02:03.123456789", offsetDateTime.toString());
+		assertEquals("2023-12-25T05:04:03+02:00", result.toString());
 	}
 
 	@Test
 	public void toEpochSecond() {
-		LocalDateTime offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		ZoneOffset zoneOffset = ZoneOffset.of("+09:00");
-		long result = offsetDateTime.toEpochSecond(zoneOffset);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		long result = offsetDateTime.toEpochSecond();
 		System.out.println(result);
-		assertEquals(1690992123L, result);
-
-		offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3, 123456789);
-		zoneOffset = ZoneOffset.of("+09:00");
-		result = offsetDateTime.toEpochSecond(zoneOffset);
-		System.out.println(result);
-		assertEquals(1690992123L, result);
+		assertEquals(1703473443L, result);
 	}
 
 	@Test
 	public void toEpochMilli() {
-		LocalDateTime offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
-		ZoneId zone = ZoneId.of("UTC+9");
-		Instant instant = offsetDateTime.atZone(zone).toInstant();
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		Instant instant = offsetDateTime.toInstant();
 		long result = instant.toEpochMilli();
 		System.out.println(result);
-		assertEquals(1690992123000L, result);
+		assertEquals(1703473443000L, result);
 
-		offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3, 123456789);
-		zone = ZoneId.of("UTC+9");
-		instant = offsetDateTime.atZone(zone).toInstant();
+		offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 123456789, offset);
+		instant = offsetDateTime.toInstant();
 		result = instant.toEpochMilli();
 		System.out.println(result);
-		assertEquals(1690992123123L, result);
-	}
-
-	@Test
-	public void ofEpochSecond() {
-		ZoneOffset zoneOffset = ZoneOffset.of("+09:00");
-		LocalDateTime offsetDateTime = LocalDateTime.ofEpochSecond(1690992123L, 0, zoneOffset);
-		System.out.println(offsetDateTime);
-		assertEquals("2023-08-03T01:02:03", offsetDateTime.toString());
-
-		offsetDateTime = LocalDateTime.ofEpochSecond(1690992123L, 123456789, zoneOffset);
-		System.out.println(offsetDateTime);
-		assertEquals("2023-08-03T01:02:03.123456789", offsetDateTime.toString());
+		assertEquals(1703473443123L, result);
 	}
 
 	@Test
 	public void ofEpochMilli() {
-		ZoneId zone = ZoneId.of("UTC+9");
-		Instant instant = Instant.ofEpochMilli(1690992123000L);
-		LocalDateTime offsetDateTime = LocalDateTime.ofInstant(instant, zone);
+		ZoneId zone = ZoneId.of("UTC+2");
+		Instant instant = Instant.ofEpochMilli(1703473443000L);
+		OffsetDateTime offsetDateTime = OffsetDateTime.ofInstant(instant, zone);
 		System.out.println(offsetDateTime);
-		assertEquals("2023-08-03T01:02:03", offsetDateTime.toString());
+		assertEquals("2023-12-25T05:04:03+02:00", offsetDateTime.toString());
 
-		instant = Instant.ofEpochMilli(1690992123123L);
-		offsetDateTime = LocalDateTime.ofInstant(instant, zone);
+		instant = Instant.ofEpochMilli(1703473443123L);
+		offsetDateTime = OffsetDateTime.ofInstant(instant, zone);
 		System.out.println(offsetDateTime);
-		assertEquals("2023-08-03T01:02:03.123", offsetDateTime.toString());
-	}
-
-	@Test
-	public void timestamp() {
-		LocalDateTime offsetDateTime = new Timestamp(1690995723000L).toLocalDateTime();
-		System.out.println(offsetDateTime);
-		assertEquals("2023-08-03T01:02:03", offsetDateTime.toString());
-
-		offsetDateTime = new Timestamp(1690995723123L).toLocalDateTime();
-		System.out.println(offsetDateTime);
-		assertEquals("2023-08-03T01:02:03.123", offsetDateTime.toString());
+		assertEquals("2023-12-25T05:04:03.123+02:00", offsetDateTime.toString());
 	}
 
 	@Test
 	public void truncatedTo() {
-		LocalDateTime offsetDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3, 123456789);
-		LocalDateTime result = offsetDateTime.truncatedTo(ChronoUnit.HOURS);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 123456789, offset);
+		OffsetDateTime result = offsetDateTime.truncatedTo(ChronoUnit.HOURS);
 		System.out.println(result);
-		assertEquals("2023-08-03T01:00", result.toString());
+		assertEquals("2023-12-25T05:00+02:00", result.toString());
 
 		result = offsetDateTime.truncatedTo(ChronoUnit.DAYS);
 		System.out.println(result);
-		assertEquals("2023-08-03T00:00", result.toString());
-		
+		assertEquals("2023-12-25T00:00+02:00", result.toString());
+
 		result = offsetDateTime.truncatedTo(ChronoUnit.MILLIS);
 		System.out.println(result);
-		assertEquals("2023-08-03T01:02:03.123", result.toString());
+		assertEquals("2023-12-25T05:04:03.123+02:00", result.toString());
 	}
 }
