@@ -9,13 +9,11 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 import java.time.OffsetDateTime;
+import java.time.OffsetTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.time.OffsetDateTime;
-import java.time.OffsetDateTime;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
@@ -29,7 +27,7 @@ public class OffsetDateTimeMethodsTest {
 		OffsetDateTime offsetDateTime = OffsetDateTime.now();
 		System.out.println(offsetDateTime);
 
-		ZoneId zone = ZoneId.of("Europe/Rome");
+		ZoneId zone = ZoneId.of("Egypt");
 		offsetDateTime = OffsetDateTime.now(zone);
 		System.out.println(offsetDateTime);
 
@@ -65,10 +63,10 @@ public class OffsetDateTimeMethodsTest {
 
 	@Test
 	public void ofInstant() {
-		ZoneId zone = ZoneId.of("Europe/Rome");
-		OffsetDateTime offsetDateTime = OffsetDateTime.ofInstant(Instant.parse("2023-12-25T04:04:03Z"), zone);
+		ZoneId zone = ZoneId.of("Egypt");
+		OffsetDateTime offsetDateTime = OffsetDateTime.ofInstant(Instant.parse("2023-12-25T03:04:03Z"), zone);
 		System.out.println(offsetDateTime);
-		assertEquals("2023-12-25T05:04:03+01:00", offsetDateTime.toString());
+		assertEquals("2023-12-25T05:04:03+02:00", offsetDateTime.toString());
 	}
 
 	@Test
@@ -147,32 +145,32 @@ public class OffsetDateTimeMethodsTest {
 
 	@Test
 	public void with() {
-		ZoneId zone = ZoneId.of("Europe/Athens");
-		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
 		OffsetDateTime result = offsetDateTime.withYear(2024);
 		int year = result.getYear();
 		System.out.println(year);
 		assertEquals(2024, year);
 
-		result = offsetDateTime.withMonth(7);
+		result = offsetDateTime.withMonth(1);
 		int month = result.getMonthValue();
 		System.out.println(month);
-		assertEquals(7, month);
+		assertEquals(1, month);
 
-		result = offsetDateTime.withDayOfMonth(7);
+		result = offsetDateTime.withDayOfMonth(26);
 		int dayOfMonth = result.getDayOfMonth();
 		System.out.println(dayOfMonth);
-		assertEquals(7, dayOfMonth);
+		assertEquals(26, dayOfMonth);
 
-		result = offsetDateTime.withHour(2);
+		result = offsetDateTime.withHour(6);
 		int hour = result.getHour();
 		System.out.println(hour);
-		assertEquals(2, hour);
+		assertEquals(6, hour);
 
-		result = offsetDateTime.withMinute(3);
+		result = offsetDateTime.withMinute(5);
 		int minute = result.getMinute();
 		System.out.println(minute);
-		assertEquals(3, minute);
+		assertEquals(5, minute);
 
 		result = offsetDateTime.withSecond(4);
 		int second = result.getSecond();
@@ -182,72 +180,72 @@ public class OffsetDateTimeMethodsTest {
 
 	@Test
 	public void withTemporalAdjuster() {
-		ZoneId zone = ZoneId.of("Europe/Athens");
-		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
-		OffsetDateTime result = offsetDateTime.with(ChronoField.DAY_OF_MONTH, 7);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		OffsetDateTime result = offsetDateTime.with(ChronoField.DAY_OF_MONTH, 26);
 		System.out.println(result);
-		assertEquals("2023-06-07T07:08:09+03:00[Europe/Athens]", result.toString());
+		assertEquals("2023-12-26T05:04:03+02:00", result.toString());
 
 		result = offsetDateTime.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
 		System.out.println(result);
-		assertEquals("2023-06-10T07:08:09+03:00[Europe/Athens]", result.toString());
+		assertEquals("2023-12-30T05:04:03+02:00", result.toString());
 
 		result = offsetDateTime.with(TemporalAdjusters.lastDayOfMonth());
 		System.out.println(result);
-		assertEquals("2023-06-30T07:08:09+03:00[Europe/Athens]", result.toString());
+		assertEquals("2023-12-31T05:04:03+02:00", result.toString());
 
 		TemporalAdjuster temporalAdjuster = t -> t.plus(Period.ofDays(14));
 		result = offsetDateTime.with(temporalAdjuster);
 		System.out.println(result);
-		assertEquals("2023-06-20T07:08:09+03:00[Europe/Athens]", result.toString());
+		assertEquals("2024-01-08T05:04:03+02:00", result.toString());
 
 		result = offsetDateTime.with(t -> t.plus(Duration.ofHours(1)));
 		System.out.println(result);
-		assertEquals("2023-06-06T08:08:09+03:00[Europe/Athens]", result.toString());
+		assertEquals("2023-12-25T06:04:03+02:00", result.toString());
 	}
 
 	@Test
 	public void toLocalDate() {
-		ZoneId zone = ZoneId.of("Europe/Athens");
-		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
 		LocalDate result = offsetDateTime.toLocalDate();
 		System.out.println(result);
-		assertEquals("2023-06-06", result.toString());
+		assertEquals("2023-12-25", result.toString());
 	}
 
 	@Test
 	public void toLocalTime() {
-		ZoneId zone = ZoneId.of("Europe/Athens");
-		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
 		LocalTime result = offsetDateTime.toLocalTime();
 		System.out.println(result);
-		assertEquals("07:08:09", result.toString());
+		assertEquals("05:04:03", result.toString());
 	}
 
 	@Test
 	public void toLocalDateTime() {
-		ZoneId zone = ZoneId.of("Europe/Athens");
-		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
 		LocalDateTime result = offsetDateTime.toLocalDateTime();
 		System.out.println(result);
-		assertEquals("2023-06-06T07:08:09", result.toString());
+		assertEquals("2023-12-25T05:04:03", result.toString());
 	}
 
 	@Test
 	public void toOffsetDateTime() {
-		ZoneId zone = ZoneId.of("Europe/Athens");
-		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
-		OffsetDateTime result = offsetDateTime.toOffsetDateTime();
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		OffsetTime result = offsetDateTime.toOffsetTime();
 		System.out.println(result);
-		assertEquals("2023-06-06T07:08:09+03:00", result.toString());
+		assertEquals("05:04:03+02:00", result.toString());
 	}
 
 	@Test
 	public void toInstant() {
-		ZoneId zone = ZoneId.of("Europe/Athens");
-		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
 		Instant result = offsetDateTime.toInstant();
 		System.out.println(result);
-		assertEquals("2023-06-06T04:08:09Z", result.toString());
+		assertEquals("2023-12-25T03:04:03Z", result.toString());
 	}
 }
