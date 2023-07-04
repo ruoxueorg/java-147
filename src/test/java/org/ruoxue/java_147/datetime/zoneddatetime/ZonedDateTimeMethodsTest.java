@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.time.Clock;
 import java.time.DayOfWeek;
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -56,18 +55,6 @@ public class ZonedDateTimeMethodsTest {
 		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", zonedDateTime.toString());
 
 		zonedDateTime = ZonedDateTime.of(LocalDate.of(2023, 6, 6), LocalTime.of(7, 8, 9, 0), zone);
-		System.out.println(zonedDateTime);
-		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", zonedDateTime.toString());
-	}
-
-	@Test
-	public void ofInstant() {
-		ZoneId zone = ZoneId.of("Europe/Athens");
-		ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(Instant.parse("2023-06-06T04:08:09Z"), zone);
-		System.out.println(zonedDateTime);
-		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", zonedDateTime.toString());
-
-		zonedDateTime = ZonedDateTime.ofInstant(LocalDateTime.of(2023, 6, 6, 7, 8, 9, 0), ZoneOffset.ofHours(3), zone);
 		System.out.println(zonedDateTime);
 		assertEquals("2023-06-06T07:08:09+03:00[Europe/Athens]", zonedDateTime.toString());
 	}
