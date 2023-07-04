@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.LocalTime;
-import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -251,23 +250,5 @@ public class ZonedDateTimeMethodsTest {
 		LocalDateTime result = zonedDateTime.toLocalDateTime();
 		System.out.println(result);
 		assertEquals("2023-06-06T07:08:09", result.toString());
-	}
-
-	@Test
-	public void toOffsetDateTime() {
-		ZoneId zone = ZoneId.of("Europe/Athens");
-		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
-		OffsetDateTime result = zonedDateTime.toOffsetDateTime();
-		System.out.println(result);
-		assertEquals("2023-06-06T07:08:09+03:00", result.toString());
-	}
-
-	@Test
-	public void toInstant() {
-		ZoneId zone = ZoneId.of("Europe/Athens");
-		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
-		Instant result = zonedDateTime.toInstant();
-		System.out.println(result);
-		assertEquals("2023-06-06T04:08:09Z", result.toString());
 	}
 }

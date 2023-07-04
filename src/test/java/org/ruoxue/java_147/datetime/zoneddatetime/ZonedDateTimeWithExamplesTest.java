@@ -127,4 +127,23 @@ public class ZonedDateTimeWithExamplesTest {
 		System.out.println(result);
 		assertEquals("2023-06-06T07:08:09.123+03:00[Europe/Athens]", result.toString());
 	}
+	
+
+	@Test
+	public void toOffsetDateTime() {
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		OffsetDateTime result = zonedDateTime.toOffsetDateTime();
+		System.out.println(result);
+		assertEquals("2023-06-06T07:08:09+03:00", result.toString());
+	}
+
+	@Test
+	public void toInstant() {
+		ZoneId zone = ZoneId.of("Europe/Athens");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(2023, 6, 6, 7, 8, 9, 0, zone);
+		Instant result = zonedDateTime.toInstant();
+		System.out.println(result);
+		assertEquals("2023-06-06T04:08:09Z", result.toString());
+	}	
 }
