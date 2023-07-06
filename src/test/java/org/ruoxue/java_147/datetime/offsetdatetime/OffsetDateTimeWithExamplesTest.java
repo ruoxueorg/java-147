@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.time.Instant;
 import java.time.OffsetDateTime;
+import java.time.OffsetTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -110,5 +111,23 @@ public class OffsetDateTimeWithExamplesTest {
 		result = offsetDateTime.truncatedTo(ChronoUnit.MILLIS);
 		System.out.println(result);
 		assertEquals("2023-12-25T05:04:03.123+02:00", result.toString());
+	}
+
+	@Test
+	public void toOffsetDateTime() {
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		OffsetTime result = offsetDateTime.toOffsetTime();
+		System.out.println(result);
+		assertEquals("05:04:03+02:00", result.toString());
+	}
+
+	@Test
+	public void toInstant() {
+		ZoneOffset offset = ZoneOffset.ofHours(2);
+		OffsetDateTime offsetDateTime = OffsetDateTime.of(2023, 12, 25, 5, 4, 3, 0, offset);
+		Instant result = offsetDateTime.toInstant();
+		System.out.println(result);
+		assertEquals("2023-12-25T03:04:03Z", result.toString());
 	}
 }
