@@ -2,6 +2,7 @@ package org.ruoxue.java_147.datetime.offsettime;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalTime;
 import java.time.OffsetTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -39,68 +40,53 @@ public class OffsetTimeWithExamplesTest {
 		offsetTime = OffsetTime.parse("06:01:04.123456789-05:00");
 		System.out.println(offsetTime);
 		assertEquals("06:01:04.123456789-05:00", offsetTime.toString());
-
-		offsetTime = OffsetTime.parse("06-01-04.123", DateTimeFormatter.ofPattern("HH-mm-ss.SSS"));
-		System.out.println(offsetTime);
-		assertEquals("06:01:04.123-05:00", offsetTime.toString());
 	}
 
 	@Test
 	public void from() {
-		OffsetTime offsetTime = OffsetTime.parse("06:01:04.123456789");
+		OffsetTime offsetTime = OffsetTime.parse("06:01:04.123456789-05:00");
 		OffsetTime result = OffsetTime.from(offsetTime);
 		System.out.println(result);
-		assertEquals("06:01:04.123456789", result.toString());
+		assertEquals("06:01:04.123456789-05:00", result.toString());
 
-		offsetTime = OffsetTime.parse("06:01:04.123");
-		ZoneOffset zoneOffset = ZoneOffset.of("+01:00");
-		OffsetTime offsetTime = OffsetTime.of(offsetTime, zoneOffset);
-		System.out.println(offsetTime);
-		result = OffsetTime.from(offsetTime);
-		System.out.println(result);
-		assertEquals("06:01:04.123", result.toString());
-
-		ZonedDateTime zonedDateTime = ZonedDateTime.parse("2023-12-25T06:01:04+01:00[Europe/London]");
+		ZonedDateTime zonedDateTime = ZonedDateTime.parse("2023-11-11T06:01:04-05:00[Brazil/Acre]");
 		result = OffsetTime.from(zonedDateTime);
+		System.out.println(result);
+		assertEquals("06:01:04-05:00", result.toString());
+	}
+
+	@Test
+	public void toLocalTime() {
+		ZoneOffset offset = ZoneOffset.ofHours(-5);
+		OffsetTime offsetTime = OffsetTime.of(6, 1, 4, 0, offset);
+		LocalTime result = offsetTime.toLocalTime();
 		System.out.println(result);
 		assertEquals("06:01:04", result.toString());
 	}
 
 	@Test
-	public void toSecondOfDay() {
-		OffsetTime offsetTime = OffsetTime.of(9, 12, 5);
-		long result = offsetTime.toSecondOfDay();
-		System.out.println(result);
-		assertEquals(33125L, result);
-	}
-
-	@Test
-	public void ofSecondOfDay() {
-		OffsetTime offsetTime = OffsetTime.ofSecondOfDay(33125);
+	public void ofLocalTime() {
+		ZoneOffset offset = ZoneOffset.ofHours(-5);
+		LocalTime localTime = LocalTime.of(6, 1, 4);
+		OffsetTime offsetTime = OffsetTime.of(localTime, offset);
 		System.out.println(offsetTime);
-		assertEquals("06:01:04", offsetTime.toString());
-	}
-
-	@Test
-	public void ofNanoOfDay() {
-		OffsetTime offsetTime = OffsetTime.ofNanoOfDay(33125123456789L);
-		System.out.println(offsetTime);
-		assertEquals("06:01:04.123456789", offsetTime.toString());
+		assertEquals("06:01:04-05:00", offsetTime.toString());
 	}
 
 	@Test
 	public void truncatedTo() {
-		OffsetTime offsetTime = OffsetTime.of(9, 12, 5, 123456789);
+		ZoneOffset offset = ZoneOffset.ofHours(-5);
+		OffsetTime offsetTime = OffsetTime.of(6, 1, 4, 123456789, offset);
 		OffsetTime result = offsetTime.truncatedTo(ChronoUnit.HOURS);
 		System.out.println(result);
-		assertEquals("09:00", result.toString());
+		assertEquals("06:00-05:00", result.toString());
 
 		result = offsetTime.truncatedTo(ChronoUnit.MINUTES);
 		System.out.println(result);
-		assertEquals("09:12", result.toString());
+		assertEquals("06:01-05:00", result.toString());
 
 		result = offsetTime.truncatedTo(ChronoUnit.MILLIS);
 		System.out.println(result);
-		assertEquals("06:01:04.123", result.toString());
+		assertEquals("06:01:04.123-05:00", result.toString());
 	}
 }
