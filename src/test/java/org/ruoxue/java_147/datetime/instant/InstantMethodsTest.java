@@ -120,4 +120,33 @@ public class InstantMethodsTest {
 		System.out.println(result);
 		assertEquals(1694491506000L, result);
 	}
+
+	@Test
+	public void nano() {
+		Instant instant = Instant.now();
+		// System.out.println(instant.getEpochSecond());
+		// System.out.println(instant.getNano());
+
+		for (int i = 0; i < 10; i++) {
+			long mills = System.currentTimeMillis();
+			// System.out.println(mills);
+			// long EPOCH_NANOS = mills * 1_000_000;
+
+			// 1689946842000000000
+			long EPOCH_NANOS = instant.getEpochSecond() * 1_000_000_000;
+			System.out.println(EPOCH_NANOS);
+
+			long NANO_START = System.nanoTime();
+			// 3097711466352414
+			System.out.println(NANO_START);
+
+			// EPOCH_NANOS*1_000_000-System.nanoTime()
+			long OFFSET_NANOS = EPOCH_NANOS - NANO_START;
+			// System.out.println(OFFSET_NANOS);
+
+			long nano = System.nanoTime() + OFFSET_NANOS;
+			// System.out.println(nano);
+		}
+	}
+
 }
