@@ -122,40 +122,4 @@ public class InstantMethodsTest {
 		System.out.println(result);
 		assertEquals(1694491506000L, result);
 	}
-
-	@Test
-	public void nano() {
-//		LocalDateTime localDateTime = LocalDateTime.of(1970, 1, 1, 0, 0, 0, 0);
-//		long e = localDateTime.toEpochSecond(ZoneOffset.of("+00:00"));
-//		System.out.println(e);
-//		Instant instant = Instant.now();
-//		System.out.println(instant.getEpochSecond());
-		// System.out.println(instant.getNano());
-
-		for (int i = 0; i < 100000; i++) {
-			Instant instant = Instant.now();
-			//long mills = System.currentTimeMillis();
-			// System.out.println(mills);
-			// long EPOCH_NANOS = mills * 1_000_000;
-
-			// 1689946842000000000
-			long EPOCH_NANOS = instant.getEpochSecond() * 1_000_000_000;
-			//System.out.println(EPOCH_NANOS);
-
-			// 約為 1/1000000 秒
-			// 返回的值是當前時間與 UTC 時間 1970 年 1 月 1 日午夜之間的差值（以納秒為單位）。
-			long NANO_START = System.nanoTime();
-			// 3097711466352414
-			System.out.println(NANO_START);
-			//System.out.println(NANO_START / 1_000_000_000);
-
-			// EPOCH_NANOS*1_000_000-System.nanoTime()
-			long OFFSET_NANOS = EPOCH_NANOS - NANO_START;
-			System.out.println(OFFSET_NANOS);
-
-			//long nano = System.nanoTime() + OFFSET_NANOS;
-			// System.out.println(nano);
-		}
-	}
-
 }
