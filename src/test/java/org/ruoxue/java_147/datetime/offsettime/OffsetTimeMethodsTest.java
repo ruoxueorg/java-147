@@ -139,7 +139,6 @@ public class OffsetTimeMethodsTest {
 	public void toLocalTime() {
 		ZoneOffset offset = ZoneOffset.ofHours(-5);
 		OffsetTime offsetTime = OffsetTime.of(6, 1, 4, 0, offset);
-		System.out.println(offsetTime);
 		LocalTime result = offsetTime.toLocalTime();
 		System.out.println(result);
 		assertEquals("06:01:04", result.toString());
