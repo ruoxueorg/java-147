@@ -14,7 +14,7 @@ import org.junit.Test;
 public class DateToLocalDateTime {
 
 	@Test
-	public void toLocalDateTimeWithToInstant() {
+	public void toLocalDate() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2023, 3, 4, 0, 0, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
