@@ -2,6 +2,11 @@ package org.ruoxue.java_147.collector;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.DoubleSummaryStatistics;
+import java.util.IntSummaryStatistics;
+import java.util.List;
+import java.util.LongSummaryStatistics;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -38,34 +43,98 @@ public class CollectorsClassTest {
 			builder.append("type", type);
 			return builder.toString();
 		}
-	}	
-	
+	}
+
 	@Test
 	public void averagingInt() {
-		Collectors.averagingInt(null);
+		List<Integer> list = Arrays.asList(1, 2, 3);
+		Double result = list.stream().collect(Collectors.averagingInt(e -> e));
+		System.out.println(result);
+		assertEquals(2.00, result.doubleValue(), 2);
+
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1));
+		Double fruitResult = fruitList.stream().collect(Collectors.averagingInt(e -> e.getName().length()));
+		System.out.println(fruitResult);
+		assertEquals(5.66, fruitResult.doubleValue(), 2);
 	}
 
 	@Test
 	public void averagingLong() {
+		List<Long> list = Arrays.asList(1L, 2L, 3L);
+		Double result = list.stream().collect(Collectors.averagingLong(e -> e));
+		System.out.println(result);
+		assertEquals(2.00, result.doubleValue(), 2);
+
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1));
+		Double fruitResult = fruitList.stream().collect(Collectors.averagingLong(e -> e.getType()));
+		System.out.println(fruitResult);
+		assertEquals(1.66, fruitResult.doubleValue(), 2);
 	}
 
 	@Test
 	public void averagingDouble() {
+		List<Double> list = Arrays.asList(1d, 2d, 3d);
+		Double result = list.stream().collect(Collectors.averagingDouble(e -> e));
+		System.out.println(result);
+		assertEquals(2.00, result.doubleValue(), 2);
+
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1));
+		Double fruitResult = fruitList.stream().collect(Collectors.averagingDouble(e -> e.getQuantity()));
+		System.out.println(fruitResult);
+		assertEquals(5.992310449541053E307, fruitResult.doubleValue(), 2);
 	}
 
 	@Test
 	public void summarizingInt() {
-		Collectors.summarizingInt(null);
+		List<Integer> list = Arrays.asList(1, 2, 3);
+		IntSummaryStatistics result = list.stream().collect(Collectors.summarizingInt(e -> e));
+		System.out.println(result);
+		assertEquals(2.00, result.getAverage(), 2);
+		assertEquals(6, result.getSum());
+
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
+				new Fruit("Fig", 3, 1));
+		IntSummaryStatistics fruitResult = fruitList.stream()
+				.collect(Collectors.summarizingInt(e -> e.getName().length()));
+		System.out.println(fruitResult);
+		assertEquals(5.66, fruitResult.getAverage(), 2);
+		assertEquals(17, fruitResult.getSum());
 	}
 
 	@Test
 	public void summarizingLong() {
-		Collectors.summarizingLong(null);
+		List<Long> list = Arrays.asList(1L, 2L, 3L);
+		LongSummaryStatistics result = list.stream().collect(Collectors.summarizingLong(e -> e));
+		System.out.println(result);
+		assertEquals(2.00, result.getAverage(), 2);
+		assertEquals(6, result.getSum());
+
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
+				new Fruit("Fig", 3, 1));
+		LongSummaryStatistics fruitResult = fruitList.stream().collect(Collectors.summarizingLong(e -> e.getType()));
+		System.out.println(fruitResult);
+		assertEquals(1.66, fruitResult.getAverage(), 2);
+		assertEquals(5, fruitResult.getSum());
 	}
 
 	@Test
 	public void summarizingDouble() {
-		Collectors.summarizingDouble(null);
+		List<Double> list = Arrays.asList(1d, 2d, 3d);
+		DoubleSummaryStatistics result = list.stream().collect(Collectors.summarizingDouble(e -> e));
+		System.out.println(result);
+		assertEquals(2.00, result.getAverage(), 2);
+		assertEquals(6.00, result.getSum(), 2);
+
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
+				new Fruit("Fig", 3, 1));
+		DoubleSummaryStatistics fruitResult = fruitList.stream()
+				.collect(Collectors.summarizingDouble(e -> e.getQuantity()));
+		System.out.println(fruitResult);
+		assertEquals(2.00d, fruitResult.getAverage(), 2);
+		assertEquals(6.00d, fruitResult.getSum(), 2);
 	}
 
 }
