@@ -98,7 +98,7 @@ public class CollectorsMethodsTest {
 		System.out.println(result);
 		assertEquals(1, result.get(Boolean.FALSE).size());
 		assertEquals(2, result.get(Boolean.TRUE).size());
-		
+
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", 3, 3),
 				new Fruit("Fig", 2, 1));
 		Map<Boolean, List<Fruit>> fruitResult = fruitList.stream()
