@@ -85,7 +85,8 @@ public class CollectorsMethodsTest {
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", 3, 3),
 				new Fruit("Fig", 2, 1));
-		Map<Integer, List<Fruit>> fruitResult = fruitList.stream().collect(Collectors.groupingBy(Fruit::getType));
+		Map<Integer, List<Fruit>> fruitResult = fruitList.stream()
+				.collect(Collectors.groupingBy(Fruit::getType, Collectors.toList()));
 		System.out.println(fruitResult);
 		assertEquals(2, fruitResult.get(1).size());
 		assertEquals(1, fruitResult.get(3).size());
@@ -102,7 +103,7 @@ public class CollectorsMethodsTest {
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", 3, 3),
 				new Fruit("Fig", 2, 1));
 		Map<Boolean, List<Fruit>> fruitResult = fruitList.stream()
-				.collect(Collectors.partitioningBy(e -> e.getName().length() > 3));
+				.collect(Collectors.partitioningBy(e -> e.getName().length() > 3, Collectors.toList()));
 		System.out.println(fruitResult);
 		assertEquals(1, fruitResult.get(Boolean.FALSE).size());
 		assertEquals(2, fruitResult.get(Boolean.TRUE).size());
