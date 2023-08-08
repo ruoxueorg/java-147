@@ -16,7 +16,7 @@ public class DateToLocalDate {
 	@Test
 	public void toLocalDate() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(2023, 3, 4);
+		calendar.set(2023, 3, 4, 0, 0, 0);
 		Date date = calendar.getTime();
 
 		ZoneId zone = ZoneId.of("Asia/Sakhalin");
@@ -28,7 +28,7 @@ public class DateToLocalDate {
 	@Test
 	public void toLocalDateWithOfEpochMilli() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(2023, 3, 4);
+		calendar.set(2023, 3, 4, 0, 0, 0);
 		Date date = calendar.getTime();
 
 		ZoneId zone = ZoneId.of("Asia/Sakhalin");
@@ -51,7 +51,7 @@ public class DateToLocalDate {
 	}
 
 	@Test
-	public void toLocalDateWithSqlDate() {
+	public void sqlDateToLocalDate() {
 		java.sql.Date sqlDate = java.sql.Date.valueOf("2023-04-04");
 		LocalDate localDate = sqlDate.toLocalDate();
 		System.out.println(localDate);
