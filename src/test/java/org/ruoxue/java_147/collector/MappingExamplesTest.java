@@ -46,42 +46,56 @@ public class MappingExamplesTest {
 	}
 
 	@Test
-	public void mappingWithCounting() {
-		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
+	public void withCounting() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
 		Map<Integer, Long> result = list.stream().collect(
-				Collectors.groupingBy(Fruit::getType, Collectors.mapping(Function.identity(), Collectors.counting())));
-
-		System.out.println(result);
-		assertEquals(2, result.size());
-	}
-
-	@Test
-	public void mappingWithJoining() {
-		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
-		String result = list.stream().collect(Collectors.mapping(Fruit::getName, Collectors.joining(", ", "(", ")")));
-		System.out.println(result);
-		assertEquals("(Blueberry, Melon, Fig)", result);
-	}
-
-	@Test
-	public void mappingWithSummarizingInt() {
-		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
-		IntSummaryStatistics result = list.stream()
-				.collect(Collectors.mapping(e -> e.name.length(), Collectors.summarizingInt(e -> e)));
-		System.out.println(result);
-		assertEquals(5.66, result.getAverage(), 2);
-		assertEquals(17, result.getSum());
-	}
-
-	@Test
-	public void mappingWithToList() {
-		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
-		List<Double> result = list.stream().collect(Collectors.mapping(Fruit::getQuantity, Collectors.toList()));
+				Collectors.groupingBy(String::length, Collectors.mapping(Function.identity(), Collectors.counting())));
 		System.out.println(result);
 		assertEquals(3, result.size());
+
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1));
+		Map<Integer, Long> fruitResult = fruitList.stream().collect(
+				Collectors.groupingBy(Fruit::getType, Collectors.mapping(Function.identity(), Collectors.counting())));
+
+		System.out.println(fruitResult);
+		assertEquals(2, fruitResult.size());
+	}
+
+	@Test
+	public void withJoining() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
+		Map<Integer, String> result = list.stream().collect(Collectors.groupingBy(String::length,
+				Collectors.mapping(Function.identity(), Collectors.joining(", "))));
+		System.out.println(result);
+		assertEquals(3, result.size());
+
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1));
+		String fruitResult = fruitList.stream()
+				.collect(Collectors.mapping(Fruit::getName, Collectors.joining(", ", "(", ")")));
+		System.out.println(fruitResult);
+		assertEquals("(Blueberry, Melon, Fig)", fruitResult);
+	}
+
+	@Test
+	public void withSummarizingInt() {
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1));
+		IntSummaryStatistics fruitResult = fruitList.stream()
+				.collect(Collectors.mapping(e -> e.name.length(), Collectors.summarizingInt(e -> e)));
+		System.out.println(fruitResult);
+		assertEquals(5.66, fruitResult.getAverage(), 2);
+		assertEquals(17, fruitResult.getSum());
+	}
+
+	@Test
+	public void withToList() {
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1));
+		List<Double> fruitResult = fruitList.stream()
+				.collect(Collectors.mapping(Fruit::getQuantity, Collectors.toList()));
+		System.out.println(fruitResult);
+		assertEquals(3, fruitResult.size());
 	}
 }
