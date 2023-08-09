@@ -101,9 +101,9 @@ public class CollectorsMappingTest {
 	public void mappingWithJoining() {
 		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
-		String result = list.stream().collect(Collectors.mapping(Fruit::getName, Collectors.joining(", ", "[", "]")));
+		String result = list.stream().collect(Collectors.mapping(Fruit::getName, Collectors.joining(", ", "(", ")")));
 		System.out.println(result);
-		assertEquals("[Blueberry, Melon, Fig]", result);
+		assertEquals("(Blueberry, Melon, Fig)", result);
 	}
 
 	@Test
