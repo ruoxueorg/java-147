@@ -51,7 +51,7 @@ public class DateToLocalDate {
 	}
 
 	@Test
-	public void sqlDateToLocalDate() {
+	public void toLocalDateWithValueOf() {
 		java.sql.Date sqlDate = java.sql.Date.valueOf("2023-04-04");
 		LocalDate localDate = sqlDate.toLocalDate();
 		System.out.println(localDate);
