@@ -3,10 +3,11 @@ package org.ruoxue.java_147.collector;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
-import java.util.DoubleSummaryStatistics;
 import java.util.IntSummaryStatistics;
 import java.util.List;
-import java.util.LongSummaryStatistics;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -46,95 +47,82 @@ public class CollectorsMappingTest {
 	}
 
 	@Test
-	public void averagingInt() {
-		List<Integer> list = Arrays.asList(1, 2, 3);
-		Double result = list.stream().collect(Collectors.averagingInt(e -> e));
-		System.out.println(result);
-		assertEquals(2.00, result.doubleValue(), 2);
-
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+	public void mappingWithMaxBy() {
+		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
-		Double fruitResult = fruitList.stream().collect(Collectors.averagingInt(e -> e.getName().length()));
-		System.out.println(fruitResult);
-		assertEquals(5.66, fruitResult.doubleValue(), 2);
+		Optional<Double> result = list.stream()
+				.collect(Collectors.mapping(Fruit::getQuantity, Collectors.maxBy(Double::compareTo)));
+		System.out.println(result);
+		assertEquals(Double.MAX_VALUE, result.get(), 0);
 	}
 
 	@Test
-	public void averagingLong() {
-		List<Long> list = Arrays.asList(1L, 2L, 3L);
-		Double result = list.stream().collect(Collectors.averagingLong(e -> e));
-		System.out.println(result);
-		assertEquals(2.00, result.doubleValue(), 2);
-
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+	public void mappingWithMinBy() {
+		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
-		Double fruitResult = fruitList.stream().collect(Collectors.averagingLong(e -> e.getType()));
-		System.out.println(fruitResult);
-		assertEquals(1.66, fruitResult.doubleValue(), 2);
+		Optional<Integer> result = list.stream()
+				.collect(Collectors.mapping(e -> e.name.length(), Collectors.minBy(Integer::compareTo)));
+		System.out.println(result);
+		assertEquals(3, result.get().intValue());
 	}
 
 	@Test
-	public void averagingDouble() {
-		List<Double> list = Arrays.asList(1d, 2d, 3d);
-		Double result = list.stream().collect(Collectors.averagingDouble(e -> e));
-		System.out.println(result);
-		assertEquals(2.00, result.doubleValue(), 2);
-
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+	public void mappingWithGroupingBy() {
+		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
-		Double fruitResult = fruitList.stream().collect(Collectors.averagingDouble(e -> e.getQuantity()));
-		System.out.println(fruitResult);
-		assertEquals(5.992310449541053E307, fruitResult.doubleValue(), 2);
+		Map<Integer, List<Double>> result = list.stream().collect(
+				Collectors.groupingBy(Fruit::getType, Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
+		System.out.println(result);
+		assertEquals(2, result.size());
 	}
 
 	@Test
-	public void summarizingInt() {
-		List<Integer> list = Arrays.asList(1, 2, 3);
-		IntSummaryStatistics result = list.stream().collect(Collectors.summarizingInt(e -> e));
-		System.out.println(result);
-		assertEquals(2.00, result.getAverage(), 2);
-		assertEquals(6, result.getSum());
-
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
+	public void mappingWithPartitioningBy() {
+		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
-		IntSummaryStatistics fruitResult = fruitList.stream()
-				.collect(Collectors.summarizingInt(e -> e.getName().length()));
-		System.out.println(fruitResult);
-		assertEquals(5.66, fruitResult.getAverage(), 2);
-		assertEquals(17, fruitResult.getSum());
+		Map<Boolean, List<Double>> result = list.stream().collect(Collectors.partitioningBy(e -> e.name.length() > 5,
+				Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
+		System.out.println(result);
+		assertEquals(2, result.size());
 	}
 
 	@Test
-	public void summarizingLong() {
-		List<Long> list = Arrays.asList(1L, 2L, 3L);
-		LongSummaryStatistics result = list.stream().collect(Collectors.summarizingLong(e -> e));
-		System.out.println(result);
-		assertEquals(2.00, result.getAverage(), 2);
-		assertEquals(6, result.getSum());
-
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
+	public void mappingWithCounting() {
+		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
-		LongSummaryStatistics fruitResult = fruitList.stream().collect(Collectors.summarizingLong(e -> e.getType()));
-		System.out.println(fruitResult);
-		assertEquals(1.66, fruitResult.getAverage(), 2);
-		assertEquals(5, fruitResult.getSum());
+		Map<Integer, Long> result = list.stream().collect(
+				Collectors.groupingBy(Fruit::getType, Collectors.mapping(Function.identity(), Collectors.counting())));
+
+		System.out.println(result);
+		assertEquals(2, result.size());
 	}
 
 	@Test
-	public void summarizingDouble() {
-		List<Double> list = Arrays.asList(1d, 2d, 3d);
-		DoubleSummaryStatistics result = list.stream().collect(Collectors.summarizingDouble(e -> e));
-		System.out.println(result);
-		assertEquals(2.00, result.getAverage(), 2);
-		assertEquals(6.00, result.getSum(), 2);
-
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
+	public void mappingWithJoining() {
+		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
-		DoubleSummaryStatistics fruitResult = fruitList.stream()
-				.collect(Collectors.summarizingDouble(e -> e.getQuantity()));
-		System.out.println(fruitResult);
-		assertEquals(2.00d, fruitResult.getAverage(), 2);
-		assertEquals(6.00d, fruitResult.getSum(), 2);
+		String result = list.stream().collect(Collectors.mapping(Fruit::getName, Collectors.joining(", ", "[", "]")));
+		System.out.println(result);
+		assertEquals("[Blueberry, Melon, Fig]", result);
 	}
 
+	@Test
+	public void mappingWithSummarizingInt() {
+		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1));
+		IntSummaryStatistics result = list.stream()
+				.collect(Collectors.mapping(e -> e.name.length(), Collectors.summarizingInt(e -> e)));
+		System.out.println(result);
+		assertEquals(5.66, result.getAverage(), 2);
+		assertEquals(17, result.getSum());
+	}
+
+	@Test
+	public void mappingWithToList() {
+		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1));
+		List<Double> result = list.stream().collect(Collectors.mapping(Fruit::getQuantity, Collectors.toList()));
+		System.out.println(result);
+		assertEquals(3, result.size());
+	}
 }
