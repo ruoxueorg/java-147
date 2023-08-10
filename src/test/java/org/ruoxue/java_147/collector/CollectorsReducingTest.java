@@ -88,11 +88,11 @@ public class CollectorsReducingTest {
 
 	@Test
 	public void withGroupingBy() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava");
+		List<String> list = Arrays.asList("Blueberry", "Guava", "Melon", "Fig");
 		Comparator<String> comparator = Comparator.comparing(String::length);
 		BinaryOperator<String> binaryOperator = BinaryOperator.maxBy(comparator);
 		Map<Integer, String> result = list.stream()
-				.collect(Collectors.groupingBy(String::length, Collectors.reducing("DEFAULT", binaryOperator)));
+				.collect(Collectors.groupingBy(String::length, Collectors.reducing("", binaryOperator)));
 		System.out.println(result);
 		assertEquals("Blueberry", result.get(9));
 
@@ -100,8 +100,8 @@ public class CollectorsReducingTest {
 				new Fruit("Fig", 3, 1));
 		Comparator<Fruit> fruitComparator = Comparator.comparing(Fruit::getQuantity);
 		BinaryOperator<Fruit> fruitBinaryOperator = BinaryOperator.maxBy(fruitComparator);
-		Map<Integer, Fruit> fruitResult = fruitList.stream().collect(Collectors.groupingBy(Fruit::getType,
-				Collectors.reducing(new Fruit("DEFAULT", 0d, 1), fruitBinaryOperator)));
+		Map<Integer, Fruit> fruitResult = fruitList.stream().collect(
+				Collectors.groupingBy(Fruit::getType, Collectors.reducing(new Fruit("", 0d, 0), fruitBinaryOperator)));
 		System.out.println(fruitResult);
 		assertEquals(2, fruitResult.size());
 	}
