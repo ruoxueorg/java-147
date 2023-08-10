@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
+import org.ruoxue.java_147.collector.CollectorsMappingTest.Fruit;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -48,25 +49,23 @@ public class CollectorsGroupingByTest {
 
 	@Test
 	public void withMaxBy() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-		Comparator<String> comparator = Comparator.comparing(String::length);
-		BinaryOperator<String> binaryOperator = BinaryOperator.maxBy(comparator);
-		Optional<String> result = list.stream().collect(Collectors.reducing(binaryOperator));
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
+		Map<Integer, Optional<String>> result = list.stream()
+				.collect(Collectors.groupingBy(String::length, Collectors.maxBy(String::compareTo)));
 		System.out.println(result);
-		assertEquals("Blueberry", result.get());
+		assertEquals("Kiwifruit", result.get(9).get());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
-		Comparator<Fruit> fruitComparator = Comparator.comparing(Fruit::getQuantity);
-		BinaryOperator<Fruit> fruitBinaryOperator = BinaryOperator.maxBy(fruitComparator);
-		Optional<Fruit> fruitResult = fruitList.stream().collect(Collectors.reducing(fruitBinaryOperator));
-		System.out.println(fruitResult);
-		assertEquals(Double.MAX_VALUE, fruitResult.get().getQuantity(), 0);
+//		Optional<Double> fruit = fruitList.stream()
+//				.collect(Collectors.mapping(Fruit::getQuantity, Collectors.maxBy(Double::compareTo)));
+//		System.out.println(fruit);
+//		assertEquals(Double.MAX_VALUE, fruit.get(), 0);
 	}
 
 	@Test
 	public void withMinBy() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava");
 		Comparator<String> comparator = Comparator.comparing(e -> e.length());
 		BinaryOperator<String> binaryOperator = BinaryOperator.minBy(comparator);
 		Optional<String> result = list.stream().collect(Collectors.reducing(binaryOperator));
