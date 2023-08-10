@@ -78,6 +78,14 @@ public class CollectorsMappingTest {
 
 	@Test
 	public void withGroupingBy() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
+		Map<Integer, List<String>> result = list.stream().collect(
+				Collectors.groupingBy(String::length, Collectors.mapping(e -> e.toUpperCase(), Collectors.toList())));
+		System.out.println(result);
+		assertEquals(1, result.get(3).size());
+		assertEquals(1, result.get(5).size());
+		assertEquals(1, result.get(9).size());
+
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
 		Map<Integer, List<Double>> fruitResult = fruitList.stream().collect(
@@ -88,10 +96,17 @@ public class CollectorsMappingTest {
 
 	@Test
 	public void withPartitioningBy() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
+		Map<Boolean, List<String>> result = list.stream().collect(Collectors.partitioningBy(e -> e.length() > 3,
+				Collectors.mapping(e -> e.toUpperCase(), Collectors.toList())));
+		System.out.println(result);
+		assertEquals(1, result.get(Boolean.FALSE).size());
+		assertEquals(2, result.get(Boolean.TRUE).size());
+
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
 		Map<Boolean, List<Double>> fruitResult = fruitList.stream().collect(Collectors
-				.partitioningBy(e -> e.name.length() > 5, Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
+				.partitioningBy(e -> e.name.length() > 3, Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
 		System.out.println(fruitResult);
 		assertEquals(2, fruitResult.size());
 	}
