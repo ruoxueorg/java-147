@@ -66,7 +66,7 @@ public class MappingExamplesTest {
 	public void withJoining() {
 		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
 		Map<Integer, String> result = list.stream().collect(Collectors.groupingBy(String::length,
-				Collectors.mapping(Function.identity(), Collectors.joining(", "))));
+				Collectors.mapping(Function.identity(), Collectors.joining("", "(", ")"))));
 		System.out.println(result);
 		assertEquals(3, result.size());
 
@@ -80,6 +80,13 @@ public class MappingExamplesTest {
 
 	@Test
 	public void withSummarizingInt() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
+		IntSummaryStatistics result = list.stream()
+				.collect(Collectors.mapping(e -> e.length() * e.length(), Collectors.summarizingInt(e -> e)));
+		System.out.println(result);
+		assertEquals(38.33, result.getAverage(), 2);
+		assertEquals(115, result.getSum());
+
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
 		IntSummaryStatistics fruitResult = fruitList.stream()
@@ -91,6 +98,11 @@ public class MappingExamplesTest {
 
 	@Test
 	public void withToList() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
+		List<Integer> result = list.stream().collect(Collectors.mapping(String::length, Collectors.toList()));
+		System.out.println(result);
+		assertEquals(3, result.size());
+
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
 		List<Double> fruitResult = fruitList.stream()
