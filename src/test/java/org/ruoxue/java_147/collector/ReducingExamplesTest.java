@@ -3,10 +3,8 @@ package org.ruoxue.java_147.collector;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
-import java.util.IntSummaryStatistics;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -46,68 +44,50 @@ public class ReducingExamplesTest {
 	}
 
 	@Test
-	public void withCounting() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-		Map<Integer, Long> result = list.stream().collect(
-				Collectors.groupingBy(String::length, Collectors.mapping(Function.identity(), Collectors.counting())));
+	public void withBinaryOperator() {
+		List<Integer> list = Arrays.asList(1, 2, 3);
+		Optional<Integer> result = list.stream().collect(Collectors.reducing(Integer::sum));
 		System.out.println(result);
-		assertEquals(3, result.size());
+		assertEquals(6, result.get().intValue());
 
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
 				new Fruit("Fig", 3, 1));
-		Map<Integer, Long> fruitResult = fruitList.stream().collect(
-				Collectors.groupingBy(Fruit::getType, Collectors.mapping(Function.identity(), Collectors.counting())));
-
+		Optional<Fruit> fruitResult = fruitList.stream().collect(Collectors.reducing((p, c) -> {
+			c.setQuantity(p.getQuantity() + c.getQuantity());
+			return c;
+		}));
 		System.out.println(fruitResult);
-		assertEquals(2, fruitResult.size());
+		assertEquals(6, fruitResult.get().getQuantity(), 0);
 	}
 
 	@Test
-	public void withJoining() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-		Map<Integer, String> result = list.stream().collect(Collectors.groupingBy(String::length,
-				Collectors.mapping(Function.identity(), Collectors.joining("", "(", ")"))));
+	public void withIdentity() {
+		List<Integer> list = Arrays.asList(1, 2, 3);
+		Integer result = list.stream().collect(Collectors.reducing(100, (p, c) -> p + c));
 		System.out.println(result);
-		assertEquals(3, result.size());
+		assertEquals(106, result.intValue());
 
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
 				new Fruit("Fig", 3, 1));
-		String fruitResult = fruitList.stream()
-				.collect(Collectors.mapping(Fruit::getName, Collectors.joining(", ", "(", ")")));
+		Fruit fruitResult = fruitList.stream().collect(Collectors.reducing(new Fruit("", 100d, 1), (p, c) -> {
+			c.setQuantity(p.getQuantity() + c.getQuantity());
+			return c;
+		}));
 		System.out.println(fruitResult);
-		assertEquals("(Blueberry, Melon, Fig)", fruitResult);
+		assertEquals(106, fruitResult.getQuantity(), 0);
 	}
 
 	@Test
-	public void withSummarizingInt() {
+	public void withMapper() {
 		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-		IntSummaryStatistics result = list.stream()
-				.collect(Collectors.mapping(e -> e.length() * e.length(), Collectors.summarizingInt(e -> e)));
+		Integer result = list.stream().collect(Collectors.reducing(0, String::length, Integer::sum));
 		System.out.println(result);
-		assertEquals(38.33, result.getAverage(), 2);
-		assertEquals(115, result.getSum());
+		assertEquals(17, result.intValue());
 
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
 				new Fruit("Fig", 3, 1));
-		IntSummaryStatistics fruitResult = fruitList.stream()
-				.collect(Collectors.mapping(e -> e.name.length(), Collectors.summarizingInt(e -> e)));
+		Double fruitResult = fruitList.stream().collect(Collectors.reducing(0d, Fruit::getQuantity, Double::sum));
 		System.out.println(fruitResult);
-		assertEquals(5.66, fruitResult.getAverage(), 2);
-		assertEquals(17, fruitResult.getSum());
-	}
-
-	@Test
-	public void withToList() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-		List<Integer> result = list.stream().collect(Collectors.mapping(String::length, Collectors.toList()));
-		System.out.println(result);
-		assertEquals(3, result.size());
-
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
-		List<Double> fruitResult = fruitList.stream()
-				.collect(Collectors.mapping(Fruit::getQuantity, Collectors.toList()));
-		System.out.println(fruitResult);
-		assertEquals(3, fruitResult.size());
+		assertEquals(6, fruitResult, 0);
 	}
 }
