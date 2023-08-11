@@ -47,8 +47,8 @@ public class GroupingByConcurrentExamplesTest {
 
 	@Test
 	public void withClassification() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
-		Map<Integer, List<String>> result = list.stream().collect(Collectors.groupingByConcurrent(String::length));
+		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+		Map<Integer, List<Integer>> result = list.stream().collect(Collectors.groupingByConcurrent(e -> e % 3));
 		System.out.println(result);
 		assertEquals(3, result.size());
 
@@ -62,8 +62,8 @@ public class GroupingByConcurrentExamplesTest {
 
 	@Test
 	public void withDownstream() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
-		Map<Integer, Long> result = list.stream().collect(Collectors.groupingByConcurrent(String::length,
+		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+		Map<Integer, Long> result = list.stream().collect(Collectors.groupingByConcurrent(e -> e % 3,
 				Collectors.mapping(Function.identity(), Collectors.counting())));
 		System.out.println(result);
 		assertEquals(3, result.size());
@@ -79,13 +79,13 @@ public class GroupingByConcurrentExamplesTest {
 
 	@Test
 	public void withSupplier() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
-		Map<Integer, List<String>> result = list.stream().collect(Collectors.groupingByConcurrent(String::length,
-				ConcurrentHashMap::new, Collectors.mapping(String::toUpperCase, Collectors.toList())));
+		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+		Map<Integer, List<Integer>> result = list.stream().collect(Collectors.groupingByConcurrent(e -> e % 3,
+				ConcurrentHashMap::new, Collectors.mapping(e -> e * e, Collectors.toList())));
 		System.out.println(result);
-		assertEquals(1, result.get(3).size());
-		assertEquals(2, result.get(5).size());
-		assertEquals(2, result.get(9).size());
+		assertEquals(1, result.get(0).size());
+		assertEquals(2, result.get(1).size());
+		assertEquals(2, result.get(2).size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
