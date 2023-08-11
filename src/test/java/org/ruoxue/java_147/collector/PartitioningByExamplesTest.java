@@ -2,16 +2,15 @@ package org.ruoxue.java_147.collector;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
-import org.ruoxue.java_147.collector.MappingExamplesTest.Fruit;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -90,6 +89,23 @@ public class PartitioningByExamplesTest {
 				new Fruit("Fig", 3, 1));
 		Map<Boolean, Long> fruitResult = fruitList.stream()
 				.collect(Collectors.partitioningBy(e -> e.type > 1, Collectors.counting()));
+
+		System.out.println(fruitResult);
+		assertEquals(2, fruitResult.size());
+	}
+
+	@Test
+	public void withReducing() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
+		Map<Boolean, Integer> result = list.stream().collect(
+				Collectors.partitioningBy(e -> e.length() > 3, Collectors.reducing(0, String::length, Integer::sum)));
+		System.out.println(result);
+		assertEquals(2, result.size());
+
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
+				new Fruit("Fig", 3, 1));
+		Map<Boolean, BigDecimal> fruitResult = fruitList.stream().collect(Collectors.partitioningBy(e -> e.type > 1,
+				Collectors.reducing(BigDecimal.ZERO, e -> new BigDecimal(e.getQuantity()), BigDecimal::add)));
 
 		System.out.println(fruitResult);
 		assertEquals(2, fruitResult.size());
