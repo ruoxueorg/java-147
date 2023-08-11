@@ -4,9 +4,11 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections4.map.LinkedMap;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
@@ -44,50 +46,51 @@ public class GroupingByExamplesTest {
 	}
 
 	@Test
-	public void withBinaryOperator() {
-		List<Integer> list = Arrays.asList(1, 2, 3);
-		Optional<Integer> result = list.stream().collect(Collectors.reducing(Integer::sum));
+	public void withClassification() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
+		Map<Integer, List<String>> result = list.stream().collect(Collectors.groupingBy(String::length));
 		System.out.println(result);
-		assertEquals(6, result.get().intValue());
+		assertEquals(3, result.size());
 
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
-				new Fruit("Fig", 3, 1));
-		Optional<Fruit> fruitResult = fruitList.stream().collect(Collectors.reducing((p, c) -> {
-			c.setQuantity(p.getQuantity() + c.getQuantity());
-			return c;
-		}));
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+		Map<Integer, List<Fruit>> fruitResult = fruitList.stream().collect(Collectors.groupingBy(Fruit::getType));
 		System.out.println(fruitResult);
-		assertEquals(6, fruitResult.get().getQuantity(), 0);
+		assertEquals(3, fruitResult.size());
 	}
 
 	@Test
-	public void withIdentity() {
-		List<Integer> list = Arrays.asList(1, 2, 3);
-		Integer result = list.stream().collect(Collectors.reducing(100, (p, c) -> p + c));
+	public void withDownstream() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
+		Map<Integer, Long> result = list.stream().collect(
+				Collectors.groupingBy(String::length, Collectors.mapping(Function.identity(), Collectors.counting())));
 		System.out.println(result);
-		assertEquals(106, result.intValue());
+		assertEquals(3, result.size());
 
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
-				new Fruit("Fig", 3, 1));
-		Fruit fruitResult = fruitList.stream().collect(Collectors.reducing(new Fruit("", 100d, 1), (p, c) -> {
-			c.setQuantity(p.getQuantity() + c.getQuantity());
-			return c;
-		}));
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+		Map<Integer, Long> fruitResult = fruitList.stream().collect(
+				Collectors.groupingBy(Fruit::getType, Collectors.mapping(Function.identity(), Collectors.counting())));
+
 		System.out.println(fruitResult);
-		assertEquals(106, fruitResult.getQuantity(), 0);
+		assertEquals(3, fruitResult.size());
 	}
 
 	@Test
-	public void withMapper() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-		Integer result = list.stream().collect(Collectors.reducing(0, String::length, Integer::sum));
+	public void withSupplier() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
+		Map<Integer, List<String>> result = list.stream().collect(Collectors.groupingBy(String::length, LinkedMap::new,
+				Collectors.mapping(String::toUpperCase, Collectors.toList())));
 		System.out.println(result);
-		assertEquals(17, result.intValue());
+		assertEquals(1, result.get(3).size());
+		assertEquals(2, result.get(5).size());
+		assertEquals(2, result.get(9).size());
 
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
-				new Fruit("Fig", 3, 1));
-		Double fruitResult = fruitList.stream().collect(Collectors.reducing(0d, Fruit::getQuantity, Double::sum));
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+		Map<Integer, List<Double>> fruitResult = fruitList.stream().collect(Collectors.groupingBy(Fruit::getType,
+				LinkedMap::new, Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
 		System.out.println(fruitResult);
-		assertEquals(6, fruitResult, 0);
+		assertEquals(3, fruitResult.size());
 	}
 }
