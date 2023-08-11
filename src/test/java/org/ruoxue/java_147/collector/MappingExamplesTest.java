@@ -72,10 +72,10 @@ public class MappingExamplesTest {
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
-		String fruitResult = fruitList.stream()
-				.collect(Collectors.mapping(Fruit::getName, Collectors.joining(", ", "(", ")")));
+		Map<Integer, String> fruitResult = fruitList.stream().collect(Collectors.groupingBy(Fruit::getType,
+				Collectors.mapping(Fruit::getName, Collectors.joining(", ", "(", ")"))));
 		System.out.println(fruitResult);
-		assertEquals("(Blueberry, Melon, Fig)", fruitResult);
+		assertEquals(2, fruitResult.size());
 	}
 
 	@Test
