@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.function.BinaryOperator;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -90,20 +91,6 @@ public class CollectorsGroupingByTest {
 	}
 
 	@Test
-	public void withGroupingBy() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
-		Map<Integer, List<String>> result = list.stream().collect(Collectors.groupingBy(String::length));
-		System.out.println(result);
-		assertEquals(3, result.size());
-
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
-		Map<Integer, List<Fruit>> fruitResult = fruitList.stream().collect(Collectors.groupingBy(Fruit::getType));
-		System.out.println(fruitResult);
-		assertEquals(3, fruitResult.size());
-	}
-
-	@Test
 	public void withMapping() {
 		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
 		Map<Integer, List<String>> result = list.stream().collect(Collectors.groupingBy(String::length, TreeMap::new,
@@ -119,5 +106,21 @@ public class CollectorsGroupingByTest {
 				TreeMap::new, Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
 		System.out.println(fruitResult);
 		assertEquals(3, fruitResult.size());
+	}
+
+	@Test
+	public void withJoining() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
+		Map<Integer, String> result = list.stream()
+				.collect(Collectors.groupingBy(String::length, Collectors.joining("", "(", ")")));
+		System.out.println(result);
+		assertEquals(3, result.size());
+
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1));
+		Map<Integer, String> fruitResult = fruitList.stream().collect(Collectors.groupingBy(Fruit::getType,
+				Collectors.mapping(Fruit::getName, Collectors.joining(", ", "(", ")"))));
+		System.out.println(fruitResult);
+		assertEquals(2, fruitResult.size());
 	}
 }
