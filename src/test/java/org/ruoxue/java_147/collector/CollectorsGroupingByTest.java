@@ -4,9 +4,11 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
@@ -89,41 +91,33 @@ public class CollectorsGroupingByTest {
 
 	@Test
 	public void withGroupingBy() {
-		List<String> list = Arrays.asList("Blueberry", "Guava", "Melon", "Fig");
-		Comparator<String> comparator = Comparator.comparing(String::length);
-		BinaryOperator<String> binaryOperator = BinaryOperator.maxBy(comparator);
-		Map<Integer, String> result = list.stream()
-				.collect(Collectors.groupingBy(String::length, Collectors.reducing("", binaryOperator)));
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
+		Map<Integer, List<String>> result = list.stream().collect(Collectors.groupingBy(String::length));
 		System.out.println(result);
-		assertEquals("Blueberry", result.get(9));
+		assertEquals(3, result.size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
-		Comparator<Fruit> fruitComparator = Comparator.comparing(Fruit::getQuantity);
-		BinaryOperator<Fruit> fruitBinaryOperator = BinaryOperator.maxBy(fruitComparator);
-		Map<Integer, Fruit> fruitResult = fruitList.stream().collect(
-				Collectors.groupingBy(Fruit::getType, Collectors.reducing(new Fruit("", 0d, 0), fruitBinaryOperator)));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+		Map<Integer, List<Fruit>> fruitResult = fruitList.stream().collect(Collectors.groupingBy(Fruit::getType));
 		System.out.println(fruitResult);
-		assertEquals(2, fruitResult.size());
+		assertEquals(3, fruitResult.size());
 	}
 
 	@Test
-	public void withPartitioningBy() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava");
-		Comparator<Integer> comparator = Comparator.comparingInt(i -> i);
-		BinaryOperator<Integer> binaryOperator = BinaryOperator.maxBy(comparator);
-		Map<Boolean, Integer> result = list.stream().collect(
-				Collectors.partitioningBy(e -> e.length() > 3, Collectors.reducing(0, String::length, binaryOperator)));
+	public void withMapping() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
+		Map<Integer, List<String>> result = list.stream().collect(Collectors.groupingBy(String::length, TreeMap::new,
+				Collectors.mapping(e -> e.toUpperCase(), Collectors.toList())));
 		System.out.println(result);
-		assertEquals(9, result.get(Boolean.TRUE).intValue());
+		assertEquals(1, result.get(3).size());
+		assertEquals(2, result.get(5).size());
+		assertEquals(2, result.get(9).size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
-		Comparator<Double> fruitComparator = Comparator.comparingDouble(d -> d);
-		BinaryOperator<Double> fruitBinaryOperator = BinaryOperator.maxBy(fruitComparator);
-		Map<Boolean, Double> fruitResult = fruitList.stream().collect(Collectors.partitioningBy(
-				e -> e.name.length() > 3, Collectors.reducing(0d, Fruit::getQuantity, fruitBinaryOperator)));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+		Map<Integer, List<Double>> fruitResult = fruitList.stream().collect(Collectors.groupingBy(Fruit::getType,
+				TreeMap::new, Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
 		System.out.println(fruitResult);
-		assertEquals(2, fruitResult.size());
+		assertEquals(3, fruitResult.size());
 	}
 }
