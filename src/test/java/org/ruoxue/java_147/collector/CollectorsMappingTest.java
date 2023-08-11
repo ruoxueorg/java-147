@@ -54,10 +54,10 @@ public class CollectorsMappingTest {
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
-		Optional<Double> fruit = fruitList.stream()
+		Optional<Double> fruitResult = fruitList.stream()
 				.collect(Collectors.mapping(Fruit::getQuantity, Collectors.maxBy(Double::compareTo)));
-		System.out.println(fruit);
-		assertEquals(Double.MAX_VALUE, fruit.get(), 0);
+		System.out.println(fruitResult);
+		assertEquals(Double.MAX_VALUE, fruitResult.get(), 0);
 	}
 
 	@Test
@@ -70,9 +70,9 @@ public class CollectorsMappingTest {
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
-		Optional<Double> fruit = fruitList.stream()
+		Optional<Double> fruitResult = fruitList.stream()
 				.collect(Collectors.mapping(e -> e.quantity, Collectors.minBy(Double::compareTo)));
-		System.out.println(fruit);
+		System.out.println(fruitResult);
 		assertEquals(3, result.get().intValue());
 	}
 

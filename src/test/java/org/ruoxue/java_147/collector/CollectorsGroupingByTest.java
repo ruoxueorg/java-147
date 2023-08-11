@@ -53,32 +53,38 @@ public class CollectorsGroupingByTest {
 		Map<Integer, Optional<String>> result = list.stream()
 				.collect(Collectors.groupingBy(String::length, Collectors.maxBy(String::compareTo)));
 		System.out.println(result);
+		assertEquals("Fig", result.get(3).get());
+		assertEquals("Melon", result.get(5).get());
 		assertEquals("Kiwifruit", result.get(9).get());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
-//		Optional<Double> fruit = fruitList.stream()
-//				.collect(Collectors.mapping(Fruit::getQuantity, Collectors.maxBy(Double::compareTo)));
-//		System.out.println(fruit);
-//		assertEquals(Double.MAX_VALUE, fruit.get(), 0);
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+		Map<Integer, Optional<Fruit>> fruitResult = fruitList.stream().collect(
+				Collectors.groupingBy(Fruit::getType, Collectors.maxBy(Comparator.comparing(Fruit::getQuantity))));
+		System.out.println(fruitResult);
+		assertEquals("Blueberry", fruitResult.get(1).get().getName());
+		assertEquals("Guava", fruitResult.get(2).get().getName());
+		assertEquals("Fig", fruitResult.get(3).get().getName());
 	}
 
 	@Test
 	public void withMinBy() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava");
-		Comparator<String> comparator = Comparator.comparing(e -> e.length());
-		BinaryOperator<String> binaryOperator = BinaryOperator.minBy(comparator);
-		Optional<String> result = list.stream().collect(Collectors.reducing(binaryOperator));
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
+		Map<Integer, Optional<String>> result = list.stream()
+				.collect(Collectors.groupingBy(String::length, Collectors.minBy(String::compareTo)));
 		System.out.println(result);
-		assertEquals("Fig", result.get());
+		assertEquals("Fig", result.get(3).get());
+		assertEquals("Guava", result.get(5).get());
+		assertEquals("Blueberry", result.get(9).get());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
-		Comparator<Fruit> fruitComparator = Comparator.comparing(e -> e.quantity);
-		BinaryOperator<Fruit> fruitBinaryOperator = BinaryOperator.minBy(fruitComparator);
-		Optional<Fruit> fruitResult = fruitList.stream().collect(Collectors.reducing(fruitBinaryOperator));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+		Map<Integer, Optional<Fruit>> fruitResult = fruitList.stream().collect(
+				Collectors.groupingBy(Fruit::getType, Collectors.minBy(Comparator.comparing(Fruit::getQuantity))));
 		System.out.println(fruitResult);
-		assertEquals(-1, fruitResult.get().getQuantity(), 0);
+		assertEquals("Fig", fruitResult.get(1).get().getName());
+		assertEquals("Guava", fruitResult.get(2).get().getName());
+		assertEquals("Melon", fruitResult.get(3).get().getName());
 	}
 
 	@Test
