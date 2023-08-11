@@ -48,13 +48,13 @@ public class CollectorsGroupingByConcurrentTest {
 
 	@Test
 	public void withMaxBy() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
-		Map<Integer, Optional<String>> result = list.stream()
-				.collect(Collectors.groupingByConcurrent(String::length, Collectors.maxBy(String::compareTo)));
+		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+		Map<Integer, Optional<Integer>> result = list.stream()
+				.collect(Collectors.groupingByConcurrent(e -> e % 3, Collectors.maxBy(Integer::compareTo)));
 		System.out.println(result);
-		assertEquals("Fig", result.get(3).get());
-		assertEquals("Melon", result.get(5).get());
-		assertEquals("Kiwifruit", result.get(9).get());
+		assertEquals(3, result.get(0).get().intValue());
+		assertEquals(4, result.get(1).get().intValue());
+		assertEquals(5, result.get(2).get().intValue());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
@@ -68,13 +68,13 @@ public class CollectorsGroupingByConcurrentTest {
 
 	@Test
 	public void withMinBy() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
-		Map<Integer, Optional<String>> result = list.stream()
-				.collect(Collectors.groupingByConcurrent(String::length, Collectors.minBy(String::compareTo)));
+		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+		Map<Integer, Optional<Integer>> result = list.stream()
+				.collect(Collectors.groupingByConcurrent(e -> e % 3, Collectors.minBy(Integer::compareTo)));
 		System.out.println(result);
-		assertEquals("Fig", result.get(3).get());
-		assertEquals("Guava", result.get(5).get());
-		assertEquals("Blueberry", result.get(9).get());
+		assertEquals(3, result.get(0).get().intValue());
+		assertEquals(1, result.get(1).get().intValue());
+		assertEquals(2, result.get(2).get().intValue());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
@@ -88,13 +88,13 @@ public class CollectorsGroupingByConcurrentTest {
 
 	@Test
 	public void withMapping() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
-		Map<Integer, List<String>> result = list.stream().collect(Collectors.groupingByConcurrent(String::length,
-				ConcurrentHashMap::new, Collectors.mapping(e -> e.toUpperCase(), Collectors.toList())));
+		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+		Map<Integer, List<Integer>> result = list.stream().collect(Collectors.groupingByConcurrent(e -> e % 3,
+				ConcurrentHashMap::new, Collectors.mapping(e -> e * e, Collectors.toList())));
 		System.out.println(result);
-		assertEquals(1, result.get(3).size());
-		assertEquals(2, result.get(5).size());
-		assertEquals(2, result.get(9).size());
+		assertEquals(1, result.get(0).size());
+		assertEquals(2, result.get(1).size());
+		assertEquals(2, result.get(2).size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
@@ -108,13 +108,13 @@ public class CollectorsGroupingByConcurrentTest {
 	public void withJoining() {
 		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
 		Map<Integer, String> result = list.stream()
-				.collect(Collectors.groupingBy(String::length, Collectors.joining(", ", "(", ")")));
+				.collect(Collectors.groupingByConcurrent(String::length, Collectors.joining(", ", "(", ")")));
 		System.out.println(result);
 		assertEquals(3, result.size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1));
-		Map<Integer, String> fruitResult = fruitList.stream().collect(Collectors.groupingBy(Fruit::getType,
+		Map<Integer, String> fruitResult = fruitList.stream().collect(Collectors.groupingByConcurrent(Fruit::getType,
 				Collectors.mapping(Fruit::getName, Collectors.joining(", ", "(", ")"))));
 		System.out.println(fruitResult);
 		assertEquals(2, fruitResult.size());
