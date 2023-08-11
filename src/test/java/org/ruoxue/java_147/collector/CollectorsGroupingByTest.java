@@ -108,7 +108,7 @@ public class CollectorsGroupingByTest {
 	public void withJoining() {
 		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
 		Map<Integer, String> result = list.stream()
-				.collect(Collectors.groupingBy(String::length, Collectors.joining("", "(", ")")));
+				.collect(Collectors.groupingBy(String::length, Collectors.joining(", ", "(", ")")));
 		System.out.println(result);
 		assertEquals(3, result.size());
 

@@ -66,7 +66,7 @@ public class MappingExamplesTest {
 	public void withJoining() {
 		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
 		Map<Integer, String> result = list.stream().collect(Collectors.groupingBy(String::length,
-				Collectors.mapping(Function.identity(), Collectors.joining("", "(", ")"))));
+				Collectors.mapping(Function.identity(), Collectors.joining(", ", "(", ")"))));
 		System.out.println(result);
 		assertEquals(3, result.size());
 
