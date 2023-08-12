@@ -8,10 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -61,13 +57,13 @@ public class CollectorsGroupingByConcurrentTest {
 		assertEquals(5, result.get(2).get().intValue());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Integer, Optional<Fruit>> fruitResult = fruitList.stream().collect(Collectors
 				.groupingByConcurrent(Fruit::getType, Collectors.maxBy(Comparator.comparing(Fruit::getQuantity))));
 		System.out.println(fruitResult);
 		assertEquals("Blueberry", fruitResult.get(1).get().getName());
 		assertEquals("Guava", fruitResult.get(2).get().getName());
-		assertEquals("Fig", fruitResult.get(3).get().getName());
+		assertEquals("Kiwifruit", fruitResult.get(3).get().getName());
 	}
 
 	@Test
@@ -81,7 +77,7 @@ public class CollectorsGroupingByConcurrentTest {
 		assertEquals(2, result.get(2).get().intValue());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Integer, Optional<Fruit>> fruitResult = fruitList.stream().collect(Collectors
 				.groupingByConcurrent(Fruit::getType, Collectors.minBy(Comparator.comparing(Fruit::getQuantity))));
 		System.out.println(fruitResult);
@@ -101,7 +97,7 @@ public class CollectorsGroupingByConcurrentTest {
 		assertEquals(2, result.get(2).size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Integer, List<Double>> fruitResult = fruitList.stream().collect(Collectors.groupingByConcurrent(
 				Fruit::getType, ConcurrentHashMap::new, Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
 		System.out.println(fruitResult);
@@ -117,10 +113,10 @@ public class CollectorsGroupingByConcurrentTest {
 		assertEquals(3, result.size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Integer, String> fruitResult = fruitList.stream().collect(Collectors.groupingByConcurrent(Fruit::getType,
 				Collectors.mapping(Fruit::getName, Collectors.joining(", ", "(", ")"))));
 		System.out.println(fruitResult);
-		assertEquals(2, fruitResult.size());
+		assertEquals(3, fruitResult.size());
 	}
 }
