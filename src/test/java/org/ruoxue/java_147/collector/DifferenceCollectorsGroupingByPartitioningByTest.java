@@ -8,9 +8,11 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections4.map.LinkedMap;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
+import org.ruoxue.java_147.collector.GroupingByExamplesTest.Fruit;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -107,5 +109,22 @@ public class DifferenceCollectorsGroupingByPartitioningByTest {
 		System.out.println(fruitResult);
 		assertEquals(3, fruitResult.size());
 	}
+	
+	@Test
+	public void groupingByWithSupplier() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
+		Map<Integer, List<String>> result = list.stream().collect(Collectors.groupingBy(String::length, LinkedMap::new,
+				Collectors.mapping(String::toUpperCase, Collectors.toList())));
+		System.out.println(result);
+		assertEquals(1, result.get(3).size());
+		assertEquals(2, result.get(5).size());
+		assertEquals(2, result.get(9).size());
 
+		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
+		Map<Integer, List<Double>> fruitResult = fruitList.stream().collect(Collectors.groupingBy(Fruit::getType,
+				LinkedMap::new, Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
+		System.out.println(fruitResult);
+		assertEquals(3, fruitResult.size());
+	}
 }
