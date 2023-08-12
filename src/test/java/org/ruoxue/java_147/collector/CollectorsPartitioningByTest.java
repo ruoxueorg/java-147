@@ -55,12 +55,12 @@ public class CollectorsPartitioningByTest {
 		assertEquals("Melon", result.get(Boolean.TRUE).get());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Boolean, Optional<Fruit>> fruitResult = fruitList.stream().collect(
 				Collectors.partitioningBy(e -> e.type > 1, Collectors.maxBy(Comparator.comparing(Fruit::getQuantity))));
 		System.out.println(fruitResult);
 		assertEquals("Blueberry", fruitResult.get(Boolean.FALSE).get().getName());
-		assertEquals("Fig", fruitResult.get(Boolean.TRUE).get().getName());
+		assertEquals("Kiwifruit", fruitResult.get(Boolean.TRUE).get().getName());
 	}
 
 	@Test
@@ -73,7 +73,7 @@ public class CollectorsPartitioningByTest {
 		assertEquals("Blueberry", result.get(Boolean.TRUE).get());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Boolean, Optional<Fruit>> fruitResult = fruitList.stream().collect(
 				Collectors.partitioningBy(e -> e.type > 1, Collectors.minBy(Comparator.comparing(Fruit::getQuantity))));
 		System.out.println(fruitResult);
@@ -91,7 +91,7 @@ public class CollectorsPartitioningByTest {
 		assertEquals(4, result.get(Boolean.TRUE).size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Boolean, List<Double>> fruitResult = fruitList.stream().collect(Collectors.partitioningBy(e -> e.type > 1,
 				Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
 		System.out.println(fruitResult);

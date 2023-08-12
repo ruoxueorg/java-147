@@ -53,11 +53,11 @@ public class PartitioningByExamplesTest {
 		assertEquals(4, result.get(Boolean.TRUE).size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Boolean, List<Fruit>> fruitResult = fruitList.stream().collect(Collectors.partitioningBy(e -> e.type > 1));
 		System.out.println(fruitResult);
-		assertEquals(1, result.get(Boolean.FALSE).size());
-		assertEquals(4, result.get(Boolean.TRUE).size());
+		assertEquals(2, fruitResult.get(Boolean.FALSE).size());
+		assertEquals(3, fruitResult.get(Boolean.TRUE).size());
 	}
 
 	@Test
@@ -70,7 +70,7 @@ public class PartitioningByExamplesTest {
 		assertEquals(4, result.get(Boolean.TRUE).size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Boolean, List<Double>> fruitResult = fruitList.stream().collect(Collectors.partitioningBy(e -> e.type > 1,
 				Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
 		System.out.println(fruitResult);
