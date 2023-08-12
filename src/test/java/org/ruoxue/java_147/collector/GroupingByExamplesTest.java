@@ -53,7 +53,7 @@ public class GroupingByExamplesTest {
 		assertEquals(3, result.size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Integer, List<Fruit>> fruitResult = fruitList.stream().collect(Collectors.groupingBy(Fruit::getType));
 		System.out.println(fruitResult);
 		assertEquals(3, fruitResult.size());
@@ -68,7 +68,7 @@ public class GroupingByExamplesTest {
 		assertEquals(3, result.size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Integer, Long> fruitResult = fruitList.stream().collect(
 				Collectors.groupingBy(Fruit::getType, Collectors.mapping(Function.identity(), Collectors.counting())));
 
@@ -87,7 +87,7 @@ public class GroupingByExamplesTest {
 		assertEquals(2, result.get(9).size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Fig", 5, 3));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Integer, List<Double>> fruitResult = fruitList.stream().collect(Collectors.groupingBy(Fruit::getType,
 				LinkedMap::new, Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
 		System.out.println(fruitResult);
