@@ -107,7 +107,7 @@ public class CollectorsPartitioningByTest {
 		assertEquals(2, result.size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Boolean, String> fruitResult = fruitList.stream().collect(Collectors.partitioningBy(e -> e.type > 1,
 				Collectors.mapping(Fruit::getName, Collectors.joining(", ", "(", ")"))));
 		System.out.println(fruitResult);

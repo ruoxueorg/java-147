@@ -86,7 +86,7 @@ public class PartitioningByExamplesTest {
 		assertEquals(2, result.size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Boolean, Long> fruitResult = fruitList.stream()
 				.collect(Collectors.partitioningBy(e -> e.type > 1, Collectors.counting()));
 
@@ -103,7 +103,7 @@ public class PartitioningByExamplesTest {
 		assertEquals(2, result.size());
 
 		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", 2, 3),
-				new Fruit("Fig", 3, 1));
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
 		Map<Boolean, BigDecimal> fruitResult = fruitList.stream().collect(Collectors.partitioningBy(e -> e.type > 1,
 				Collectors.reducing(BigDecimal.ZERO, e -> new BigDecimal(e.getQuantity()), BigDecimal::add)));
 
