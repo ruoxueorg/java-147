@@ -18,3 +18,4 @@
 15. [Java Collectors toList Method](https://www.ruoxue.org/java-147-java-collectors-tolist-method/)
 16. [Java Collectors toSet Method](https://www.ruoxue.org/java-147-java-collectors-toset-method/)
 17. [Java Collectors toConcurrentMap Method](https://www.ruoxue.org/java-147-java-collectors-toconcurrentmap-method/)
+18. [Difference Between Collectors groupingBy and partitioningBy in Java](https://www.ruoxue.org/java-147-difference-between-collectors-groupingby-and-partitioningby-in-java/)
