@@ -46,6 +46,15 @@ public class CollectorsGroupingByPartitioningByTest {
 	}
 
 	@Test
+	public void groupingBy() {
+		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
+		Map<Integer, List<Fruit>> result = list.stream().collect(Collectors.groupingBy(Fruit::getType));
+		System.out.println(result);
+		assertEquals(3, result.size());
+	}
+
+	@Test
 	public void partitioningBy() {
 		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", 1, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
@@ -56,10 +65,12 @@ public class CollectorsGroupingByPartitioningByTest {
 	}
 
 	@Test
-	public void groupingBy() {
+	public void groupingByWithMapping() {
 		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
 				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
-		Map<Integer, List<Fruit>> result = list.stream().collect(Collectors.groupingBy(Fruit::getType));
+		Map<Integer, Long> result = list.stream().collect(
+				Collectors.groupingBy(Fruit::getType, Collectors.mapping(Function.identity(), Collectors.counting())));
+
 		System.out.println(result);
 		assertEquals(3, result.size());
 	}
@@ -72,17 +83,6 @@ public class CollectorsGroupingByPartitioningByTest {
 				Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
 		System.out.println(result);
 		assertEquals(2, result.size());
-	}
-
-	@Test
-	public void groupingByWithMapping() {
-		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1), new Fruit("Guava", 4, 2), new Fruit("Kiwifruit", 5, 3));
-		Map<Integer, Long> result = list.stream().collect(
-				Collectors.groupingBy(Fruit::getType, Collectors.mapping(Function.identity(), Collectors.counting())));
-
-		System.out.println(result);
-		assertEquals(3, result.size());
 	}
 
 	@Test

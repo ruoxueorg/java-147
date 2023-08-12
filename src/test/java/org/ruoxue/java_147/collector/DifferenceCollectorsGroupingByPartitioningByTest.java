@@ -14,6 +14,14 @@ import org.junit.Test;
 public class DifferenceCollectorsGroupingByPartitioningByTest {
 
 	@Test
+	public void groupingBy() {
+		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+		Map<Integer, List<Integer>> result = list.stream().collect(Collectors.groupingBy(e -> e % 3));
+		System.out.println(result);
+		assertEquals(3, result.size());
+	}
+
+	@Test
 	public void partitioningBy() {
 		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
 		Map<Boolean, List<Integer>> result = list.stream().collect(Collectors.partitioningBy(e -> e > 3));
@@ -23,9 +31,10 @@ public class DifferenceCollectorsGroupingByPartitioningByTest {
 	}
 
 	@Test
-	public void groupingBy() {
-		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
-		Map<Integer, List<Integer>> result = list.stream().collect(Collectors.groupingBy(e -> e % 3));
+	public void groupingByWithMapping() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
+		Map<Integer, Long> result = list.stream().collect(
+				Collectors.groupingBy(String::length, Collectors.mapping(Function.identity(), Collectors.counting())));
 		System.out.println(result);
 		assertEquals(3, result.size());
 	}
@@ -38,15 +47,6 @@ public class DifferenceCollectorsGroupingByPartitioningByTest {
 		System.out.println(result);
 		assertEquals(1, result.get(Boolean.FALSE).size());
 		assertEquals(4, result.get(Boolean.TRUE).size());
-	}
-
-	@Test
-	public void groupingByWithMapping() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig", "Guava", "Kiwifruit");
-		Map<Integer, Long> result = list.stream().collect(
-				Collectors.groupingBy(String::length, Collectors.mapping(Function.identity(), Collectors.counting())));
-		System.out.println(result);
-		assertEquals(3, result.size());
 	}
 
 	@Test
