@@ -2,8 +2,6 @@ package org.ruoxue.java_147.string;
 
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 public class InitializeStringTest {
@@ -31,7 +29,7 @@ public class InitializeStringTest {
 	}
 
 	@Test
-	public void byteArray() {
+	public void withByteArray() {
 		byte[] value = new byte[] { 65, 115, 115, 101, 114, 116, 106 };
 		String result = new String(value);
 		System.out.println(result);
@@ -44,12 +42,28 @@ public class InitializeStringTest {
 	}
 
 	@Test
-	public void charArray() {
+	public void withCharArray() {
+		char[] value = new char[] { 'A', 's', 's', 'e', 'r', 't', 'j' };
+		String result = new String(value);
+		System.out.println(result);
+		assertEquals("Assertj", result);
 
+		value = new char[] { 'A', 's', 's', 'e', 'r', 't', 'j', ' ', '1', '5', '5' };
+		result = new String(value);
+		System.out.println(result);
+		assertEquals("Assertj 155", result);
 	}
 
 	@Test
-	public void intArray() {
+	public void withIntArray() {
+		int[] value = new int[] { 65, 115, 115, 101, 114, 116, 106 };
+		String result = new String(value, 0, value.length);
+		System.out.println(result);
+		assertEquals("Assertj", result);
 
+		value = new int[] { 65, 115, 115, 101, 114, 116, 106, 32, 49, 53, 53 };
+		result = new String(value, 0, value.length);
+		System.out.println(result);
+		assertEquals("Assertj 155", result);
 	}
 }
