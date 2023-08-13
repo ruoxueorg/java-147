@@ -36,11 +36,12 @@ public class StringClassTest {
 
 	@Test
 	public void getBytes() {
-		String value = "Assertj 155";
+		String value = "Assertj";
 		byte[] result = value.getBytes();
 		System.out.println(Arrays.toString(result));
-		assertEquals(11, result.length);
+		assertEquals(7, result.length);
 
+		value = "Assertj 155";
 		result = value.getBytes(StandardCharsets.UTF_8);
 		System.out.println(Arrays.toString(result));
 		assertEquals(11, result.length);
