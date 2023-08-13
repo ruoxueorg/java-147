@@ -11,7 +11,7 @@ import org.junit.Test;
 public class StringWithExamplesTest {
 
 //	@Test
-//	public void appendCodePoint() {
+//	public void split() {
 //		int expectedSize = 17;
 //		StringBuffer builder = new StringBuffer();
 //		builder.append("Spring boot 168");
@@ -22,7 +22,7 @@ public class StringWithExamplesTest {
 //	}
 //
 //	@Test
-//	public void codePoints() {
+//	public void compareTo() {
 //		StringBuffer builder = new StringBuffer();
 //		builder.append("Spring boot 168");
 //		IntStream stream = builder.codePoints();
@@ -31,7 +31,7 @@ public class StringWithExamplesTest {
 //	}
 //
 //	@Test
-//	public void codePointAt() {
+//	public void strip() {
 //		int expected = 103;
 //		StringBuffer builder = new StringBuffer();
 //		builder.append("Spring boot 168");
@@ -41,7 +41,7 @@ public class StringWithExamplesTest {
 //	}
 //
 //	@Test
-//	public void codePointBefore() {
+//	public void valueOf() {
 //		int expected = 110;
 //		StringBuffer builder = new StringBuffer();
 //		builder.append("Spring boot 168");
@@ -51,7 +51,7 @@ public class StringWithExamplesTest {
 //	}
 //
 //	@Test
-//	public void codePointCount() {
+//	public void startsWith() {
 //		int expected = 5;
 //		StringBuffer builder = new StringBuffer();
 //		builder.append("Spring boot 168");
@@ -61,31 +61,12 @@ public class StringWithExamplesTest {
 //	}
 //
 //	@Test
-//	public void offsetByCodePoints() {
+//	public void endsWith() {
 //		int expected = 5;
 //		StringBuffer builder = new StringBuffer();
 //		builder.append("Spring boot 168");
 //		int result = builder.offsetByCodePoints(1, 4);
 //		System.out.println(result);
 //		assertEquals(expected, result);
-//	}
-//
-//	@Test
-//	public void subSequence() {
-//		CharSequence expected = "Spring";
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168");
-//		CharSequence result = builder.subSequence(0, 6);
-//		System.out.println(result);
-//		assertEquals(expected, result);
-//	}
-//
-//	@Test
-//	public void reverse() {
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168, ");
-//		builder.append("JUnit 151");
-//		StringBuffer result = builder.reverse();
-//		System.out.println(result);
 //	}
 }

@@ -2,90 +2,98 @@ package org.ruoxue.java_147.string;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 public class StringMethodsTest {
 
-//	@Test
-//	public void append() {
-//		int expectedSize = 26;
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Sprin");
-//		builder.append('g');
-//		builder.append(" ");
-//		builder.append("boot");
-//		builder.append(" ");
-//		builder.append(168);
-//		builder.append(", ");
-//		builder.append(new StringBuffer().append("JUnit 151"));
-//		System.out.println(builder);
-//		assertEquals(expectedSize, builder.length());
-//	}
+	@Test
+	public void contains() {
+		String value = "Assertj 155";
+		boolean result = value.contains("155");
+		System.out.println(result);
+		assertTrue(result);
 
-//	@Test
-//	public void insert() {
-//		int expectedSize = 24;
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168");
-//		builder.insert(12, "JUnit 151");
-//		System.out.println(builder);
-//		assertEquals(expectedSize, builder.length());
-//	}
+		result = value.contains("Java");
+		System.out.println(result);
+		assertFalse(result);
+	}
 
-//	@Test
-//	public void delete() {
-//		int expectedSize = 8;
-//		StringBuffer builder = new StringBuffer("Spring boot 168");
-//		builder.delete(0, 7);
-//		System.out.println(builder);
-//		assertEquals(expectedSize, builder.length());
-//	}
-//
-//	@Test
-//	public void deleteCharAt() {
-//		int expectedSize = 14;
-//		StringBuffer builder = new StringBuffer("Spring boot 168");
-//		builder.deleteCharAt(12);
-//		System.out.println(builder);
-//		assertEquals(expectedSize, builder.length());
-//	}
+	@Test
+	public void toCharArray() {
+		String value = "Assertj";
+		char[] result = value.toCharArray();
+		System.out.println(Arrays.toString(result));
+		assertEquals(7, result.length);
+
+		value = "Assertj 155";
+		result = value.toCharArray();
+		System.out.println(Arrays.toString(result));
+		assertEquals(11, result.length);
+	}
 
 	@Test
 	public void length() {
-		int expectedSize = 11;
 		String value = "Assertj 155";
 		System.out.println(value.length());
-		assertEquals(expectedSize, value.length());
+		assertEquals(11, value.length());
+
+		value = value + "Assertj 155";
+		System.out.println(value.length());
+		assertEquals(22, value.length());
 	}
 
 	@Test
 	public void format() {
 		String value = "Assertj 155";
-		String formatted = String.format("String is: %s", value);
-		System.out.println(formatted);
-		formatted = String.format("String is: %15s", value);
-		System.out.println(formatted);
+		String result = String.format("String is: %s", value);
+		System.out.println(result);
+		assertEquals("String is: Assertj 155", result);
+
+		result = String.format("String is: %15s", value);
+		System.out.println(result);
+		assertEquals("String is:     Assertj 155", result);
 	}
 
-//	@Test
-//	public void capacity() {
-//		int expectedSize = 34;
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168, ");
-//		builder.append("JUnit 151");
-//		System.out.println(builder.capacity());
-//		assertEquals(expectedSize, builder.capacity());
-//	}
-//
-//	@Test
-//	public void trimToSize() {
-//		int expectedSize = 26;
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168, ");
-//		builder.append("JUnit 151");
-//		System.out.println(builder.capacity());
-//		builder.trimToSize();
-//		System.out.println(builder.capacity());
-//		assertEquals(expectedSize, builder.capacity());
-//	}
+	@Test
+	public void concat() {
+		String value = "Assertj";
+		String result = value.concat("155");
+		System.out.println(result);
+		assertEquals("Assertj155", result);
+
+		result = value.concat("Java");
+		System.out.println(result);
+		assertEquals("AssertjJava", result);
+	}
+
+	@Test
+	public void trim() {
+		String value = "Assertj 155  ";
+		String result = value.trim();
+		System.out.println(result);
+		assertEquals("Assertj 155", result);
+
+		value = "   Assertj 155";
+		result = value.trim();
+		System.out.println(result);
+		assertEquals("Assertj 155", result);
+	}
+	
+	@Test
+	public void toLowerCase() {
+		String value = "Assertj 155";
+		String result = value.toLowerCase();
+		System.out.println(result);
+		assertEquals("assertj 155", result);
+	}
+	
+	@Test
+	public void toUpperCase() {
+		String value = "Assertj 155";
+		String result = value.toUpperCase();
+		System.out.println(result);
+		assertEquals("ASSERTJ 155", result);
+	}
 }

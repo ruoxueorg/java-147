@@ -2,73 +2,73 @@ package org.ruoxue.java_147.string;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 import org.junit.Test;
 
 public class StringClassTest {
 
-//	@Test
-//	public void charAt() {
-//		char expected = 'g';
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168");
-//		char result = builder.charAt(5);
-//		System.out.println(result);
-//		assertEquals(expected, result);
-//
-//		result = builder.charAt(7);
-//		System.out.println(result);
-//		assertEquals('b', result);
-//	}
-//
-//	@Test
-//	public void getChars() {
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168");
-//		IntStream stream = builder.chars();
-//		List<Integer> list = stream.boxed().collect(Collectors.toList());
-//		System.out.println(list);
-//	}
-//
-//	@Test
-//	public void indexOf() {
-//		int expected = 3;
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168");
-//		int result = builder.indexOf("i");
-//		System.out.println(result);
-//		assertEquals(expected, result);
-//
-//		result = builder.indexOf("i", 2);
-//		System.out.println(result);
-//		assertEquals(3, result);
-//	}
-//
-//	@Test
-//	public void lastIndexOf() {
-//		int expected = 3;
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168");
-//		int result = builder.lastIndexOf("i");
-//		System.out.println(result);
-//		assertEquals(expected, result);
-//
-//		result = builder.lastIndexOf("i", 5);
-//		System.out.println(result);
-//		assertEquals(3, result);
-//	}
-//
-//	@Test
-//	public void setCharAt() {
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168");
-//		builder.setCharAt(3, 'I');
-//		System.out.println(builder);
-//		assertEquals("SprIng boot 168", builder.toString());
-//	}
+	@Test
+	public void charAt() {
+		String value = "Assertj 155";
+		char result = value.charAt(2);
+		System.out.println(result);
+		assertEquals('s', result);
+
+		result = value.charAt(8);
+		System.out.println(result);
+		assertEquals('1', result);
+	}
+
+	@Test
+	public void getChars() {
+		char[] result = new char[10];
+		String value = "Assertj 155";
+		value.getChars(0, 7, result, 0);
+		System.out.println(Arrays.toString(result));
+		assertEquals(10, result.length);
+
+		value.getChars(8, 11, result, 7);
+		System.out.println(Arrays.toString(result));
+		assertEquals(10, result.length);
+	}
+
+	@Test
+	public void getBytes() {
+		String value = "Assertj 155";
+		byte[] result = value.getBytes();
+		System.out.println(Arrays.toString(result));
+		assertEquals(11, result.length);
+
+		result = value.getBytes(StandardCharsets.UTF_8);
+		System.out.println(Arrays.toString(result));
+		assertEquals(11, result.length);
+	}
+
+	@Test
+	public void indexOf() {
+		String value = "Assertj 155";
+		int result = value.indexOf("s");
+		System.out.println(result);
+		assertEquals(1, result);
+
+		result = value.indexOf("1", 2);
+		System.out.println(result);
+		assertEquals(8, result);
+	}
+
+	@Test
+	public void lastIndexOf() {
+		String value = "Assertj 155";
+		int result = value.lastIndexOf("s");
+		System.out.println(result);
+		assertEquals(2, result);
+
+		result = value.lastIndexOf("1", 2);
+		System.out.println(result);
+		assertEquals(-1, result);
+	}
 
 	@Test
 	public void substring() {
@@ -82,12 +82,15 @@ public class StringClassTest {
 		assertEquals("Assertj", result);
 	}
 
-//	@Test
-//	public void replace() {
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168");
-//		builder.replace(0, 4, "SPRING");
-//		System.out.println(builder);
-//		assertEquals("SPRINGng boot 168", builder.toString());
-//	}
+	@Test
+	public void replace() {
+		String value = "Assertj 155";
+		String result = value.replace("Assertj", "ASSERTJ");
+		System.out.println(result);
+		assertEquals("ASSERTJ 155", result);
+
+		result = value.replace("155", "978");
+		System.out.println(result);
+		assertEquals("Assertj 978", result);
+	}
 }
