@@ -7,54 +7,6 @@ import org.junit.Test;
 public class InitializeStringTest {
 
 	@Test
-	public void withLiteral() {
-		String value = "Assertj 155";
-		System.out.println(value);
-		assertEquals("Assertj 155", value);
-
-		String value2 = "Assertj 155";
-		System.out.println(value2);
-		assertEquals("Assertj 155", value2);
-	}
-
-	@Test
-	public void withNew() {
-		String value = new String("Assertj 155");
-		System.out.println(value);
-		assertEquals("Assertj 155", value);
-
-		String value2 = new String("Assertj 155");
-		System.out.println(value2);
-		assertEquals("Assertj 155", value2);
-	}
-
-	@Test
-	public void withByteArray() {
-		byte[] value = new byte[] { 65, 115, 115, 101, 114, 116, 106 };
-		String result = new String(value);
-		System.out.println(result);
-		assertEquals("Assertj", result);
-
-		value = new byte[] { 65, 115, 115, 101, 114, 116, 106, 32, 49, 53, 53 };
-		result = new String(value);
-		System.out.println(result);
-		assertEquals("Assertj 155", result);
-	}
-
-	@Test
-	public void withCharArray() {
-		char[] value = new char[] { 'A', 's', 's', 'e', 'r', 't', 'j' };
-		String result = new String(value);
-		System.out.println(result);
-		assertEquals("Assertj", result);
-
-		value = new char[] { 'A', 's', 's', 'e', 'r', 't', 'j', ' ', '1', '5', '5' };
-		result = new String(value);
-		System.out.println(result);
-		assertEquals("Assertj 155", result);
-	}
-
-	@Test
 	public void withIntArray() {
 		int[] value = new int[] { 65, 115, 115, 101, 114, 116, 106 };
 		String result = new String(value, 0, value.length);
@@ -62,7 +14,46 @@ public class InitializeStringTest {
 		assertEquals("Assertj", result);
 
 		value = new int[] { 65, 115, 115, 101, 114, 116, 106, 32, 49, 53, 53 };
-		result = new String(value, 0, value.length);
+		result = new String(value, 8, 3);
+		System.out.println(result);
+		assertEquals("155", result);
+	}
+
+	@Test
+	public void withString() {
+		String value = "Assertj";
+		String result = new String(value);
+		System.out.println(result);
+		assertEquals("Assertj", result);
+
+		value = "155";
+		result = new String(value);
+		System.out.println(result);
+		assertEquals("155", result);
+	}
+
+	@Test
+	public void withStringBuffer() {
+		StringBuffer value = new StringBuffer("Assertj");
+		String result = new String(value);
+		System.out.println(result);
+		assertEquals("Assertj", result);
+
+		value.append(" 155");
+		result = new String(value);
+		System.out.println(result);
+		assertEquals("Assertj 155", result);
+	}
+
+	@Test
+	public void withStringBuilder() {
+		StringBuilder value = new StringBuilder("Assertj");
+		String result = new String(value);
+		System.out.println(result);
+		assertEquals("Assertj", result);
+
+		value.append(" 155");
+		result = new String(value);
 		System.out.println(result);
 		assertEquals("Assertj 155", result);
 	}
