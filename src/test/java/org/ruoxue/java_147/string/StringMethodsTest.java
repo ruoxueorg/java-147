@@ -59,13 +59,13 @@ public class StringMethodsTest {
 	@Test
 	public void concat() {
 		String value = "Assertj";
-		String result = value.concat("155");
+		String result = value.concat(" 155");
 		System.out.println(result);
-		assertEquals("Assertj155", result);
+		assertEquals("Assertj 155", result);
 
-		result = value.concat("Java");
+		result = value.concat(" Java");
 		System.out.println(result);
-		assertEquals("AssertjJava", result);
+		assertEquals("Assertj Java", result);
 	}
 
 	@Test
