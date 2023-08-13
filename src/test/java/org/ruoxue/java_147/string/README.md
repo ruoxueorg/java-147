@@ -4,5 +4,6 @@
 1. [Java String Methods](https://www.ruoxue.org/java-147-java-string-methods/)
 2. [String in Java with Examples](https://www.ruoxue.org/java-147-string-in-java-with-examples/)
 3. [Java String Class](https://www.ruoxue.org/java-147-java-string-class/)
-4. [Java String format Method](https://www.ruoxue.org/java-147-java-string-format-method/)
+4. [Initialize String in Java](https://www.ruoxue.org/java-147-initialize-string-in-java//)
+5. [Java String format Method](https://www.ruoxue.org/java-147-java-string-format-method/)
 

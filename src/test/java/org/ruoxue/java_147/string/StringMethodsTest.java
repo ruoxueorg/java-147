@@ -80,19 +80,29 @@ public class StringMethodsTest {
 		System.out.println(result);
 		assertEquals("Assertj 155", result);
 	}
-	
+
 	@Test
 	public void toLowerCase() {
-		String value = "Assertj 155";
+		String value = "Assertj";
 		String result = value.toLowerCase();
+		System.out.println(result);
+		assertEquals("assertj", result);
+
+		value = "Assertj 155";
+		result = value.toLowerCase();
 		System.out.println(result);
 		assertEquals("assertj 155", result);
 	}
-	
+
 	@Test
 	public void toUpperCase() {
-		String value = "Assertj 155";
+		String value = "Assertj";
 		String result = value.toUpperCase();
+		System.out.println(result);
+		assertEquals("ASSERTJ", result);
+
+		value = "Assertj 155";
+		result = value.toUpperCase();
 		System.out.println(result);
 		assertEquals("ASSERTJ 155", result);
 	}

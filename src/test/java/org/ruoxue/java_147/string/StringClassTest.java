@@ -93,4 +93,17 @@ public class StringClassTest {
 		System.out.println(result);
 		assertEquals("Assertj 978", result);
 	}
+
+	@Test
+	public void intern() {
+		String value = "Assertj";
+		String result = value.intern();
+		System.out.println(result);
+		assertEquals("Assertj", result);
+
+		value = "Assertj 155";
+		result = value.intern();
+		System.out.println(result);
+		assertEquals("Assertj 155", result);
+	}
 }

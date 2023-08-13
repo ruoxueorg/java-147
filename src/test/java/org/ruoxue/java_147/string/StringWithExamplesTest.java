@@ -23,51 +23,94 @@ public class StringWithExamplesTest {
 	@Test
 	public void compareTo() {
 		String value = "Assertj 155";
-		int result = value.compareTo("155");
-		System.out.println(result);
-		assertTrue(result > 0);
-
-		result = value.compareTo("assertj");
+		int result = value.compareTo("assertj 155");
 		System.out.println(result);
 		assertTrue(result < 0);
 
+		value = "assertj 155";
 		result = value.compareTo("Assertj 155");
+		System.out.println(result);
+		assertTrue(result > 0);
+
+		result = value.compareTo("assertj 155");
 		System.out.println(result);
 		assertTrue(result == 0);
 	}
 
-//	@Test
-//	public void valueOf() {
-//		int expected = 110;
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168");
-//		int result = builder.codePointBefore(5);
-//		System.out.println(result);
-//		assertEquals(expected, result);
-//	}
-//
-//	@Test
-//	public void startsWith() {
-//		int expected = 5;
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168");
-//		int result = builder.codePointCount(0, 5);
-//		System.out.println(result);
-//		assertEquals(expected, result);
-//	}
-//
-//	@Test
-//	public void endsWith() {
-//		int expected = 5;
-//		StringBuffer builder = new StringBuffer();
-//		builder.append("Spring boot 168");
-//		int result = builder.offsetByCodePoints(1, 4);
-//		System.out.println(result);
-//		assertEquals(expected, result);
-//	}
+	@Test
+	public void compareToIgnoreCase() {
+		String value = "Assertj 155";
+		int result = value.compareToIgnoreCase("assertj 155");
+		System.out.println(result);
+		assertTrue(result == 0);
+
+		value = "assertj 155";
+		result = value.compareToIgnoreCase("Assertj 155");
+		System.out.println(result);
+		assertTrue(result == 0);
+
+		result = value.compareToIgnoreCase("assertj 155");
+		System.out.println(result);
+		assertTrue(result == 0);
+	}
 
 	@Test
-	public void intern() {
+	public void valueOf() {
+		int value = 155;
+		String result = String.valueOf(value);
+		System.out.println(result);
+		assertEquals("155", result);
 
+		result = String.valueOf((Object) null);
+		System.out.println(result);
+		assertEquals("null", result);
+	}
+
+	@Test
+	public void startsWith() {
+		String value = "Assertj 155";
+		boolean result = value.startsWith("Assertj");
+		System.out.println(result);
+		assertTrue(result);
+
+		result = value.startsWith("155");
+		System.out.println(result);
+		assertFalse(result);
+	}
+
+	@Test
+	public void endsWith() {
+		String value = "Assertj 155";
+		boolean result = value.endsWith("155");
+		System.out.println(result);
+		assertTrue(result);
+
+		result = value.endsWith("Assertj");
+		System.out.println(result);
+		assertFalse(result);
+	}
+
+	@Test
+	public void equals() {
+		String value = "Assertj 155";
+		boolean result = value.equals("Assertj 155");
+		System.out.println(result);
+		assertTrue(result);
+
+		result = value.equals("Assertj");
+		System.out.println(result);
+		assertFalse(result);
+	}
+
+	@Test
+	public void equalsIgnoreCase() {
+		String value = "Assertj 155";
+		boolean result = value.equalsIgnoreCase("assertj 155");
+		System.out.println(result);
+		assertTrue(result);
+
+		result = value.equalsIgnoreCase("assertj");
+		System.out.println(result);
+		assertFalse(result);
 	}
 }
