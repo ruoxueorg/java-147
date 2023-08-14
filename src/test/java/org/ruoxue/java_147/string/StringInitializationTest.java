@@ -35,10 +35,10 @@ public class StringInitializationTest {
 		System.out.println(result);
 		assertEquals("Assertj", result);
 
-		value = new byte[] { 65, 115, 115, 101, 114, 116, 106, 32, 49, 53, 53 };
-		result = new String(value, 8, 3);
-		System.out.println(result);
-		assertEquals("155", result);
+		byte[] value2 = new byte[] { 65, 115, 115, 101, 114, 116, 106, 32, 49, 53, 53 };
+		String result2 = new String(value2, 8, 3);
+		System.out.println(result2);
+		assertEquals("155", result2);
 	}
 
 	@Test
@@ -48,9 +48,9 @@ public class StringInitializationTest {
 		System.out.println(result);
 		assertEquals("Assertj", result);
 
-		value = new char[] { 'A', 's', 's', 'e', 'r', 't', 'j', ' ', '1', '5', '5' };
-		result = new String(value, 8, 3);
-		System.out.println(result);
-		assertEquals("155", result);
+		char[] value2 = new char[] { 'A', 's', 's', 'e', 'r', 't', 'j', ' ', '1', '5', '5' };
+		String result2 = new String(value2, 8, 3);
+		System.out.println(result2);
+		assertEquals("155", result2);
 	}
 }

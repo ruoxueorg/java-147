@@ -13,10 +13,10 @@ public class InitializeStringTest {
 		System.out.println(result);
 		assertEquals("Assertj", result);
 
-		value = new int[] { 65, 115, 115, 101, 114, 116, 106, 32, 49, 53, 53 };
-		result = new String(value, 8, 3);
-		System.out.println(result);
-		assertEquals("155", result);
+		int[] value2 = new int[] { 65, 115, 115, 101, 114, 116, 106, 32, 49, 53, 53 };
+		String result2 = new String(value2, 8, 3);
+		System.out.println(result2);
+		assertEquals("155", result2);
 	}
 
 	@Test
@@ -26,10 +26,10 @@ public class InitializeStringTest {
 		System.out.println(result);
 		assertEquals("Assertj", result);
 
-		value = "155";
-		result = new String(value);
-		System.out.println(result);
-		assertEquals("155", result);
+		String value2 = "155";
+		String result2 = new String(value2);
+		System.out.println(result2);
+		assertEquals("155", result2);
 	}
 
 	@Test
@@ -40,9 +40,9 @@ public class InitializeStringTest {
 		assertEquals("Assertj", result);
 
 		value.append(" 155");
-		result = new String(value);
-		System.out.println(result);
-		assertEquals("Assertj 155", result);
+		String result2 = new String(value);
+		System.out.println(result2);
+		assertEquals("Assertj 155", result2);
 	}
 
 	@Test
@@ -53,8 +53,8 @@ public class InitializeStringTest {
 		assertEquals("Assertj", result);
 
 		value.append(" 155");
-		result = new String(value);
-		System.out.println(result);
-		assertEquals("Assertj 155", result);
+		String result2 = new String(value);
+		System.out.println(result2);
+		assertEquals("Assertj 155", result2);
 	}
 }
