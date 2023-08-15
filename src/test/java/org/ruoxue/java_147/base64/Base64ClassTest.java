@@ -1,0 +1,14 @@
+package org.ruoxue.java_147.base64;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class Base64ClassTest {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}
