@@ -44,5 +44,14 @@ public class IntersectionTwoListsTest {
 		// 1,2 add
 		System.out.println(result);
 	}
+	
+	@Test
+	public void bool() {
+		System.out.println(true && true); //true
+		System.out.println(true || false); //true
+		System.out.println(false || true); //true
+		System.out.println(true && false); //false
+		System.out.println(false || false); //false
+	}
 
 }
