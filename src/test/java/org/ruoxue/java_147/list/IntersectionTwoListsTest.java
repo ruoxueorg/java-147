@@ -22,24 +22,24 @@ public class IntersectionTwoListsTest {
 	}
 
 	@Test
-	public void test2() {
+	public void delete() {
 		List<String> list = Arrays.asList("a", "b", "c");
 		List<String> otherList = Arrays.asList("a", "b", "1", "2");
 
 		List<String> result = list.stream().distinct().filter(e -> {
-			return !otherList.contains(e);
+			return (false == otherList.contains(e));
 		}).collect(Collectors.toList());
 		// c delete
 		System.out.println(result);
 	}
 
 	@Test
-	public void test3() {
+	public void add() {
 		List<String> list = Arrays.asList("a", "b", "c");
 		List<String> otherList = Arrays.asList("a", "b", "1", "2");
 
 		List<String> result = otherList.stream().distinct().filter(e -> {
-			return !list.contains(e);
+			return (false == list.contains(e));
 		}).collect(Collectors.toList());
 		// 1,2 add
 		System.out.println(result);
