@@ -6,6 +6,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalQueries;
 
 import org.junit.Test;
 
@@ -62,5 +63,27 @@ public class InstantWithExamplesTest {
 		result = instant.truncatedTo(ChronoUnit.DAYS);
 		System.out.println(result);
 		assertEquals("2023-09-12T00:00:00Z", result.toString());
+	}
+
+	@Test
+	public void compareTo() {
+		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
+	}
+
+	@Test
+	public void query() {
+		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
+		String result = instant.query(TemporalQueries.precision()).toString();
+		System.out.println(result);
+		assertEquals("Nanos", result);
+
+		result = instant.query(TemporalQueries.zoneId()).toString();
+		System.out.println(result);
+		assertEquals("Nanos", result);
+	}
+
+	@Test
+	public void range() {
+		Instant instant = Instant.parse("2023-09-12T04:05:06.123456789Z");
 	}
 }
