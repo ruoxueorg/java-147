@@ -13,8 +13,8 @@ public class DifferenceTwoLocalDateTest {
 
 	@Test
 	public void period() {
-		LocalDate localDate = LocalDate.of(2023, 8, 3);
-		LocalDate localDate2 = LocalDate.of(2024, 8, 3);
+		LocalDate localDate = LocalDate.of(2023, 6, 18);
+		LocalDate localDate2 = LocalDate.of(2024, 6, 18);
 		Period period = Period.between(localDate, localDate2);
 		System.out.println(period);
 
@@ -33,8 +33,8 @@ public class DifferenceTwoLocalDateTest {
 
 	@Test
 	public void duration() {
-		LocalDate localDate = LocalDate.of(2023, 8, 3);
-		LocalDate localDate2 = LocalDate.of(2024, 8, 3);
+		LocalDate localDate = LocalDate.of(2023, 6, 18);
+		LocalDate localDate2 = LocalDate.of(2024, 6, 18);
 		Duration duration = Duration.between(localDate.atStartOfDay(), localDate2.atStartOfDay());
 		System.out.println(duration);
 
@@ -61,8 +61,8 @@ public class DifferenceTwoLocalDateTest {
 
 	@Test
 	public void chronoUnit() {
-		LocalDate localDate = LocalDate.of(2023, 8, 3);
-		LocalDate localDate2 = LocalDate.of(2024, 8, 3);
+		LocalDate localDate = LocalDate.of(2023, 6, 18);
+		LocalDate localDate2 = LocalDate.of(2024, 6, 18);
 
 		long years = ChronoUnit.YEARS.between(localDate, localDate2);
 		System.out.println(years);
@@ -83,8 +83,8 @@ public class DifferenceTwoLocalDateTest {
 
 	@Test
 	public void until() {
-		LocalDate localDate = LocalDate.of(2023, 8, 3);
-		LocalDate localDate2 = LocalDate.of(2024, 8, 3);
+		LocalDate localDate = LocalDate.of(2023, 6, 18);
+		LocalDate localDate2 = LocalDate.of(2024, 6, 18);
 
 		long years = localDate.until(localDate2, ChronoUnit.YEARS);
 		System.out.println(years);
