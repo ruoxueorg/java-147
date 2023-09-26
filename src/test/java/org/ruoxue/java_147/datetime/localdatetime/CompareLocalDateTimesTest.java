@@ -22,8 +22,8 @@ public class CompareLocalDateTimesTest {
 		System.out.println(result);
 		assertThat(result).isEqualTo(0);
 
-		localDateTime = LocalDateTime.of(2024, 8, 3, 1, 2, 3, 123456789);
-		localDateTime2 = LocalDateTime.of(2023, 8, 3, 1, 2, 3, 123456789);
+		localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3, 123456789);
+		localDateTime2 = LocalDateTime.of(2022, 8, 3, 1, 2, 3, 123456789);
 		result = localDateTime.compareTo(localDateTime2);
 		System.out.println(result);
 		assertThat(result).isGreaterThan(0);
@@ -64,6 +64,19 @@ public class CompareLocalDateTimesTest {
 		assertThat(result).isTrue();
 
 		result = localDateTime2.equals(localDateTime);
+		System.out.println(result);
+		assertThat(result).isTrue();
+	}
+	
+	@Test
+	public void isEqual() {
+		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
+		LocalDateTime localDateTime2 = LocalDateTime.of(2023, 8, 3, 1, 2, 3);
+		boolean result = localDateTime.isEqual(localDateTime2);
+		System.out.println(result);
+		assertThat(result).isTrue();
+
+		result = localDateTime2.isEqual(localDateTime);
 		System.out.println(result);
 		assertThat(result).isTrue();
 	}

@@ -22,8 +22,8 @@ public class CompareLocalDatesTest {
 		System.out.println(result);
 		assertThat(result).isEqualTo(0);
 
-		localDate = LocalDate.of(2024, 6, 18);
-		localDate2 = LocalDate.of(2023, 6, 18);
+		localDate = LocalDate.of(2023, 6, 18);
+		localDate2 = LocalDate.of(2022, 6, 18);
 		result = localDate.compareTo(localDate2);
 		System.out.println(result);
 		assertThat(result).isGreaterThan(0);
@@ -64,6 +64,19 @@ public class CompareLocalDatesTest {
 		assertThat(result).isTrue();
 
 		result = localDate2.equals(localDate);
+		System.out.println(result);
+		assertThat(result).isTrue();
+	}
+	
+	@Test
+	public void isEqual() {
+		LocalDate localDate = LocalDate.of(2023, 6, 18);
+		LocalDate localDate2 = LocalDate.of(2023, 6, 18);
+		boolean result = localDate.isEqual(localDate2);
+		System.out.println(result);
+		assertThat(result).isTrue();
+
+		result = localDate2.isEqual(localDate);
 		System.out.println(result);
 		assertThat(result).isTrue();
 	}

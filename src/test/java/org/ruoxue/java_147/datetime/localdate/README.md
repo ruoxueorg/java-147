@@ -6,3 +6,4 @@
 3. [Java LocalDate Class](https://www.ruoxue.org/java-147-java-localdate-class/)
 4. [Initialize LocalDate in Java](https://www.ruoxue.org/java-147-initialize-localdate-in-java/)
 5. [Compare LocalDates in Java](https://www.ruoxue.org/java-147-compare-localdates-in-java/)
+6. [Difference Between Two LocalDate in Java](https://www.ruoxue.org/java-147-difference-between-two-localdate-in-java/)
