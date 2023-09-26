@@ -12,8 +12,8 @@ public class DifferenceTwoLocalTimeTest {
 
 	@Test
 	public void duration() {
-		LocalTime localTime = LocalTime.of(9, 12, 5);
-		LocalTime localTime2 = LocalTime.of(10, 12, 5);
+		LocalTime localTime = LocalTime.of(9, 12, 5, 123456789);
+		LocalTime localTime2 = LocalTime.of(10, 12, 5, 123456789);
 		Duration duration = Duration.between(localTime, localTime2);
 		System.out.println(duration);
 
@@ -36,8 +36,8 @@ public class DifferenceTwoLocalTimeTest {
 
 	@Test
 	public void chronoUnit() {
-		LocalTime localTime = LocalTime.of(9, 12, 5);
-		LocalTime localTime2 = LocalTime.of(10, 12, 5);
+		LocalTime localTime = LocalTime.of(9, 12, 5, 123456789);
+		LocalTime localTime2 = LocalTime.of(10, 12, 5, 123456789);
 
 		long hours = ChronoUnit.HOURS.between(localTime, localTime2);
 		System.out.println(hours);
@@ -62,8 +62,8 @@ public class DifferenceTwoLocalTimeTest {
 
 	@Test
 	public void until() {
-		LocalTime localTime = LocalTime.of(9, 12, 5);
-		LocalTime localTime2 = LocalTime.of(10, 12, 5);
+		LocalTime localTime = LocalTime.of(9, 12, 5, 123456789);
+		LocalTime localTime2 = LocalTime.of(10, 12, 5, 987654321);
 
 		long hours = localTime.until(localTime2, ChronoUnit.HOURS);
 		System.out.println(hours);
@@ -79,10 +79,10 @@ public class DifferenceTwoLocalTimeTest {
 
 		long milliseconds = localTime.until(localTime2, ChronoUnit.MILLIS);
 		System.out.println(milliseconds);
-		assertThat(milliseconds).isEqualTo(3600000);
+		assertThat(milliseconds).isEqualTo(3600864);
 
 		long nano = localTime.until(localTime2, ChronoUnit.NANOS);
 		System.out.println(nano);
-		assertThat(nano).isEqualTo(3600000000000L);
+		assertThat(nano).isEqualTo(3600864197532L);
 	}
 }
