@@ -12,7 +12,7 @@ import org.junit.Test;
 public class DifferenceTwoLocalDateTest {
 
 	@Test
-	public void period() {
+	public void Period_between() {
 		LocalDate localDate = LocalDate.of(2023, 6, 18);
 		LocalDate localDate2 = LocalDate.of(2024, 6, 18);
 		Period period = Period.between(localDate, localDate2);
@@ -32,7 +32,7 @@ public class DifferenceTwoLocalDateTest {
 	}
 
 	@Test
-	public void duration() {
+	public void Duration_between() {
 		LocalDate localDate = LocalDate.of(2023, 6, 18);
 		LocalDate localDate2 = LocalDate.of(2024, 6, 18);
 		Duration duration = Duration.between(localDate.atStartOfDay(), localDate2.atStartOfDay());
@@ -60,7 +60,7 @@ public class DifferenceTwoLocalDateTest {
 	}
 
 	@Test
-	public void chronoUnit() {
+	public void ChronoUnit_between() {
 		LocalDate localDate = LocalDate.of(2023, 6, 18);
 		LocalDate localDate2 = LocalDate.of(2024, 6, 18);
 
