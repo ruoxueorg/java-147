@@ -11,7 +11,7 @@ import org.junit.Test;
 public class DifferenceTwoLocalDateTimeTest {
 
 	@Test
-	public void duration() {
+	public void Duration_between() {
 		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3, 123456789);
 		LocalDateTime localDateTime2 = LocalDateTime.of(2024, 8, 3, 1, 2, 3, 123456789);
 		Duration duration = Duration.between(localDateTime, localDateTime2);
@@ -39,7 +39,7 @@ public class DifferenceTwoLocalDateTimeTest {
 	}
 
 	@Test
-	public void chronoUnit() {
+	public void ChronoUnit_between() {
 		LocalDateTime localDateTime = LocalDateTime.of(2023, 8, 3, 1, 2, 3, 123456789);
 		LocalDateTime localDateTime2 = LocalDateTime.of(2024, 8, 3, 1, 2, 3, 123456789);
 
