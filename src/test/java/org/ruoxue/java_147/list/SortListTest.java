@@ -146,8 +146,12 @@ public class SortListTest {
 		Fruit cherry = new Fruit("Cherry", 3, 1);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(banana, apple, cherry));
 		System.out.println(list);
-		ArrayList<Fruit> sortedList = list.stream().sorted(quantityComparator)
+		ArrayList<Fruit> sortedList = list.stream().sorted(Comparator.comparing(Fruit::getName))
 				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(sortedList);
+		assertThat(sortedList).containsExactly(apple, banana, cherry);
+
+		sortedList = list.stream().sorted(quantityComparator).collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(sortedList);
 		assertThat(sortedList).containsExactly(banana, cherry, apple);
 
