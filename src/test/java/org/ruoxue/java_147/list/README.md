@@ -7,3 +7,6 @@
 4. [Java Collections sort Method](https://www.ruoxue.org/java-147-java-collections-sort-method/)
 5. [Collections sort in Java with Examples](https://www.ruoxue.org/java-147-collections-sort-in-java-with-examples/)
 6. [Java Sort List with Collections sort](https://www.ruoxue.org/java-147-java-sort-list-with-collections-sort/)
+7. [Java List sort Method](https://www.ruoxue.org/java-147-java-list-sort-method/)
+8. [List sort in Java with Examples](https://www.ruoxue.org/java-147-list-sort-in-java-with-examples/)
+9. [Java Sort List with List sort](https://www.ruoxue.org/java-147-java-sort-list-with-list-sort/)

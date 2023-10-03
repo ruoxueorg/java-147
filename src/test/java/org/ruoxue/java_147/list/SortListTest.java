@@ -57,18 +57,12 @@ public class SortListTest {
 
 	@Test
 	public void Collections_sort() {
-		List<String> list = new ArrayList<String>();
-		list.add("Banana");
-		list.add("Apple");
-		list.add("Cherry");
+		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
-		Collections.sort(list);
-		System.out.println(list);
-		assertThat(list).containsExactly("Apple", "Banana", "Cherry");
 
-		Collections.sort(list, Comparator.reverseOrder());
+		Collections.sort(list, (i1, i2) -> Integer.compare(i1, i2));
 		System.out.println(list);
-		assertThat(list).containsExactly("Cherry", "Banana", "Apple");
+		assertThat(list).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
 
 	@Test
@@ -78,15 +72,10 @@ public class SortListTest {
 		Fruit cherry = new Fruit("Cherry", 3, 1);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(banana, apple, cherry));
 		System.out.println(list);
-		Collections.sort(list, nameComparator);
-		System.out.println(list);
-		assertThat(list).containsExactly(apple, banana, cherry);
 
-		Fruit blueberry = new Fruit("BLUEBERRY", 4, 2);
-		list.add(blueberry);
-		Collections.sort(list, (o1, o2) -> 0 - o1.name.compareTo(o2.name));
+		Collections.sort(list, Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity));
 		System.out.println(list);
-		assertThat(list).containsExactly(cherry, banana, blueberry, apple);
+		assertThat(list).containsExactly(cherry, apple, banana);
 	}
 
 	@Test
