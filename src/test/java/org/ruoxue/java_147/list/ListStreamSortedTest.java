@@ -4,9 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -61,9 +61,9 @@ public class ListStreamSortedTest {
 		List<Fruit> list = new ArrayList<>(Arrays.asList(banana, apple, cherry));
 		System.out.println(list);
 
-		Collections.sort(list);
-		System.out.println(list);
-		assertThat(list).containsExactly(apple, banana, cherry);
+		ArrayList<Fruit> result = list.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(apple, banana, cherry);
 	}
 
 	@Test
@@ -74,9 +74,10 @@ public class ListStreamSortedTest {
 		List<Fruit> list = new ArrayList<>(Arrays.asList(banana, apple, cherry));
 		System.out.println(list);
 
-		Collections.sort(list, Comparator.reverseOrder());
-		System.out.println(list);
-		assertThat(list).containsExactly(cherry, banana, apple);
+		ArrayList<Fruit> result = list.stream().sorted(Comparator.reverseOrder())
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(cherry, banana, apple);
 	}
 
 	@Test
@@ -87,9 +88,10 @@ public class ListStreamSortedTest {
 		List<Fruit> list = new ArrayList<>(Arrays.asList(banana, apple, cherry));
 		System.out.println(list);
 
-		Collections.sort(list, (o1, o2) -> Double.compare(o1.quantity, o2.quantity));
-		System.out.println(list);
-		assertThat(list).containsExactly(banana, cherry, apple);
+		ArrayList<Fruit> result = list.stream().sorted((o1, o2) -> Double.compare(o1.quantity, o2.quantity))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(banana, cherry, apple);
 	}
 
 	@Test
@@ -100,9 +102,11 @@ public class ListStreamSortedTest {
 		List<Fruit> list = new ArrayList<>(Arrays.asList(banana, apple, cherry));
 		System.out.println(list);
 
-		Collections.sort(list, Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity));
-		System.out.println(list);
-		assertThat(list).containsExactly(cherry, apple, banana);
+		ArrayList<Fruit> result = list.stream()
+				.sorted(Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(cherry, apple, banana);
 	}
 
 	protected static Comparator<Fruit> nameComparator = new Comparator<Fruit>() {
@@ -122,8 +126,9 @@ public class ListStreamSortedTest {
 		List<Fruit> list = new ArrayList<>(Arrays.asList(apple, cherry, banana));
 		System.out.println(list);
 
-		Collections.sort(list, nameComparator.thenComparing(quantityComparator));
-		System.out.println(list);
-		assertThat(list).containsExactly(apple, banana, cherry);
+		ArrayList<Fruit> result = list.stream().sorted(nameComparator.thenComparing(quantityComparator))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(apple, banana, cherry);
 	}
 }

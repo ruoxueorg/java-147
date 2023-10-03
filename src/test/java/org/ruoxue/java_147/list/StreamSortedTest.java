@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,9 +38,10 @@ public class StreamSortedTest {
 		List<String> list = Arrays.asList("Banana", "Apple", "Cherry");
 		System.out.println(list);
 
-		Collections.sort(list, (s1, s2) -> s1.length() - s2.length());
-		System.out.println(list);
-		assertThat(list).containsExactly("Apple", "Banana", "Cherry");
+		ArrayList<String> result = list.stream().sorted((s1, s2) -> s1.length() - s2.length())
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly("Apple", "Banana", "Cherry");
 	}
 
 	@Test
@@ -49,9 +49,10 @@ public class StreamSortedTest {
 		List<String> list = Arrays.asList("Banana", "Apple", "Cherry");
 		System.out.println(list);
 
-		Collections.sort(list, Comparator.comparing(String::length));
-		System.out.println(list);
-		assertThat(list).containsExactly("Apple", "Banana", "Cherry");
+		ArrayList<String> result = list.stream().sorted(Comparator.comparing(String::length))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly("Apple", "Banana", "Cherry");
 	}
 
 	protected static Comparator<String> nameComparator = new Comparator<String>() {
@@ -68,8 +69,9 @@ public class StreamSortedTest {
 		List<String> list = Arrays.asList("Apple", "Cherry", "Banana");
 		System.out.println(list);
 
-		Collections.sort(list, nameComparator.thenComparing(lengthComparator));
-		System.out.println(list);
-		assertThat(list).containsExactly("Apple", "Banana", "Cherry");
+		ArrayList<String> result = list.stream().sorted(nameComparator.thenComparing(lengthComparator))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly("Apple", "Banana", "Cherry");
 	}
 }

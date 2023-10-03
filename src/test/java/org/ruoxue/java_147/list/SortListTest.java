@@ -46,15 +46,6 @@ public class SortListTest {
 		}
 	}
 
-	protected static Comparator<Fruit> nameComparator = new Comparator<Fruit>() {
-		@Override
-		public int compare(Fruit o1, Fruit o2) {
-			return o1.name.compareTo(o2.name);
-		}
-	};
-
-	protected static Comparator<Fruit> quantityComparator = (o1, o2) -> Double.compare(o1.quantity, o2.quantity);
-
 	@Test
 	public void Collections_sort() {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
@@ -93,6 +84,15 @@ public class SortListTest {
 		System.out.println(list);
 		assertThat(list).containsExactly("Cherry", "Banana", "Apple");
 	}
+
+	protected static Comparator<Fruit> nameComparator = new Comparator<Fruit>() {
+		@Override
+		public int compare(Fruit o1, Fruit o2) {
+			return o1.name.compareTo(o2.name);
+		}
+	};
+
+	protected static Comparator<Fruit> quantityComparator = (o1, o2) -> Double.compare(o1.quantity, o2.quantity);
 
 	@Test
 	public void List_sort_Object() {

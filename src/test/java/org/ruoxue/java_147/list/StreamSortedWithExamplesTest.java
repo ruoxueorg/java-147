@@ -2,10 +2,11 @@ package org.ruoxue.java_147.list;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -16,9 +17,9 @@ public class StreamSortedWithExamplesTest {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
-		Collections.sort(list);
-		System.out.println(list);
-		assertThat(list).containsExactly(-1, 3, Integer.MAX_VALUE);
+		ArrayList<Integer> result = list.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
 
 	@Test
@@ -26,9 +27,10 @@ public class StreamSortedWithExamplesTest {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
-		Collections.sort(list, Comparator.reverseOrder());
-		System.out.println(list);
-		assertThat(list).containsExactly(Integer.MAX_VALUE, 3, -1);
+		ArrayList<Integer> result = list.stream().sorted(Comparator.reverseOrder())
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(Integer.MAX_VALUE, 3, -1);
 	}
 
 	@Test
@@ -36,9 +38,10 @@ public class StreamSortedWithExamplesTest {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
-		Collections.sort(list, (i1, i2) -> Integer.compare(i1, i2));
-		System.out.println(list);
-		assertThat(list).containsExactly(-1, 3, Integer.MAX_VALUE);
+		ArrayList<Integer> result = list.stream().sorted((i1, i2) -> Integer.compare(i1, i2))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
 
 	@Test
@@ -46,9 +49,10 @@ public class StreamSortedWithExamplesTest {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
-		Collections.sort(list, Comparator.comparing(Integer::intValue));
-		System.out.println(list);
-		assertThat(list).containsExactly(-1, 3, Integer.MAX_VALUE);
+		ArrayList<Integer> result = list.stream().sorted(Comparator.comparing(Integer::intValue))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
 
 	@Test
@@ -56,9 +60,10 @@ public class StreamSortedWithExamplesTest {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
-		Collections.sort(list, Comparator.comparingInt(i -> i));
-		System.out.println(list);
-		assertThat(list).containsExactly(-1, 3, Integer.MAX_VALUE);
+		ArrayList<Integer> result = list.stream().sorted(Comparator.comparingInt(i -> i))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
 
 	protected static Comparator<Integer> valueComparator = new Comparator<Integer>() {
@@ -76,8 +81,9 @@ public class StreamSortedWithExamplesTest {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, 3, -1);
 		System.out.println(list);
 
-		Collections.sort(list, valueComparator.thenComparing(lengthComparator));
-		System.out.println(list);
-		assertThat(list).containsExactly(-1, 3, Integer.MAX_VALUE);
+		ArrayList<Integer> result = list.stream().sorted(valueComparator.thenComparing(lengthComparator))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
 }
