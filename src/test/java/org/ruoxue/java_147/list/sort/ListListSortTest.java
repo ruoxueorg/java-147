@@ -1,10 +1,9 @@
-package org.ruoxue.java_147.list;
+package org.ruoxue.java_147.list.sort;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -17,7 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class ListCollectionsSortTest {
+public class ListListSortTest {
 
 	@NoArgsConstructor
 	@Getter
@@ -55,54 +54,54 @@ public class ListCollectionsSortTest {
 
 	@Test
 	public void sort() {
-		Fruit orange = new Fruit("Orange", -1, 3);
-		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Peach", 3, 1);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
+		Fruit banana = new Fruit("Banana", -1, 3);
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		Fruit cherry = new Fruit("Cherry", 3, 1);
+		List<Fruit> list = new ArrayList<>(Arrays.asList(banana, apple, cherry));
 		System.out.println(list);
 
-		Collections.sort(list);
+		list.sort(Comparator.naturalOrder());
 		System.out.println(list);
-		assertThat(list).containsExactly(mango, orange, peach);
+		assertThat(list).containsExactly(apple, banana, cherry);
 	}
 
 	@Test
 	public void sortWithReverseOrder() {
-		Fruit orange = new Fruit("Orange", -1, 3);
-		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Peach", 3, 1);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
+		Fruit banana = new Fruit("Banana", -1, 3);
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		Fruit cherry = new Fruit("Cherry", 3, 1);
+		List<Fruit> list = new ArrayList<>(Arrays.asList(banana, apple, cherry));
 		System.out.println(list);
 
-		Collections.sort(list, Comparator.reverseOrder());
+		list.sort(Comparator.reverseOrder());
 		System.out.println(list);
-		assertThat(list).containsExactly(peach, orange, mango);
+		assertThat(list).containsExactly(cherry, banana, apple);
 	}
 
 	@Test
 	public void sortWithComparator() {
-		Fruit orange = new Fruit("Orange", -1, 3);
-		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Peach", 3, 1);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
+		Fruit banana = new Fruit("Banana", -1, 3);
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		Fruit cherry = new Fruit("Cherry", 3, 1);
+		List<Fruit> list = new ArrayList<>(Arrays.asList(banana, apple, cherry));
 		System.out.println(list);
 
-		Collections.sort(list, (o1, o2) -> Double.compare(o1.quantity, o2.quantity));
+		list.sort((o1, o2) -> Double.compare(o1.quantity, o2.quantity));
 		System.out.println(list);
-		assertThat(list).containsExactly(orange, peach, mango);
+		assertThat(list).containsExactly(banana, cherry, apple);
 	}
 
 	@Test
 	public void sortWithComparing() {
-		Fruit orange = new Fruit("Orange", -1, 3);
-		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Peach", 3, 1);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
+		Fruit banana = new Fruit("Banana", -1, 3);
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		Fruit cherry = new Fruit("Cherry", 3, 1);
+		List<Fruit> list = new ArrayList<>(Arrays.asList(banana, apple, cherry));
 		System.out.println(list);
 
-		Collections.sort(list, Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity));
+		list.sort(Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity));
 		System.out.println(list);
-		assertThat(list).containsExactly(peach, mango, orange);
+		assertThat(list).containsExactly(cherry, apple, banana);
 	}
 
 	protected static Comparator<Fruit> nameComparator = new Comparator<Fruit>() {
@@ -116,14 +115,14 @@ public class ListCollectionsSortTest {
 
 	@Test
 	public void sortWithThenComparing() {
-		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Peach", 3, 1);
-		Fruit orange = new Fruit("Orange", -1, 3);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(mango, peach, orange));
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		Fruit cherry = new Fruit("Cherry", 3, 1);
+		Fruit banana = new Fruit("Banana", -1, 3);
+		List<Fruit> list = new ArrayList<>(Arrays.asList(apple, cherry, banana));
 		System.out.println(list);
 
-		Collections.sort(list, nameComparator.thenComparing(quantityComparator));
+		list.sort(nameComparator.thenComparing(quantityComparator));
 		System.out.println(list);
-		assertThat(list).containsExactly(mango, orange, peach);
+		assertThat(list).containsExactly(apple, banana, cherry);
 	}
 }

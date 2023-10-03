@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.list;
+package org.ruoxue.java_147.list.sort;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

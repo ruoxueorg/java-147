@@ -1,21 +1,22 @@
-package org.ruoxue.java_147.list;
+package org.ruoxue.java_147.list.sort;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import org.junit.Test;
 
-public class ListSortWithExamplesTest {
+public class CollectionsSortWithExamplesTest {
 
 	@Test
 	public void sort() {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
-		list.sort(Comparator.naturalOrder());
+		Collections.sort(list);
 		System.out.println(list);
 		assertThat(list).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
@@ -25,7 +26,7 @@ public class ListSortWithExamplesTest {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
-		list.sort(Comparator.reverseOrder());
+		Collections.sort(list, Comparator.reverseOrder());
 		System.out.println(list);
 		assertThat(list).containsExactly(Integer.MAX_VALUE, 3, -1);
 	}
@@ -35,7 +36,7 @@ public class ListSortWithExamplesTest {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
-		list.sort((i1, i2) -> Integer.compare(i1, i2));
+		Collections.sort(list, (i1, i2) -> Integer.compare(i1, i2));
 		System.out.println(list);
 		assertThat(list).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
@@ -45,7 +46,7 @@ public class ListSortWithExamplesTest {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
-		list.sort(Comparator.comparing(Integer::intValue));
+		Collections.sort(list, Comparator.comparing(Integer::intValue));
 		System.out.println(list);
 		assertThat(list).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
@@ -55,7 +56,7 @@ public class ListSortWithExamplesTest {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
-		list.sort(Comparator.comparingInt(i -> i));
+		Collections.sort(list, Comparator.comparingInt(i -> i));
 		System.out.println(list);
 		assertThat(list).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
@@ -75,7 +76,7 @@ public class ListSortWithExamplesTest {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, 3, -1);
 		System.out.println(list);
 
-		list.sort(valueComparator.thenComparing(lengthComparator));
+		Collections.sort(list, valueComparator.thenComparing(lengthComparator));
 		System.out.println(list);
 		assertThat(list).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
