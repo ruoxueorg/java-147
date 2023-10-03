@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -59,6 +60,10 @@ public class ListSortingExampleTest {
 		List<String> list = Arrays.asList("Mango", "Peach", "Orange");
 		System.out.println(list);
 
+		Collections.sort(list, Comparator.comparing(String::length));
+		System.out.println(list);
+		assertThat(list).containsExactly("Mango", "Peach", "Orange");
+
 		Collections.sort(list, stringNameComparator.thenComparing(stringLengthComparator));
 		System.out.println(list);
 		assertThat(list).containsExactly("Mango", "Orange", "Peach");
@@ -78,6 +83,10 @@ public class ListSortingExampleTest {
 	public void Collections_sort_Double() {
 		List<Double> list = Arrays.asList(1d, 3d, -1d);
 		System.out.println(list);
+
+		Collections.sort(list, Comparator.comparingDouble(d -> d));
+		System.out.println(list);
+		assertThat(list).containsExactly(-1d, 1d, 3d);
 
 		Collections.sort(list, doubleValueComparator.thenComparing(doubleLengthComparator));
 		System.out.println(list);
@@ -101,6 +110,10 @@ public class ListSortingExampleTest {
 		List<Fruit> list = new ArrayList<>(Arrays.asList(mango, peach, orange));
 		System.out.println(list);
 
+		Collections.sort(list, Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity));
+		System.out.println(list);
+		assertThat(list).containsExactly(mango, peach, orange);
+
 		Collections.sort(list, objectNameComparator.thenComparing(objectQuantityComparator));
 		System.out.println(list);
 		assertThat(list).containsExactly(mango, orange, peach);
@@ -110,6 +123,10 @@ public class ListSortingExampleTest {
 	public void List_sort() {
 		List<String> list = Arrays.asList("Apple", "Cherry", "Banana");
 		System.out.println(list);
+
+		list.sort(Comparator.comparing(String::length));
+		System.out.println(list);
+		assertThat(list).containsExactly("Apple", "Cherry", "Banana");
 
 		list.sort(stringNameComparator.thenComparing(stringLengthComparator));
 		System.out.println(list);
@@ -121,6 +138,10 @@ public class ListSortingExampleTest {
 		List<Double> list = Arrays.asList(1d, 3d, -1d);
 		System.out.println(list);
 
+		list.sort(Comparator.comparingDouble(d -> d));
+		System.out.println(list);
+		assertThat(list).containsExactly(-1d, 1d, 3d);
+
 		list.sort(doubleValueComparator.thenComparing(doubleLengthComparator));
 		System.out.println(list);
 		assertThat(list).containsExactly(-1d, 1d, 3d);
@@ -128,11 +149,15 @@ public class ListSortingExampleTest {
 
 	@Test
 	public void List_sort_Object() {
-		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		Fruit apple = new Fruit("Apple", 1, 1);
 		Fruit cherry = new Fruit("Cherry", 3, 1);
 		Fruit banana = new Fruit("Banana", -1, 3);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(apple, cherry, banana));
 		System.out.println(list);
+
+		list.sort(Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity));
+		System.out.println(list);
+		assertThat(list).containsExactly(apple, cherry, banana);
 
 		list.sort(objectNameComparator.thenComparing(objectQuantityComparator));
 		System.out.println(list);
@@ -141,14 +166,53 @@ public class ListSortingExampleTest {
 
 	@Test
 	public void Stream_sorted() {
+		List<String> list = Arrays.asList("Mango", "Peach", "Orange");
+		System.out.println(list);
+
+		ArrayList<String> result = list.stream().sorted(Comparator.comparing(String::length))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly("Mango", "Peach", "Orange");
+
+		result = list.stream().sorted(stringNameComparator.thenComparing(stringLengthComparator))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly("Mango", "Orange", "Peach");
 	}
 
 	@Test
 	public void Stream_sorted_Double() {
+		List<Double> list = Arrays.asList(1d, 3d, -1d);
+		System.out.println(list);
+
+		ArrayList<Double> result = list.stream().sorted(Comparator.comparingDouble(d -> d))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(-1d, 1d, 3d);
+
+		result = list.stream().sorted(doubleValueComparator.thenComparing(doubleLengthComparator))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(-1d, 1d, 3d);
 	}
 
 	@Test
 	public void Stream_sorted_Object() {
-	}
+		Fruit apple = new Fruit("Mango", Double.MAX_VALUE, 1);
+		Fruit peach = new Fruit("Peach", 3, 1);
+		Fruit orange = new Fruit("Orange", -1, 3);
+		List<Fruit> list = new ArrayList<>(Arrays.asList(apple, peach, orange));
+		System.out.println(list);
 
+		ArrayList<Fruit> result = list.stream()
+				.sorted(Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(peach, apple, orange);
+
+		result = list.stream().sorted(objectNameComparator.thenComparing(objectQuantityComparator))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(apple, orange, peach);
+	}
 }

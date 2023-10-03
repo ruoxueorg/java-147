@@ -38,7 +38,7 @@ public class CollectionsSortTest {
 
 		Collections.sort(list, (s1, s2) -> s1.length() - s2.length());
 		System.out.println(list);
-		assertThat(list).containsExactly("Mango", "Orange", "Peach");
+		assertThat(list).containsExactly("Mango", "Peach", "Orange");
 	}
 
 	@Test
@@ -48,7 +48,7 @@ public class CollectionsSortTest {
 
 		Collections.sort(list, Comparator.comparing(String::length));
 		System.out.println(list);
-		assertThat(list).containsExactly("Mango", "Orange", "Peach");
+		assertThat(list).containsExactly("Mango", "Peach", "Orange");
 	}
 
 	protected static Comparator<String> nameComparator = new Comparator<String>() {
