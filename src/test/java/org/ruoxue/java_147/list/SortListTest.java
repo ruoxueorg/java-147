@@ -101,14 +101,14 @@ public class SortListTest {
 	@Test
 	public void List_sort_Object() {
 		Fruit banana = new Fruit("Banana", -1, 3);
-		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		Fruit apple = new Fruit("Apple", 1, 1);
 		Fruit cherry = new Fruit("Cherry", 3, 1);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(banana, apple, cherry));
 		System.out.println(list);
 
 		list.sort((o1, o2) -> Double.compare(o1.quantity, o2.quantity));
 		System.out.println(list);
-		assertThat(list).containsExactly(banana, cherry, apple);
+		assertThat(list).containsExactly(banana, apple, cherry);
 	}
 
 	@Test
@@ -135,9 +135,9 @@ public class SortListTest {
 
 	@Test
 	public void Stream_sorted_Object() {
-		Fruit lichee = new Fruit("Lichee", -1d, 3);
-		Fruit coconut = new Fruit("Coconut", 1d, 1);
-		Fruit plum = new Fruit("Plum", 3d, 1);
+		Fruit lichee = new Fruit("Lichee", -1, 3);
+		Fruit coconut = new Fruit("Coconut", 1, 1);
+		Fruit plum = new Fruit("Plum", 3, 1);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(lichee, coconut, plum));
 		System.out.println(list);
 

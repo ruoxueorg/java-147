@@ -13,42 +13,42 @@ public class CollectionsSortTest {
 
 	@Test
 	public void sort() {
-		List<String> list = Arrays.asList("Banana", "Apple", "Cherry");
+		List<String> list = Arrays.asList("Orange", "Mango", "Peach");
 		System.out.println(list);
 
 		Collections.sort(list);
 		System.out.println(list);
-		assertThat(list).containsExactly("Apple", "Banana", "Cherry");
+		assertThat(list).containsExactly("Mango", "Orange", "Peach");
 	}
 
 	@Test
 	public void sortWithReverseOrder() {
-		List<String> list = Arrays.asList("Banana", "Apple", "Cherry");
+		List<String> list = Arrays.asList("Orange", "Mango", "Peach");
 		System.out.println(list);
 
 		Collections.sort(list, Comparator.reverseOrder());
 		System.out.println(list);
-		assertThat(list).containsExactly("Cherry", "Banana", "Apple");
+		assertThat(list).containsExactly("Peach", "Orange", "Mango");
 	}
 
 	@Test
 	public void sortWithComparator() {
-		List<String> list = Arrays.asList("Banana", "Apple", "Cherry");
+		List<String> list = Arrays.asList("Orange", "Mango", "Peach");
 		System.out.println(list);
 
 		Collections.sort(list, (s1, s2) -> s1.length() - s2.length());
 		System.out.println(list);
-		assertThat(list).containsExactly("Apple", "Banana", "Cherry");
+		assertThat(list).containsExactly("Mango", "Orange", "Peach");
 	}
 
 	@Test
 	public void sortWithComparing() {
-		List<String> list = Arrays.asList("Banana", "Apple", "Cherry");
+		List<String> list = Arrays.asList("Orange", "Mango", "Peach");
 		System.out.println(list);
 
 		Collections.sort(list, Comparator.comparing(String::length));
 		System.out.println(list);
-		assertThat(list).containsExactly("Apple", "Banana", "Cherry");
+		assertThat(list).containsExactly("Mango", "Orange", "Peach");
 	}
 
 	protected static Comparator<String> nameComparator = new Comparator<String>() {
@@ -62,11 +62,11 @@ public class CollectionsSortTest {
 
 	@Test
 	public void sortWithThenComparing() {
-		List<String> list = Arrays.asList("Apple", "Cherry", "Banana");
+		List<String> list = Arrays.asList("Mango", "Peach", "Orange");
 		System.out.println(list);
 
 		Collections.sort(list, nameComparator.thenComparing(lengthComparator));
 		System.out.println(list);
-		assertThat(list).containsExactly("Apple", "Banana", "Cherry");
+		assertThat(list).containsExactly("Mango", "Orange", "Peach");
 	}
 }
