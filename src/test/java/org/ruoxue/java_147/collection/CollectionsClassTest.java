@@ -20,77 +20,6 @@ public class CollectionsClassTest {
 	};
 
 	@Test
-	public void addAll() {
-		int expectedSize = 6;
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Orange");
-		list.add("Peach");
-		System.out.println(list);
-
-		Collections.addAll(list, "Papaya", "Strawberry", "Watermelon");
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
-	}
-
-	@Test
-	public void binarySearch() {
-		int expectedIndex = 1;
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Orange");
-		list.add("Peach");
-
-		int result = Collections.binarySearch(list, "Orange");
-		System.out.println(result);
-		assertEquals(expectedIndex, result);
-	}
-
-	@Test
-	public void copy() {
-		int expectedSize = 3;
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Orange");
-		list.add("Peach");
-		System.out.println(list);
-
-		List<String> list2 = new ArrayList<String>();
-		list2.add("Papaya");
-		list2.add("Strawberry");
-		Collections.copy(list, list2);
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
-	}
-
-	@Test
-	public void disjoint() {
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Orange");
-		list.add("Peach");
-
-		List<String> list2 = new ArrayList<String>();
-		list2.add("Papaya");
-		list2.add("Strawberry");
-		boolean result = Collections.disjoint(list, list2);
-		System.out.println(result);
-		assertTrue(result);
-	}
-
-	@Test
-	public void shuffle() {
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Orange");
-		list.add("Peach");
-		System.out.println(list);
-
-		Collections.shuffle(list);
-		System.out.println(list);
-	}
-
-	@Test
 	public void sort() {
 		List<String> list = new ArrayList<String>();
 		list.add("Mango");
@@ -132,26 +61,28 @@ public class CollectionsClassTest {
 	}
 
 	@Test
-	public void reverse() {
+	public void max() {
+		String expected = "Peach";
 		List<String> list = new ArrayList<String>();
 		list.add("Mango");
 		list.add("Orange");
 		list.add("Peach");
 		System.out.println(list);
-
-		Collections.reverse(list);
-		System.out.println(list);
+		String value = Collections.max(list);
+		System.out.println(value);
+		assertEquals(expected, value);
 	}
 
 	@Test
-	public void swap() {
+	public void min() {
+		String expected = "Mango";
 		List<String> list = new ArrayList<String>();
 		list.add("Mango");
 		list.add("Orange");
 		list.add("Peach");
 		System.out.println(list);
-
-		Collections.swap(list, 0, 2);
-		System.out.println(list);
+		String value = Collections.min(list);
+		System.out.println(value);
+		assertEquals(expected, value);
 	}
 }

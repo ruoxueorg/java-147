@@ -1,8 +1,10 @@
 package org.ruoxue.java_147.collection;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,15 +14,11 @@ public class CollectionsWithExamplesTest {
 
 	@Test
 	public void fill() {
-		int expectedSize = 3;
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Orange");
-		list.add("Peach");
+		List<String> list = new ArrayList<>(Arrays.asList("Mango", "Orange", "Peach"));
 		System.out.println(list);
 		Collections.fill(list, "Orange");
 		System.out.println(list);
-		assertEquals(expectedSize, list.size());
+		assertThat(list).containsExactly("Orange", "Orange", "Orange");
 	}
 
 	@Test
@@ -104,31 +102,5 @@ public class CollectionsWithExamplesTest {
 		Collections.rotate(list, 2);
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
-	}
-
-	@Test
-	public void max() {
-		String expected = "Peach";
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Orange");
-		list.add("Peach");
-		System.out.println(list);
-		String value = Collections.max(list);
-		System.out.println(value);
-		assertEquals(expected, value);
-	}
-
-	@Test
-	public void min() {
-		String expected = "Mango";
-		List<String> list = new ArrayList<String>();
-		list.add("Mango");
-		list.add("Orange");
-		list.add("Peach");
-		System.out.println(list);
-		String value = Collections.min(list);
-		System.out.println(value);
-		assertEquals(expected, value);
 	}
 }

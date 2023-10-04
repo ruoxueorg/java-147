@@ -131,7 +131,7 @@ public class ArraysMethodsTest {
 		System.out.println("sort waste: " + (end - beg) + " mills.");
 	}
 
-	public static Comparator<Fruit> quantityComparator = new Comparator<Fruit>() {
+	protected static Comparator<Fruit> quantityComparator = new Comparator<Fruit>() {
 		@Override
 		public int compare(Fruit o1, Fruit o2) {
 			return Double.compare(o1.quantity, o2.quantity);
