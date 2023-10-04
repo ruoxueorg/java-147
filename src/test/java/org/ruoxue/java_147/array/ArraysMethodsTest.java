@@ -1,7 +1,6 @@
 package org.ruoxue.java_147.array;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -50,12 +49,12 @@ public class ArraysMethodsTest {
 		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
 		List<String> list = Arrays.asList(array);
 		System.out.println(list);
-		assertEquals(expectedSize, list.size());
+		assertThat(list).hasSize(expectedSize);
 
 		Integer[] intArray = new Integer[] { Integer.MAX_VALUE, -1, 3 };
 		List<Integer> intList = Arrays.asList(intArray);
 		System.out.println(intList);
-		assertEquals(expectedSize, intList.size());
+		assertThat(list).hasSize(expectedSize);
 	}
 
 	@Test
@@ -64,12 +63,12 @@ public class ArraysMethodsTest {
 		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
 		int result = Arrays.binarySearch(array, "Guava");
 		System.out.println(result);
-		assertEquals(expectedIndex, result);
+		assertThat(result).isEqualTo(expectedIndex);
 
 		int[] intArray = new int[] { Integer.MAX_VALUE, -1, 3 };
-		result = Arrays.binarySearch(intArray, -1);
-		System.out.println(result);
-		assertEquals(expectedIndex, result);
+		int intResult = Arrays.binarySearch(intArray, -1);
+		System.out.println(intResult);
+		assertThat(intResult).isEqualTo(expectedIndex);
 	}
 
 	@Test
@@ -81,7 +80,7 @@ public class ArraysMethodsTest {
 		String[] array2 = null;
 		array2 = Arrays.copyOf(array, 5);
 		System.out.println(Arrays.toString(array2));
-		assertEquals(expectedSize, array2.length);
+		assertThat(array2).hasSize(expectedSize);
 
 		int[] intArray = new int[] { Integer.MAX_VALUE, -1, 3 };
 		System.out.println(Arrays.toString(intArray));
@@ -89,7 +88,7 @@ public class ArraysMethodsTest {
 		int[] intArray2 = null;
 		intArray2 = Arrays.copyOf(intArray, 5);
 		System.out.println(Arrays.toString(intArray2));
-		assertEquals(expectedSize, intArray2.length);
+		assertThat(intArray2).hasSize(expectedSize);
 	}
 
 	@Test
@@ -101,7 +100,7 @@ public class ArraysMethodsTest {
 		String[] array2 = null;
 		array2 = Arrays.copyOfRange(array, 1, 2);
 		System.out.println(Arrays.toString(array2));
-		assertEquals(expectedSize, array2.length);
+		assertThat(array2).hasSize(expectedSize);
 
 		int[] intArray = new int[] { Integer.MAX_VALUE, -1, 3 };
 		System.out.println(Arrays.toString(intArray));
@@ -109,7 +108,7 @@ public class ArraysMethodsTest {
 		int[] intArray2 = null;
 		intArray2 = Arrays.copyOfRange(intArray, 1, 2);
 		System.out.println(Arrays.toString(intArray2));
-		assertEquals(expectedSize, intArray2.length);
+		assertThat(intArray2).hasSize(expectedSize);
 	}
 
 	@Test
@@ -149,7 +148,25 @@ public class ArraysMethodsTest {
 
 		Arrays.parallelSort(array, quantityComparator);
 		System.out.println(Arrays.toString(array));
-		assertEquals("Durian", array[0].getName());
-		assertEquals("Guava", array[1].getName());
+		assertThat(array).containsExactly(durian, guava, pitaya);
+	}
+
+	@Test
+	public void parallelSortWithLambda() {
+		Fruit durian = new Fruit("Durian", 1, 1);
+		Fruit pitaya = new Fruit("Pitaya", 3, 1);
+		Fruit guava = new Fruit("Guava", 2, 1);
+		Fruit[] array = new Fruit[] { durian, pitaya, guava };
+		System.out.println(Arrays.toString(array));
+
+		Arrays.parallelSort(array, (o1, o2) -> Double.compare(o1.quantity, o2.quantity));
+		System.out.println(Arrays.toString(array));
+		assertThat(array).containsExactly(durian, guava, pitaya);
+
+		Arrays.parallelSort(array, (o1, o2) -> {
+			return Double.compare(o2.quantity, o1.quantity);
+		});
+		System.out.println(Arrays.toString(array));
+		assertThat(array).containsExactly(pitaya, guava, durian);
 	}
 }

@@ -1,107 +1,103 @@
 package org.ruoxue.java_147.array;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Spliterator;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 public class ArraysWithExamplesTest {
-
-	@NoArgsConstructor
-	@Getter
-	@Setter
-	@Builder
-	public static class Fruit {
-		private String name;
-		private double quantity;
-		private int type;
-
-		public Fruit(String name, double quantity, int type) {
-			this.name = name;
-			this.quantity = quantity;
-			this.type = type;
-		}
-
-		public String toString() {
-			ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.JSON_STYLE);
-			builder.appendSuper(super.toString());
-			builder.append("name", name);
-			builder.append("quantity", quantity);
-			builder.append("type", type);
-			return builder.toString();
-		}
-	}
 
 	@Test
 	public void fill() {
 		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
 		System.out.println(Arrays.toString(array));
-
 		Arrays.fill(array, "Durian");
 		System.out.println(Arrays.toString(array));
+		assertThat(array).containsExactly("Durian", "Durian", "Durian");
+
+		int[] intArray = new int[] { Integer.MAX_VALUE, -1, 3 };
+		System.out.println(Arrays.toString(intArray));
+		Arrays.fill(intArray, -1);
+		System.out.println(Arrays.toString(intArray));
+		assertThat(intArray).containsExactly(-1, -1, -1);
 	}
 
 	@Test
 	public void setAll() {
 		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
 		System.out.println(Arrays.toString(array));
-
-		Arrays.setAll(array, i -> {
-			String value = array[i];
+		Arrays.setAll(array, index -> {
+			String value = array[index];
 			if (value.startsWith("G")) {
 				return value.toUpperCase();
 			}
 			return value;
 		});
 		System.out.println(Arrays.toString(array));
+		assertThat(array).containsExactly("Durian", "GUAVA", "Pitaya");
+
+		int[] intArray = new int[] { Integer.MAX_VALUE, -1, 3 };
+		System.out.println(Arrays.toString(intArray));
+		Arrays.setAll(intArray, index -> intArray[index] - 100);
+		System.out.println(Arrays.toString(intArray));
+		assertThat(intArray).containsExactly(2147483547, -101, -97);
 	}
 
 	@Test
 	public void paralleSetAll() {
 		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
 		System.out.println(Arrays.toString(array));
-
-		Arrays.parallelSetAll(array, i -> {
-			String value = array[i];
+		Arrays.parallelSetAll(array, index -> {
+			String value = array[index];
 			if (value.contains("a")) {
 				return value.toUpperCase();
 			}
 			return value;
 		});
 		System.out.println(Arrays.toString(array));
+		assertThat(array).containsExactly("DURIAN", "GUAVA", "PITAYA");
+
+		int[] intArray = new int[] { Integer.MAX_VALUE, -1, 3 };
+		System.out.println(Arrays.toString(intArray));
+		Arrays.setAll(intArray, index -> intArray[index] - 100);
+		System.out.println(Arrays.toString(intArray));
+		assertThat(intArray).containsExactly(2147483547, -101, -97);
 	}
 
 	@Test
 	public void stream() {
 		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
 		Stream<String> stream = Arrays.stream(array);
-		stream.map(e -> e.toUpperCase()).forEach(e -> System.out.println(e));
-		System.out.println("----------");
+		List<String> result = stream.map(e -> e.toUpperCase()).collect(Collectors.toList());
+		System.out.println(result);
+		assertThat(result).containsExactly("DURIAN", "GUAVA", "PITAYA");
 
-		Stream<String> stream2 = Stream.of(array);
-		stream2.map(e -> e.toLowerCase()).forEach(e -> System.out.println(e));
+		int[] intArray = new int[] { Integer.MAX_VALUE, -1, 3 };
+		IntStream intStream = Arrays.stream(intArray);
+		List<Integer> intResult = intStream.map(e -> e - 100).boxed().collect(Collectors.toList());
+		System.out.println(intResult);
+		assertThat(intResult).containsExactly(2147483547, -101, -97);
 	}
 
 	@Test
 	public void streamIntArray() {
-		int[] array = new int[] { 1, 2, 3 };
+		int[] array = new int[] { 1, -1, 3 };
 		IntStream stream = Arrays.stream(array);
-		stream.map(e -> e * 10).forEach(e -> System.out.println(e));
-		System.out.println("----------");
+		List<Integer> result = stream.map(e -> e * 10).boxed().collect(Collectors.toList());
+		System.out.println(result);
+		assertThat(result).containsExactly(10, -10, 30);
 
 		Stream<int[]> streamIntArray = Stream.of(array);
-		streamIntArray.flatMapToInt(e -> Arrays.stream(e)).map(e -> e * 10).forEach(e -> System.out.println(e));
+		result = streamIntArray.flatMapToInt(e -> Arrays.stream(e)).map(e -> e * 10).boxed()
+				.collect(Collectors.toList());
+		System.out.println(result);
+		assertThat(result).containsExactly(10, -10, 30);
 	}
 
 	@Test
@@ -116,52 +112,5 @@ public class ArraysWithExamplesTest {
 		sit = Arrays.spliterator(array);
 		while (sit.tryAdvance(e -> System.out.println(e))) {
 		}
-	}
-
-	@Test
-	public void parallelPrefix() {
-		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
-		Arrays.parallelPrefix(array, (e1, e2) -> {
-			return e1.toUpperCase() + "_" + e2;
-		});
-		System.out.println(Arrays.toString(array));
-	}
-
-	@Test
-	public void parallelPrefixInt() {
-		int[] array = new int[] { 1, 2, 3, 4, 5 };
-		Arrays.parallelPrefix(array, (e1, e2) -> e1 * e2);
-		System.out.println(Arrays.toString(array));
-	}
-
-	@Test
-	public void equals() {
-		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
-		String[] array2 = new String[] { "Durian", "Guava", "Pitaya" };
-		boolean result = Arrays.equals(array, array2);
-		System.out.println(result);
-		assertTrue(result);
-
-		String[] array3 = new String[] { "Mango" };
-		result = Arrays.equals(array, array3);
-		System.out.println(result);
-		assertFalse(result);
-	}
-
-	@Test
-	public void deepToEquals() {
-		Fruit durian = new Fruit("Durian", 1, 1);
-		Fruit pitaya = new Fruit("Guava", 2, 1);
-		Fruit guava = new Fruit("Pitaya", 3, 1);
-		Fruit[] array = new Fruit[] { durian, pitaya, guava };
-		Fruit[] array2 = new Fruit[] { durian, pitaya, guava };
-		boolean result = Arrays.equals(array, array2);
-		System.out.println(result);
-		assertTrue(result);
-
-		Fruit[] array3 = new Fruit[] { new Fruit("Durian", 1, 1), new Fruit("Guava", 2, 1), new Fruit("Pitaya", 3, 1) };
-		result = Arrays.equals(array, array3);
-		System.out.println(result);
-		assertFalse(result);
 	}
 }

@@ -1,10 +1,9 @@
 package org.ruoxue.java_147.array;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -43,104 +42,63 @@ public class ArraysClassTest {
 	}
 
 	@Test
-	public void asList() {
-		int expectedSize = 3;
-		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
-		List<String> list = Arrays.asList(array);
-		System.out.println(list);
-		assertEquals(expectedSize, list.size());
-	}
-
-	@Test
-	public void binarySearch() {
-		int expectedIndex = 1;
-		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
-		int result = Arrays.binarySearch(array, "Guava");
-		System.out.println(result);
-		assertEquals(expectedIndex, result);
-	}
-
-	@Test
-	public void copyOf() {
-		int expectedSize = 5;
-		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
-		System.out.println(Arrays.toString(array));
-
-		String[] array2 = null;
-		array2 = Arrays.copyOf(array, 5);
-		System.out.println(Arrays.toString(array2));
-		assertEquals(expectedSize, array2.length);
-	}
-
-	@Test
-	public void copyOfRange() {
-		int expectedSize = 1;
-		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
-		System.out.println(Arrays.toString(array));
-
-		String[] array2 = null;
-		array2 = Arrays.copyOfRange(array, 1, 2);
-		System.out.println(Arrays.toString(array2));
-		assertEquals(expectedSize, array2.length);
-	}
-
-	@Test
-	public void parallelSort() {
-		String[] array = new String[] { "Durian", "Pitaya", "Guava" };
-		System.out.println(Arrays.toString(array));
-
-		Arrays.parallelSort(array);
-		System.out.println(Arrays.toString(array));
-		assertEquals("Durian", array[0]);
-		assertEquals("Guava", array[1]);
-	}
-
-	public static Comparator<Fruit> quantityComparator = new Comparator<Fruit>() {
-		@Override
-		public int compare(Fruit o1, Fruit o2) {
-			return Double.compare(o1.quantity, o2.quantity);
-		}
-	};
-
-	@Test
-	public void parallelSortWithComparator() {
-		Fruit durian = new Fruit("Durian", 1, 1);
-		Fruit pitaya = new Fruit("Pitaya", 3, 1);
-		Fruit guava = new Fruit("Guava", 2, 1);
-		Fruit[] array = new Fruit[] { durian, pitaya, guava };
-		System.out.println(Arrays.toString(array));
-
-		Arrays.parallelSort(array, quantityComparator);
-		System.out.println(Arrays.toString(array));
-		assertEquals("Durian", array[0].getName());
-		assertEquals("Guava", array[1].getName());
-	}
-
-	@Test
-	public void parallelSortWithLambda() {
-		Fruit durian = new Fruit("Durian", 1, 1);
-		Fruit pitaya = new Fruit("Pitaya", 3, 1);
-		Fruit guava = new Fruit("Guava", 2, 1);
-		Fruit[] array = new Fruit[] { durian, pitaya, guava };
-		System.out.println(Arrays.toString(array));
-
-		Arrays.parallelSort(array, (o1, o2) -> Double.compare(o1.quantity, o2.quantity));
-		System.out.println(Arrays.toString(array));
-		assertEquals("Durian", array[0].getName());
-		assertEquals("Guava", array[1].getName());
-
-		Arrays.parallelSort(array, (o1, o2) -> {
-			return Double.compare(o2.quantity, o1.quantity);
-		});
-		System.out.println(Arrays.toString(array));
-		assertEquals("Pitaya", array[0].getName());
-		assertEquals("Guava", array[1].getName());
-	}
-
-	@Test
 	public void toStringz() {
 		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		String result = Arrays.toString(array);
+		System.out.println(result);
+		assertThat(result).isEqualTo("[Durian, Guava, Pitaya]");
+
+		int[] intArray = new int[] { Integer.MAX_VALUE, -1, 3 };
+		String intResult = Arrays.toString(intArray);
+		System.out.println(intResult);
+		assertThat(intResult).isEqualTo("[2147483647, -1, 3]");
+	}
+
+	@Test
+	public void parallelPrefix() {
+		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		Arrays.parallelPrefix(array, (e1, e2) -> {
+			return e1.toUpperCase() + "_" + e2;
+		});
 		System.out.println(Arrays.toString(array));
+	}
+
+	@Test
+	public void parallelPrefixInt() {
+		int[] array = new int[] { 1, 2, 3, 4, 5 };
+		Arrays.parallelPrefix(array, (e1, e2) -> e1 * e2);
+		System.out.println(Arrays.toString(array));
+	}
+
+	@Test
+	public void equals() {
+		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		String[] array2 = new String[] { "Durian", "Guava", "Pitaya" };
+		boolean result = Arrays.equals(array, array2);
+		System.out.println(result);
+		assertTrue(result);
+
+		String[] array3 = new String[] { "Mango" };
+		result = Arrays.equals(array, array3);
+		System.out.println(result);
+		assertFalse(result);
+	}
+
+	@Test
+	public void deepToEquals() {
+		Fruit durian = new Fruit("Durian", 1, 1);
+		Fruit pitaya = new Fruit("Guava", 2, 1);
+		Fruit guava = new Fruit("Pitaya", 3, 1);
+		Fruit[] array = new Fruit[] { durian, pitaya, guava };
+		Fruit[] array2 = new Fruit[] { durian, pitaya, guava };
+		boolean result = Arrays.equals(array, array2);
+		System.out.println(result);
+		assertTrue(result);
+
+		Fruit[] array3 = new Fruit[] { new Fruit("Durian", 1, 1), new Fruit("Guava", 2, 1), new Fruit("Pitaya", 3, 1) };
+		result = Arrays.equals(array, array3);
+		System.out.println(result);
+		assertFalse(result);
 	}
 
 	@Test
@@ -149,6 +107,9 @@ public class ArraysClassTest {
 		Fruit pitaya = new Fruit("Guava", 2, 1);
 		Fruit guava = new Fruit("Pitaya", 3, 1);
 		Fruit[] array = new Fruit[] { durian, pitaya, guava };
-		System.out.println(Arrays.deepToString(array));
+		String result = Arrays.deepToString(array);
+		System.out.println(result);
+		assertThat(result).isEqualTo(
+				"[{\"name\":\"Durian\",\"quantity\":1.0,\"type\":1}, {\"name\":\"Guava\",\"quantity\":2.0,\"type\":1}, {\"name\":\"Pitaya\",\"quantity\":3.0,\"type\":1}]");
 	}
 }
