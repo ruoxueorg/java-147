@@ -63,24 +63,24 @@ public class CollectionsMethodsTest {
 
 	@Test
 	public void disjoint() {
-		List<String> list = new ArrayList<>(Arrays.asList("Mango", "Orange", "Peach"));
-		List<String> list2 = new ArrayList<>(Arrays.asList("Papaya", "Strawberry"));
+		List<String> list = Arrays.asList("Mango", "Orange", "Peach");
+		List<String> list2 = Arrays.asList("Papaya", "Strawberry");
 		boolean result = Collections.disjoint(list, list2);
 		System.out.println(result);
 		assertThat(result).isTrue();
 
-		list2 = new ArrayList<>(Arrays.asList("Mango", "Strawberry"));
+		list2 = Arrays.asList("Mango", "Strawberry");
 		result = Collections.disjoint(list, list2);
 		System.out.println(result);
 		assertThat(result).isFalse();
 
-		List<Integer> intList = new ArrayList<>(Arrays.asList(Integer.MAX_VALUE, -1, 3));
-		List<Integer> intList2 = new ArrayList<>(Arrays.asList(10, 20));
+		List<Integer> intList = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		List<Integer> intList2 = Arrays.asList(10, 20);
 		result = Collections.disjoint(intList, intList2);
 		System.out.println(result);
 		assertThat(result).isTrue();
 
-		intList2 = new ArrayList<>(Arrays.asList(Integer.MAX_VALUE, 20));
+		intList2 = Arrays.asList(Integer.MAX_VALUE, 20);
 		result = Collections.disjoint(intList, intList2);
 		System.out.println(result);
 		assertThat(result).isFalse();
