@@ -73,12 +73,14 @@ public class ArraysWithExamplesTest {
 	@Test
 	public void stream() {
 		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		System.out.println(Arrays.toString(array));
 		Stream<String> stream = Arrays.stream(array);
 		List<String> result = stream.map(e -> e.toUpperCase()).collect(Collectors.toList());
 		System.out.println(result);
 		assertThat(result).containsExactly("DURIAN", "GUAVA", "PITAYA");
 
 		int[] intArray = new int[] { Integer.MAX_VALUE, -1, 3 };
+		System.out.println(Arrays.toString(intArray));
 		IntStream intStream = Arrays.stream(intArray);
 		List<Integer> intResult = intStream.map(e -> e - 100).boxed().collect(Collectors.toList());
 		System.out.println(intResult);
@@ -88,6 +90,7 @@ public class ArraysWithExamplesTest {
 	@Test
 	public void streamIntArray() {
 		int[] array = new int[] { 1, -1, 3 };
+		System.out.println(Arrays.toString(array));
 		IntStream stream = Arrays.stream(array);
 		List<Integer> result = stream.map(e -> e * 10).boxed().collect(Collectors.toList());
 		System.out.println(result);
