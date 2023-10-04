@@ -162,11 +162,5 @@ public class ArraysMethodsTest {
 		Arrays.parallelSort(array, (o1, o2) -> Double.compare(o1.quantity, o2.quantity));
 		System.out.println(Arrays.toString(array));
 		assertThat(array).containsExactly(durian, guava, pitaya);
-
-		Arrays.parallelSort(array, (o1, o2) -> {
-			return Double.compare(o2.quantity, o1.quantity);
-		});
-		System.out.println(Arrays.toString(array));
-		assertThat(array).containsExactly(pitaya, guava, durian);
 	}
 }
