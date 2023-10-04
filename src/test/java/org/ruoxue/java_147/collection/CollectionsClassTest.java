@@ -26,7 +26,7 @@ public class CollectionsClassTest {
 		assertThat(intList).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
 
-	public static Comparator<String> nameComparator = new Comparator<String>() {
+	protected static Comparator<String> nameComparator = new Comparator<String>() {
 		@Override
 		public int compare(String o1, String o2) {
 			return o1.compareTo(o2);
@@ -73,13 +73,11 @@ public class CollectionsClassTest {
 	@Test
 	public void max() {
 		List<String> list = Arrays.asList("Orange", "Mango", "Peach");
-		System.out.println(list);
 		String result = Collections.max(list);
 		System.out.println(result);
 		assertThat(result).isEqualTo("Peach");
 
 		List<Integer> intList = Arrays.asList(Integer.MAX_VALUE, 3, -1);
-		System.out.println(intList);
 		int intResult = Collections.max(intList);
 		System.out.println(intResult);
 		assertThat(intResult).isEqualTo(Integer.MAX_VALUE);
@@ -88,13 +86,11 @@ public class CollectionsClassTest {
 	@Test
 	public void min() {
 		List<String> list = Arrays.asList("Orange", "Mango", "Peach");
-		System.out.println(list);
 		String result = Collections.min(list);
 		System.out.println(result);
 		assertThat(result).isEqualTo("Mango");
 
 		List<Integer> intList = Arrays.asList(Integer.MAX_VALUE, 3, -1);
-		System.out.println(intList);
 		int intResult = Collections.min(intList);
 		System.out.println(intResult);
 		assertThat(intResult).isEqualTo(-1);
