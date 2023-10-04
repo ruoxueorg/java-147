@@ -104,13 +104,23 @@ public class ArraysClassTest {
 		});
 		System.out.println(Arrays.toString(array));
 		assertThat(array).containsExactly("Durian", "DURIAN_Guava", "DURIAN_GUAVA_Pitaya");
+
+		int[] intArray = new int[] { 1, 2, 3, 4, 5 };
+		Arrays.parallelPrefix(intArray, (e1, e2) -> e1 * e2);
+		System.out.println(Arrays.toString(intArray));
+		assertThat(intArray).containsExactly(1, 2, 6, 24, 120);
 	}
 
 	@Test
-	public void parallelPrefixInt() {
-		int[] array = new int[] { 1, 2, 3, 4, 5 };
-		Arrays.parallelPrefix(array, (e1, e2) -> e1 * e2);
-		System.out.println(Arrays.toString(array));
-		assertThat(array).containsExactly(1, 2, 6, 24, 120);
+	public void hashCodez() {
+		String[] array = new String[] { "Durian", "Guava", "Pitaya" };
+		int result = Arrays.hashCode(array);
+		System.out.println(result);
+		assertThat(result).isEqualTo(-1680899964);
+
+		int[] intArray = new int[] { Integer.MAX_VALUE, -1, 3 };
+		int intResult = Arrays.hashCode(intArray);
+		System.out.println(intResult);
+		assertThat(intResult).isEqualTo(-2147454846);
 	}
 }

@@ -1,6 +1,7 @@
 package org.ruoxue.java_147.collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -94,5 +95,31 @@ public class CollectionsClassTest {
 		int intResult = Collections.min(intList);
 		System.out.println(intResult);
 		assertThat(intResult).isEqualTo(-1);
+	}
+
+	@Test
+	public void singletonList() {
+		List<String> list = Collections.singletonList("Orange");
+		System.out.println(list);
+		assertThat(list).hasSize(1);
+		assertThatCode(() -> list.add("Mango")).isInstanceOf(UnsupportedOperationException.class);
+
+		List<Integer> intList = Collections.singletonList(Integer.MAX_VALUE);
+		System.out.println(intList);
+		assertThat(intList).hasSize(1);
+		assertThatCode(() -> intList.add(3)).isInstanceOf(UnsupportedOperationException.class);
+	}
+
+	@Test
+	public void emptyList() {
+		List<String> list = Collections.emptyList();
+		System.out.println(list);
+		assertThat(list).hasSize(0);
+		assertThatCode(() -> list.add("Mango")).isInstanceOf(UnsupportedOperationException.class);
+
+		List<Integer> intList = Collections.emptyList();
+		System.out.println(intList);
+		assertThat(intList).hasSize(0);
+		assertThatCode(() -> intList.add(3)).isInstanceOf(UnsupportedOperationException.class);
 	}
 }

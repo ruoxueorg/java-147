@@ -103,4 +103,17 @@ public class CollectionsWithExamplesTest {
 		System.out.println(intList);
 		assertThat(intList).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
+
+	@Test
+	public void frequency() {
+		List<String> list = new ArrayList<>(Arrays.asList("Mango", "Orange", "Peach", "Orange"));
+		int result = Collections.frequency(list, "Orange");
+		System.out.println(result);
+		assertThat(result).isEqualTo(2);
+
+		List<Integer> intList = new ArrayList<>(Arrays.asList(Integer.MAX_VALUE, -1, 3, -1, 3));
+		int intResult = Collections.frequency(intList, 3);
+		System.out.println(intResult);
+		assertThat(intResult).isEqualTo(2);
+	}
 }
