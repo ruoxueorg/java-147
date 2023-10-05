@@ -42,7 +42,7 @@ public class CollectionsSortWithExamplesTest {
 	}
 
 	@Test
-	public void sortWithComparing() {
+	public void sortUseComparing() {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
@@ -52,7 +52,7 @@ public class CollectionsSortWithExamplesTest {
 	}
 
 	@Test
-	public void sortWithComparingInt() {
+	public void sortUseComparingInt() {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 

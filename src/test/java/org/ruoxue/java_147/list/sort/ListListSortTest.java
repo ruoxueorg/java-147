@@ -92,7 +92,7 @@ public class ListListSortTest {
 	}
 
 	@Test
-	public void sortWithComparing() {
+	public void sortUseComparing() {
 		Fruit banana = new Fruit("Banana", -1, 3);
 		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
 		Fruit cherry = new Fruit("Cherry", 3, 1);

@@ -95,7 +95,7 @@ public class ListStreamSortedTest {
 	}
 
 	@Test
-	public void sortWithComparing() {
+	public void sortUseComparing() {
 		Fruit orange = new Fruit("Orange", -1, 3);
 		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
