@@ -58,25 +58,25 @@ public class SortListTest {
 
 	@Test
 	public void Collections_sort_withComparator() {
-		List<Double> list = Arrays.asList(1d, -1d, 3d);
+		List<Double> list = Arrays.asList(Double.MAX_VALUE, -1d, 3d);
 		System.out.println(list);
 
 		Collections.sort(list, (i1, i2) -> Double.compare(i1, i2));
 		System.out.println(list);
-		assertThat(list).containsExactly(-1d, 1d, 3d);
+		assertThat(list).containsExactly(-1d, 3d, Double.MAX_VALUE);
 	}
 
 	@Test
 	public void Collections_sort_useComparing() {
 		Fruit orange = new Fruit("Orange", -1, 3);
-		Fruit mango = new Fruit("Mango", 1, 1);
+		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
 		System.out.println(list);
 
 		Collections.sort(list, Comparator.comparing(Fruit::getQuantity));
 		System.out.println(list);
-		assertThat(list).containsExactly(orange, mango, peach);
+		assertThat(list).containsExactly(orange, peach, mango);
 	}
 
 	@Test
@@ -91,25 +91,25 @@ public class SortListTest {
 
 	@Test
 	public void List_sort_withComparator() {
-		List<Double> list = Arrays.asList(1d, -1d, 3d);
+		List<Double> list = Arrays.asList(Double.MAX_VALUE, -1d, 3d);
 		System.out.println(list);
 
 		list.sort((i1, i2) -> Double.compare(i1, i2));
 		System.out.println(list);
-		assertThat(list).containsExactly(-1d, 1d, 3d);
+		assertThat(list).containsExactly(-1d, 3d, Double.MAX_VALUE);
 	}
 
 	@Test
 	public void List_sort_useComparing() {
 		Fruit banana = new Fruit("Banana", -1, 3);
-		Fruit apple = new Fruit("Apple", 1, 1);
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
 		Fruit cherry = new Fruit("Cherry", 3, 1);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(banana, apple, cherry));
 		System.out.println(list);
 
 		list.sort(Comparator.comparing(Fruit::getQuantity));
 		System.out.println(list);
-		assertThat(list).containsExactly(banana, apple, cherry);
+		assertThat(list).containsExactly(banana, cherry, apple);
 	}
 
 	@Test
@@ -124,19 +124,19 @@ public class SortListTest {
 
 	@Test
 	public void Stream_sorted_withComparator() {
-		List<Double> list = Arrays.asList(1d, -1d, 3d);
+		List<Double> list = Arrays.asList(Double.MAX_VALUE, -1d, 3d);
 		System.out.println(list);
 
 		ArrayList<Double> result = list.stream().sorted((i1, i2) -> Double.compare(i1, i2))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(-1d, 1d, 3d);
+		assertThat(result).containsExactly(-1d, 3d, Double.MAX_VALUE);
 	}
 
 	@Test
 	public void Stream_sorted_useComparing() {
 		Fruit lichee = new Fruit("Lichee", -1, 3);
-		Fruit coconut = new Fruit("Coconut", 1, 1);
+		Fruit coconut = new Fruit("Coconut", Double.MAX_VALUE, 1);
 		Fruit plum = new Fruit("Plum", 3, 1);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(lichee, coconut, plum));
 		System.out.println(list);
@@ -144,6 +144,6 @@ public class SortListTest {
 		ArrayList<Fruit> result = list.stream().sorted(Comparator.comparing(Fruit::getQuantity))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(lichee, coconut, plum);
+		assertThat(result).containsExactly(lichee, plum, coconut);
 	}
 }
