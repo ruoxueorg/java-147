@@ -71,7 +71,7 @@ public class ListSortTest {
 
 	@Test
 	public void sortWithNull() {
-		List<String> list = Arrays.asList("Mango", "Peach", "Orange", null);
+		List<String> list = Arrays.asList("Apple", "Cherry", "Banana", null);
 		System.out.println(list);
 
 		list.sort((s1, s2) -> {
@@ -83,26 +83,26 @@ public class ListSortTest {
 			return s1.compareTo(s2);
 		});
 		System.out.println(list);
-		assertThat(list).containsExactly(null, "Mango", "Orange", "Peach");
+		assertThat(list).containsExactly(null, "Apple", "Banana", "Cherry");
 	}
 
 	@Test
 	public void sortWithNullsFirst() {
-		List<String> list = Arrays.asList("Mango", "Peach", "Orange", null);
+		List<String> list = Arrays.asList("Apple", "Cherry", "Banana", null);
 		System.out.println(list);
 
 		list.sort(Comparator.nullsFirst(Comparator.comparing(s -> s)));
 		System.out.println(list);
-		assertThat(list).containsExactly(null, "Mango", "Orange", "Peach");
+		assertThat(list).containsExactly(null, "Apple", "Banana", "Cherry");
 	}
 
 	@Test
 	public void sortWithNullsLast() {
-		List<String> list = Arrays.asList("Mango", "Peach", "Orange", null);
+		List<String> list = Arrays.asList("Apple", "Cherry", "Banana", null);
 		System.out.println(list);
 
 		list.sort(Comparator.nullsLast(Comparator.comparing(s -> s)));
 		System.out.println(list);
-		assertThat(list).containsExactly("Mango", "Orange", "Peach", null);
+		assertThat(list).containsExactly("Apple", "Banana", "Cherry", null);
 	}
 }

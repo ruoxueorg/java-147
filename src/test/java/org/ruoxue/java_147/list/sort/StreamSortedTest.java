@@ -77,7 +77,7 @@ public class StreamSortedTest {
 
 	@Test
 	public void sortWithNull() {
-		List<String> list = Arrays.asList("Mango", "Peach", "Orange", null);
+		List<String> list = Arrays.asList("Coconut", "Plum", "Lichee", null);
 		System.out.println(list);
 
 		ArrayList<String> result = list.stream().sorted((s1, s2) -> {
@@ -89,28 +89,28 @@ public class StreamSortedTest {
 			return s1.compareTo(s2);
 		}).collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(null, "Mango", "Orange", "Peach");
+		assertThat(result).containsExactly(null, "Coconut", "Lichee", "Plum");
 	}
 
 	@Test
 	public void sortWithNullsFirst() {
-		List<String> list = Arrays.asList("Mango", "Peach", "Orange", null);
+		List<String> list = Arrays.asList("Coconut", "Plum", "Lichee", null);
 		System.out.println(list);
 
 		ArrayList<String> result = list.stream().sorted(Comparator.nullsFirst(Comparator.comparing(s -> s)))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(null, "Mango", "Orange", "Peach");
+		assertThat(result).containsExactly(null, "Coconut", "Lichee", "Plum");
 	}
 
 	@Test
 	public void sortWithNullsLast() {
-		List<String> list = Arrays.asList("Mango", "Peach", "Orange", null);
+		List<String> list = Arrays.asList("Coconut", "Plum", "Lichee", null);
 		System.out.println(list);
 
 		ArrayList<String> result = list.stream().sorted(Comparator.nullsLast(Comparator.comparing(s -> s)))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly("Mango", "Orange", "Peach", null);
+		assertThat(result).containsExactly("Coconut", "Lichee", "Plum", null);
 	}
 }
