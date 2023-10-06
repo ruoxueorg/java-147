@@ -2,7 +2,6 @@ package org.ruoxue.java_147.list.sort;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -25,7 +24,7 @@ public class CollectionsSortWithExamplesTest {
 
 	@Test
 	public void sortWithReverseOrder() {
-		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
 		Collections.sort(list, Comparator.reverseOrder());
@@ -35,7 +34,7 @@ public class CollectionsSortWithExamplesTest {
 
 	@Test
 	public void sortWithComparator() {
-		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
 		Collections.sort(list, (i1, i2) -> Integer.compare(i1, i2));
@@ -45,7 +44,7 @@ public class CollectionsSortWithExamplesTest {
 
 	@Test
 	public void sortUseComparing() {
-		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
 		Collections.sort(list, Comparator.comparing(Integer::intValue));
@@ -55,7 +54,7 @@ public class CollectionsSortWithExamplesTest {
 
 	@Test
 	public void sortUseComparingInt() {
-		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
 		Collections.sort(list, Comparator.comparingInt(i -> i));
@@ -74,8 +73,8 @@ public class CollectionsSortWithExamplesTest {
 			String.valueOf(i2).length());
 
 	@Test
-	public void sortWithMultipleConditions () {
-		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, 3, -1);
+	public void sortWithMultipleConditions() {
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
 		Collections.sort(list, valueComparator.thenComparing(lengthComparator));

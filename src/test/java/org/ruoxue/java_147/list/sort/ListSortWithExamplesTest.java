@@ -2,17 +2,18 @@ package org.ruoxue.java_147.list.sort;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
 import org.junit.Test;
 
+import com.google.common.collect.Lists;
+
 public class ListSortWithExamplesTest {
 
 	@Test
 	public void sort() {
-		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
 		list.sort(Comparator.naturalOrder());
@@ -22,7 +23,7 @@ public class ListSortWithExamplesTest {
 
 	@Test
 	public void sortWithReverseOrder() {
-		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
 		list.sort(Comparator.reverseOrder());
@@ -32,7 +33,7 @@ public class ListSortWithExamplesTest {
 
 	@Test
 	public void sortWithComparator() {
-		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
 		list.sort((i1, i2) -> Integer.compare(i1, i2));
@@ -42,7 +43,7 @@ public class ListSortWithExamplesTest {
 
 	@Test
 	public void sortUseComparing() {
-		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
 		list.sort(Comparator.comparing(Integer::intValue));
@@ -52,7 +53,7 @@ public class ListSortWithExamplesTest {
 
 	@Test
 	public void sortUseComparingInt() {
-		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
 		list.sort(Comparator.comparingInt(i -> i));
@@ -72,7 +73,7 @@ public class ListSortWithExamplesTest {
 
 	@Test
 	public void sortWithMultipleConditions() {
-		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, 3, -1);
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
 		list.sort(valueComparator.thenComparing(lengthComparator));
