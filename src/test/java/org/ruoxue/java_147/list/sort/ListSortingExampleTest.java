@@ -47,7 +47,7 @@ public class ListSortingExampleTest {
 			String.valueOf(i2).length());
 
 	@Test
-	public void Collections_sort_useThenComparing() {
+	public void Collections_sort_withMultipleConditions() {
 		List<Double> list = Arrays.asList(Double.MAX_VALUE, 3d, -1d);
 		System.out.println(list);
 
@@ -75,7 +75,7 @@ public class ListSortingExampleTest {
 	}
 
 	@Test
-	public void List_sort_useThenComparing() {
+	public void List_sort_withMultipleConditions() {
 		List<Double> list = Arrays.asList(Double.MAX_VALUE, 3d, -1d);
 		System.out.println(list);
 
@@ -105,7 +105,7 @@ public class ListSortingExampleTest {
 	}
 
 	@Test
-	public void Stream_sorted_useThenComparing() {
+	public void Stream_sorted_withMultipleConditions() {
 		List<Double> list = Arrays.asList(Double.MAX_VALUE, 3d, -1d);
 		System.out.println(list);
 

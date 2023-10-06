@@ -65,7 +65,7 @@ public class StreamSortedTest {
 	protected static Comparator<String> lengthComparator = (s1, s2) -> Integer.compare(s1.length(), s2.length());
 
 	@Test
-	public void sortWithThenComparing() {
+	public void sortWithMultipleConditions() {
 		List<String> list = Arrays.asList("Coconut", "Plum", "Lichee");
 		System.out.println(list);
 

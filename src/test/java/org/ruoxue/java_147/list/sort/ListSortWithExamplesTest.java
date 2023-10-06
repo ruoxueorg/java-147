@@ -71,7 +71,7 @@ public class ListSortWithExamplesTest {
 			String.valueOf(i2).length());
 
 	@Test
-	public void sortWithThenComparing() {
+	public void sortWithMultipleConditions() {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, 3, -1);
 		System.out.println(list);
 

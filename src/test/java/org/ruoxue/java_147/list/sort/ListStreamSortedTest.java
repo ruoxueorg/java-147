@@ -119,7 +119,7 @@ public class ListStreamSortedTest {
 	protected static Comparator<Fruit> quantityComparator = (o1, o2) -> Double.compare(o1.quantity, o2.quantity);
 
 	@Test
-	public void sortWithThenComparing() {
+	public void sortWithMultipleConditions() {
 		Fruit mango = new Fruit("Coconut", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Plum", 3, 1);
 		Fruit orange = new Fruit("Lichee", -1, 3);

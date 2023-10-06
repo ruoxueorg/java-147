@@ -69,7 +69,7 @@ public class SortingListWithExamplesTest {
 	}
 
 	@Test
-	public void Collections_sort_useThenComparing() {
+	public void Collections_sort_withMultipleConditions() {
 		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
 		Fruit orange = new Fruit("Orange", -1, 3);
@@ -95,7 +95,7 @@ public class SortingListWithExamplesTest {
 	}
 
 	@Test
-	public void List_sort_useThenComparing() {
+	public void List_sort_withMultipleConditions() {
 		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
 		Fruit cherry = new Fruit("Cherry", 3, 1);
 		Fruit banana = new Fruit("Banana", -1, 3);
@@ -123,7 +123,7 @@ public class SortingListWithExamplesTest {
 	}
 
 	@Test
-	public void Stream_sorted_useThenComparing() {
+	public void Stream_sorted_withMultipleConditions() {
 		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
 		Fruit orange = new Fruit("Orange", -1, 3);

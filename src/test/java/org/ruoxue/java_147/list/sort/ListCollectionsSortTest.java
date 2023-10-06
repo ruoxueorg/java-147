@@ -115,7 +115,7 @@ public class ListCollectionsSortTest {
 	protected static Comparator<Fruit> quantityComparator = (o1, o2) -> Double.compare(o1.quantity, o2.quantity);
 
 	@Test
-	public void sortWithThenComparing() {
+	public void sortWithMultipleConditions() {
 		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
 		Fruit orange = new Fruit("Orange", -1, 3);

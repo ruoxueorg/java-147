@@ -9,11 +9,13 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.google.common.collect.Lists;
+
 public class CollectionsSortWithExamplesTest {
 
 	@Test
 	public void sort() {
-		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
 		Collections.sort(list);
@@ -72,7 +74,7 @@ public class CollectionsSortWithExamplesTest {
 			String.valueOf(i2).length());
 
 	@Test
-	public void sortWithThenComparing() {
+	public void sortWithMultipleConditions () {
 		List<Integer> list = Arrays.asList(Integer.MAX_VALUE, 3, -1);
 		System.out.println(list);
 
