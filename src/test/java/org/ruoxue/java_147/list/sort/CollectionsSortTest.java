@@ -42,7 +42,7 @@ public class CollectionsSortTest {
 	}
 
 	@Test
-	public void sortUseComparing() {
+	public void sortWithComparing() {
 		List<String> list = Arrays.asList("Orange", "Mango", "Peach");
 		System.out.println(list);
 

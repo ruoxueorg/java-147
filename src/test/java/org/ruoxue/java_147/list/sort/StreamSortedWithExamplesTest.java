@@ -46,7 +46,7 @@ public class StreamSortedWithExamplesTest {
 	}
 
 	@Test
-	public void sortUseComparing() {
+	public void sortWithComparing() {
 		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 
@@ -57,7 +57,7 @@ public class StreamSortedWithExamplesTest {
 	}
 
 	@Test
-	public void sortUseComparingInt() {
+	public void sortWithComparingInt() {
 		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		System.out.println(list);
 

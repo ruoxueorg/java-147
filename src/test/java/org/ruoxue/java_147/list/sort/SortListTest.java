@@ -67,7 +67,7 @@ public class SortListTest {
 	}
 
 	@Test
-	public void Collections_sort_useComparing() {
+	public void Collections_sort_WithComparing() {
 		Fruit orange = new Fruit("Orange", -1, 3);
 		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
@@ -100,7 +100,7 @@ public class SortListTest {
 	}
 
 	@Test
-	public void List_sort_useComparing() {
+	public void List_sort_WithComparing() {
 		Fruit banana = new Fruit("Banana", -1, 3);
 		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
 		Fruit cherry = new Fruit("Cherry", 3, 1);
@@ -134,7 +134,7 @@ public class SortListTest {
 	}
 
 	@Test
-	public void Stream_sorted_useComparing() {
+	public void Stream_sorted_WithComparing() {
 		Fruit lichee = new Fruit("Lichee", -1, 3);
 		Fruit coconut = new Fruit("Coconut", Double.MAX_VALUE, 1);
 		Fruit plum = new Fruit("Plum", 3, 1);

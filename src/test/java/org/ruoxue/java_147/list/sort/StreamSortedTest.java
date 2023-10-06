@@ -45,7 +45,7 @@ public class StreamSortedTest {
 	}
 
 	@Test
-	public void sortUseComparing() {
+	public void sortWithComparing() {
 		List<String> list = Arrays.asList("Lichee", "Coconut", "Plum");
 		System.out.println(list);
 

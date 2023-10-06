@@ -93,7 +93,7 @@ public class ListCollectionsSortTest {
 	}
 
 	@Test
-	public void sortUseComparing() {
+	public void sortWithComparing() {
 		Fruit orange = new Fruit("Orange", -1, 3);
 		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);

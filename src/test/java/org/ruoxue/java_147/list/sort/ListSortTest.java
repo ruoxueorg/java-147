@@ -41,7 +41,7 @@ public class ListSortTest {
 	}
 
 	@Test
-	public void sortUseComparing() {
+	public void sortWithComparing() {
 		List<String> list = Arrays.asList("Banana", "Apple", "Cherry");
 		System.out.println(list);
 
