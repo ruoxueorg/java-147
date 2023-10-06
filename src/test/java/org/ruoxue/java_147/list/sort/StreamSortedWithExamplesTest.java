@@ -87,4 +87,43 @@ public class StreamSortedWithExamplesTest {
 		System.out.println(result);
 		assertThat(result).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
+
+	@Test
+	public void sortWithNull() {
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3, null);
+		System.out.println(list);
+
+		ArrayList<Integer> result = list.stream().sorted((s1, s2) -> {
+			if (s1 == null) {
+				return s2 == null ? 0 : -1;
+			} else if (s2 == null) {
+				return 1;
+			}
+			return s1.compareTo(s2);
+		}).collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(null, -1, 3, Integer.MAX_VALUE);
+	}
+
+	@Test
+	public void sortWithNullsFirst() {
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3, null);
+		System.out.println(list);
+
+		ArrayList<Integer> result = list.stream().sorted(Comparator.nullsFirst(Comparator.comparing(s -> s)))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(null, -1, 3, Integer.MAX_VALUE);
+	}
+
+	@Test
+	public void sortWithNullsLast() {
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3, null);
+		System.out.println(list);
+
+		ArrayList<Integer> result = list.stream().sorted(Comparator.nullsLast(Comparator.comparing(s -> s)))
+				.collect(Collectors.toCollection(ArrayList::new));
+		System.out.println(result);
+		assertThat(result).containsExactly(-1, 3, Integer.MAX_VALUE, null);
+	}
 }

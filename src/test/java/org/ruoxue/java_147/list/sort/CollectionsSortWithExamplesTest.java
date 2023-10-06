@@ -81,4 +81,41 @@ public class CollectionsSortWithExamplesTest {
 		System.out.println(list);
 		assertThat(list).containsExactly(-1, 3, Integer.MAX_VALUE);
 	}
+
+	@Test
+	public void sortWithNull() {
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3, null);
+		System.out.println(list);
+
+		Collections.sort(list, (s1, s2) -> {
+			if (s1 == null) {
+				return s2 == null ? 0 : -1;
+			} else if (s2 == null) {
+				return 1;
+			}
+			return s1.compareTo(s2);
+		});
+		System.out.println(list);
+		assertThat(list).containsExactly(null, -1, 3, Integer.MAX_VALUE);
+	}
+
+	@Test
+	public void sortWithNullsFirst() {
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3, null);
+		System.out.println(list);
+
+		Collections.sort(list, Comparator.nullsFirst(Comparator.comparing(s -> s)));
+		System.out.println(list);
+		assertThat(list).containsExactly(null, -1, 3, Integer.MAX_VALUE);
+	}
+
+	@Test
+	public void sortWithNullsLast() {
+		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3, null);
+		System.out.println(list);
+
+		Collections.sort(list, Comparator.nullsLast(Comparator.comparing(s -> s)));
+		System.out.println(list);
+		assertThat(list).containsExactly(-1, 3, Integer.MAX_VALUE, null);
+	}
 }
