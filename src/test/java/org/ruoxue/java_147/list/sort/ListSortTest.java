@@ -68,4 +68,41 @@ public class ListSortTest {
 		System.out.println(list);
 		assertThat(list).containsExactly("Apple", "Banana", "Cherry");
 	}
+
+	@Test
+	public void sortWithNull() {
+		List<String> list = Arrays.asList("Mango", "Peach", "Orange", null);
+		System.out.println(list);
+
+		list.sort((s1, s2) -> {
+			if (s1 == null) {
+				return s2 == null ? 0 : -1;
+			} else if (s2 == null) {
+				return 1;
+			}
+			return s1.compareTo(s2);
+		});
+		System.out.println(list);
+		assertThat(list).containsExactly(null, "Mango", "Orange", "Peach");
+	}
+
+	@Test
+	public void sortWithNullsFirst() {
+		List<String> list = Arrays.asList("Mango", "Peach", "Orange", null);
+		System.out.println(list);
+
+		list.sort(Comparator.nullsFirst(Comparator.comparing(s -> s)));
+		System.out.println(list);
+		assertThat(list).containsExactly(null, "Mango", "Orange", "Peach");
+	}
+
+	@Test
+	public void sortWithNullsLast() {
+		List<String> list = Arrays.asList("Mango", "Peach", "Orange", null);
+		System.out.println(list);
+
+		list.sort(Comparator.nullsLast(Comparator.comparing(s -> s)));
+		System.out.println(list);
+		assertThat(list).containsExactly("Mango", "Orange", "Peach", null);
+	}
 }
