@@ -15,7 +15,7 @@ public class ListSortTest {
 		List<String> list = Arrays.asList("Banana", "Apple", "Cherry");
 		System.out.println(list);
 
-		list.sort(Comparator.naturalOrder());
+		list.sort(null);
 		System.out.println(list);
 		assertThat(list).containsExactly("Apple", "Banana", "Cherry");
 	}

@@ -55,9 +55,9 @@ public class ListStreamSortedTest {
 
 	@Test
 	public void sort() {
-		Fruit orange = new Fruit("Orange", -1, 3);
-		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Peach", 3, 1);
+		Fruit orange = new Fruit("Lichee", -1, 3);
+		Fruit mango = new Fruit("Coconut", Double.MAX_VALUE, 1);
+		Fruit peach = new Fruit("Plum", 3, 1);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
 		System.out.println(list);
 
@@ -68,9 +68,9 @@ public class ListStreamSortedTest {
 
 	@Test
 	public void sortWithReverseOrder() {
-		Fruit orange = new Fruit("Orange", -1, 3);
-		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Peach", 3, 1);
+		Fruit orange = new Fruit("Lichee", -1, 3);
+		Fruit mango = new Fruit("Coconut", Double.MAX_VALUE, 1);
+		Fruit peach = new Fruit("Plum", 3, 1);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
 		System.out.println(list);
 
@@ -82,9 +82,9 @@ public class ListStreamSortedTest {
 
 	@Test
 	public void sortWithComparator() {
-		Fruit orange = new Fruit("Orange", -1, 3);
-		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Peach", 3, 1);
+		Fruit orange = new Fruit("Lichee", -1, 3);
+		Fruit mango = new Fruit("Coconut", Double.MAX_VALUE, 1);
+		Fruit peach = new Fruit("Plum", 3, 1);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
 		System.out.println(list);
 
@@ -96,9 +96,9 @@ public class ListStreamSortedTest {
 
 	@Test
 	public void sortUseComparing() {
-		Fruit orange = new Fruit("Orange", -1, 3);
-		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Peach", 3, 1);
+		Fruit orange = new Fruit("Lichee", -1, 3);
+		Fruit mango = new Fruit("Coconut", Double.MAX_VALUE, 1);
+		Fruit peach = new Fruit("Plum", 3, 1);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
 		System.out.println(list);
 
@@ -120,9 +120,9 @@ public class ListStreamSortedTest {
 
 	@Test
 	public void sortWithThenComparing() {
-		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Peach", 3, 1);
-		Fruit orange = new Fruit("Orange", -1, 3);
+		Fruit mango = new Fruit("Coconut", Double.MAX_VALUE, 1);
+		Fruit peach = new Fruit("Plum", 3, 1);
+		Fruit orange = new Fruit("Lichee", -1, 3);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(mango, peach, orange));
 		System.out.println(list);
 
