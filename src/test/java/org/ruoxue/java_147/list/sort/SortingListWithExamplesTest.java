@@ -57,7 +57,7 @@ public class SortingListWithExamplesTest {
 
 	@Test
 	public void Collections_sort() {
-		Fruit mango = new Fruit("Mango", 1, 1);
+		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
 		Fruit orange = new Fruit("Orange", -1, 3);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(mango, peach, orange));
@@ -65,12 +65,12 @@ public class SortingListWithExamplesTest {
 
 		Collections.sort(list, Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity));
 		System.out.println(list);
-		assertThat(list).containsExactly(mango, peach, orange);
+		assertThat(list).containsExactly(peach, mango, orange);
 	}
 
 	@Test
-	public void Collections_sortWithThenComparing() {
-		Fruit mango = new Fruit("Mango", 1, 1);
+	public void Collections_sort_useThenComparing() {
+		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
 		Fruit orange = new Fruit("Orange", -1, 3);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(mango, peach, orange));
@@ -83,7 +83,7 @@ public class SortingListWithExamplesTest {
 
 	@Test
 	public void List_sort() {
-		Fruit apple = new Fruit("Apple", 1, 1);
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
 		Fruit cherry = new Fruit("Cherry", 3, 1);
 		Fruit banana = new Fruit("Banana", -1, 3);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(apple, cherry, banana));
@@ -91,12 +91,12 @@ public class SortingListWithExamplesTest {
 
 		list.sort(Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity));
 		System.out.println(list);
-		assertThat(list).containsExactly(apple, cherry, banana);
+		assertThat(list).containsExactly(cherry, apple, banana);
 	}
 
 	@Test
-	public void List_sortWithThenComparing() {
-		Fruit apple = new Fruit("Apple", 1, 1);
+	public void List_sort_useThenComparing() {
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
 		Fruit cherry = new Fruit("Cherry", 3, 1);
 		Fruit banana = new Fruit("Banana", -1, 3);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(apple, cherry, banana));
@@ -109,7 +109,7 @@ public class SortingListWithExamplesTest {
 
 	@Test
 	public void Stream_sorted() {
-		Fruit mango = new Fruit("Mango", 1, 1);
+		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
 		Fruit orange = new Fruit("Orange", -1, 3);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(mango, peach, orange));
@@ -119,12 +119,12 @@ public class SortingListWithExamplesTest {
 				.sorted(Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(mango, peach, orange);
+		assertThat(result).containsExactly(peach, mango, orange);
 	}
 
 	@Test
-	public void Stream_sortedWithThenComparing() {
-		Fruit mango = new Fruit("Mango", 1, 1);
+	public void Stream_sorted_useThenComparing() {
+		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
 		Fruit orange = new Fruit("Orange", -1, 3);
 		List<Fruit> list = new ArrayList<>(Arrays.asList(mango, peach, orange));
