@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class ListListSortTest {
+public class SortListListSortTest {
 
 	@NoArgsConstructor
 	@Getter
