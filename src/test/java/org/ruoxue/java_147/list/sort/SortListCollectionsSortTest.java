@@ -58,7 +58,7 @@ public class SortListCollectionsSortTest {
 		Fruit orange = new Fruit("Orange", -1, 3);
 		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
+		List<Fruit> list = Arrays.asList(orange, mango, peach);
 		System.out.println(list);
 
 		Collections.sort(list);
@@ -71,7 +71,7 @@ public class SortListCollectionsSortTest {
 		Fruit orange = new Fruit("Orange", -1, 3);
 		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
+		List<Fruit> list = Arrays.asList(orange, mango, peach);
 		System.out.println(list);
 
 		Collections.sort(list, Comparator.reverseOrder());
@@ -84,7 +84,7 @@ public class SortListCollectionsSortTest {
 		Fruit orange = new Fruit("Orange", -1, 3);
 		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
+		List<Fruit> list = Arrays.asList(orange, mango, peach);
 		System.out.println(list);
 
 		Collections.sort(list, (o1, o2) -> Double.compare(o1.quantity, o2.quantity));
@@ -97,7 +97,7 @@ public class SortListCollectionsSortTest {
 		Fruit orange = new Fruit("Orange", -1, 3);
 		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
+		List<Fruit> list = Arrays.asList(orange, mango, peach);
 		System.out.println(list);
 
 		Collections.sort(list, Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity));
@@ -119,11 +119,57 @@ public class SortListCollectionsSortTest {
 		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
 		Fruit orange = new Fruit("Orange", -1, 3);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(mango, peach, orange));
+		List<Fruit> list = Arrays.asList(mango, peach, orange);
 		System.out.println(list);
 
 		Collections.sort(list, nameComparator.thenComparing(quantityComparator));
 		System.out.println(list);
 		assertThat(list).containsExactly(mango, orange, peach);
+	}
+
+	@Test
+	public void sortWithNull() {
+		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
+		Fruit peach = new Fruit("Peach", 3, 1);
+		Fruit orange = new Fruit("Orange", -1, 3);
+		List<Fruit> list = Arrays.asList(mango, peach, orange, null);
+		System.out.println(list);
+
+		Collections.sort(list, (s1, s2) -> {
+			if (s1 == null) {
+				return s2 == null ? 0 : -1;
+			} else if (s2 == null) {
+				return 1;
+			}
+			return s1.compareTo(s2);
+		});
+		System.out.println(list);
+		assertThat(list).containsExactly(null, mango, orange, peach);
+	}
+
+	@Test
+	public void sortWithNullsFirst() {
+		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
+		Fruit peach = new Fruit("Peach", 3, 1);
+		Fruit orange = new Fruit("Orange", -1, 3);
+		List<Fruit> list = Arrays.asList(mango, peach, orange, null);
+		System.out.println(list);
+
+		Collections.sort(list, Comparator.nullsFirst(Comparator.comparing(s -> s)));
+		System.out.println(list);
+		assertThat(list).containsExactly(null, mango, orange, peach);
+	}
+
+	@Test
+	public void sortWithNullsLast() {
+		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
+		Fruit peach = new Fruit("Peach", 3, 1);
+		Fruit orange = new Fruit("Orange", -1, 3);
+		List<Fruit> list = Arrays.asList(mango, peach, orange, null);
+		System.out.println(list);
+
+		Collections.sort(list, Comparator.nullsLast(Comparator.comparing(s -> s)));
+		System.out.println(list);
+		assertThat(list).containsExactly(mango, orange, peach, null);
 	}
 }
