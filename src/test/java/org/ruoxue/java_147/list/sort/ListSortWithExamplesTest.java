@@ -13,52 +13,52 @@ public class ListSortWithExamplesTest {
 
 	@Test
 	public void sort() {
-		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 0d);
+		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d);
 		System.out.println(list);
 
 		list.sort(null);
 		System.out.println(list);
-		assertThat(list).containsExactly(-1d, 0d, Double.MAX_VALUE);
+		assertThat(list).containsExactly(-1d, 3d, Double.MAX_VALUE);
 	}
 
 	@Test
 	public void sortWithReverseOrder() {
-		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 0d);
+		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d);
 		System.out.println(list);
 
 		list.sort(Comparator.reverseOrder());
 		System.out.println(list);
-		assertThat(list).containsExactly(Double.MAX_VALUE, 0d, -1d);
+		assertThat(list).containsExactly(Double.MAX_VALUE, 3d, -1d);
 	}
 
 	@Test
 	public void sortWithComparator() {
-		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 0d);
+		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d);
 		System.out.println(list);
 
 		list.sort((i1, i2) -> Double.compare(i1, i2));
 		System.out.println(list);
-		assertThat(list).containsExactly(-1d, 0d, Double.MAX_VALUE);
+		assertThat(list).containsExactly(-1d, 3d, Double.MAX_VALUE);
 	}
 
 	@Test
 	public void sortWithComparing() {
-		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 0d);
+		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d);
 		System.out.println(list);
 
 		list.sort(Comparator.comparing(Double::intValue));
 		System.out.println(list);
-		assertThat(list).containsExactly(-1d, 0d, Double.MAX_VALUE);
+		assertThat(list).containsExactly(-1d, 3d, Double.MAX_VALUE);
 	}
 
 	@Test
-	public void sortWithComparingInt() {
-		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 0d);
+	public void sortWithComparingDouble() {
+		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d);
 		System.out.println(list);
 
 		list.sort(Comparator.comparingDouble(d -> d));
 		System.out.println(list);
-		assertThat(list).containsExactly(-1d, 0d, Double.MAX_VALUE);
+		assertThat(list).containsExactly(-1d, 3d, Double.MAX_VALUE);
 	}
 
 	protected static Comparator<Double> valueComparator = new Comparator<Double>() {
@@ -73,17 +73,17 @@ public class ListSortWithExamplesTest {
 
 	@Test
 	public void sortWithMultipleConditions() {
-		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 0d);
+		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d);
 		System.out.println(list);
 
 		list.sort(valueComparator.thenComparing(lengthComparator));
 		System.out.println(list);
-		assertThat(list).containsExactly(-1d, 0d, Double.MAX_VALUE);
+		assertThat(list).containsExactly(-1d, 3d, Double.MAX_VALUE);
 	}
 
 	@Test
 	public void sortWithNull() {
-		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 0d, null);
+		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d, null);
 		System.out.println(list);
 
 		list.sort((s1, s2) -> {
@@ -95,26 +95,26 @@ public class ListSortWithExamplesTest {
 			return s1.compareTo(s2);
 		});
 		System.out.println(list);
-		assertThat(list).containsExactly(null, -1d, 0d, Double.MAX_VALUE);
+		assertThat(list).containsExactly(null, -1d, 3d, Double.MAX_VALUE);
 	}
 
 	@Test
 	public void sortWithNullsFirst() {
-		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 0d, null);
+		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d, null);
 		System.out.println(list);
 
 		list.sort(Comparator.nullsFirst(Comparator.comparing(s -> s)));
 		System.out.println(list);
-		assertThat(list).containsExactly(null, -1d, 0d, Double.MAX_VALUE);
+		assertThat(list).containsExactly(null, -1d, 3d, Double.MAX_VALUE);
 	}
 
 	@Test
 	public void sortWithNullsLast() {
-		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 0d, null);
+		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d, null);
 		System.out.println(list);
 
 		list.sort(Comparator.nullsLast(Comparator.comparing(s -> s)));
 		System.out.println(list);
-		assertThat(list).containsExactly(-1d, 0d, Double.MAX_VALUE, null);
+		assertThat(list).containsExactly(-1d, 3d, Double.MAX_VALUE, null);
 	}
 }
