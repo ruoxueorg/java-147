@@ -46,7 +46,7 @@ public class ListSortWithExamplesTest {
 		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d);
 		System.out.println(list);
 
-		list.sort(Comparator.comparing(Double::intValue));
+		list.sort(Comparator.comparing(Double::doubleValue));
 		System.out.println(list);
 		assertThat(list).containsExactly(-1d, 3d, Double.MAX_VALUE);
 	}

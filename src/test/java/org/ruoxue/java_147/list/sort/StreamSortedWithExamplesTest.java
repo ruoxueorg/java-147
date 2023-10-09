@@ -15,85 +15,85 @@ public class StreamSortedWithExamplesTest {
 
 	@Test
 	public void sort() {
-		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
+		List<Long> list = Lists.newArrayList(Long.MAX_VALUE, -22L, 33L);
 		System.out.println(list);
 
-		ArrayList<Integer> result = list.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
+		ArrayList<Long> result = list.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(-1, 3, Integer.MAX_VALUE);
+		assertThat(result).containsExactly(-22L, 33L, Long.MAX_VALUE);
 	}
 
 	@Test
 	public void sortWithReverseOrder() {
-		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
+		List<Long> list = Lists.newArrayList(Long.MAX_VALUE, -22L, 33L);
 		System.out.println(list);
 
-		ArrayList<Integer> result = list.stream().sorted(Comparator.reverseOrder())
+		ArrayList<Long> result = list.stream().sorted(Comparator.reverseOrder())
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(Integer.MAX_VALUE, 3, -1);
+		assertThat(result).containsExactly(Long.MAX_VALUE, 33L, -22L);
 	}
 
 	@Test
 	public void sortWithComparator() {
-		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
+		List<Long> list = Lists.newArrayList(Long.MAX_VALUE, -22L, 33L);
 		System.out.println(list);
 
-		ArrayList<Integer> result = list.stream().sorted((i1, i2) -> Integer.compare(i1, i2))
+		ArrayList<Long> result = list.stream().sorted((i1, i2) -> Long.compare(i1, i2))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(-1, 3, Integer.MAX_VALUE);
+		assertThat(result).containsExactly(-22L, 33L, Long.MAX_VALUE);
 	}
 
 	@Test
 	public void sortWithComparing() {
-		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
+		List<Long> list = Lists.newArrayList(Long.MAX_VALUE, -22L, 33L);
 		System.out.println(list);
 
-		ArrayList<Integer> result = list.stream().sorted(Comparator.comparing(Integer::intValue))
+		ArrayList<Long> result = list.stream().sorted(Comparator.comparing(Long::longValue))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(-1, 3, Integer.MAX_VALUE);
+		assertThat(result).containsExactly(-22L, 33L, Long.MAX_VALUE);
 	}
 
 	@Test
-	public void sortWithComparingInt() {
-		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
+	public void comparingLong() {
+		List<Long> list = Lists.newArrayList(Long.MAX_VALUE, -22L, 33L);
 		System.out.println(list);
 
-		ArrayList<Integer> result = list.stream().sorted(Comparator.comparingInt(i -> i))
+		ArrayList<Long> result = list.stream().sorted(Comparator.comparingLong(l -> l))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(-1, 3, Integer.MAX_VALUE);
+		assertThat(result).containsExactly(-22L, 33L, Long.MAX_VALUE);
 	}
 
-	protected static Comparator<Integer> valueComparator = new Comparator<Integer>() {
+	protected static Comparator<Long> valueComparator = new Comparator<Long>() {
 		@Override
-		public int compare(Integer i1, Integer i2) {
-			return Integer.compare(i1, i2);
+		public int compare(Long i1, Long i2) {
+			return Long.compare(i1, i2);
 		}
 	};
 
-	protected static Comparator<Integer> lengthComparator = (i1, i2) -> Integer.compare(String.valueOf(i1).length(),
+	protected static Comparator<Long> lengthComparator = (i1, i2) -> Long.compare(String.valueOf(i1).length(),
 			String.valueOf(i2).length());
 
 	@Test
 	public void sortWithMultipleConditions() {
-		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
+		List<Long> list = Lists.newArrayList(Long.MAX_VALUE, -22L, 33L);
 		System.out.println(list);
 
-		ArrayList<Integer> result = list.stream().sorted(valueComparator.thenComparing(lengthComparator))
+		ArrayList<Long> result = list.stream().sorted(valueComparator.thenComparing(lengthComparator))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(-1, 3, Integer.MAX_VALUE);
+		assertThat(result).containsExactly(-22L, 33L, Long.MAX_VALUE);
 	}
 
 	@Test
 	public void sortWithNull() {
-		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3, null);
+		List<Long> list = Lists.newArrayList(Long.MAX_VALUE, -22L, 33L, null);
 		System.out.println(list);
 
-		ArrayList<Integer> result = list.stream().sorted((s1, s2) -> {
+		ArrayList<Long> result = list.stream().sorted((s1, s2) -> {
 			if (s1 == null) {
 				return s2 == null ? 0 : -1;
 			} else if (s2 == null) {
@@ -102,28 +102,28 @@ public class StreamSortedWithExamplesTest {
 			return s1.compareTo(s2);
 		}).collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(null, -1, 3, Integer.MAX_VALUE);
+		assertThat(result).containsExactly(null, -22L, 33L, Long.MAX_VALUE);
 	}
 
 	@Test
 	public void sortWithNullsFirst() {
-		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3, null);
+		List<Long> list = Lists.newArrayList(Long.MAX_VALUE, -22L, 33L, null);
 		System.out.println(list);
 
-		ArrayList<Integer> result = list.stream().sorted(Comparator.nullsFirst(Comparator.comparing(s -> s)))
+		ArrayList<Long> result = list.stream().sorted(Comparator.nullsFirst(Comparator.comparing(s -> s)))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(null, -1, 3, Integer.MAX_VALUE);
+		assertThat(result).containsExactly(null, -22L, 33L, Long.MAX_VALUE);
 	}
 
 	@Test
 	public void sortWithNullsLast() {
-		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3, null);
+		List<Long> list = Lists.newArrayList(Long.MAX_VALUE, -22L, 33L, null);
 		System.out.println(list);
 
-		ArrayList<Integer> result = list.stream().sorted(Comparator.nullsLast(Comparator.comparing(s -> s)))
+		ArrayList<Long> result = list.stream().sorted(Comparator.nullsLast(Comparator.comparing(s -> s)))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(-1, 3, Integer.MAX_VALUE, null);
+		assertThat(result).containsExactly(-22L, 33L, Long.MAX_VALUE, null);
 	}
 }
