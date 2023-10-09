@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,58 +56,58 @@ public class SortListStreamSortedTest {
 
 	@Test
 	public void sort() {
-		Fruit orange = new Fruit("Lichee", -1, 3);
-		Fruit mango = new Fruit("Coconut", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Plum", 3, 1);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
+		Fruit lichee = new Fruit("Lichee", -1, 3);
+		Fruit coconut = new Fruit("Coconut", Double.MAX_VALUE, 1);
+		Fruit plum = new Fruit("Plum", 3, 1);
+		List<Fruit> list = Arrays.asList(lichee, coconut, plum);
 		System.out.println(list);
 
 		ArrayList<Fruit> result = list.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(mango, orange, peach);
+		assertThat(result).containsExactly(coconut, lichee, plum);
 	}
 
 	@Test
 	public void sortWithReverseOrder() {
-		Fruit orange = new Fruit("Lichee", -1, 3);
-		Fruit mango = new Fruit("Coconut", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Plum", 3, 1);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
+		Fruit lichee = new Fruit("Lichee", -1, 3);
+		Fruit coconut = new Fruit("Coconut", Double.MAX_VALUE, 1);
+		Fruit plum = new Fruit("Plum", 3, 1);
+		List<Fruit> list = Arrays.asList(lichee, coconut, plum);
 		System.out.println(list);
 
 		ArrayList<Fruit> result = list.stream().sorted(Comparator.reverseOrder())
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(peach, orange, mango);
+		assertThat(result).containsExactly(plum, lichee, coconut);
 	}
 
 	@Test
 	public void sortWithComparator() {
-		Fruit orange = new Fruit("Lichee", -1, 3);
-		Fruit mango = new Fruit("Coconut", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Plum", 3, 1);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
+		Fruit lichee = new Fruit("Lichee", -1, 3);
+		Fruit coconut = new Fruit("Coconut", Double.MAX_VALUE, 1);
+		Fruit plum = new Fruit("Plum", 3, 1);
+		List<Fruit> list = Arrays.asList(lichee, coconut, plum);
 		System.out.println(list);
 
 		ArrayList<Fruit> result = list.stream().sorted((o1, o2) -> Double.compare(o1.quantity, o2.quantity))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(orange, peach, mango);
+		assertThat(result).containsExactly(lichee, plum, coconut);
 	}
 
 	@Test
 	public void sortWithComparing() {
-		Fruit orange = new Fruit("Lichee", -1, 3);
-		Fruit mango = new Fruit("Coconut", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Plum", 3, 1);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(orange, mango, peach));
+		Fruit lichee = new Fruit("Lichee", -1, 3);
+		Fruit coconut = new Fruit("Coconut", Double.MAX_VALUE, 1);
+		Fruit plum = new Fruit("Plum", 3, 1);
+		List<Fruit> list = Arrays.asList(lichee, coconut, plum);
 		System.out.println(list);
 
 		ArrayList<Fruit> result = list.stream()
 				.sorted(Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(peach, mango, orange);
+		assertThat(result).containsExactly(plum, coconut, lichee);
 	}
 
 	protected static Comparator<Fruit> nameComparator = new Comparator<Fruit>() {
@@ -120,15 +121,61 @@ public class SortListStreamSortedTest {
 
 	@Test
 	public void sortWithMultipleConditions() {
-		Fruit mango = new Fruit("Coconut", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Plum", 3, 1);
-		Fruit orange = new Fruit("Lichee", -1, 3);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(mango, peach, orange));
+		Fruit coconut = new Fruit("Coconut", Double.MAX_VALUE, 1);
+		Fruit plum = new Fruit("Plum", 3, 1);
+		Fruit lichee = new Fruit("Lichee", -1, 3);
+		List<Fruit> list = Arrays.asList(coconut, plum, lichee);
 		System.out.println(list);
 
 		ArrayList<Fruit> result = list.stream().sorted(nameComparator.thenComparing(quantityComparator))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(mango, orange, peach);
+		assertThat(result).containsExactly(coconut, lichee, plum);
+	}
+
+	@Test
+	public void sortWithNull() {
+		Fruit coconut = new Fruit("Coconut", Double.MAX_VALUE, 1);
+		Fruit plum = new Fruit("Plum", 3, 1);
+		Fruit lichee = new Fruit("Lichee", -1, 3);
+		List<Fruit> list = Arrays.asList(coconut, plum, lichee, null);
+		System.out.println(list);
+
+		Collections.sort(list, (s1, s2) -> {
+			if (s1 == null) {
+				return s2 == null ? 0 : -1;
+			} else if (s2 == null) {
+				return 1;
+			}
+			return s1.compareTo(s2);
+		});
+		System.out.println(list);
+		assertThat(list).containsExactly(null, coconut, lichee, plum);
+	}
+
+	@Test
+	public void sortWithNullsFirst() {
+		Fruit coconut = new Fruit("Coconut", Double.MAX_VALUE, 1);
+		Fruit plum = new Fruit("Plum", 3, 1);
+		Fruit lichee = new Fruit("Lichee", -1, 3);
+		List<Fruit> list = Arrays.asList(coconut, plum, lichee, null);
+		System.out.println(list);
+
+		Collections.sort(list, Comparator.nullsFirst(Comparator.comparing(s -> s)));
+		System.out.println(list);
+		assertThat(list).containsExactly(null, coconut, lichee, plum);
+	}
+
+	@Test
+	public void sortWithNullsLast() {
+		Fruit coconut = new Fruit("Coconut", Double.MAX_VALUE, 1);
+		Fruit plum = new Fruit("Plum", 3, 1);
+		Fruit lichee = new Fruit("Lichee", -1, 3);
+		List<Fruit> list = Arrays.asList(coconut, plum, lichee, null);
+		System.out.println(list);
+
+		Collections.sort(list, Comparator.nullsLast(Comparator.comparing(s -> s)));
+		System.out.println(list);
+		assertThat(list).containsExactly(coconut, lichee, plum, null);
 	}
 }
