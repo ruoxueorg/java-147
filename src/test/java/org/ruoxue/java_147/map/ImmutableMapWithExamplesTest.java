@@ -3,17 +3,16 @@ package org.ruoxue.java_147.map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.apache.commons.collections4.ListUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -49,99 +48,89 @@ public class ImmutableMapWithExamplesTest {
 	}
 
 	@Test
-	public void Arrays_asList() {
-		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
-		Fruit banana = new Fruit("Banana", -1, 3);
-		Fruit cherry = new Fruit("Cherry", 3, 1);
-		List<Fruit> list = Arrays.asList(apple, banana, cherry);
-		Fruit kiwifruit = new Fruit("Kiwifruit", 101, 2);
-		assertThatCode(() -> list.add(kiwifruit)).isInstanceOf(UnsupportedOperationException.class);
-		System.out.println(list);
-		assertThat(list).hasSize(3);
-	}
-
-	@Test
-	public void Collections_unmodifiableList() {
-		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
-		Fruit banana = new Fruit("Banana", -1, 3);
-		Fruit cherry = new Fruit("Cherry", 3, 1);
-		List<Fruit> list = new ArrayList<>();
-		list.add(apple);
-		list.add(banana);
-		list.add(cherry);
-		List<Fruit> result = Collections.unmodifiableList(list);
-		Fruit kiwifruit = new Fruit("Kiwifruit", 101, 2);
-		assertThatCode(() -> result.add(kiwifruit)).isInstanceOf(UnsupportedOperationException.class);
+	public void Collections_unmodifiableMap() {
+		Fruit grape = new Fruit("Grape", Double.MAX_VALUE, 1);
+		Fruit kiwifruit = new Fruit("Kiwifruit", -1, 3);
+		Fruit lemon = new Fruit("Lemon", 3, 1);
+		Map<String, Fruit> map = new HashMap<String, Fruit>();
+		map.put(grape.getName(), grape);
+		map.put(kiwifruit.getName(), kiwifruit);
+		map.put(lemon.getName(), lemon);
+		Map<String, Fruit> result = Collections.unmodifiableMap(map);
+		Fruit papaya = new Fruit("Papaya", 101, 2);
+		assertThatCode(() -> result.put(papaya.getName(), papaya)).isInstanceOf(UnsupportedOperationException.class);
 		System.out.println(result);
 		assertThat(result).hasSize(3);
 	}
 
 	@Test
-	public void Collections_singletonList() {
-		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
-		List<Fruit> result = Collections.singletonList(apple);
-		Fruit banana = new Fruit("Banana", -1, 3);
-		assertThatCode(() -> result.add(banana)).isInstanceOf(UnsupportedOperationException.class);
+	public void Collections_singletonMap() {
+		Fruit grape = new Fruit("Grape", Double.MAX_VALUE, 1);
+		Map<String, Fruit> result = Collections.singletonMap(grape.getName(), grape);
+		Fruit kiwifruit = new Fruit("Kiwifruit", -1, 3);
+		assertThatCode(() -> result.put(kiwifruit.getName(), kiwifruit))
+				.isInstanceOf(UnsupportedOperationException.class);
 		System.out.println(result);
 		assertThat(result).hasSize(1);
 	}
 
 	@Test
-	public void ImmutableList_of() {
-		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
-		Fruit banana = new Fruit("Banana", -1, 3);
-		Fruit cherry = new Fruit("Cherry", 3, 1);
-		List<Fruit> list = ImmutableList.of(apple, banana, cherry);
-		Fruit kiwifruit = new Fruit("Kiwifruit", 101, 2);
-		assertThatCode(() -> list.add(kiwifruit)).isInstanceOf(UnsupportedOperationException.class);
-		System.out.println(list);
-		assertThat(list).hasSize(3);
+	public void ImmutableMap_of() {
+		Fruit grape = new Fruit("Grape", Double.MAX_VALUE, 1);
+		Fruit kiwifruit = new Fruit("Kiwifruit", -1, 3);
+		Fruit lemon = new Fruit("Lemon", 3, 1);
+		Map<String, Fruit> map = ImmutableMap.of(grape.getName(), grape, kiwifruit.getName(), kiwifruit,
+				lemon.getName(), lemon);
+		Fruit papaya = new Fruit("Papaya", 101, 2);
+		assertThatCode(() -> map.put(papaya.getName(), papaya)).isInstanceOf(UnsupportedOperationException.class);
+		System.out.println(map);
+		assertThat(map).hasSize(3);
 	}
 
 	@Test
-	public void ImmutableList_copyOf() {
-		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
-		Fruit banana = new Fruit("Banana", -1, 3);
-		Fruit cherry = new Fruit("Cherry", 3, 1);
-		List<Fruit> list = new ArrayList<>();
-		list.add(apple);
-		list.add(banana);
-		list.add(cherry);
-		List<Fruit> result = ImmutableList.copyOf(list);
-		Fruit kiwifruit = new Fruit("Kiwifruit", 101, 2);
-		assertThatCode(() -> result.add(kiwifruit)).isInstanceOf(UnsupportedOperationException.class);
+	public void ImmutableMap_copyOf() {
+		Fruit grape = new Fruit("Grape", Double.MAX_VALUE, 1);
+		Fruit kiwifruit = new Fruit("Kiwifruit", -1, 3);
+		Fruit lemon = new Fruit("Lemon", 3, 1);
+		Map<String, Fruit> map = new HashMap<String, Fruit>();
+		map.put(grape.getName(), grape);
+		map.put(kiwifruit.getName(), kiwifruit);
+		map.put(lemon.getName(), lemon);
+		Map<String, Fruit> result = ImmutableMap.copyOf(map);
+		Fruit papaya = new Fruit("Papaya", 101, 2);
+		assertThatCode(() -> result.put(papaya.getName(), papaya)).isInstanceOf(UnsupportedOperationException.class);
 		System.out.println(result);
 		assertThat(result).hasSize(3);
 	}
 
 	@Test
-	public void ImmutableList_builder() {
-		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
-		Fruit banana = new Fruit("Banana", -1, 3);
-		Fruit cherry = new Fruit("Cherry", 3, 1);
-		List<Fruit> list = new ArrayList<>();
-		list.add(apple);
-		list.add(banana);
-		list.add(cherry);
-		List<Fruit> result = ImmutableList.<Fruit>builder().addAll(list).build();
-		Fruit kiwifruit = new Fruit("Kiwifruit", 101, 2);
-		assertThatCode(() -> result.add(kiwifruit)).isInstanceOf(UnsupportedOperationException.class);
+	public void ImmutableMap_builder() {
+		Fruit grape = new Fruit("Grape", Double.MAX_VALUE, 1);
+		Fruit kiwifruit = new Fruit("Kiwifruit", -1, 3);
+		Fruit lemon = new Fruit("Lemon", 3, 1);
+		Map<String, Fruit> map = new HashMap<String, Fruit>();
+		map.put(grape.getName(), grape);
+		map.put(kiwifruit.getName(), kiwifruit);
+		map.put(lemon.getName(), lemon);
+		Map<String, Fruit> result = ImmutableMap.<String, Fruit>builder().putAll(map).build();
+		Fruit papaya = new Fruit("Papaya", 101, 2);
+		assertThatCode(() -> result.put(papaya.getName(), papaya)).isInstanceOf(UnsupportedOperationException.class);
 		System.out.println(result);
 		assertThat(result).hasSize(3);
 	}
 
 	@Test
-	public void ListUtils_unmodifiableList() {
-		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
-		Fruit banana = new Fruit("Banana", -1, 3);
-		Fruit cherry = new Fruit("Cherry", 3, 1);
-		List<Fruit> list = new ArrayList<>();
-		list.add(apple);
-		list.add(banana);
-		list.add(cherry);
-		List<Fruit> result = ListUtils.unmodifiableList(list);
-		Fruit kiwifruit = new Fruit("Kiwifruit", 101, 2);
-		assertThatCode(() -> result.add(kiwifruit)).isInstanceOf(UnsupportedOperationException.class);
+	public void MapUtils_unmodifiableMap() {
+		Fruit grape = new Fruit("Grape", Double.MAX_VALUE, 1);
+		Fruit kiwifruit = new Fruit("Kiwifruit", -1, 3);
+		Fruit lemon = new Fruit("Lemon", 3, 1);
+		Map<String, Fruit> map = new HashMap<String, Fruit>();
+		map.put(grape.getName(), grape);
+		map.put(kiwifruit.getName(), kiwifruit);
+		map.put(lemon.getName(), lemon);
+		Map<String, Fruit> result = MapUtils.unmodifiableMap(map);
+		Fruit papaya = new Fruit("Papaya", 101, 2);
+		assertThatCode(() -> result.put(papaya.getName(), papaya)).isInstanceOf(UnsupportedOperationException.class);
 		System.out.println(result);
 		assertThat(result).hasSize(3);
 	}
