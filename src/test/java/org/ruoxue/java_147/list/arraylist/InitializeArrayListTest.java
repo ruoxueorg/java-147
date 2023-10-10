@@ -1,6 +1,8 @@
 package org.ruoxue.java_147.list.arraylist;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -56,28 +58,48 @@ public class InitializeArrayListTest {
 	@Test
 	public void addAll() {
 		int expectedSize = 3;
-		List<String> list = new ArrayList<>(Arrays.asList("Apple", "Banana", "Cherry"));
-		List<String> newList = new ArrayList<>();
-		newList.addAll(list);
-		System.out.println(newList);
-		assertEquals(expectedSize, newList.size());
+		List<String> list = Arrays.asList("Apple", "Banana", "Cherry");
+		List<String> result = new ArrayList<>();
+		result.addAll(list);
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
 
-		List<Integer> intList = new ArrayList<>(Arrays.asList(1, 2, 3));
-		List<Integer> newIntList = new ArrayList<>();
-		newIntList.addAll(intList);
-		System.out.println(newIntList);
-		assertEquals(expectedSize, newIntList.size());
+		List<Integer> intList = Arrays.asList(1, 2, 3);
+		List<Integer> intResult = new ArrayList<>();
+		intResult.addAll(intList);
+		System.out.println(intResult);
+		assertEquals(expectedSize, intResult.size());
 	}
 
 	@Test
-	public void asList() {
+	public void Arrays_asList() {
+		int expectedSize = 3;
+		List<String> list = Arrays.asList("Apple", "Banana", "Cherry");
+		System.out.println(list);
+		assertEquals(expectedSize, list.size());
+		assertThatCode(() -> list.add("Grape")).isInstanceOf(UnsupportedOperationException.class);
+
+		List<Integer> intList = Arrays.asList(1, 2, 3);
+		System.out.println(intList);
+		assertEquals(expectedSize, intList.size());
+		assertThatCode(() -> intList.add(Integer.MAX_VALUE)).isInstanceOf(UnsupportedOperationException.class);
+	}
+
+	@Test
+	public void Arrays_asList_withMutable() {
 		int expectedSize = 3;
 		List<String> list = new ArrayList<>(Arrays.asList("Apple", "Banana", "Cherry"));
 		System.out.println(list);
 		assertEquals(expectedSize, list.size());
+		list.add("Grape");
+		System.out.println(list);
+		assertEquals(4, list.size());
 
 		List<Integer> intList = new ArrayList<>(Arrays.asList(1, 2, 3));
 		System.out.println(intList);
 		assertEquals(expectedSize, intList.size());
+		intList.add(Integer.MAX_VALUE);
+		System.out.println(intList);
+		assertEquals(4, intList.size());
 	}
 }
