@@ -57,7 +57,7 @@ public class StreamSortedWithExamplesTest {
 	}
 
 	@Test
-	public void comparingLong() {
+	public void sortWithComparingLong() {
 		List<Long> list = Lists.newArrayList(Long.MAX_VALUE, -22L, 33L);
 		System.out.println(list);
 
