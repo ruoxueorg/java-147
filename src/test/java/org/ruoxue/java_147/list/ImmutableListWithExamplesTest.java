@@ -77,6 +77,16 @@ public class ImmutableListWithExamplesTest {
 	}
 
 	@Test
+	public void Collections_singletonList() {
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		List<Fruit> result = Collections.singletonList(apple);
+		Fruit banana = new Fruit("Banana", -1, 3);
+		assertThatCode(() -> result.add(banana)).isInstanceOf(UnsupportedOperationException.class);
+		System.out.println(result);
+		assertThat(result).hasSize(1);
+	}
+
+	@Test
 	public void ImmutableList_of() {
 		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
 		Fruit banana = new Fruit("Banana", -1, 3);

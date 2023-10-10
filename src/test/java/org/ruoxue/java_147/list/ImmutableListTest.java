@@ -50,6 +50,19 @@ public class ImmutableListTest {
 	}
 
 	@Test
+	public void Collections_singletonList() {
+		List<String> result = Collections.singletonList("Apple");
+		assertThatCode(() -> result.add("Banana")).isInstanceOf(UnsupportedOperationException.class);
+		System.out.println(result);
+		assertThat(result).hasSize(1);
+
+		List<Integer> intResult = Collections.singletonList(Integer.MAX_VALUE);
+		assertThatCode(() -> intResult.add(-3)).isInstanceOf(UnsupportedOperationException.class);
+		System.out.println(intResult);
+		assertThat(result).hasSize(1);
+	}
+
+	@Test
 	public void ImmutableList_of() {
 		List<String> list = ImmutableList.of("Apple", "Banana", "Cherry");
 		assertThatCode(() -> list.add("Kiwifruit")).isInstanceOf(UnsupportedOperationException.class);
