@@ -60,7 +60,7 @@ public class SortingListWithExamplesTest {
 		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
 		Fruit orange = new Fruit("Orange", -1, 3);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(mango, peach, orange));
+		List<Fruit> list = Arrays.asList(mango, peach, orange);
 		System.out.println(list);
 
 		Collections.sort(list, Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity));
@@ -73,7 +73,7 @@ public class SortingListWithExamplesTest {
 		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
 		Fruit peach = new Fruit("Peach", 3, 1);
 		Fruit orange = new Fruit("Orange", -1, 3);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(mango, peach, orange));
+		List<Fruit> list = Arrays.asList(mango, peach, orange);
 		System.out.println(list);
 
 		Collections.sort(list, nameComparator.thenComparing(quantityComparator));
@@ -86,7 +86,7 @@ public class SortingListWithExamplesTest {
 		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
 		Fruit cherry = new Fruit("Cherry", 3, 1);
 		Fruit banana = new Fruit("Banana", -1, 3);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(apple, cherry, banana));
+		List<Fruit> list = Arrays.asList(apple, cherry, banana);
 		System.out.println(list);
 
 		list.sort(Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity));
@@ -99,7 +99,7 @@ public class SortingListWithExamplesTest {
 		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
 		Fruit cherry = new Fruit("Cherry", 3, 1);
 		Fruit banana = new Fruit("Banana", -1, 3);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(apple, cherry, banana));
+		List<Fruit> list = Arrays.asList(apple, cherry, banana);
 		System.out.println(list);
 
 		list.sort(nameComparator.thenComparing(quantityComparator));
@@ -109,30 +109,30 @@ public class SortingListWithExamplesTest {
 
 	@Test
 	public void Stream_sorted() {
-		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Peach", 3, 1);
-		Fruit orange = new Fruit("Orange", -1, 3);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(mango, peach, orange));
+		Fruit lichee = new Fruit("Lichee", Double.MAX_VALUE, 1);
+		Fruit plum = new Fruit("Plum", 3, 1);
+		Fruit coconut = new Fruit("Coconut", -1, 3);
+		List<Fruit> list = Arrays.asList(lichee, plum, coconut);
 		System.out.println(list);
 
 		ArrayList<Fruit> result = list.stream()
 				.sorted(Comparator.comparing(Fruit::getType).thenComparing(Fruit::getQuantity))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(peach, mango, orange);
+		assertThat(result).containsExactly(plum, lichee, coconut);
 	}
 
 	@Test
 	public void Stream_sorted_withMultipleConditions() {
-		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
-		Fruit peach = new Fruit("Peach", 3, 1);
-		Fruit orange = new Fruit("Orange", -1, 3);
-		List<Fruit> list = new ArrayList<>(Arrays.asList(mango, peach, orange));
+		Fruit lichee = new Fruit("Lichee", Double.MAX_VALUE, 1);
+		Fruit plum = new Fruit("Plum", 3, 1);
+		Fruit coconut = new Fruit("Coconut", -1, 3);
+		List<Fruit> list = Arrays.asList(lichee, plum, coconut);
 		System.out.println(list);
 
 		ArrayList<Fruit> result = list.stream().sorted(nameComparator.thenComparing(quantityComparator))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly(mango, orange, peach);
+		assertThat(result).containsExactly(coconut, lichee, plum);
 	}
 }

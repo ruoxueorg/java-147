@@ -90,18 +90,18 @@ public class ListSortingExampleTest {
 
 	@Test
 	public void Stream_sorted() {
-		List<String> list = Arrays.asList("Mango", "Peach", "Orange");
+		List<String> list = Arrays.asList("Lichee", "Coconut", "Plum");
 		System.out.println(list);
 
 		ArrayList<String> result = list.stream().sorted(Comparator.comparing(String::length))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly("Mango", "Peach", "Orange");
+		assertThat(result).containsExactly("Plum", "Lichee", "Coconut");
 
 		result = list.stream().sorted(stringNameComparator.thenComparing(stringLengthComparator))
 				.collect(Collectors.toCollection(ArrayList::new));
 		System.out.println(result);
-		assertThat(result).containsExactly("Mango", "Orange", "Peach");
+		assertThat(result).containsExactly("Coconut", "Lichee", "Plum");
 	}
 
 	@Test
