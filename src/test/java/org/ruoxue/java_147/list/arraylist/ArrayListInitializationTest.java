@@ -18,12 +18,12 @@ public class ArrayListInitializationTest {
 	@Test
 	public void constructor() {
 		int expectedSize = 3;
-		List<String> list = new ArrayList<>(Arrays.asList("Apple", "Banana", "Cherry"));
+		List<String> list = Arrays.asList("Apple", "Banana", "Cherry");
 		List<String> newList = new ArrayList<>(list);
 		System.out.println(newList);
 		assertEquals(expectedSize, newList.size());
 
-		List<Integer> intList = new ArrayList<>(Arrays.asList(1, 2, 3));
+		List<Integer> intList = Arrays.asList(1, 2, 3);
 		List<Integer> newIntList = new ArrayList<>(intList);
 		System.out.println(newIntList);
 		assertEquals(expectedSize, newIntList.size());
