@@ -96,5 +96,4 @@ public class LocalDateTimeToZonedDateTimeTest {
 		System.out.println(result);
 		assertEquals("2023-04-04T05:04:03+11:00[Asia/Sakhalin]", result.toString());
 	}
-
 }
