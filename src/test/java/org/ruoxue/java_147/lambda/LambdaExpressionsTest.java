@@ -1,10 +1,10 @@
-package org.ruoxue.java_147.array.sort;
+package org.ruoxue.java_147.lambda;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class ArraysSortTest2 {
+public class LambdaExpressionsTest {
 
 	@Test
 	public void test() {
