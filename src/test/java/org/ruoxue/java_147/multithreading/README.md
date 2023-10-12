@@ -1,21 +1,3 @@
 # Java 147 Multithreading
 
 ## Related Articles
-1. [CountDownLatch in Java with Examples](https://www.ruoxue.org/java-147-countdownlatch-in-java-with-examples/)
-2. [Java CountDownLatch Class](https://www.ruoxue.org/java-147-java-countdownlatch-class/)
-3. [ThreadPool in Java with Examples](https://www.ruoxue.org/https://www.ruoxue.org/java-147-threadpool-in-java-with-examples/)
-4. [Runnable in Java with Examples](https://www.ruoxue.org/https://www.ruoxue.org/java-147-runnable-in-java-with-examples/)
-5. [Java Runnable Interface](https://www.ruoxue.org/https://www.ruoxue.org/java-147-java-runnable-interface/)
-6. [Callable in Java with Examples](https://www.ruoxue.org/https://www.ruoxue.org/java-147-callable-in-java-with-examples/)
-7. [Java Callable Interface](https://www.ruoxue.org/https://www.ruoxue.org/java-147-java-callable-interface/)
-8. [Runnable vs Callable in Java](https://www.ruoxue.org/java-147-runnable-vs-callable-in-java/)
-9. [Difference Between Runnable and Callable in Java](https://www.ruoxue.org/java-147-difference-between-runnable-and-callable-in-java/)
-10. [Difference Between Thread and Runnable in Java](https://www.ruoxue.org/java-147-difference-between-thread-and-runnable-in-java/)
-11. [Java ExecutorService Methods](https://www.ruoxue.org/java-147-java-executorservice-methods/)
-12. [ExecutorService in Java with Examples](https://www.ruoxue.org/java-147-executorservice-in-java-with-examples/)
-13. [Java ExecutorService Interface](https://www.ruoxue.org/java-147-java-executorservice-interface/)
-14. [Difference Between ExecutorService execute and submit in Java](https://www.ruoxue.org/java-147-difference-between-executorservice-execute-and-submit-in-java/)
-15. [ScheduledExecutorService in Java with Examples](https://www.ruoxue.org/java-147-scheduledexecutorservice-in-java-with-examples/)
-16. [Java ScheduledExecutorService Interface](https://www.ruoxue.org/java-147-java-scheduledexecutorservice-interface/)
-17. [ScheduledThreadPoolExecutor in Java with Examples](https://www.ruoxue.org/java-147-scheduledthreadpoolexecutor-in-java-with-examples/)
-18. [Java ScheduledThreadPoolExecutor Class](https://www.ruoxue.org/java-147-java-scheduledthreadpoolexecutor-class/)
