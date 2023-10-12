@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.set;
+package org.ruoxue.java_147.set.hashset;
 
 import static org.junit.Assert.*;
 

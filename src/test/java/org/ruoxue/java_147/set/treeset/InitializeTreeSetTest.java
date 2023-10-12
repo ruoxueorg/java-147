@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.set;
+package org.ruoxue.java_147.set.treeset;
 
 import static org.junit.Assert.*;
 import java.util.TreeSet;
