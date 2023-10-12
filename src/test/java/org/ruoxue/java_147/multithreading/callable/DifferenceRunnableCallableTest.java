@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.multithreading;
+package org.ruoxue.java_147.multithreading.callable;
 
 import static org.junit.Assert.assertNotNull;
 
