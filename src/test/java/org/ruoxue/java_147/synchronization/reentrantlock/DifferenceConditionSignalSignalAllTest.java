@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.synchronization;
+package org.ruoxue.java_147.synchronization.reentrantlock;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

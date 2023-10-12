@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.synchronization;
+package org.ruoxue.java_147.synchronization.thread;
 
 import static org.junit.Assert.assertFalse;
 

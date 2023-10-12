@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.synchronization;
+package org.ruoxue.java_147.synchronization.semaphore;
 
 import static org.junit.Assert.assertEquals;
 
