@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.comparator;
+package org.ruoxue.java_147.comparable;
 
 import static org.junit.Assert.*;
 
