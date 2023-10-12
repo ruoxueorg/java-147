@@ -1,30 +1,19 @@
-package org.ruoxue.java_147.queue;
+package org.ruoxue.java_147.queue.concurrentlinkedqueue;
 
 import static org.junit.Assert.*;
 
 import java.util.NoSuchElementException;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.junit.Test;
 
-public class LinkedBlockingQueueMethodsTest {
+public class ConcurrentLinkedQueueMethodsTest {
 
 	@Test
 	public void add() {
 		int expectedSize = 3;
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
-		queue.add("Papaya");
-		queue.add("Strawberry");
-		queue.add("Watermelon");
-		System.out.println(queue);
-		assertEquals(expectedSize, queue.size());
-	}
-
-	@Test(expected = IllegalStateException.class)
-	public void addWhenFull() {
-		int expectedSize = 2;
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>(2);
+		Queue<String> queue = new ConcurrentLinkedQueue<String>();
 		queue.add("Papaya");
 		queue.add("Strawberry");
 		queue.add("Watermelon");
@@ -35,12 +24,12 @@ public class LinkedBlockingQueueMethodsTest {
 	@Test
 	public void addAll() {
 		int expectedSize = 6;
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+		Queue<String> queue = new ConcurrentLinkedQueue<String>();
 		queue.add("Papaya");
 		queue.add("Strawberry");
 		queue.add("Watermelon");
 
-		BlockingQueue<String> queue2 = new LinkedBlockingQueue<String>();
+		Queue<String> queue2 = new ConcurrentLinkedQueue<String>();
 		queue2.add("Durian");
 		queue2.add("Guava");
 		queue2.add("Pitaya");
@@ -54,7 +43,7 @@ public class LinkedBlockingQueueMethodsTest {
 	public void peek() {
 		String expected = "Papaya";
 		int expectedSize = 3;
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+		Queue<String> queue = new ConcurrentLinkedQueue<String>();
 		String value = queue.peek();
 		System.out.println(value);
 		assertEquals(null, value);
@@ -72,7 +61,7 @@ public class LinkedBlockingQueueMethodsTest {
 	public void element() {
 		String expected = "Papaya";
 		int expectedSize = 3;
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+		Queue<String> queue = new ConcurrentLinkedQueue<String>();
 		queue.add("Papaya");
 		queue.add("Strawberry");
 		queue.add("Watermelon");
@@ -85,7 +74,7 @@ public class LinkedBlockingQueueMethodsTest {
 	@Test(expected = NoSuchElementException.class)
 	public void elementWhenEmpty() {
 		int expectedSize = 0;
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+		Queue<String> queue = new ConcurrentLinkedQueue<String>();
 		String value = queue.element();
 		System.out.println(value);
 		assertEquals(expectedSize, queue.size());
@@ -94,7 +83,7 @@ public class LinkedBlockingQueueMethodsTest {
 	@Test
 	public void remove() {
 		int expectedSize = 2;
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+		Queue<String> queue = new ConcurrentLinkedQueue<String>();
 		queue.add("Papaya");
 		queue.add("Strawberry");
 		queue.add("Watermelon");
@@ -109,7 +98,7 @@ public class LinkedBlockingQueueMethodsTest {
 	@Test(expected = NoSuchElementException.class)
 	public void removeWhenEmpty() {
 		int expectedSize = 0;
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+		Queue<String> queue = new ConcurrentLinkedQueue<String>();
 		queue.remove();
 		System.out.println(queue);
 		assertEquals(expectedSize, queue.size());
@@ -118,12 +107,12 @@ public class LinkedBlockingQueueMethodsTest {
 	@Test
 	public void removeAll() {
 		int expectedSize = 1;
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+		Queue<String> queue = new ConcurrentLinkedQueue<String>();
 		queue.add("Papaya");
 		queue.add("Strawberry");
 		queue.add("Watermelon");
 
-		BlockingQueue<String> queue2 = new LinkedBlockingQueue<String>();
+		Queue<String> queue2 = new ConcurrentLinkedQueue<String>();
 		queue2.add("Papaya");
 		queue2.add("Strawberry");
 		queue2.add("Pitaya");
@@ -135,7 +124,7 @@ public class LinkedBlockingQueueMethodsTest {
 	@Test
 	public void clear() {
 		int expectedSize = 0;
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+		Queue<String> queue = new ConcurrentLinkedQueue<String>();
 		queue.add("Papaya");
 		queue.add("Strawberry");
 		queue.add("Watermelon");
@@ -147,7 +136,7 @@ public class LinkedBlockingQueueMethodsTest {
 	@Test
 	public void size() {
 		int expectedSize = 3;
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+		Queue<String> queue = new ConcurrentLinkedQueue<String>();
 		queue.add("Papaya");
 		queue.add("Strawberry");
 		queue.add("Watermelon");
@@ -157,7 +146,7 @@ public class LinkedBlockingQueueMethodsTest {
 
 	@Test
 	public void isEmpty() {
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+		Queue<String> queue = new ConcurrentLinkedQueue<String>();
 		System.out.println(queue.isEmpty());
 		assertTrue(queue.isEmpty());
 		queue.add("Papaya");
@@ -165,16 +154,5 @@ public class LinkedBlockingQueueMethodsTest {
 		queue.add("Watermelon");
 		System.out.println(queue.isEmpty());
 		assertFalse(queue.isEmpty());
-	}
-
-	@Test
-	public void remainingCapacity() {
-		int expectedSize = Integer.MAX_VALUE - 3;
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
-		queue.add("Papaya");
-		queue.add("Strawberry");
-		queue.add("Watermelon");
-		System.out.println(queue.remainingCapacity());
-		assertEquals(expectedSize, queue.remainingCapacity());
 	}
 }

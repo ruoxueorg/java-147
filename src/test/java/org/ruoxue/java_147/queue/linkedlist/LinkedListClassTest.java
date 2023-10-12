@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.queue;
+package org.ruoxue.java_147.queue.linkedlist;
 
 import static org.junit.Assert.*;
 
