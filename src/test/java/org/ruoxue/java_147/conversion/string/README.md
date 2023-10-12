@@ -23,5 +23,3 @@
 20. [Java Convert Char to String](https://www.ruoxue.org/java-147-java-convert-char-to-string/)
 21. [Convert Char to String in Java with Examples](https://www.ruoxue.org/java-147-convert-char-to-string-in-java-with-examples/)
 22. [Java Convert Enum to String](https://www.ruoxue.org/java-147-java-convert-enum-to-string/)
-23. [Java Convert List to Array](https://www.ruoxue.org/java-147-java-convert-list-to-array/)
-24. [Java Convert List to Map](https://www.ruoxue.org/java-147-java-convert-list-to-map/)
