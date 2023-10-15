@@ -1,4 +1,4 @@
-# Java 147 List
+# Java 147 Stream Sort
 
 ## Related Articles
 1. [Java Stream sorted Method](https://www.ruoxue.org/java-147-java-stream-sorted-method/)

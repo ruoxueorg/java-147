@@ -1,4 +1,4 @@
-# Java 147 List
+# Java 147 List Sort
 
 ## Related Articles
 1. [Sort a List in Java](https://www.ruoxue.org/java-147-sort-a-list-in-java/)

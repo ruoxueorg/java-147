@@ -1,4 +1,4 @@
-# Java 147 List
+# Java 147 Collection Sort
 
 ## Related Articles
 1. [Java Collections sort Method](https://www.ruoxue.org/java-147-java-collections-sort-method/)
