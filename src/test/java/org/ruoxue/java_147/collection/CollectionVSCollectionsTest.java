@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -97,27 +98,23 @@ public class CollectionVSCollectionsTest {
 
 	@Test
 	public void min() {
-		List<String> list = Lists.newArrayList("Apple", "Banana", "Cherry");
-		String result = Collections.min(list);
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		Fruit banana = new Fruit("Banana", -1, 3);
+		Fruit cherry = new Fruit("Cherry", 3, 1);
+		List<Fruit> list = Lists.newArrayList(apple, banana, cherry);
+		Fruit result = Collections.min(list, Comparator.comparing(Fruit::getQuantity));
 		System.out.println(result);
-		assertThat(result).isEqualTo("Apple");
-
-		List<Integer> intList = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
-		Integer intResult = Collections.min(intList);
-		System.out.println(intResult);
-		assertThat(intResult).isEqualTo(-1);
+		assertThat(result).isEqualTo(banana);
 	}
 
 	@Test
 	public void max() {
-		List<String> list = Lists.newArrayList("Apple", "Banana", "Cherry");
-		String result = Collections.max(list);
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		Fruit banana = new Fruit("Banana", -1, 3);
+		Fruit cherry = new Fruit("Cherry", 3, 1);
+		List<Fruit> list = Lists.newArrayList(apple, banana, cherry);
+		Fruit result = Collections.max(list, Comparator.comparing(Fruit::getQuantity));
 		System.out.println(result);
-		assertThat(result).isEqualTo("Cherry");
-
-		List<Integer> intList = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
-		Integer intResult = Collections.max(intList);
-		System.out.println(intResult);
-		assertThat(intResult).isEqualTo(Integer.MAX_VALUE);
+		assertThat(result).isEqualTo(apple);
 	}
 }
