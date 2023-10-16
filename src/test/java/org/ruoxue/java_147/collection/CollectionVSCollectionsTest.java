@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -58,59 +57,42 @@ public class CollectionVSCollectionsTest {
 	@Test
 	public void addAll() {
 		int expectedSize = 3;
-		List<String> list = Lists.newArrayList("Apple", "Banana", "Cherry");
-		List<String> result = new ArrayList<>();
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		Fruit banana = new Fruit("Banana", -1, 3);
+		Fruit cherry = new Fruit("Cherry", 3, 1);
+		List<Fruit> list = Lists.newArrayList(apple, banana, cherry);
+		List<Fruit> result = new ArrayList<>();
 		result.addAll(list);
 		System.out.println(result);
 		assertEquals(expectedSize, result.size());
 
-		Collections.addAll(result, "Mango", "Orange", "Peach");
-		System.out.println(result);
-		assertEquals(6, result.size());
-	}
-
-	@Test
-	public void addAllWithInteger() {
-		int expectedSize = 3;
-		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
-		List<Integer> result = new ArrayList<>();
-		result.addAll(list);
-		System.out.println(result);
-		assertEquals(expectedSize, result.size());
-
-		Collections.addAll(result, 10, 20, 30);
+		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
+		Fruit orange = new Fruit("Orange", -1, 3);
+		Fruit peach = new Fruit("Peach", 3, 1);
+		Collections.addAll(result, mango, orange, peach);
 		System.out.println(result);
 		assertEquals(6, result.size());
 	}
 
 	@Test
 	public void sort() {
-		List<String> list = Arrays.asList("Banana", "Apple", "Cherry");
+		Fruit banana = new Fruit("Banana", -1, 3);
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		Fruit cherry = new Fruit("Cherry", 3, 1);
+		List<Fruit> list = Lists.newArrayList(banana, apple, cherry);
 		System.out.println(list);
 		list.sort(null);
 		System.out.println(list);
-		assertThat(list).containsExactly("Apple", "Banana", "Cherry");
+		assertThat(list).containsExactly(apple, banana, cherry);
 
-		list = Arrays.asList("Orange", "Mango", "Peach");
+		Fruit orange = new Fruit("Orange", -1, 3);
+		Fruit mango = new Fruit("Mango", Double.MAX_VALUE, 1);
+		Fruit peach = new Fruit("Peach", 3, 1);
+		list = Lists.newArrayList(orange, mango, peach);
 		System.out.println(list);
 		Collections.sort(list);
 		System.out.println(list);
-		assertThat(list).containsExactly("Mango", "Orange", "Peach");
-	}
-
-	@Test
-	public void sortWithDouble() {
-		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d);
-		System.out.println(list);
-		list.sort(null);
-		System.out.println(list);
-		assertThat(list).containsExactly(-1d, 3d, Double.MAX_VALUE);
-
-		list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d);
-		System.out.println(list);
-		Collections.sort(list);
-		System.out.println(list);
-		assertThat(list).containsExactly(-1d, 3d, Double.MAX_VALUE);
+		assertThat(list).containsExactly(mango, orange, peach);
 	}
 
 	@Test
