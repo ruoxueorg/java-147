@@ -97,4 +97,21 @@ public class DifferenceCollectionCollectionsTest {
 		System.out.println(intResult);
 		assertThat(intResult).isEqualTo(Integer.MAX_VALUE);
 	}
+
+	@Test
+	public void replaceAll() {
+		List<String> list = Lists.newArrayList("Apple", "Banana", "Cherry", "Apple");
+		System.out.println(list);
+		boolean result = Collections.replaceAll(list, "Apple", "Mango");
+		System.out.println(list);
+		System.out.println(result);
+		assertThat(result).isTrue();
+
+		List<Integer> intList = Lists.newArrayList(Integer.MAX_VALUE, -1, 3, Integer.MAX_VALUE);
+		System.out.println(intList);
+		boolean intResult = Collections.replaceAll(intList, Integer.MAX_VALUE, Integer.MIN_VALUE);
+		System.out.println(intList);
+		System.out.println(intResult);
+		assertThat(intResult).isTrue();
+	}
 }

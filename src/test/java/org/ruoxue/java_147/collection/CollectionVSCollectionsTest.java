@@ -117,4 +117,18 @@ public class CollectionVSCollectionsTest {
 		System.out.println(result);
 		assertThat(result).isEqualTo(apple);
 	}
+
+	@Test
+	public void replaceAll() {
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		Fruit banana = new Fruit("Banana", -1, 3);
+		Fruit cherry = new Fruit("Cherry", 3, 1);
+		List<Fruit> list = Lists.newArrayList(apple, banana, cherry, apple);
+		System.out.println(list);
+		Fruit orange = new Fruit("Orange", -1, 3);
+		boolean result = Collections.replaceAll(list, apple, orange);
+		System.out.println(list);
+		System.out.println(result);
+		assertThat(result).isTrue();
+	}
 }
