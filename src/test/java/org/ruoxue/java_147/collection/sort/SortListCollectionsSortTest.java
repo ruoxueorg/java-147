@@ -2,7 +2,6 @@ package org.ruoxue.java_147.collection.sort;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
