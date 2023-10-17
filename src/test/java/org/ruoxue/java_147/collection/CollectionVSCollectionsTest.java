@@ -4,9 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -61,9 +65,9 @@ public class CollectionVSCollectionsTest {
 		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
 		Fruit banana = new Fruit("Banana", -1, 3);
 		Fruit cherry = new Fruit("Cherry", 3, 1);
-		List<Fruit> list = Lists.newArrayList(apple, banana, cherry);
-		List<Fruit> result = new ArrayList<>();
-		result.addAll(list);
+		Collection<Fruit> collection = Lists.newArrayList(apple, banana, cherry);
+		Collection<Fruit> result = new ArrayList<>();
+		result.addAll(collection);
 		System.out.println(result);
 		assertEquals(expectedSize, result.size());
 
@@ -101,8 +105,8 @@ public class CollectionVSCollectionsTest {
 		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
 		Fruit banana = new Fruit("Banana", -1, 3);
 		Fruit cherry = new Fruit("Cherry", 3, 1);
-		List<Fruit> list = Lists.newArrayList(apple, banana, cherry);
-		Fruit result = Collections.min(list, Comparator.comparing(Fruit::getQuantity));
+		Collection<Fruit> collection = Lists.newArrayList(apple, banana, cherry);
+		Fruit result = Collections.min(collection, Comparator.comparing(Fruit::getQuantity));
 		System.out.println(result);
 		assertThat(result).isEqualTo(banana);
 	}
@@ -112,8 +116,8 @@ public class CollectionVSCollectionsTest {
 		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
 		Fruit banana = new Fruit("Banana", -1, 3);
 		Fruit cherry = new Fruit("Cherry", 3, 1);
-		List<Fruit> list = Lists.newArrayList(apple, banana, cherry);
-		Fruit result = Collections.max(list, Comparator.comparing(Fruit::getQuantity));
+		Collection<Fruit> collection = Lists.newArrayList(apple, banana, cherry);
+		Fruit result = Collections.max(collection, Comparator.comparing(Fruit::getQuantity));
 		System.out.println(result);
 		assertThat(result).isEqualTo(apple);
 	}
@@ -130,5 +134,36 @@ public class CollectionVSCollectionsTest {
 		System.out.println(list);
 		System.out.println(result);
 		assertThat(result).isTrue();
+	}
+
+	@Test
+	public void enumeration() {
+		Fruit apple = new Fruit("Apple", Double.MAX_VALUE, 1);
+		Fruit banana = new Fruit("Banana", -1, 3);
+		Fruit cherry = new Fruit("Cherry", 3, 1);
+		Collection<Fruit> collection = Lists.newArrayList(apple, banana, cherry);
+		Iterator<Fruit> it = collection.iterator();
+		while (it.hasNext()) {
+			Fruit e = it.next();
+			System.out.println(e);
+		}
+
+		Enumeration<Fruit> en = Collections.enumeration(collection);
+		while (en.hasMoreElements()) {
+			Fruit e = en.nextElement();
+			System.out.println(e);
+		}
+	}
+
+	@Test
+	public void list() {
+		int expectedSize = 3;
+		Vector<Fruit> vector = new Vector<>();
+		vector.add(new Fruit("Apple", Double.MAX_VALUE, 1));
+		vector.add(new Fruit("Banana", -1, 3));
+		vector.add(new Fruit("Cherry", 3, 1));
+		List<Fruit> result = Collections.list(vector.elements());
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
 	}
 }

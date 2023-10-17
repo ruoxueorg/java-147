@@ -5,8 +5,12 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import org.junit.Test;
 
@@ -17,9 +21,9 @@ public class DifferenceCollectionCollectionsTest {
 	@Test
 	public void addAll() {
 		int expectedSize = 3;
-		List<String> list = Lists.newArrayList("Apple", "Banana", "Cherry");
-		List<String> result = new ArrayList<>();
-		result.addAll(list);
+		Collection<String> collection = Lists.newArrayList("Apple", "Banana", "Cherry");
+		Collection<String> result = new ArrayList<>();
+		result.addAll(collection);
 		System.out.println(result);
 		assertEquals(expectedSize, result.size());
 
@@ -31,9 +35,9 @@ public class DifferenceCollectionCollectionsTest {
 	@Test
 	public void addAllWithInteger() {
 		int expectedSize = 3;
-		List<Integer> list = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
-		List<Integer> result = new ArrayList<>();
-		result.addAll(list);
+		Collection<Integer> collection = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
+		Collection<Integer> result = new ArrayList<>();
+		result.addAll(collection);
 		System.out.println(result);
 		assertEquals(expectedSize, result.size());
 
@@ -74,26 +78,26 @@ public class DifferenceCollectionCollectionsTest {
 
 	@Test
 	public void min() {
-		List<String> list = Lists.newArrayList("Apple", "Banana", "Cherry");
-		String result = Collections.min(list);
+		Collection<String> collection = Lists.newArrayList("Apple", "Banana", "Cherry");
+		String result = Collections.min(collection);
 		System.out.println(result);
 		assertThat(result).isEqualTo("Apple");
 
-		List<Integer> intList = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
-		Integer intResult = Collections.min(intList);
+		Collection<Integer> intCollection = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
+		Integer intResult = Collections.min(intCollection);
 		System.out.println(intResult);
 		assertThat(intResult).isEqualTo(-1);
 	}
 
 	@Test
 	public void max() {
-		List<String> list = Lists.newArrayList("Apple", "Banana", "Cherry");
-		String result = Collections.max(list);
+		Collection<String> collection = Lists.newArrayList("Apple", "Banana", "Cherry");
+		String result = Collections.max(collection);
 		System.out.println(result);
 		assertThat(result).isEqualTo("Cherry");
 
-		List<Integer> intList = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
-		Integer intResult = Collections.max(intList);
+		Collection<Integer> intCollection = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
+		Integer intResult = Collections.max(intCollection);
 		System.out.println(intResult);
 		assertThat(intResult).isEqualTo(Integer.MAX_VALUE);
 	}
@@ -113,5 +117,41 @@ public class DifferenceCollectionCollectionsTest {
 		System.out.println(intList);
 		System.out.println(intResult);
 		assertThat(intResult).isTrue();
+	}
+
+	@Test
+	public void enumeration() {
+		Collection<String> collection = Lists.newArrayList("Apple", "Banana", "Cherry");
+		Iterator<String> it = collection.iterator();
+		while (it.hasNext()) {
+			String e = it.next();
+			System.out.println(e);
+		}
+
+		Enumeration<String> en = Collections.enumeration(collection);
+		while (en.hasMoreElements()) {
+			String e = en.nextElement();
+			System.out.println(e);
+		}
+	}
+
+	@Test
+	public void list() {
+		int expectedSize = 3;
+		Vector<String> vector = new Vector<>();
+		vector.add("Apple");
+		vector.add("Banana");
+		vector.add("Cherry");
+		List<String> result = Collections.list(vector.elements());
+		System.out.println(result);
+		assertEquals(expectedSize, result.size());
+
+		Vector<Integer> intVector = new Vector<>();
+		intVector.add(Integer.MAX_VALUE);
+		intVector.add(-1);
+		intVector.add(3);
+		List<Integer> intResult = Collections.list(intVector.elements());
+		System.out.println(intResult);
+		assertEquals(expectedSize, intResult.size());
 	}
 }
