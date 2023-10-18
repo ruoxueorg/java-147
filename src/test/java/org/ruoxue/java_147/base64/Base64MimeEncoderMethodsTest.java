@@ -2,8 +2,12 @@ package org.ruoxue.java_147.base64;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 
 import org.junit.Test;
@@ -85,5 +89,18 @@ public class Base64MimeEncoderMethodsTest {
 						+ "NTY3ODkrL0FCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4\n"
 						+ "eXowMTIzNDU2Nzg5Ky9BQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWmFiY2RlZmdoaWprbG1ub3Bx\n"
 						+ "cnN0dXZ3eHl6MDEyMzQ1Njc4OSsv");
+	}
+
+	@Test
+	public void wrap() throws Exception {
+		Path src = Paths.get("./", "README.md");
+		System.out.println(src);
+		Path dst = Paths.get("./", "README.log");
+		System.out.println(dst);
+		Base64.Encoder encoder = Base64.getMimeEncoder();
+		try (OutputStream output = Files.newOutputStream(dst)) {
+			Files.copy(src, encoder.wrap(output));
+			// OutputStream encodedStrem = encoder.wrap(output);
+		}
 	}
 }

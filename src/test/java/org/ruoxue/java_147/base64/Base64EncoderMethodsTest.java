@@ -2,8 +2,12 @@ package org.ruoxue.java_147.base64;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 
 import org.junit.Test;
@@ -75,5 +79,18 @@ public class Base64EncoderMethodsTest {
 		System.out.println(result);
 		assertThat(result)
 				.isEqualTo("QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0NTY3ODkrLw==");
+	}
+
+	@Test
+	public void wrap() throws Exception {
+		Path src = Paths.get("./", "README.md");
+		System.out.println(src);
+		Path dst = Paths.get("./", "README.log");
+		System.out.println(dst);
+		Base64.Encoder encoder = Base64.getEncoder();
+		try (OutputStream output = Files.newOutputStream(dst)) {
+			Files.copy(src, encoder.wrap(output));
+			// OutputStream encodedStrem = encoder.wrap(output);
+		}
 	}
 }
