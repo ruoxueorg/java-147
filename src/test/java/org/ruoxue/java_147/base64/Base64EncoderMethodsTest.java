@@ -14,6 +14,7 @@ public class Base64EncoderMethodsTest {
 	public void encode() throws Exception {
 		Base64.Encoder encoder = Base64.getEncoder();
 		String value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+		System.out.println(value);
 		byte[] result = encoder.encode(value.getBytes(StandardCharsets.UTF_8.toString()));
 		System.out.println(result);
 		String stringResult = new String(result);
@@ -26,6 +27,7 @@ public class Base64EncoderMethodsTest {
 	public void encodeWithoutPadding() throws Exception {
 		Base64.Encoder encoder = Base64.getEncoder();
 		String value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+		System.out.println(value);
 		byte[] result = encoder.withoutPadding().encode(value.getBytes(StandardCharsets.UTF_8.toString()));
 		System.out.println(result);
 		String stringResult = new String(result);
@@ -38,12 +40,16 @@ public class Base64EncoderMethodsTest {
 	public void encodeWithDst() throws Exception {
 		Base64.Encoder encoder = Base64.getEncoder();
 		String value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+		System.out.println(value);
 		byte[] dst = new byte[100];
 		int result = encoder.encode(value.getBytes(StandardCharsets.UTF_8.toString()), dst);
 		System.out.println(result);
 		String stringResult = new String(dst);
 		System.out.println(stringResult);
-		assertThat(stringResult).hasSize(dst.length);
+		assertThat(stringResult)
+				.containsIgnoringWhitespaces(
+						"QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0NTY3ODkrLw==")
+				.hasSize(100);
 	}
 
 	@Test
@@ -51,6 +57,7 @@ public class Base64EncoderMethodsTest {
 		Base64.Encoder encoder = Base64.getEncoder();
 		String value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 		ByteBuffer byteBuffer = ByteBuffer.wrap(value.getBytes(StandardCharsets.UTF_8.toString()));
+		System.out.println(byteBuffer);
 		ByteBuffer result = encoder.encode(byteBuffer);
 		System.out.println(result);
 		String stringResult = new String(result.array(), StandardCharsets.UTF_8.toString());
@@ -63,6 +70,7 @@ public class Base64EncoderMethodsTest {
 	public void encodeToString() throws Exception {
 		Base64.Encoder encoder = Base64.getEncoder();
 		String value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+		System.out.println(value);
 		String result = encoder.encodeToString(value.getBytes(StandardCharsets.UTF_8.toString()));
 		System.out.println(result);
 		assertThat(result)
