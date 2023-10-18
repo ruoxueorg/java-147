@@ -2,6 +2,7 @@ package org.ruoxue.java_147.base64;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -91,6 +92,22 @@ public class Base64EncoderMethodsTest {
 		try (OutputStream output = Files.newOutputStream(dst)) {
 			Files.copy(src, encoder.wrap(output));
 			// OutputStream encodedStrem = encoder.wrap(output);
+		}
+	}
+	
+	@Test
+	public void wrap_test() throws Exception {
+		String value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+		Base64.Encoder encoder = Base64.getEncoder();
+		try (ByteArrayOutputStream output = new ByteArrayOutputStream(1024)) {
+			OutputStream encodedStream = encoder.wrap(output);
+			encodedStream.write(value.getBytes(StandardCharsets.UTF_8.toString()));
+			encodedStream.flush();
+			output.flush();
+			byte[] result = output.toByteArray();
+			System.out.println(result);
+			String stringResult = new String(result);
+			System.out.println(stringResult);
 		}
 	}
 }
