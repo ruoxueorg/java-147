@@ -74,4 +74,27 @@ public class Base64DecoderMethodsTest {
 		System.out.println(stringResult);
 		assertThat(stringResult).isEqualTo("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
 	}
+
+	@Test
+	public void Base64_decodeBase64() throws Exception {
+		String value = "QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0NTY3ODkrLw==";
+		System.out.println(value);
+		byte[] result = org.apache.commons.codec.binary.Base64
+				.decodeBase64(value.getBytes(StandardCharsets.UTF_8.toString()));
+		System.out.println(result);
+		String stringResult = new String(result);
+		System.out.println(stringResult);
+		assertThat(stringResult).isEqualTo("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
+	}
+
+	@Test
+	public void Base64_decodeBase64WithString() throws Exception {
+		String value = "QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0NTY3ODkrLw==";
+		System.out.println(value);
+		byte[] result = org.apache.commons.codec.binary.Base64.decodeBase64(value);
+		System.out.println(result);
+		String stringResult = new String(result);
+		System.out.println(stringResult);
+		assertThat(stringResult).isEqualTo("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
+	}
 }

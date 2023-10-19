@@ -77,4 +77,35 @@ public class Base64MimeDecoderMethodsTest {
 		assertThat(stringResult).isEqualTo(
 				"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
 	}
+
+	@Test
+	public void Base64_decodeBase64() throws Exception {
+		String value = "QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0\n"
+				+ "NTY3ODkrL0FCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4\n"
+				+ "eXowMTIzNDU2Nzg5Ky9BQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWmFiY2RlZmdoaWprbG1ub3Bx\n"
+				+ "cnN0dXZ3eHl6MDEyMzQ1Njc4OSsv";
+		System.out.println(value);
+		byte[] result = org.apache.commons.codec.binary.Base64
+				.decodeBase64(value.getBytes(StandardCharsets.UTF_8.toString()));
+		System.out.println(result);
+		String stringResult = new String(result);
+		System.out.println(stringResult);
+		assertThat(stringResult).isEqualTo(
+				"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
+	}
+
+	@Test
+	public void Base64_decodeBase64WithString() throws Exception {
+		String value = "QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0\n"
+				+ "NTY3ODkrL0FCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4\n"
+				+ "eXowMTIzNDU2Nzg5Ky9BQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWmFiY2RlZmdoaWprbG1ub3Bx\n"
+				+ "cnN0dXZ3eHl6MDEyMzQ1Njc4OSsv";
+		System.out.println(value);
+		byte[] result = org.apache.commons.codec.binary.Base64.decodeBase64(value);
+		System.out.println(result);
+		String stringResult = new String(result);
+		System.out.println(stringResult);
+		assertThat(stringResult).isEqualTo(
+				"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
+	}
 }

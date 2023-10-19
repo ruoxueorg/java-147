@@ -60,4 +60,27 @@ public class Base64UrlDecoderMethodsTest {
 		System.out.println(stringResult);
 		assertThat(stringResult).isEqualTo("https://www.ruoxue.org/?s=base64");
 	}
+
+	@Test
+	public void Base64_decodeBase64() throws Exception {
+		String value = "aHR0cHM6Ly93d3cucnVveHVlLm9yZy8_cz1iYXNlNjQ=";
+		System.out.println(value);
+		byte[] result = org.apache.commons.codec.binary.Base64
+				.decodeBase64(value.getBytes(StandardCharsets.UTF_8.toString()));
+		System.out.println(result);
+		String stringResult = new String(result);
+		System.out.println(stringResult);
+		assertThat(stringResult).isEqualTo("https://www.ruoxue.org/?s=base64");
+	}
+
+	@Test
+	public void Base64_decodeBase64WithString() throws Exception {
+		String value = "aHR0cHM6Ly93d3cucnVveHVlLm9yZy8_cz1iYXNlNjQ=";
+		System.out.println(value);
+		byte[] result = org.apache.commons.codec.binary.Base64.decodeBase64(value);
+		System.out.println(result);
+		String stringResult = new String(result);
+		System.out.println(stringResult);
+		assertThat(stringResult).isEqualTo("https://www.ruoxue.org/?s=base64");
+	}
 }
