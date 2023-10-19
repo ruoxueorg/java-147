@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.base64;
+package org.ruoxue.java_147.base64.basic;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
