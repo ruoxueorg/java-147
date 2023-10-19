@@ -94,4 +94,28 @@ public class Base64EncoderMethodsTest {
 			// OutputStream encodedStrem = encoder.wrap(output);
 		}
 	}
+
+	@Test
+	public void Base64_encodeBase64() throws Exception {
+		String value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+		System.out.println(value);
+		byte[] result = org.apache.commons.codec.binary.Base64
+				.encodeBase64(value.getBytes(StandardCharsets.UTF_8.toString()));
+		System.out.println(result);
+		String stringResult = new String(result);
+		System.out.println(stringResult);
+		assertThat(stringResult)
+				.isEqualTo("QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0NTY3ODkrLw==");
+	}
+
+	@Test
+	public void Base64_encodeBase64String() throws Exception {
+		String value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+		System.out.println(value);
+		String result = org.apache.commons.codec.binary.Base64
+				.encodeBase64String(value.getBytes(StandardCharsets.UTF_8.toString()));
+		System.out.println(result);
+		assertThat(result)
+				.isEqualTo("QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0NTY3ODkrLw==");
+	}
 }

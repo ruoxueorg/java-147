@@ -35,7 +35,7 @@ public class Base64MimeEncoderMethodsTest {
 
 	@Test
 	public void encodeWithDst() throws Exception {
-		Base64.Encoder encoder = Base64.getEncoder();
+		Base64.Encoder encoder = Base64.getMimeEncoder();
 		StringBuilder value = new StringBuilder();
 		for (int i = 0; i < 3; i++) {
 			value.append("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
@@ -57,7 +57,7 @@ public class Base64MimeEncoderMethodsTest {
 
 	@Test
 	public void encodeWithByteBuffer() throws Exception {
-		Base64.Encoder encoder = Base64.getEncoder();
+		Base64.Encoder encoder = Base64.getMimeEncoder();
 		StringBuilder value = new StringBuilder();
 		for (int i = 0; i < 3; i++) {
 			value.append("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
@@ -77,7 +77,7 @@ public class Base64MimeEncoderMethodsTest {
 
 	@Test
 	public void encodeToString() throws Exception {
-		Base64.Encoder encoder = Base64.getEncoder();
+		Base64.Encoder encoder = Base64.getMimeEncoder();
 		StringBuilder value = new StringBuilder();
 		for (int i = 0; i < 3; i++) {
 			value.append("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
