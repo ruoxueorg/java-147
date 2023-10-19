@@ -41,7 +41,8 @@ public class Base64MimeEncoderMethodsTest {
 			value.append("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
 		}
 		System.out.println(value);
-		byte[] dst = new byte[512];
+		int size = 512;
+		byte[] dst = new byte[size];
 		int result = encoder.encode(value.toString().getBytes(StandardCharsets.UTF_8.toString()), dst);
 		System.out.println(result);
 		String stringResult = new String(dst);
@@ -51,7 +52,7 @@ public class Base64MimeEncoderMethodsTest {
 						+ "NTY3ODkrL0FCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4\n"
 						+ "eXowMTIzNDU2Nzg5Ky9BQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWmFiY2RlZmdoaWprbG1ub3Bx\n"
 						+ "cnN0dXZ3eHl6MDEyMzQ1Njc4OSsv")
-				.hasSize(512);
+				.hasSize(size);
 	}
 
 	@Test
