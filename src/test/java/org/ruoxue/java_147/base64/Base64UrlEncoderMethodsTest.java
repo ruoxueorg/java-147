@@ -88,4 +88,26 @@ public class Base64UrlEncoderMethodsTest {
 			// OutputStream encodedStrem = encoder.wrap(output);
 		}
 	}
+
+	@Test
+	public void Base64_encodeBase64URLSafe() throws Exception {
+		String value = "https://www.ruoxue.org/?s=base64";
+		System.out.println(value);
+		byte[] result = org.apache.commons.codec.binary.Base64
+				.encodeBase64URLSafe(value.getBytes(StandardCharsets.UTF_8.toString()));
+		System.out.println(result);
+		String stringResult = new String(result);
+		System.out.println(stringResult);
+		assertThat(stringResult).isEqualTo("aHR0cHM6Ly93d3cucnVveHVlLm9yZy8_cz1iYXNlNjQ");
+	}
+
+	@Test
+	public void Base64_encodeBase64URLSafeString() throws Exception {
+		String value = "https://www.ruoxue.org/?s=base64";
+		System.out.println(value);
+		String result = org.apache.commons.codec.binary.Base64
+				.encodeBase64URLSafeString(value.getBytes(StandardCharsets.UTF_8.toString()));
+		System.out.println(result);
+		assertThat(result).isEqualTo("aHR0cHM6Ly93d3cucnVveHVlLm9yZy8_cz1iYXNlNjQ");
+	}
 }

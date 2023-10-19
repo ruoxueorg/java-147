@@ -104,4 +104,22 @@ public class Base64MimeEncoderMethodsTest {
 			// OutputStream encodedStrem = encoder.wrap(output);
 		}
 	}
+
+	@Test
+	public void Base64_encodeBase64Chunked() throws Exception {
+		StringBuilder value = new StringBuilder();
+		for (int i = 0; i < 3; i++) {
+			value.append("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
+		}
+		System.out.println(value);
+		byte[] result = org.apache.commons.codec.binary.Base64
+				.encodeBase64Chunked(value.toString().getBytes(StandardCharsets.UTF_8.toString()));
+		System.out.println(result);
+		String stringResult = new String(result);
+		System.out.println(stringResult);
+		assertThat(stringResult).containsIgnoringNewLines(
+				"QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0\n"
+						+ "NTY3ODkrL0FCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4\n"
+						+ "eXowMTIzNDU2Nzg5Ky9BQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWmFiY2RlZmdoaWprbG1ub3Bx\n"
+						+ "cnN0dXZ3eHl6MDEyMzQ1Njc4OSsv");	}
 }
