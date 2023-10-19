@@ -121,5 +121,6 @@ public class Base64MimeEncoderMethodsTest {
 				"QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0\n"
 						+ "NTY3ODkrL0FCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4\n"
 						+ "eXowMTIzNDU2Nzg5Ky9BQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWmFiY2RlZmdoaWprbG1ub3Bx\n"
-						+ "cnN0dXZ3eHl6MDEyMzQ1Njc4OSsv");	}
+						+ "cnN0dXZ3eHl6MDEyMzQ1Njc4OSsv");
+	}
 }
