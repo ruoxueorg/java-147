@@ -79,7 +79,7 @@ public class CollectorsJoiningTest {
 		paramMap.put("amount", "101");
 		paramMap.put("timestamp", "1470926696715");
 		System.out.println(paramMap);
-
+		// sort
 		Map<String, String> sortedMap = paramMap.entrySet().stream().sorted(Map.Entry.<String, String>comparingByKey())
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
 						LinkedHashMap::new));
@@ -105,11 +105,13 @@ public class CollectorsJoiningTest {
 		String scheme = uri.getScheme();
 		String host = uri.getHost();
 		String query = uri.getRawQuery();
+		System.out.println(query);
 		String decodedString = Arrays.stream(query.split("&")).map(e -> {
 			try {
 				String[] array = e.split("=");
-				String url = array[0] + "=" + URLDecoder.decode(array[1], StandardCharsets.UTF_8.toString());
-				return url;
+				String param = array[0] + "=" + URLDecoder.decode(array[1], StandardCharsets.UTF_8.toString());
+				System.out.println("param: " + param);
+				return param;
 			} catch (Exception ex) {
 				throw new RuntimeException(ex);
 			}
