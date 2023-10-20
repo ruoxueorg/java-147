@@ -21,7 +21,7 @@ public class CollectorsJoiningTest {
 
 	
 	@Test
-	public void withMaxBy() {
+	public void joining() {
 //		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
 //		Optional<Integer> result = list.stream()
 //				.collect(Collectors.mapping(String::length, Collectors.maxBy(Integer::compareTo)));

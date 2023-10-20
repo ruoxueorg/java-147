@@ -44,70 +44,70 @@ public class JoiningExamplesTest {
 		}
 	}
 
-	@Test
-	public void withMaxBy() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-		Optional<Integer> result = list.stream()
-				.collect(Collectors.mapping(String::length, Collectors.maxBy(Integer::compareTo)));
-		System.out.println(result);
-		assertEquals(9, result.get().intValue());
-
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
-		Optional<Double> fruitResult = fruitList.stream()
-				.collect(Collectors.mapping(Fruit::getQuantity, Collectors.maxBy(Double::compareTo)));
-		System.out.println(fruitResult);
-		assertEquals(Double.MAX_VALUE, fruitResult.get(), 0);
-	}
-
-	@Test
-	public void withMinBy() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-		Optional<Integer> result = list.stream()
-				.collect(Collectors.mapping(e -> e.length(), Collectors.minBy(Integer::compareTo)));
-		System.out.println(result);
-		assertEquals(3, result.get().intValue());
-
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
-		Optional<Double> fruitResult = fruitList.stream()
-				.collect(Collectors.mapping(e -> e.quantity, Collectors.minBy(Double::compareTo)));
-		System.out.println(fruitResult);
-		assertEquals(3, result.get().intValue());
-	}
-
-	@Test
-	public void withGroupingBy() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-		Map<Integer, List<String>> result = list.stream().collect(
-				Collectors.groupingBy(String::length, Collectors.mapping(e -> e.toUpperCase(), Collectors.toList())));
-		System.out.println(result);
-		assertEquals(1, result.get(3).size());
-		assertEquals(1, result.get(5).size());
-		assertEquals(1, result.get(9).size());
-
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
-		Map<Integer, List<Double>> fruitResult = fruitList.stream().collect(
-				Collectors.groupingBy(Fruit::getType, Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
-		System.out.println(fruitResult);
-		assertEquals(2, fruitResult.size());
-	}
-
-	@Test
-	public void withPartitioningBy() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-		Map<Boolean, List<String>> result = list.stream().collect(Collectors.partitioningBy(e -> e.length() > 3,
-				Collectors.mapping(e -> e.toUpperCase(), Collectors.toList())));
-		System.out.println(result);
-		assertEquals(1, result.get(Boolean.FALSE).size());
-		assertEquals(2, result.get(Boolean.TRUE).size());
-
-		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-				new Fruit("Fig", 3, 1));
-		Map<Boolean, List<Double>> fruitResult = fruitList.stream().collect(Collectors
-				.partitioningBy(e -> e.name.length() > 3, Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
-		System.out.println(fruitResult);
-		assertEquals(2, fruitResult.size());
-	}
+//	@Test
+//	public void withMaxBy() {
+//		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
+//		Optional<Integer> result = list.stream()
+//				.collect(Collectors.mapping(String::length, Collectors.maxBy(Integer::compareTo)));
+//		System.out.println(result);
+//		assertEquals(9, result.get().intValue());
+//
+//		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+//				new Fruit("Fig", 3, 1));
+//		Optional<Double> fruitResult = fruitList.stream()
+//				.collect(Collectors.mapping(Fruit::getQuantity, Collectors.maxBy(Double::compareTo)));
+//		System.out.println(fruitResult);
+//		assertEquals(Double.MAX_VALUE, fruitResult.get(), 0);
+//	}
+//
+//	@Test
+//	public void withMinBy() {
+//		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
+//		Optional<Integer> result = list.stream()
+//				.collect(Collectors.mapping(e -> e.length(), Collectors.minBy(Integer::compareTo)));
+//		System.out.println(result);
+//		assertEquals(3, result.get().intValue());
+//
+//		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+//				new Fruit("Fig", 3, 1));
+//		Optional<Double> fruitResult = fruitList.stream()
+//				.collect(Collectors.mapping(e -> e.quantity, Collectors.minBy(Double::compareTo)));
+//		System.out.println(fruitResult);
+//		assertEquals(3, result.get().intValue());
+//	}
+//
+//	@Test
+//	public void withGroupingBy() {
+//		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
+//		Map<Integer, List<String>> result = list.stream().collect(
+//				Collectors.groupingBy(String::length, Collectors.mapping(e -> e.toUpperCase(), Collectors.toList())));
+//		System.out.println(result);
+//		assertEquals(1, result.get(3).size());
+//		assertEquals(1, result.get(5).size());
+//		assertEquals(1, result.get(9).size());
+//
+//		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+//				new Fruit("Fig", 3, 1));
+//		Map<Integer, List<Double>> fruitResult = fruitList.stream().collect(
+//				Collectors.groupingBy(Fruit::getType, Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
+//		System.out.println(fruitResult);
+//		assertEquals(2, fruitResult.size());
+//	}
+//
+//	@Test
+//	public void withPartitioningBy() {
+//		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
+//		Map<Boolean, List<String>> result = list.stream().collect(Collectors.partitioningBy(e -> e.length() > 3,
+//				Collectors.mapping(e -> e.toUpperCase(), Collectors.toList())));
+//		System.out.println(result);
+//		assertEquals(1, result.get(Boolean.FALSE).size());
+//		assertEquals(2, result.get(Boolean.TRUE).size());
+//
+//		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+//				new Fruit("Fig", 3, 1));
+//		Map<Boolean, List<Double>> fruitResult = fruitList.stream().collect(Collectors
+//				.partitioningBy(e -> e.name.length() > 3, Collectors.mapping(Fruit::getQuantity, Collectors.toList())));
+//		System.out.println(fruitResult);
+//		assertEquals(2, fruitResult.size());
+//	}
 }
