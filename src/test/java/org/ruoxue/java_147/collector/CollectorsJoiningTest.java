@@ -1,39 +1,123 @@
 package org.ruoxue.java_147.collector;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import java.net.URI;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
-
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 public class CollectorsJoiningTest {
 
-	
 	@Test
 	public void joining() {
-//		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-//		Optional<Integer> result = list.stream()
-//				.collect(Collectors.mapping(String::length, Collectors.maxBy(Integer::compareTo)));
-//		System.out.println(result);
-//		assertEquals(9, result.get().intValue());
-//
-//		List<Fruit> fruitList = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
-//				new Fruit("Fig", 3, 1));
-//		Optional<Double> fruitResult = fruitList.stream()
-//				.collect(Collectors.mapping(Fruit::getQuantity, Collectors.maxBy(Double::compareTo)));
-//		System.out.println(fruitResult);
-//		assertEquals(Double.MAX_VALUE, fruitResult.get(), 0);
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
+		String result = list.stream().collect(Collectors.joining());
+		System.out.println(result);
+		assertThat(result).isEqualTo("BlueberryMelonFig");
+
+		result = list.stream().map(String::toUpperCase).collect(Collectors.joining());
+		System.out.println(result);
+		assertThat(result).isEqualTo("BLUEBERRYMELONFIG");
+
+		List<Integer> intList = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		String intResult = intList.stream().map(String::valueOf).collect(Collectors.joining());
+		System.out.println(intResult);
+		assertThat(intResult).isEqualTo("2147483647-13");
 	}
 
+	@Test
+	public void joiningWithDelimiter() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
+		String result = list.stream().collect(Collectors.joining(", "));
+		System.out.println(result);
+		assertThat(result).isEqualTo("Blueberry, Melon, Fig");
+
+		result = list.stream().map(String::toUpperCase).collect(Collectors.joining(", "));
+		System.out.println(result);
+		assertThat(result).isEqualTo("BLUEBERRY, MELON, FIG");
+
+		List<Integer> intList = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		String intResult = intList.stream().map(String::valueOf).collect(Collectors.joining(", "));
+		System.out.println(intResult);
+		assertThat(intResult).isEqualTo("2147483647, -1, 3");
 	}
+
+	@Test
+	public void joiningWithPrefixSuffix() {
+		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
+		String result = list.stream().collect(Collectors.joining(", ", "[", "]"));
+		System.out.println(result);
+		assertThat(result).isEqualTo("[Blueberry, Melon, Fig]");
+
+		result = list.stream().map(String::toUpperCase).collect(Collectors.joining(", ", "[", "]"));
+		System.out.println(result);
+		assertThat(result).isEqualTo("[BLUEBERRY, MELON, FIG]");
+
+		List<Integer> intList = Arrays.asList(Integer.MAX_VALUE, -1, 3);
+		String intResult = intList.stream().map(String::valueOf).collect(Collectors.joining(", ", "[", "]"));
+		System.out.println(intResult);
+		assertThat(intResult).isEqualTo("[2147483647, -1, 3]");
+	}
+
+	@Test
+	public void encodeURL() {
+		Map<String, String> paramMap = new HashMap<>();
+		paramMap.put("user", "user");
+		paramMap.put("name", "name %");
+		paramMap.put("email", "email@!$");
+		paramMap.put("amount", "101");
+		paramMap.put("timestamp", "1470926696715");
+		System.out.println(paramMap);
+
+		Map<String, String> sortedMap = paramMap.entrySet().stream().sorted(Map.Entry.<String, String>comparingByKey())
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
+						LinkedHashMap::new));
+		System.out.println(sortedMap);
+
+		String result = sortedMap.keySet().stream().map(key -> {
+			try {
+				String value = URLEncoder.encode(paramMap.get(key), StandardCharsets.UTF_8.toString());
+				return key + "=" + value;
+			} catch (Exception ex) {
+				throw new RuntimeException(ex);
+			}
+		}).collect(Collectors.joining("&", "https://www.ruoxue.org?", ""));
+		System.out.println(result);
+		assertThat(result).isEqualTo(
+				"https://www.ruoxue.org?amount=101&email=email%40%21%24&name=name+%25&timestamp=1470926696715&user=user");
+	}
+
+	@Test
+	public void decodeURL() throws Exception {
+		String value = "https://www.ruoxue.org?amount=101&email=email%40%21%24&name=name+%25&timestamp=1470926696715&user=user";
+		URI uri = new URI(value);
+		String scheme = uri.getScheme();
+		String host = uri.getHost();
+		String query = uri.getRawQuery();
+		String decodedString = Arrays.stream(query.split("&")).map(e -> {
+			try {
+				String[] array = e.split("=");
+				String url = array[0] + "=" + URLDecoder.decode(array[1], StandardCharsets.UTF_8.toString());
+				return url;
+			} catch (Exception ex) {
+				throw new RuntimeException(ex);
+			}
+		}).collect(Collectors.joining("&"));
+		System.out.println(decodedString);
+		String result = scheme + "://" + host + "?" + decodedString;
+		System.out.println(result);
+		assertThat(result).isEqualTo(
+				"https://www.ruoxue.org?amount=101&email=email@!$&name=name %&timestamp=1470926696715&user=user");
+	}
+}

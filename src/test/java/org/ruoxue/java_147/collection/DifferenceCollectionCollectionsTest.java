@@ -33,7 +33,7 @@ public class DifferenceCollectionCollectionsTest {
 	}
 
 	@Test
-	public void addAllWithInteger() {
+	public void addAllInteger() {
 		int expectedSize = 3;
 		Collection<Integer> collection = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
 		Collection<Integer> result = new ArrayList<>();
@@ -62,7 +62,7 @@ public class DifferenceCollectionCollectionsTest {
 	}
 
 	@Test
-	public void sortWithDouble() {
+	public void sortDouble() {
 		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d);
 		System.out.println(list);
 		list.sort(null);
