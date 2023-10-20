@@ -8,7 +8,7 @@ import java.util.Base64;
 
 import org.junit.Test;
 
-public class Base64EncodingDecodingWithExamplesTest {
+public class EncodingDecodingExamplesTest {
 
 	@Test
 	public void encodeToString() throws Exception {

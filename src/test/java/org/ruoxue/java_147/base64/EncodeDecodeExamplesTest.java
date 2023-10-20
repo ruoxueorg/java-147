@@ -7,7 +7,7 @@ import java.util.Base64;
 
 import org.junit.Test;
 
-public class Base64EncodeDecodeWithExamplesTest {
+public class EncodeDecodeExamplesTest {
 
 	@Test
 	public void encodeDecode() throws Exception {
