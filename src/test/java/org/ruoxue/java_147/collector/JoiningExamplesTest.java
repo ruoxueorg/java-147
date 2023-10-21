@@ -1,12 +1,9 @@
 package org.ruoxue.java_147.collector;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -47,52 +44,40 @@ public class JoiningExamplesTest {
 
 	@Test
 	public void joining() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-		String result = list.stream().collect(Collectors.joining());
+		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1));
+		String result = list.stream().map(Fruit::getName).collect(Collectors.joining());
 		System.out.println(result);
 		assertThat(result).isEqualTo("BlueberryMelonFig");
 
-		result = list.stream().map(String::toUpperCase).collect(Collectors.joining());
+		result = list.stream().map(e -> e.getName().toUpperCase()).collect(Collectors.joining());
 		System.out.println(result);
 		assertThat(result).isEqualTo("BLUEBERRYMELONFIG");
-
-		List<Integer> intList = Arrays.asList(Integer.MAX_VALUE, -1, 3);
-		String intResult = intList.stream().map(String::valueOf).collect(Collectors.joining());
-		System.out.println(intResult);
-		assertThat(intResult).isEqualTo("2147483647-13");
 	}
 
 	@Test
 	public void joiningWithDelimiter() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-		String result = list.stream().collect(Collectors.joining(", "));
+		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1));
+		String result = list.stream().map(Fruit::getName).collect(Collectors.joining(", "));
 		System.out.println(result);
 		assertThat(result).isEqualTo("Blueberry, Melon, Fig");
 
-		result = list.stream().map(String::toUpperCase).collect(Collectors.joining(", "));
+		result = list.stream().map(e -> e.getName().toUpperCase()).collect(Collectors.joining(", "));
 		System.out.println(result);
 		assertThat(result).isEqualTo("BLUEBERRY, MELON, FIG");
-
-		List<Integer> intList = Arrays.asList(Integer.MAX_VALUE, -1, 3);
-		String intResult = intList.stream().map(String::valueOf).collect(Collectors.joining(", "));
-		System.out.println(intResult);
-		assertThat(intResult).isEqualTo("2147483647, -1, 3");
 	}
 
 	@Test
 	public void joiningWithPrefixSuffix() {
-		List<String> list = Arrays.asList("Blueberry", "Melon", "Fig");
-		String result = list.stream().collect(Collectors.joining(", ", "[", "]"));
+		List<Fruit> list = Arrays.asList(new Fruit("Blueberry", Double.MAX_VALUE, 1), new Fruit("Melon", -1, 3),
+				new Fruit("Fig", 3, 1));
+		String result = list.stream().map(Fruit::getName).collect(Collectors.joining(", ", "[", "]"));
 		System.out.println(result);
 		assertThat(result).isEqualTo("[Blueberry, Melon, Fig]");
 
-		result = list.stream().map(String::toUpperCase).collect(Collectors.joining(", ", "[", "]"));
+		result = list.stream().map(e -> e.getName().toUpperCase()).collect(Collectors.joining(", ", "[", "]"));
 		System.out.println(result);
 		assertThat(result).isEqualTo("[BLUEBERRY, MELON, FIG]");
-
-		List<Integer> intList = Arrays.asList(Integer.MAX_VALUE, -1, 3);
-		String intResult = intList.stream().map(String::valueOf).collect(Collectors.joining(", ", "[", "]"));
-		System.out.println(intResult);
-		assertThat(intResult).isEqualTo("[2147483647, -1, 3]");
 	}
 }
