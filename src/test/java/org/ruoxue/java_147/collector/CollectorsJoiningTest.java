@@ -108,7 +108,7 @@ public class CollectorsJoiningTest {
 			try {
 				String[] array = e.split("=");
 				String param = array[0] + "=" + URLDecoder.decode(array[1], StandardCharsets.UTF_8.toString());
-				System.out.println("param: " + param);
+				// System.out.println("param: " + param);
 				return param;
 			} catch (Exception ex) {
 				throw new RuntimeException(ex);
