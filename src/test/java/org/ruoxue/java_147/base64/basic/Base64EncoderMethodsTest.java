@@ -90,7 +90,8 @@ public class Base64EncoderMethodsTest {
 		System.out.println(dst);
 		Base64.Encoder encoder = Base64.getEncoder();
 		try (OutputStream output = Files.newOutputStream(dst)) {
-			Files.copy(src, encoder.wrap(output));
+			long result = Files.copy(src, encoder.wrap(output));
+			System.out.println(result);
 			// OutputStream encodedStrem = encoder.wrap(output);
 		}
 	}
