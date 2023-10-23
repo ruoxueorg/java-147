@@ -104,18 +104,16 @@ public class CollectorsJoiningTest {
 		String host = uri.getHost();
 		String query = uri.getRawQuery();
 		System.out.println(query);
-		String decodedString = Arrays.stream(query.split("&")).map(e -> {
+		String result = Arrays.stream(query.split("&")).map(e -> {
 			try {
 				String[] array = e.split("=");
 				String param = array[0] + "=" + URLDecoder.decode(array[1], StandardCharsets.UTF_8.toString());
-				// System.out.println("param: " + param);
 				return param;
 			} catch (Exception ex) {
 				throw new RuntimeException(ex);
 			}
-		}).collect(Collectors.joining("&"));
-		System.out.println(decodedString);
-		String result = scheme + "://" + host + "?" + decodedString;
+		}).collect(Collectors.joining("&", scheme + "://" + host + "?", ""));
+		System.out.println(result);
 		System.out.println(result);
 		assertThat(result).isEqualTo(
 				"https://www.ruoxue.org?amount=101&email=email@!$&name=name %&timestamp=1470926696715&user=user");
