@@ -94,9 +94,9 @@ public class Base64MimeEncoderMethodsTest {
 
 	@Test
 	public void wrap() throws Exception {
-		Path src = Paths.get("./", "README.md");
+		Path src = Paths.get("./", "build.gradle");
 		System.out.println(src);
-		Path dst = Paths.get("./", "README.log");
+		Path dst = Paths.get("./", "bulid.log");
 		System.out.println(dst);
 		Base64.Encoder encoder = Base64.getMimeEncoder();
 		try (OutputStream output = Files.newOutputStream(dst)) {
