@@ -78,9 +78,9 @@ public class Base64UrlEncoderMethodsTest {
 
 	@Test
 	public void wrap() throws Exception {
-		Path src = Paths.get("./", "README.md");
+		Path src = Paths.get("./", "settings.gradle");
 		System.out.println(src);
-		Path dst = Paths.get("./", "README.log");
+		Path dst = Paths.get("./", "settings.log");
 		System.out.println(dst);
 		Base64.Encoder encoder = Base64.getUrlEncoder();
 		try (OutputStream output = Files.newOutputStream(dst)) {
