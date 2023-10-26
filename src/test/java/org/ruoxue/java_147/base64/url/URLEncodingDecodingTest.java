@@ -74,5 +74,4 @@ public class URLEncodingDecodingTest {
 		System.out.println(new String(result));
 		assertThat(new String(result)).isEqualTo("https://www.ruoxue.org/java-learn/java-base64/");
 	}
-
 }
