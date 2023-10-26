@@ -7,7 +7,7 @@ import java.util.Base64;
 
 import org.junit.Test;
 
-public class MimeEncodingDecodingTest {
+public class MIMEEncodingDecodingTest {
 
 	@Test
 	public void encode() throws Exception {
