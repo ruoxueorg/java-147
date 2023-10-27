@@ -32,7 +32,7 @@ public class URLEncoderMethodsTest {
 		}
 	}
 	@Test
-	public void encodeThrownException() {
+	public void encodeThrowException() {
 		try {
 			String value = "https://www.ruoxue.org";
 			System.out.println(value);
