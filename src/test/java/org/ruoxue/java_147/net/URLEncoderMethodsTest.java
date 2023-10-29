@@ -21,7 +21,7 @@ public class URLEncoderMethodsTest {
 	}
 	
 	@Test
-	public void encodeQuery() {
+	public void encodeParams() {
 		try {
 			String value = "https://www.ruoxue.org";
 			System.out.println(value);
