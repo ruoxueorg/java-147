@@ -1,4 +1,4 @@
-package org.ruoxue.java_147.urlencoder;
+package org.ruoxue.java_147.net;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
