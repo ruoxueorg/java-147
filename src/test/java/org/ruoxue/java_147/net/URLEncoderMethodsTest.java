@@ -61,10 +61,10 @@ public class URLEncoderMethodsTest {
 		paramMap.put("timestamp", "1470926696715");
 		System.out.println(paramMap);
 
-		String result = paramMap.keySet().stream().map(k -> {
+		String result = paramMap.entrySet().stream().map(e -> {
 			try {
-				String key = URLEncoder.encode(k, StandardCharsets.UTF_8.toString());
-				String value = URLEncoder.encode(paramMap.get(k), StandardCharsets.UTF_8.toString());
+				String key = URLEncoder.encode(e.getKey(), StandardCharsets.UTF_8.toString());
+				String value = URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8.toString());
 				StringBuilder buff = new StringBuilder();
 				buff.append(key);
 				buff.append("=");

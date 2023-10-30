@@ -83,10 +83,10 @@ public class CollectorsJoiningTest {
 						LinkedHashMap::new));
 		System.out.println(sortedMap);
 
-		String result = sortedMap.keySet().stream().map(key -> {
+		String result = sortedMap.entrySet().stream().map(e -> {
 			try {
-				String value = URLEncoder.encode(paramMap.get(key), StandardCharsets.UTF_8.toString());
-				return key + "=" + value;
+				String value = URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8.toString());
+				return e.getKey() + "=" + value;
 			} catch (Exception ex) {
 				throw new RuntimeException(ex);
 			}
@@ -113,7 +113,6 @@ public class CollectorsJoiningTest {
 				throw new RuntimeException(ex);
 			}
 		}).collect(Collectors.joining("&", scheme + "://" + host + "?", ""));
-		System.out.println(result);
 		System.out.println(result);
 		assertThat(result).isEqualTo(
 				"https://www.ruoxue.org?amount=101&email=email@!$&name=name %&timestamp=1470926696715&user=user");
