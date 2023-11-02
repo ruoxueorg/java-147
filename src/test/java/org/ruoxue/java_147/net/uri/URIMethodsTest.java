@@ -1,5 +1,14 @@
 package org.ruoxue.java_147.net.uri;
 
-public class URIMethodsTest {
+import java.net.URI;
 
+import org.junit.Test;
+
+public class URIMethodsTest {
+	
+	@Test
+	public void encode() throws Exception {
+		String value = "https://www.ruoxue.org";
+		URI uri = new URI(value);
+	}
 }
