@@ -10,5 +10,8 @@ public class URIMethodsTest {
 	public void encode() throws Exception {
 		String value = "https://www.ruoxue.org";
 		URI uri = new URI(value);
+		String scheme = uri.getScheme();
+		String host = uri.getHost();
+		String query = uri.getRawQuery();
 	}
 }
