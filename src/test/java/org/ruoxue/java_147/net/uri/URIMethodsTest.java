@@ -81,6 +81,19 @@ public class URIMethodsTest {
 	}
 
 	@Test
+	public void normalize() {
+		URI uri = URI.create("https://www.ruoxue.org/a/b/../c/./d");
+		URI result = uri.normalize();
+		System.out.println(result);
+		assertThat(result.toString()).isEqualTo("https://www.ruoxue.org/a/c/d");
+
+		uri = URI.create("https://www.ruoxue.org/java-learn");
+		result = uri.normalize();
+		System.out.println(result);
+		assertThat(result.toString()).isEqualTo("https://www.ruoxue.org/java-learn");
+	}
+
+	@Test
 	public void isOpaque() {
 		URI uri = URI.create("https:www.ruoxue.org");
 		System.out.println(uri);
