@@ -23,7 +23,7 @@ public class URLDecoderMethodsTest {
 			System.out.println(result);
 			assertThat(result).isEqualTo("https://www.ruoxue.org");
 		} catch (UnsupportedEncodingException ex) {
-			throw new RuntimeException(ex);
+			throw new RuntimeException(ex.getMessage(), ex);
 		}
 	}
 
@@ -40,7 +40,7 @@ public class URLDecoderMethodsTest {
 			System.out.println(result);
 			assertThat(result).isEqualTo("name %");
 		} catch (Exception ex) {
-			throw new RuntimeException(ex);
+			throw new RuntimeException(ex.getMessage(), ex);
 		}
 	}
 
@@ -57,7 +57,7 @@ public class URLDecoderMethodsTest {
 	@Test
 	public void decodeURL() {
 		try {
-			String value = "https://www.ruoxue.org?amount=101&name=name+%25&user=user&email=email%40%21%24&timestamp=1470926696715";
+			String value = "https://www.ruoxue.org?amount=100&name=name+%25&user=user&email=email%40%21%24&timestamp=1470926696715";
 			URI uri = new URI(value);
 			String scheme = uri.getScheme();
 			String host = uri.getHost();
@@ -70,14 +70,14 @@ public class URLDecoderMethodsTest {
 							+ URLDecoder.decode(array[1], StandardCharsets.UTF_8.toString());
 					return param;
 				} catch (Exception ex) {
-					throw new RuntimeException(ex);
+					throw new RuntimeException(ex.getMessage(), ex);
 				}
 			}).collect(Collectors.joining("&", scheme + "://" + host + "?", ""));
 			System.out.println(result);
 			assertThat(result).isEqualTo(
 					"https://www.ruoxue.org?amount=101&name=name %&user=user&email=email@!$&timestamp=1470926696715");
 		} catch (Exception ex) {
-			throw new RuntimeException(ex);
+			throw new RuntimeException(ex.getMessage(), ex);
 		}
 	}
 }

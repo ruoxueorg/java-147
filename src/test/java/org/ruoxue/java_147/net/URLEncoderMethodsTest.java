@@ -23,7 +23,7 @@ public class URLEncoderMethodsTest {
 			System.out.println(result);
 			assertThat(result).isEqualTo("https%3A%2F%2Fwww.ruoxue.org");
 		} catch (UnsupportedEncodingException ex) {
-			throw new RuntimeException(ex);
+			throw new RuntimeException(ex.getMessage(), ex);
 		}
 	}
 
@@ -37,7 +37,7 @@ public class URLEncoderMethodsTest {
 			System.out.println(result);
 			assertThat(result).isEqualTo("https://www.ruoxue.org/?s=name+%25");
 		} catch (UnsupportedEncodingException ex) {
-			throw new RuntimeException(ex);
+			throw new RuntimeException(ex.getMessage(), ex);
 		}
 	}
 
@@ -71,7 +71,7 @@ public class URLEncoderMethodsTest {
 				buff.append(value);
 				return buff.toString();
 			} catch (Exception ex) {
-				throw new RuntimeException(ex);
+				throw new RuntimeException(ex.getMessage(), ex);
 			}
 		}).collect(Collectors.joining("&", "https://www.ruoxue.org?", ""));
 		System.out.println(result);
