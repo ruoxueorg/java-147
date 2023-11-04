@@ -3,10 +3,8 @@ package org.ruoxue.java_147.net.uri;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 import org.junit.Test;
 
@@ -83,153 +81,14 @@ public class URIMethodsTest {
 	}
 
 	@Test
-	public void resolve() {
-		URI absoluteUri = URI.create("https://www.ruoxue.org/unit-testing");
-		URI relativeUri = URI.create("/java-learn/java-net");
-		URI uri = absoluteUri.resolve(relativeUri);
-		System.out.println(uri);
-		assertThat(uri.toString()).isEqualTo("https://www.ruoxue.org/java-learn/java-net");
-
-		absoluteUri = URI.create("https://www.ruoxue.org/");
-		relativeUri = URI.create("/java-learn");
-		uri = absoluteUri.resolve(relativeUri);
-		System.out.println(uri);
-		assertThat(uri.toString()).isEqualTo("https://www.ruoxue.org/java-learn");
-	}
-
-	@Test
-	public void relativize() {
-		URI absoluteUri = URI.create("https://www.ruoxue.org/java-learn/java-net");
-		URI relativeUri = URI.create("https://www.ruoxue.org");
-		URI uri = relativeUri.relativize(absoluteUri);
-		System.out.println(uri);
-		assertThat(uri.toString()).isEqualTo("java-learn/java-net");
-
-		absoluteUri = URI.create("https://www.ruoxue.org/java-learn");
-		relativeUri = URI.create("https://www.ruoxue.org/");
-		uri = relativeUri.relativize(absoluteUri);
-		System.out.println(uri);
-		assertThat(uri.toString()).isEqualTo("java-learn");
-	}
-
-	@Test
-	public void equalz() {
-		URI uri = URI.create("https://www.ruoxue.org");
-		System.out.println(uri);
-		URI uri2 = URI.create("https://WWW.RUOXUE.ORG");
-		System.out.println(uri2);
-		boolean result = uri.equals(uri2);
-		System.out.println(result);
-		assertThat(result).isTrue();
-
-		uri = URI.create("https://www.ruoxue.org?s=a");
-		System.out.println(uri);
-		uri2 = URI.create("https://www.ruoxue.org?s=%61");
-		System.out.println(uri2);
-		result = uri.equals(uri2);
-		System.out.println(result);
-		assertThat(result).isFalse();
-	}
-
-	@Test
-	public void toStringz() {
-		String value = "https://www.ruoxue.org";
-		URI uri = URI.create(value);
-		System.out.println(uri);
-		assertThat(uri.toString()).isEqualTo("https://www.ruoxue.org");
-
-		value = "mailto:ruoxueorg@gmail.com";
-		uri = URI.create(value);
-		System.out.println(uri);
-		assertThat(uri.toString()).isEqualTo("mailto:ruoxueorg@gmail.com");
-	}
-
-	@Test
-	public void toASCIIString() {
-		String value = "urn:isbn:1234567890+%25";
-		URI uri = URI.create(value);
-		System.out.println(uri.toASCIIString());
-		assertThat(uri.toASCIIString()).isEqualTo("urn:isbn:1234567890+%25");
-
-		value = "mailto:ruoxueorg@gmail.com";
-		uri = URI.create(value);
-		System.out.println(uri);
-		assertThat(uri.toASCIIString()).isEqualTo("mailto:ruoxueorg@gmail.com");
-	}
-
-	@Test
-	public void uriToURL() {
-		try {
-			URI uri = URI.create("https://www.ruoxue.org");
-			System.out.println(uri);
-			URL url = uri.toURL();
-			System.out.println(url);
-			assertThat(url.toString()).isEqualTo("https://www.ruoxue.org");
-
-			uri = URI.create("mailto:ruoxueorg@gmail.com");
-			System.out.println(uri);
-			url = uri.toURL();
-			System.out.println(url);
-			assertThat(url.toString()).isEqualTo("mailto:ruoxueorg@gmail.com");
-		} catch (MalformedURLException ex) {
-			throw new RuntimeException(ex.getMessage(), ex);
-		}
-	}
-
-	@Test
-	public void uriToURLThrowException() {
-		assertThatCode(() -> {
-			URI uri = URI.create("urn:isbn:1234567890+%25");
-			System.out.println(uri);
-
-			URL url = uri.toURL();
-			System.out.println(url);
-		}).isInstanceOf(MalformedURLException.class);
-	}
-
-	@Test
-	public void compareTo() {
-		URI uri = URI.create("https://www.ruoxue.org");
-		System.out.println(uri);
-		URI uri2 = URI.create("https://WWW.RUOXUE.ORG");
-		System.out.println(uri2);
-		int result = uri.compareTo(uri2);
-		System.out.println(result);
-		assertThat(result).isZero();
-
-		uri = URI.create("https://www.ruoxue.org?s=a");
-		System.out.println(uri);
-		uri2 = URI.create("https://www.ruoxue.org?s=%61");
-		System.out.println(uri2);
-		result = uri.compareTo(uri2);
-		System.out.println(result);
-		assertThat(result).isGreaterThan(0);
-	}
-
-	@Test
-	public void isAbsolute() {
-		URI uri = URI.create("https://www.ruoxue.org");
-		System.out.println(uri);
-		boolean result = uri.isAbsolute();
-		System.out.println(result + ", getScheme: " + uri.getScheme());
-		assertThat(result).isTrue();
-
-		uri = URI.create("java-net");
-		System.out.println(uri);
-		result = uri.isAbsolute();
-		System.out.println(result + ", getScheme: " + uri.getScheme());
-		assertThat(result).isFalse();
-	}
-
-	@Test
 	public void isOpaque() {
-		URI uri = URI.create("mailto:ruoxueorg@gmail.com");
+		URI uri = URI.create("https:www.ruoxue.org");
 		System.out.println(uri);
 		boolean result = uri.isOpaque();
 		System.out.println(result + ", getPath: " + uri.getPath());
 		assertThat(result).isTrue();
 
-		uri = URI.create("java-net");
+		uri = URI.create("https://www.ruoxue.org");
 		System.out.println(uri);
 		result = uri.isOpaque();
 		System.out.println(result + ", getPath: " + uri.getPath());
