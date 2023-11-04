@@ -88,7 +88,7 @@ public class CollectorsJoiningTest {
 				String value = URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8.toString());
 				return e.getKey() + "=" + value;
 			} catch (Exception ex) {
-				throw new RuntimeException(ex);
+				throw new RuntimeException(ex.getMessage(), ex);
 			}
 		}).collect(Collectors.joining("&", "https://www.ruoxue.org?", ""));
 		System.out.println(result);
@@ -110,7 +110,7 @@ public class CollectorsJoiningTest {
 				String param = array[0] + "=" + URLDecoder.decode(array[1], StandardCharsets.UTF_8.toString());
 				return param;
 			} catch (Exception ex) {
-				throw new RuntimeException(ex);
+				throw new RuntimeException(ex.getMessage(), ex);
 			}
 		}).collect(Collectors.joining("&", scheme + "://" + host + "?", ""));
 		System.out.println(result);
