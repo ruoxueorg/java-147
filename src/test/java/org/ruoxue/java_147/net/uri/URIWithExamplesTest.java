@@ -3,6 +3,7 @@ package org.ruoxue.java_147.net.uri;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.junit.Test;
 
@@ -61,27 +62,31 @@ public class URIWithExamplesTest {
 
 	@Test
 	public void toStringz() {
-		String value = "https://www.ruoxue.org";
-		URI uri = URI.create(value);
-		System.out.println(uri);
-		assertThat(uri.toString()).isEqualTo("https://www.ruoxue.org");
+		try {
+			URI uri = new URI("https", "www.ruoxue.org", "/java-learn", "name=name %", null);
+			System.out.println(uri.toASCIIString());
+			assertThat(uri.toString()).isEqualTo("https://www.ruoxue.org/java-learn?name=name%20%25");
 
-		value = "mailto:ruoxueorg@gmail.com";
-		uri = URI.create(value);
-		System.out.println(uri);
-		assertThat(uri.toString()).isEqualTo("mailto:ruoxueorg@gmail.com");
+			uri = new URI("mailto", "ruo xue org@gmail.com", null);
+			System.out.println(uri);
+			assertThat(uri.toString()).isEqualTo("mailto:ruo%20xue%20org@gmail.com");
+		} catch (URISyntaxException ex) {
+			throw new RuntimeException(ex.getMessage(), ex);
+		}
 	}
 
 	@Test
 	public void toASCIIString() {
-		String value = "urn:isbn:1234567890+%25";
-		URI uri = URI.create(value);
-		System.out.println(uri.toASCIIString());
-		assertThat(uri.toASCIIString()).isEqualTo("urn:isbn:1234567890+%25");
+		try {
+			URI uri = new URI("https", "www.ruoxue.org", "/java-learn", "name=name %", null);
+			System.out.println(uri.toASCIIString());
+			assertThat(uri.toASCIIString()).isEqualTo("https://www.ruoxue.org/java-learn?name=name%20%25");
 
-		value = "mailto:ruoxueorg@gmail.com";
-		uri = URI.create(value);
-		System.out.println(uri);
-		assertThat(uri.toASCIIString()).isEqualTo("mailto:ruoxueorg@gmail.com");
+			uri = new URI("mailto", "ruo xue org@gmail.com", null);
+			System.out.println(uri);
+			assertThat(uri.toASCIIString()).isEqualTo("mailto:ruo%20xue%20org@gmail.com");
+		} catch (URISyntaxException ex) {
+			throw new RuntimeException(ex.getMessage(), ex);
+		}
 	}
 }
