@@ -88,16 +88,13 @@ public class URIMethodsTest {
 		URI relativeUri = URI.create("/java-learn/java-net");
 		URI uri = absoluteUri.resolve(relativeUri);
 		System.out.println(uri);
-		System.out.println("getScheme: " + uri.getScheme());
-		System.out.println("getAuthority: " + uri.getAuthority());
-		System.out.println("getUserInfo: " + uri.getUserInfo());
-		System.out.println("getHost: " + uri.getHost());
-		System.out.println("getPort: " + uri.getPort());
-		System.out.println("getPath: " + uri.getPath());
-		System.out.println("getQuery: " + uri.getQuery());
-		System.out.println("getFragment: " + uri.getFragment());
-
 		assertThat(uri.toString()).isEqualTo("https://www.ruoxue.org/java-learn/java-net");
+
+		absoluteUri = URI.create("https://www.ruoxue.org/");
+		relativeUri = URI.create("/java-learn");
+		uri = absoluteUri.resolve(relativeUri);
+		System.out.println(uri);
+		assertThat(uri.toString()).isEqualTo("https://www.ruoxue.org/java-learn");
 	}
 
 	@Test
@@ -106,16 +103,13 @@ public class URIMethodsTest {
 		URI relativeUri = URI.create("https://www.ruoxue.org");
 		URI uri = relativeUri.relativize(absoluteUri);
 		System.out.println(uri);
-		System.out.println("getScheme: " + uri.getScheme());
-		System.out.println("getAuthority: " + uri.getAuthority());
-		System.out.println("getUserInfo: " + uri.getUserInfo());
-		System.out.println("getHost: " + uri.getHost());
-		System.out.println("getPort: " + uri.getPort());
-		System.out.println("getPath: " + uri.getPath());
-		System.out.println("getQuery: " + uri.getQuery());
-		System.out.println("getFragment: " + uri.getFragment());
-
 		assertThat(uri.toString()).isEqualTo("java-learn/java-net");
+
+		absoluteUri = URI.create("https://www.ruoxue.org/java-learn");
+		relativeUri = URI.create("https://www.ruoxue.org/");
+		uri = relativeUri.relativize(absoluteUri);
+		System.out.println(uri);
+		assertThat(uri.toString()).isEqualTo("java-learn");
 	}
 
 	@Test
@@ -139,10 +133,10 @@ public class URIMethodsTest {
 
 	@Test
 	public void toStringz() {
-		String value = "urn:isbn:1234567890+%25";
+		String value = "https://www.ruoxue.org";
 		URI uri = URI.create(value);
 		System.out.println(uri);
-		assertThat(uri.toString()).isEqualTo("urn:isbn:1234567890+%25");
+		assertThat(uri.toString()).isEqualTo("https://www.ruoxue.org");
 
 		value = "mailto:ruoxueorg@gmail.com";
 		uri = URI.create(value);
