@@ -34,7 +34,6 @@ public class URIClassTest {
 		assertThatCode(() -> {
 			URI uri = URI.create("urn:isbn:1234567890+%25");
 			System.out.println(uri);
-
 			URL url = uri.toURL();
 			System.out.println(url);
 		}).isInstanceOf(MalformedURLException.class);
