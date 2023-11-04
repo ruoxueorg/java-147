@@ -10,5 +10,6 @@ public class URLMethodsTest {
 	public void constructor() throws Exception {
 		String value = "https://www.ruoxue.org";
 		URL url = new URL(value);
+		System.out.println(url);
 	}
 }
