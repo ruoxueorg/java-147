@@ -16,14 +16,15 @@ public class URIMethodsTest {
 			String value = "https://username:password@www.ruoxue.org:443/java-learn/java-net?amount=101#top";
 			URI uri = new URI(value);
 			System.out.println(uri);
-			System.out.println("getScheme: " + uri.getScheme());
-			System.out.println("getAuthority: " + uri.getAuthority());
-			System.out.println("getUserInfo: " + uri.getUserInfo());
-			System.out.println("getHost: " + uri.getHost());
-			System.out.println("getPort: " + uri.getPort());
-			System.out.println("getPath: " + uri.getPath());
-			System.out.println("getQuery: " + uri.getQuery());
-			System.out.println("getFragment: " + uri.getFragment());
+			System.out.println("Scheme: " + uri.getScheme());
+			System.out.println("SchemeSpecificPart: " + uri.getSchemeSpecificPart());
+			System.out.println("Authority: " + uri.getAuthority());
+			System.out.println("UserInfo: " + uri.getUserInfo());
+			System.out.println("Host: " + uri.getHost());
+			System.out.println("Port: " + uri.getPort());
+			System.out.println("Path: " + uri.getPath());
+			System.out.println("Query: " + uri.getQuery());
+			System.out.println("Fragment: " + uri.getFragment());
 
 			URI uri2 = new URI("https", "username:password", "www.ruoxue.org", 443, "/java-learn/java-net",
 					"amount=101", "top");
@@ -50,34 +51,33 @@ public class URIMethodsTest {
 	}
 
 	@Test
-	public void create() {
-		String value = "https://username:password@www.ruoxue.org:443/java-learn/java-net?amount=101#top";
-		URI uri = URI.create(value);
+	public void resolve() {
+		URI absoluteUri = URI.create("https://www.ruoxue.org/unit-testing");
+		URI relativeUri = URI.create("/java-learn/java-net");
+		URI uri = absoluteUri.resolve(relativeUri);
 		System.out.println(uri);
-		System.out.println("getScheme: " + uri.getScheme());
-		System.out.println("getAuthority: " + uri.getAuthority());
-		System.out.println("getUserInfo: " + uri.getUserInfo());
-		System.out.println("getHost: " + uri.getHost());
-		System.out.println("getPort: " + uri.getPort());
-		System.out.println("getPath: " + uri.getPath());
-		System.out.println("getQuery: " + uri.getQuery());
-		System.out.println("getFragment: " + uri.getFragment());
+		assertThat(uri.toString()).isEqualTo("https://www.ruoxue.org/java-learn/java-net");
 
-		assertThat(uri.getScheme()).isEqualTo("https");
-		assertThat(uri.getAuthority()).isEqualTo("username:password@www.ruoxue.org:443");
-		assertThat(uri.getUserInfo()).isEqualTo("username:password");
-		assertThat(uri.getHost()).isEqualTo("www.ruoxue.org");
-		assertThat(uri.getPort()).isEqualTo(443);
-		assertThat(uri.getPath()).isEqualTo("/java-learn/java-net");
-		assertThat(uri.getQuery()).isEqualTo("amount=101");
-		assertThat(uri.getFragment()).isEqualTo("top");
+		absoluteUri = URI.create("https://www.ruoxue.org/");
+		relativeUri = URI.create("/java-learn");
+		uri = absoluteUri.resolve(relativeUri);
+		System.out.println(uri);
+		assertThat(uri.toString()).isEqualTo("https://www.ruoxue.org/java-learn");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void createThrowException() {
-		String value = "https://www.ruoxue.org^";
-		URI uri = URI.create(value);
+	@Test
+	public void relativize() {
+		URI absoluteUri = URI.create("https://www.ruoxue.org/java-learn/java-net");
+		URI relativeUri = URI.create("https://www.ruoxue.org");
+		URI uri = relativeUri.relativize(absoluteUri);
 		System.out.println(uri);
+		assertThat(uri.toString()).isEqualTo("java-learn/java-net");
+
+		absoluteUri = URI.create("https://www.ruoxue.org/java-learn");
+		relativeUri = URI.create("https://www.ruoxue.org/");
+		uri = relativeUri.relativize(absoluteUri);
+		System.out.println(uri);
+		assertThat(uri.toString()).isEqualTo("java-learn");
 	}
 
 	@Test
