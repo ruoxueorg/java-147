@@ -28,6 +28,7 @@ public class URIMethodsTest {
 
 			URI uri2 = new URI("https", "username:password", "www.ruoxue.org", 443, "/java-learn/java-net",
 					"amount=101", "top");
+			System.out.println(uri2);
 			assertThat(uri.getScheme()).isEqualTo(uri2.getScheme());
 			assertThat(uri.getAuthority()).isEqualTo(uri2.getAuthority());
 			assertThat(uri.getUserInfo()).isEqualTo(uri2.getUserInfo());
