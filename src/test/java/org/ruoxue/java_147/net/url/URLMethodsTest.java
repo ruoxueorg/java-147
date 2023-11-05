@@ -44,7 +44,7 @@ public class URLMethodsTest {
 	@Test
 	public void constructorThrowException() {
 		assertThatCode(() -> {
-			String value = "urn:www.ruoxue.org";
+			String value = "urn:isbn:1234567890+%25";
 			URL url = new URL(value);
 			System.out.println(url);
 		}).isInstanceOf(MalformedURLException.class);
