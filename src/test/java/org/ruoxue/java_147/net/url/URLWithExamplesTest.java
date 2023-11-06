@@ -12,7 +12,7 @@ public class URLWithExamplesTest {
 	@Test
 	public void constructor() {
 		try {
-			String value = "https://username:password@www.ruoxue.org/java-learn/java-net?amount=101#top";
+			String value = "http://www.ruoxue.org/java-learn";
 			URL url = new URL(value);
 			System.out.println(url);
 			System.out.println("Protocol: " + url.getProtocol());
@@ -26,7 +26,7 @@ public class URLWithExamplesTest {
 			System.out.println("Query: " + url.getQuery());
 			System.out.println("Ref: " + url.getRef());
 
-			URL url2 = new URL("https", "www.ruoxue.org", 443, "/java-learn/java-net?amount=101#top");
+			URL url2 = new URL("http", "www.ruoxue.org", 80, "/java-learn");
 			System.out.println(url2);
 			assertThat(url.getProtocol()).isEqualTo(url2.getProtocol());
 			assertThat(url.getHost()).isEqualTo(url2.getHost());
@@ -43,7 +43,7 @@ public class URLWithExamplesTest {
 	@Test
 	public void constructorThrowException() {
 		assertThatCode(() -> {
-			String value = "/java-learn/java-net";
+			String value = "/java-learn";
 			URL url = new URL(value);
 			System.out.println(url);
 		}).isInstanceOf(MalformedURLException.class);
