@@ -10,27 +10,28 @@ import java.net.URL;
 import org.junit.Test;
 
 public class URIClassTest {
+
 	@Test
-	public void uriToURL() {
+	public void toURL() {
 		try {
 			URI uri = URI.create("https://www.ruoxue.org");
 			System.out.println(uri);
 			URL url = uri.toURL();
 			System.out.println(url);
-			assertThat(url.toString()).isEqualTo("https://www.ruoxue.org");
-
+			assertThat(url.toString()).isEqualTo(uri.toString());
+			
 			uri = URI.create("mailto:ruoxueorg@gmail.com");
 			System.out.println(uri);
 			url = uri.toURL();
 			System.out.println(url);
-			assertThat(url.toString()).isEqualTo("mailto:ruoxueorg@gmail.com");
+			assertThat(url.toString()).isEqualTo(uri.toString());
 		} catch (MalformedURLException ex) {
 			throw new RuntimeException(ex.getMessage(), ex);
 		}
 	}
 
 	@Test
-	public void uriToURLThrowException() {
+	public void toURLThrowException() {
 		assertThatCode(() -> {
 			URI uri = URI.create("urn:isbn:1234567890+%25");
 			System.out.println(uri);

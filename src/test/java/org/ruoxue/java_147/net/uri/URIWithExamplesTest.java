@@ -64,11 +64,11 @@ public class URIWithExamplesTest {
 	public void toStringz() {
 		try {
 			URI uri = new URI("https", "www.ruoxue.org", "/java-learn", "name=name %", null);
-			System.out.println(uri.toASCIIString());
+			System.out.println(uri.toString());
 			assertThat(uri.toString()).isEqualTo("https://www.ruoxue.org/java-learn?name=name%20%25");
 
 			uri = new URI("mailto", "ruo xue org@gmail.com", null);
-			System.out.println(uri);
+			System.out.println(uri.toString());
 			assertThat(uri.toString()).isEqualTo("mailto:ruo%20xue%20org@gmail.com");
 		} catch (URISyntaxException ex) {
 			throw new RuntimeException(ex.getMessage(), ex);
@@ -83,7 +83,7 @@ public class URIWithExamplesTest {
 			assertThat(uri.toASCIIString()).isEqualTo("https://www.ruoxue.org/java-learn?name=name%20%25");
 
 			uri = new URI("mailto", "ruo xue org@gmail.com", null);
-			System.out.println(uri);
+			System.out.println(uri.toASCIIString());
 			assertThat(uri.toASCIIString()).isEqualTo("mailto:ruo%20xue%20org@gmail.com");
 		} catch (URISyntaxException ex) {
 			throw new RuntimeException(ex.getMessage(), ex);
