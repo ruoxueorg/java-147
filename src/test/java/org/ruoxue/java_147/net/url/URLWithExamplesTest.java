@@ -70,7 +70,6 @@ public class URLWithExamplesTest {
 		} catch (MalformedURLException ex) {
 			throw new RuntimeException(ex.getMessage(), ex);
 		}
-
 	}
 
 	@Test
