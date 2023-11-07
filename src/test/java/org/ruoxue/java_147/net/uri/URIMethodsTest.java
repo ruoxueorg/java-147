@@ -45,7 +45,7 @@ public class URIMethodsTest {
 	@Test
 	public void constructorThrowException() {
 		assertThatCode(() -> {
-			String value = "https://www.ruoxue.org^";
+			String value = "https://www.ruoxue.org^^^";
 			URI uri = new URI(value);
 			System.out.println(uri);
 		}).isInstanceOf(URISyntaxException.class);
@@ -55,12 +55,14 @@ public class URIMethodsTest {
 	public void resolve() {
 		URI absoluteUri = URI.create("https://www.ruoxue.org/unit-testing");
 		URI relativeUri = URI.create("/java-learn/java-net");
+		System.out.println(relativeUri);
 		URI uri = absoluteUri.resolve(relativeUri);
 		System.out.println(uri);
 		assertThat(uri.toString()).isEqualTo("https://www.ruoxue.org/java-learn/java-net");
 
 		absoluteUri = URI.create("https://www.ruoxue.org/");
 		relativeUri = URI.create("/java-learn");
+		System.out.println(relativeUri);
 		uri = absoluteUri.resolve(relativeUri);
 		System.out.println(uri);
 		assertThat(uri.toString()).isEqualTo("https://www.ruoxue.org/java-learn");
@@ -69,12 +71,14 @@ public class URIMethodsTest {
 	@Test
 	public void relativize() {
 		URI absoluteUri = URI.create("https://www.ruoxue.org/java-learn/java-net");
+		System.out.println(absoluteUri);
 		URI relativeUri = URI.create("https://www.ruoxue.org");
 		URI uri = relativeUri.relativize(absoluteUri);
 		System.out.println(uri);
 		assertThat(uri.toString()).isEqualTo("java-learn/java-net");
 
 		absoluteUri = URI.create("https://www.ruoxue.org/java-learn");
+		System.out.println(absoluteUri);
 		relativeUri = URI.create("https://www.ruoxue.org/");
 		uri = relativeUri.relativize(absoluteUri);
 		System.out.println(uri);
@@ -88,10 +92,10 @@ public class URIMethodsTest {
 		System.out.println(result);
 		assertThat(result.toString()).isEqualTo("https://www.ruoxue.org/a/c/d");
 
-		uri = URI.create("https://www.ruoxue.org/java-learn");
+		uri = URI.create("https://www.ruoxue.org/java-learn/../java-net");
 		result = uri.normalize();
 		System.out.println(result);
-		assertThat(result.toString()).isEqualTo("https://www.ruoxue.org/java-learn");
+		assertThat(result.toString()).isEqualTo("https://www.ruoxue.org/java-net");
 	}
 
 	@Test

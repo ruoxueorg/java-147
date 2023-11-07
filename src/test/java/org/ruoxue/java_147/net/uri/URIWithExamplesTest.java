@@ -36,7 +36,7 @@ public class URIWithExamplesTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void createThrowException() {
-		String value = "https://www.ruoxue.org^";
+		String value = "https://www.ruoxue.org%%%";
 		URI uri = URI.create(value);
 		System.out.println(uri);
 	}
