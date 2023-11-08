@@ -15,13 +15,11 @@ public class URIClassTest {
 	public void toURL() {
 		try {
 			URI uri = URI.create("https://www.ruoxue.org");
-			System.out.println(uri);
 			URL url = uri.toURL();
 			System.out.println(url);
 			assertThat(url.toString()).isEqualTo(uri.toString());
 			
 			uri = URI.create("mailto:ruoxueorg@gmail.com");
-			System.out.println(uri);
 			url = uri.toURL();
 			System.out.println(url);
 			assertThat(url.toString()).isEqualTo(uri.toString());
