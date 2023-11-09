@@ -2,15 +2,77 @@ package org.ruoxue.java_147.list.copyonwritearraylist;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Spliterator;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
 
 public class CopyOnWriteArrayListWithExamplesTest {
+
+	@Test
+	public void iteratorThrowException() {
+		try {
+			int poolSize = 3;
+			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
+			List<String> list = new ArrayList<>();
+			list.add("Apple");
+			list.add("Banana");
+			list.add("Cherry");
+			IntStream.range(0, poolSize).forEach(e -> {
+				executorService.execute(() -> {
+					Iterator<String> it = list.iterator();
+					while (it.hasNext()) {
+						System.out.println(String.format("[%d] %s", Thread.currentThread().getId(), it.next()));
+					}
+				});
+			});
+
+			IntStream.range(0, poolSize).forEach(e -> {
+				executorService.execute(() -> {
+					list.add("Grape");
+				});
+			});
+			Thread.sleep(2_000L);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Test
+	public void iterator() {
+		try {
+			int poolSize = 3;
+			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
+			List<String> list = new CopyOnWriteArrayList<>();
+			list.add("Apple");
+			list.add("Banana");
+			list.add("Cherry");
+			for (int i = 0; i < poolSize; i++) {
+				executorService.execute(() -> {
+					Iterator<String> it = list.iterator();
+					while (it.hasNext()) {
+						System.out.println(String.format("[%d] %s", Thread.currentThread().getId(), it.next()));
+					}
+				});
+			}
+
+			for (int i = 0; i < poolSize; i++) {
+				executorService.execute(() -> {
+					list.add("Grape");
+				});
+			}
+			Thread.sleep(2_000L);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 
 	@Test
 	public void loop() {
@@ -51,18 +113,6 @@ public class CopyOnWriteArrayListWithExamplesTest {
 		it.forEachRemaining(e -> {
 			System.out.println(e);
 		});
-	}
-
-	@Test
-	public void iterator() {
-		List<String> list = new CopyOnWriteArrayList<>();
-		list.add("Apple");
-		list.add("Banana");
-		list.add("Cherry");
-		Iterator<String> it = list.iterator();
-		while (it.hasNext()) {
-			System.out.println(it.next());
-		}
 	}
 
 	@Test
