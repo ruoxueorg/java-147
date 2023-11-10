@@ -12,7 +12,7 @@ public class ArrayListMethodsTest {
 	@Test
 	public void add() {
 		int expectedSize = 3;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -23,7 +23,7 @@ public class ArrayListMethodsTest {
 	@Test
 	public void addByIndex() {
 		int expectedSize = 4;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -36,12 +36,12 @@ public class ArrayListMethodsTest {
 	@Test
 	public void addAll() {
 		int expectedSize = 6;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
 
-		List<String> list2 = new ArrayList<String>();
+		List<String> list2 = new ArrayList<>();
 		list2.add("Grape");
 		list2.add("Lemon");
 		list2.add("Mango");
@@ -54,7 +54,7 @@ public class ArrayListMethodsTest {
 	@Test
 	public void get() {
 		String expected = "Banana";
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -66,7 +66,7 @@ public class ArrayListMethodsTest {
 	@Test
 	public void set() {
 		String expected = "Grape";
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -80,7 +80,7 @@ public class ArrayListMethodsTest {
 	@Test
 	public void remove() {
 		int expectedSize = 2;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -92,12 +92,12 @@ public class ArrayListMethodsTest {
 	@Test
 	public void removeAll() {
 		int expectedSize = 1;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
 
-		List<String> list2 = new ArrayList<String>();
+		List<String> list2 = new ArrayList<>();
 		list2.add("Apple");
 		list2.add("Banana");
 		list2.add("Mango");
@@ -109,7 +109,7 @@ public class ArrayListMethodsTest {
 	@Test
 	public void clear() {
 		int expectedSize = 0;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -121,7 +121,7 @@ public class ArrayListMethodsTest {
 	@Test
 	public void size() {
 		int expectedSize = 3;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -131,7 +131,7 @@ public class ArrayListMethodsTest {
 
 	@Test
 	public void isEmpty() {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		System.out.println(list.isEmpty());
 		assertTrue(list.isEmpty());
 		list.add("Apple");

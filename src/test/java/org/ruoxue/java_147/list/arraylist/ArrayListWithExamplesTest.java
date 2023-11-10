@@ -14,7 +14,7 @@ public class ArrayListWithExamplesTest {
 
 	@Test
 	public void loop() {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -25,7 +25,7 @@ public class ArrayListWithExamplesTest {
 
 	@Test
 	public void forEach() {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -113,7 +113,7 @@ public class ArrayListWithExamplesTest {
 	@Test
 	public void toArray() {
 		int expectedSize = 3;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -129,7 +129,7 @@ public class ArrayListWithExamplesTest {
 	@Test
 	public void streamToArray() {
 		int expectedSize = 3;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");

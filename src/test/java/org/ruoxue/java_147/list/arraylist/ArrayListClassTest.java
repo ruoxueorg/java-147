@@ -13,7 +13,7 @@ public class ArrayListClassTest {
 
 	@Test
 	public void contains() {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -29,12 +29,12 @@ public class ArrayListClassTest {
 
 	@Test
 	public void containsAll() {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
 
-		List<String> list2 = new ArrayList<String>();
+		List<String> list2 = new ArrayList<>();
 		list2.add("Apple");
 		list2.add("Banana");
 
@@ -50,7 +50,7 @@ public class ArrayListClassTest {
 	@Test
 	public void indexOf() {
 		int expected = 1;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -67,7 +67,7 @@ public class ArrayListClassTest {
 	@Test
 	public void lastIndexOf() {
 		int expected = 3;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -84,7 +84,7 @@ public class ArrayListClassTest {
 
 	@Test
 	public void sort() {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Banana");
 		list.add("Apple");
 		list.add("Cherry");
@@ -99,7 +99,7 @@ public class ArrayListClassTest {
 	@Test
 	public void stream() {
 		int expectedSize = 1;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -110,7 +110,7 @@ public class ArrayListClassTest {
 
 	@Test
 	public void parallelStream() {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -122,7 +122,7 @@ public class ArrayListClassTest {
 	@Test
 	public void subList() {
 		int expectedSize = 2;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -135,7 +135,7 @@ public class ArrayListClassTest {
 
 	@Test
 	public void replaceAll() {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -146,12 +146,12 @@ public class ArrayListClassTest {
 	@Test
 	public void retainAll() {
 		int expectedSize = 1;
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
 
-		List<String> list2 = new ArrayList<String>();
+		List<String> list2 = new ArrayList<>();
 		list2.add("Apple");
 		list2.add("Lemon");
 		list2.add("Mango");
