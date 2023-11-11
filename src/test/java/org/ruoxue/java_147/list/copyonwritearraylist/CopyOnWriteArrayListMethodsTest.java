@@ -203,5 +203,4 @@ public class CopyOnWriteArrayListMethodsTest {
 		System.out.println(list.isEmpty());
 		assertFalse(list.isEmpty());
 	}
-
 }
