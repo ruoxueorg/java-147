@@ -1,5 +1,6 @@
 package org.ruoxue.java_147.list.copyonwritearraylist;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -72,6 +73,29 @@ public class CopyOnWriteArrayListWithExamplesTest {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	@Test
+	public void listIteratorThrowException() {
+		CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
+		list.add("Apple");
+		list.add("Banana");
+		list.add("Cherry");
+		ListIterator<String> it = (ListIterator<String>) list.iterator();
+
+		assertThatCode(() -> {
+			it.add("Grape");
+		}).isInstanceOf(UnsupportedOperationException.class);
+
+		assertThatCode(() -> {
+			it.set("Apple");
+		}).isInstanceOf(UnsupportedOperationException.class);
+
+		assertThatCode(() -> {
+			while (it.hasNext()) {
+				it.remove();
+			}
+		}).isInstanceOf(UnsupportedOperationException.class);
 	}
 
 	@Test
