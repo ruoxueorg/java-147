@@ -81,7 +81,7 @@ public class CopyOnWriteArrayListWithExamplesTest {
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
-		ListIterator<String> it = (ListIterator<String>) list.iterator();
+		ListIterator<String> it = list.listIterator();
 
 		assertThatCode(() -> {
 			it.add("Grape");
