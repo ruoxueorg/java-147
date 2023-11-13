@@ -4,6 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.stream.Collectors;
@@ -46,6 +50,22 @@ public class CopyOnWriteArraySetClassTest {
 		contains = set2.containsAll(set);
 		System.out.println(contains);
 		assertFalse(contains);
+	}
+
+	@Test
+	public void sort() {
+		Set<String> set = new CopyOnWriteArraySet<>();
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
+		List<String> list = new ArrayList<>(set);
+		Collections.sort(list, Comparator.naturalOrder());
+		System.out.println(list);
+
+		set.add("Grape");
+		list = new ArrayList<>(set);
+		Collections.sort(list, Comparator.reverseOrder());
+		System.out.println(list);
 	}
 
 	@Test

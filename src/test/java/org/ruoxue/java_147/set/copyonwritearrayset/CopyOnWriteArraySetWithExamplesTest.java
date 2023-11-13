@@ -75,7 +75,7 @@ public class CopyOnWriteArraySetWithExamplesTest {
 	}
 
 	@Test
-	public void setIteratorThrowException() {
+	public void iteratorRemoveThrowException() {
 		CopyOnWriteArraySet<String> set = new CopyOnWriteArraySet<>();
 		set.add("Longan");
 		set.add("Tomato");
