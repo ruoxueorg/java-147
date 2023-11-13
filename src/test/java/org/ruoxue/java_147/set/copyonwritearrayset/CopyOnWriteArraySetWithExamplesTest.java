@@ -22,9 +22,9 @@ public class CopyOnWriteArraySetWithExamplesTest {
 			int poolSize = 3;
 			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
 			Set<String> set = new HashSet<>();
-			set.add("Apple");
-			set.add("Banana");
-			set.add("Cherry");
+			set.add("Longan");
+			set.add("Tomato");
+			set.add("Pear");
 			IntStream.range(0, poolSize).forEach(e -> {
 				executorService.execute(() -> {
 					Iterator<String> it = set.iterator();
@@ -51,9 +51,9 @@ public class CopyOnWriteArraySetWithExamplesTest {
 			int poolSize = 3;
 			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
 			Set<String> set = new CopyOnWriteArraySet<>();
-			set.add("Apple");
-			set.add("Banana");
-			set.add("Cherry");
+			set.add("Longan");
+			set.add("Tomato");
+			set.add("Pear");
 			for (int i = 0; i < poolSize; i++) {
 				executorService.execute(() -> {
 					Iterator<String> it = set.iterator();
@@ -77,9 +77,9 @@ public class CopyOnWriteArraySetWithExamplesTest {
 	@Test
 	public void setIteratorThrowException() {
 		CopyOnWriteArraySet<String> set = new CopyOnWriteArraySet<>();
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
 		Iterator<String> it = set.iterator();
 
 		assertThatCode(() -> {
@@ -92,18 +92,18 @@ public class CopyOnWriteArraySetWithExamplesTest {
 	@Test
 	public void forEach() {
 		Set<String> set = new CopyOnWriteArraySet<>();
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
 		set.forEach(e -> System.out.println(e));
 	}
 
 	@Test
 	public void forEachRemaining() {
 		Set<String> set = new CopyOnWriteArraySet<>();
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
 		Iterator<String> it = set.iterator();
 		int i = 0;
 		while (it.hasNext()) {
@@ -122,9 +122,9 @@ public class CopyOnWriteArraySetWithExamplesTest {
 	@Test
 	public void spliterator() {
 		Set<String> set = new CopyOnWriteArraySet<>();
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
 		Spliterator<String> sit = set.spliterator();
 		sit.tryAdvance(e -> System.out.println(e));
 		System.out.println("----------");
@@ -139,9 +139,9 @@ public class CopyOnWriteArraySetWithExamplesTest {
 	@Test
 	public void trySplit() {
 		Set<String> set = new CopyOnWriteArraySet<>();
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
 		Spliterator<String> sit = set.spliterator();
 		Spliterator<String> sit2 = sit.trySplit();
 		System.out.println(sit.getExactSizeIfKnown());
@@ -156,9 +156,9 @@ public class CopyOnWriteArraySetWithExamplesTest {
 	public void toArray() {
 		int expectedSize = 3;
 		Set<String> set = new CopyOnWriteArraySet<>();
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
 
 		String[] array = new String[set.size()];
 		set.toArray(array);
@@ -172,9 +172,9 @@ public class CopyOnWriteArraySetWithExamplesTest {
 	public void streamToArray() {
 		int expectedSize = 3;
 		Set<String> set = new CopyOnWriteArraySet<>();
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
 
 		String[] array = set.stream().toArray(String[]::new);
 		for (String e : array) {

@@ -21,9 +21,9 @@ public class CopyOnWriteArraySetMethodsTest {
 			int poolSize = 3;
 			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
 			Set<String> set = new HashSet<>();
-			set.add("Apple");
-			set.add("Banana");
-			set.add("Cherry");
+			set.add("Longan");
+			set.add("Tomato");
+			set.add("Pear");
 			for (int i = 0; i < poolSize; i++) {
 				executorService.execute(() -> {
 					Iterator<String> it = set.iterator();
@@ -50,9 +50,9 @@ public class CopyOnWriteArraySetMethodsTest {
 			int poolSize = 3;
 			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
 			Set<String> set = new CopyOnWriteArraySet<>();
-			set.add("Apple");
-			set.add("Banana");
-			set.add("Cherry");
+			set.add("Longan");
+			set.add("Tomato");
+			set.add("Pear");
 			for (int i = 0; i < poolSize; i++) {
 				executorService.execute(() -> {
 					Iterator<String> it = set.iterator();
@@ -77,9 +77,9 @@ public class CopyOnWriteArraySetMethodsTest {
 	public void add() {
 		int expectedSize = 3;
 		Set<String> set = new CopyOnWriteArraySet<>();
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
 		System.out.println(set);
 		assertEquals(expectedSize, set.size());
 	}
@@ -88,9 +88,9 @@ public class CopyOnWriteArraySetMethodsTest {
 	public void addAll() {
 		int expectedSize = 6;
 		Set<String> set = new CopyOnWriteArraySet<>();
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
 
 		Set<String> set2 = new CopyOnWriteArraySet<>();
 		set2.add("Grape");
@@ -106,10 +106,10 @@ public class CopyOnWriteArraySetMethodsTest {
 	public void remove() {
 		int expectedSize = 2;
 		Set<String> set = new CopyOnWriteArraySet<>();
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
-		set.remove(0);
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
+		set.remove("Longan");
 		System.out.println(set);
 		assertEquals(expectedSize, set.size());
 	}
@@ -118,13 +118,13 @@ public class CopyOnWriteArraySetMethodsTest {
 	public void removeAll() {
 		int expectedSize = 1;
 		Set<String> set = new CopyOnWriteArraySet<>();
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
 
 		Set<String> set2 = new CopyOnWriteArraySet<>();
-		set2.add("Apple");
-		set2.add("Banana");
+		set2.add("Longan");
+		set2.add("Tomato");
 		set2.add("Mango");
 		set.removeAll(set2);
 		System.out.println(set);
@@ -135,9 +135,9 @@ public class CopyOnWriteArraySetMethodsTest {
 	public void clear() {
 		int expectedSize = 0;
 		Set<String> set = new CopyOnWriteArraySet<>();
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
 		set.clear();
 		System.out.println(set);
 		assertEquals(expectedSize, set.size());
@@ -147,9 +147,9 @@ public class CopyOnWriteArraySetMethodsTest {
 	public void size() {
 		int expectedSize = 3;
 		Set<String> set = new CopyOnWriteArraySet<>();
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
 		System.out.println(set.size());
 		assertEquals(expectedSize, set.size());
 	}
@@ -159,9 +159,9 @@ public class CopyOnWriteArraySetMethodsTest {
 		Set<String> set = new CopyOnWriteArraySet<>();
 		System.out.println(set.isEmpty());
 		assertTrue(set.isEmpty());
-		set.add("Apple");
-		set.add("Banana");
-		set.add("Cherry");
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
 		System.out.println(set.isEmpty());
 		assertFalse(set.isEmpty());
 	}
