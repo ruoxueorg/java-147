@@ -3,10 +3,10 @@ package org.ruoxue.java_147.map.concurrenthashmap;
 import static org.junit.Assert.*;
 
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -63,7 +63,7 @@ public class ConcurrentHashMapWithExamplesTest {
 
 	@Test
 	public void entrySet() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -74,7 +74,7 @@ public class ConcurrentHashMapWithExamplesTest {
 
 	@Test
 	public void forEach() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -83,7 +83,7 @@ public class ConcurrentHashMapWithExamplesTest {
 
 	@Test
 	public void keyForEach() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -92,7 +92,7 @@ public class ConcurrentHashMapWithExamplesTest {
 
 	@Test
 	public void keyForEachRemaining() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -114,7 +114,7 @@ public class ConcurrentHashMapWithExamplesTest {
 
 	@Test
 	public void keyIterator() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -126,7 +126,7 @@ public class ConcurrentHashMapWithExamplesTest {
 
 	@Test
 	public void valueForEach() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -135,7 +135,7 @@ public class ConcurrentHashMapWithExamplesTest {
 
 	@Test
 	public void valueForEachRemaining() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -157,7 +157,7 @@ public class ConcurrentHashMapWithExamplesTest {
 
 	@Test
 	public void valueIterator() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -170,7 +170,7 @@ public class ConcurrentHashMapWithExamplesTest {
 	@Test
 	public void keyToArray() {
 		int expectedSize = 3;
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -186,7 +186,7 @@ public class ConcurrentHashMapWithExamplesTest {
 	@Test
 	public void keyStreamToArray() {
 		int expectedSize = 3;
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));

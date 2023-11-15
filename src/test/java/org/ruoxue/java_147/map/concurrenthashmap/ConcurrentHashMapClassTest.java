@@ -2,9 +2,9 @@ package org.ruoxue.java_147.map.concurrenthashmap;
 
 import static org.junit.Assert.*;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -62,7 +62,7 @@ public class ConcurrentHashMapClassTest {
 
 	@Test
 	public void containsKey() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -73,7 +73,7 @@ public class ConcurrentHashMapClassTest {
 
 	@Test
 	public void containsValue() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -85,7 +85,7 @@ public class ConcurrentHashMapClassTest {
 	@Test
 	public void stream() {
 		int expectedSize = 2;
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -96,7 +96,7 @@ public class ConcurrentHashMapClassTest {
 
 	@Test
 	public void parallelStream() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -108,7 +108,7 @@ public class ConcurrentHashMapClassTest {
 	@Test
 	public void replace() {
 		double expected = 10d;
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -119,7 +119,7 @@ public class ConcurrentHashMapClassTest {
 
 	@Test
 	public void replaceAll() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -133,7 +133,7 @@ public class ConcurrentHashMapClassTest {
 	@Test
 	public void merge() {
 		double expected = 11d;
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));

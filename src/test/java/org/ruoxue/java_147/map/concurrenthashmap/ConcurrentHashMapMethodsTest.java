@@ -2,8 +2,8 @@ package org.ruoxue.java_147.map.concurrenthashmap;
 
 import static org.junit.Assert.*;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -62,7 +62,7 @@ public class ConcurrentHashMapMethodsTest {
 	@Test
 	public void put() {
 		int expectedSize = 3;
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -73,7 +73,7 @@ public class ConcurrentHashMapMethodsTest {
 	@Test
 	public void putIfAbsent() {
 		int expectedSize = 3;
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		Fruit put = map.putIfAbsent("Lemon", new Fruit("Lemon", 3, 1));
@@ -86,7 +86,7 @@ public class ConcurrentHashMapMethodsTest {
 	@Test
 	public void get() {
 		double expected = 2d;
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -97,7 +97,7 @@ public class ConcurrentHashMapMethodsTest {
 
 	@Test
 	public void getOrDefault() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -109,7 +109,7 @@ public class ConcurrentHashMapMethodsTest {
 	@Test
 	public void update() {
 		double expected = 10d;
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -124,7 +124,7 @@ public class ConcurrentHashMapMethodsTest {
 	@Test
 	public void remove() {
 		int expectedSize = 2;
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -136,7 +136,7 @@ public class ConcurrentHashMapMethodsTest {
 	@Test
 	public void clear() {
 		int expectedSize = 0;
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -148,7 +148,7 @@ public class ConcurrentHashMapMethodsTest {
 	@Test
 	public void size() {
 		int expectedSize = 3;
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
@@ -159,12 +159,12 @@ public class ConcurrentHashMapMethodsTest {
 	@Test
 	public void putAll() {
 		int expectedSize = 6;
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
 		
-		Map<String, Fruit> newMap = new LinkedHashMap<>();
+		Map<String, Fruit> newMap = new ConcurrentHashMap<>();
 		newMap.put("Apple", new Fruit("Apple", 4, 1));
 		newMap.put("Banana", new Fruit("Banana", 5, 1));
 		newMap.put("Cherry", new Fruit("Cherry", 6, 1));
@@ -176,7 +176,7 @@ public class ConcurrentHashMapMethodsTest {
 
 	@Test
 	public void isEmpty() {
-		Map<String, Fruit> map = new LinkedHashMap<>();
+		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		System.out.println(map.isEmpty());
 		assertTrue(map.isEmpty());
 		map.put("Grape", new Fruit("Grape", 1, 1));
