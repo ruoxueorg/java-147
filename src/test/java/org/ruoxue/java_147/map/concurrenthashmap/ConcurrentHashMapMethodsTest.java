@@ -69,9 +69,9 @@ public class ConcurrentHashMapMethodsTest {
 			int poolSize = 5;
 			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
 			Map<String, Fruit> map = new HashMap<>();
-			map.put("Grape", new Fruit("Grape", 1, 1));
-			map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-			map.put("Lemon", new Fruit("Lemon", 3, 1));
+			map.put("Grape", new Fruit("Grape", -1, 1));
+			map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+			map.put("Lemon", new Fruit("Lemon", 1, 3));
 			for (int i = 0; i < poolSize; i++) {
 				executorService.execute(() -> {
 					Iterator<String> it = map.keySet().iterator();
@@ -98,9 +98,9 @@ public class ConcurrentHashMapMethodsTest {
 			int poolSize = 5;
 			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
 			Map<String, Fruit> map = new ConcurrentHashMap<>();
-			map.put("Grape", new Fruit("Grape", 1, 1));
-			map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-			map.put("Lemon", new Fruit("Lemon", 3, 1));
+			map.put("Grape", new Fruit("Grape", -1, 1));
+			map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+			map.put("Lemon", new Fruit("Lemon", 1, 3));
 			for (int i = 0; i < poolSize; i++) {
 				executorService.execute(() -> {
 					Iterator<String> it = map.keySet().iterator();
@@ -125,9 +125,9 @@ public class ConcurrentHashMapMethodsTest {
 	public void put() {
 		int expectedSize = 3;
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
 	}
@@ -136,9 +136,9 @@ public class ConcurrentHashMapMethodsTest {
 	public void putIfAbsent() {
 		int expectedSize = 3;
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		Fruit put = map.putIfAbsent("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		Fruit put = map.putIfAbsent("Lemon", new Fruit("Lemon", 1, 3));
 		System.out.println(put);
 		assertNull(put);
 		System.out.println(map);
@@ -147,22 +147,22 @@ public class ConcurrentHashMapMethodsTest {
 
 	@Test
 	public void get() {
-		double expected = 2d;
+		double expected = Double.MAX_VALUE;
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		Fruit value = map.get("Kiwifruit");
 		System.out.println(value);
-		assertEquals(expected, value.getQuantity(), 0);
+		assertEquals(expected, value.getQuantity(), 2);
 	}
 
 	@Test
 	public void getOrDefault() {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		Fruit result = map.getOrDefault("", new Fruit("Empty", 0, 0));
 		System.out.println(result);
 		assertNotNull(result);
@@ -172,13 +172,13 @@ public class ConcurrentHashMapMethodsTest {
 	public void update() {
 		double expected = 10d;
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		System.out.println(map);
 
 		Fruit put = map.put("Grape", new Fruit("Grape", 10, 1));
-		assertEquals(1d, put.getQuantity(), 0);
+		assertEquals(-1d, put.getQuantity(), 0);
 		System.out.println(map);
 		assertEquals(expected, map.get("Grape").getQuantity(), 0);
 	}
@@ -187,9 +187,9 @@ public class ConcurrentHashMapMethodsTest {
 	public void remove() {
 		int expectedSize = 2;
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		map.remove("Grape");
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
@@ -199,9 +199,9 @@ public class ConcurrentHashMapMethodsTest {
 	public void clear() {
 		int expectedSize = 0;
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		map.clear();
 		System.out.println(map);
 		assertEquals(expectedSize, map.size());
@@ -211,9 +211,9 @@ public class ConcurrentHashMapMethodsTest {
 	public void size() {
 		int expectedSize = 3;
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		System.out.println(map.size());
 		assertEquals(expectedSize, map.size());
 	}
@@ -222,9 +222,9 @@ public class ConcurrentHashMapMethodsTest {
 	public void putAll() {
 		int expectedSize = 6;
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 
 		Map<String, Fruit> newMap = new ConcurrentHashMap<>();
 		newMap.put("Apple", new Fruit("Apple", 4, 1));
@@ -241,7 +241,7 @@ public class ConcurrentHashMapMethodsTest {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
 		System.out.println(map.isEmpty());
 		assertTrue(map.isEmpty());
-		map.put("Grape", new Fruit("Grape", 1, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
 		System.out.println(map.isEmpty());
 		assertFalse(map.isEmpty());
 	}
