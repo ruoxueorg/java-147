@@ -3,10 +3,14 @@ package org.ruoxue.java_147.map.concurrenthashmap;
 import static org.junit.Assert.*;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -20,7 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class ConcurrentHashMapWithExamplesTest {
-	
+
 	@NoArgsConstructor
 	@Getter
 	@Setter
@@ -58,6 +62,64 @@ public class ConcurrentHashMapWithExamplesTest {
 
 		public int hashCode() {
 			return new HashCodeBuilder().append(getName()).toHashCode();
+		}
+	}
+
+	@Test
+	public void iteratorThrowException() {
+		try {
+			int poolSize = 5;
+			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
+			Map<String, Fruit> map = new HashMap<>();
+			map.put("Grape", new Fruit("Grape", 1, 1));
+			map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+			map.put("Lemon", new Fruit("Lemon", 3, 1));
+			IntStream.range(0, poolSize).forEach(e -> {
+				executorService.execute(() -> {
+					Iterator<String> it = map.keySet().iterator();
+					while (it.hasNext()) {
+						System.out.println(String.format("[%d] %s", Thread.currentThread().getId(), it.next()));
+					}
+				});
+			});
+
+			IntStream.range(0, poolSize).forEach(e -> {
+				executorService.execute(() -> {
+					map.put("Papaya", new Fruit("Papaya", 1, 1));
+				});
+			});
+			Thread.sleep(2_000L);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Test
+	public void iterator() {
+		try {
+			int poolSize = 5;
+			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
+			Map<String, Fruit> map = new ConcurrentHashMap<>();
+			map.put("Grape", new Fruit("Grape", 1, 1));
+			map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+			map.put("Lemon", new Fruit("Lemon", 3, 1));
+			IntStream.range(0, poolSize).forEach(e -> {
+				executorService.execute(() -> {
+					Iterator<String> it = map.keySet().iterator();
+					while (it.hasNext()) {
+						System.out.println(String.format("[%d] %s", Thread.currentThread().getId(), it.next()));
+					}
+				});
+			});
+
+			IntStream.range(0, poolSize).forEach(e -> {
+				executorService.execute(() -> {
+					map.put("Papaya", new Fruit("Papaya", 1, 1));
+				});
+			});
+			Thread.sleep(2_000L);
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 

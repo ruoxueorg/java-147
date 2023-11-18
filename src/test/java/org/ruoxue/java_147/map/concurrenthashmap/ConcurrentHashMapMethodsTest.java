@@ -2,8 +2,12 @@ package org.ruoxue.java_147.map.concurrenthashmap;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -56,6 +60,64 @@ public class ConcurrentHashMapMethodsTest {
 
 		public int hashCode() {
 			return new HashCodeBuilder().append(getName()).toHashCode();
+		}
+	}
+
+	@Test
+	public void readWriteThrowException() {
+		try {
+			int poolSize = 5;
+			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
+			Map<String, Fruit> map = new HashMap<>();
+			map.put("Grape", new Fruit("Grape", 1, 1));
+			map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+			map.put("Lemon", new Fruit("Lemon", 3, 1));
+			for (int i = 0; i < poolSize; i++) {
+				executorService.execute(() -> {
+					Iterator<String> it = map.keySet().iterator();
+					while (it.hasNext()) {
+						System.out.println(String.format("[%d] %s", Thread.currentThread().getId(), it.next()));
+					}
+				});
+			}
+
+			for (int i = 0; i < poolSize; i++) {
+				executorService.execute(() -> {
+					map.put("Papaya", new Fruit("Papaya", 1, 1));
+				});
+			}
+			Thread.sleep(2_000L);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Test
+	public void readWrite() {
+		try {
+			int poolSize = 5;
+			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
+			Map<String, Fruit> map = new ConcurrentHashMap<>();
+			map.put("Grape", new Fruit("Grape", 1, 1));
+			map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
+			map.put("Lemon", new Fruit("Lemon", 3, 1));
+			for (int i = 0; i < poolSize; i++) {
+				executorService.execute(() -> {
+					Iterator<String> it = map.keySet().iterator();
+					while (it.hasNext()) {
+						System.out.println(String.format("[%d] %s", Thread.currentThread().getId(), it.next()));
+					}
+				});
+			}
+
+			for (int i = 0; i < poolSize; i++) {
+				executorService.execute(() -> {
+					map.put("Papaya", new Fruit("Papaya", 1, 1));
+				});
+			}
+			Thread.sleep(2_000L);
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 
@@ -163,7 +225,7 @@ public class ConcurrentHashMapMethodsTest {
 		map.put("Grape", new Fruit("Grape", 1, 1));
 		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
 		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		
+
 		Map<String, Fruit> newMap = new ConcurrentHashMap<>();
 		newMap.put("Apple", new Fruit("Apple", 4, 1));
 		newMap.put("Banana", new Fruit("Banana", 5, 1));
