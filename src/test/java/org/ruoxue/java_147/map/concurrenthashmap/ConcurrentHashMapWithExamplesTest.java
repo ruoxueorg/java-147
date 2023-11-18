@@ -71,9 +71,9 @@ public class ConcurrentHashMapWithExamplesTest {
 			int poolSize = 5;
 			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
 			Map<String, Fruit> map = new HashMap<>();
-			map.put("Grape", new Fruit("Grape", 1, 1));
-			map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-			map.put("Lemon", new Fruit("Lemon", 3, 1));
+			map.put("Grape", new Fruit("Grape", -1, 1));
+			map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+			map.put("Lemon", new Fruit("Lemon", 1, 3));
 			IntStream.range(0, poolSize).forEach(e -> {
 				executorService.execute(() -> {
 					Iterator<String> it = map.keySet().iterator();
@@ -100,9 +100,9 @@ public class ConcurrentHashMapWithExamplesTest {
 			int poolSize = 5;
 			ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
 			Map<String, Fruit> map = new ConcurrentHashMap<>();
-			map.put("Grape", new Fruit("Grape", 1, 1));
-			map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-			map.put("Lemon", new Fruit("Lemon", 3, 1));
+			map.put("Grape", new Fruit("Grape", -1, 1));
+			map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+			map.put("Lemon", new Fruit("Lemon", 1, 3));
 			IntStream.range(0, poolSize).forEach(e -> {
 				executorService.execute(() -> {
 					Iterator<String> it = map.keySet().iterator();
@@ -126,9 +126,9 @@ public class ConcurrentHashMapWithExamplesTest {
 	@Test
 	public void entrySet() {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		for (Map.Entry<String, Fruit> e : map.entrySet()) {
 			System.out.println(e.getKey() + ", " + e.getValue());
 		}
@@ -137,27 +137,27 @@ public class ConcurrentHashMapWithExamplesTest {
 	@Test
 	public void forEach() {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		map.forEach((k, v) -> System.out.println(k + ", " + v));
 	}
 
 	@Test
 	public void keyForEach() {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		map.keySet().forEach(e -> System.out.println(e));
 	}
 
 	@Test
 	public void keyForEachRemaining() {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		Set<String> set = map.keySet();
 		Iterator<String> it = set.iterator();
 		int i = 0;
@@ -177,9 +177,9 @@ public class ConcurrentHashMapWithExamplesTest {
 	@Test
 	public void keyIterator() {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		Iterator<String> it = map.keySet().iterator();
 		while (it.hasNext()) {
 			System.out.println(it.next());
@@ -189,18 +189,18 @@ public class ConcurrentHashMapWithExamplesTest {
 	@Test
 	public void valueForEach() {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		map.values().forEach(System.out::println);
 	}
 
 	@Test
 	public void valueForEachRemaining() {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		Collection<Fruit> collection = map.values();
 		Iterator<Fruit> it = collection.iterator();
 		int i = 0;
@@ -220,9 +220,9 @@ public class ConcurrentHashMapWithExamplesTest {
 	@Test
 	public void valueIterator() {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		Iterator<Fruit> it = map.values().iterator();
 		while (it.hasNext()) {
 			System.out.println(it.next());
@@ -233,9 +233,9 @@ public class ConcurrentHashMapWithExamplesTest {
 	public void keyToArray() {
 		int expectedSize = 3;
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 
 		String[] array = new String[map.size()];
 		map.keySet().toArray(array);
@@ -249,9 +249,9 @@ public class ConcurrentHashMapWithExamplesTest {
 	public void keyStreamToArray() {
 		int expectedSize = 3;
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 
 		String[] array = map.keySet().stream().toArray(String[]::new);
 		for (String e : array) {

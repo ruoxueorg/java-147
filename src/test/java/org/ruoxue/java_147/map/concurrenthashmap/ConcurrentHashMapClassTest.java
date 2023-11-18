@@ -63,9 +63,9 @@ public class ConcurrentHashMapClassTest {
 	@Test
 	public void containsKey() {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		boolean containsKey = map.containsKey("Lemon");
 		System.out.println(containsKey);
 		assertTrue(containsKey);
@@ -74,10 +74,10 @@ public class ConcurrentHashMapClassTest {
 	@Test
 	public void containsValue() {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
-		boolean containsValue = map.containsValue(new Fruit("Grape", 1, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
+		boolean containsValue = map.containsValue(new Fruit("Grape", -1, 1));
 		System.out.println(containsValue);
 		assertTrue(containsValue);
 	}
@@ -86,9 +86,9 @@ public class ConcurrentHashMapClassTest {
 	public void stream() {
 		int expectedSize = 2;
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		Set<String> set = map.keySet().stream().filter(e -> e.length() < 6).collect(Collectors.toSet());
 		System.out.println(set);
 		assertEquals(expectedSize, set.size());
@@ -97,9 +97,9 @@ public class ConcurrentHashMapClassTest {
 	@Test
 	public void parallelStream() {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		map.keySet().parallelStream().forEach(System.out::println);
 		System.out.println("----------");
 		map.keySet().parallelStream().forEachOrdered(System.out::println);
@@ -109,9 +109,9 @@ public class ConcurrentHashMapClassTest {
 	public void replace() {
 		double expected = 10d;
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		map.replace("Grape", new Fruit("Grape", 10, 1));
 		System.out.println(map);
 		assertEquals(expected, map.get("Grape").getQuantity(), 0);
@@ -120,9 +120,9 @@ public class ConcurrentHashMapClassTest {
 	@Test
 	public void replaceAll() {
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		map.replaceAll((k, v) -> {
 			v.setQuantity(v.getQuantity() * 10);
 			return v;
@@ -132,11 +132,11 @@ public class ConcurrentHashMapClassTest {
 
 	@Test
 	public void merge() {
-		double expected = 11d;
+		double expected = 9d;
 		Map<String, Fruit> map = new ConcurrentHashMap<>();
-		map.put("Grape", new Fruit("Grape", 1, 1));
-		map.put("Kiwifruit", new Fruit("Kiwifruit", 2, 1));
-		map.put("Lemon", new Fruit("Lemon", 3, 1));
+		map.put("Grape", new Fruit("Grape", -1, 1));
+		map.put("Kiwifruit", new Fruit("Kiwifruit", Double.MAX_VALUE, 2));
+		map.put("Lemon", new Fruit("Lemon", 1, 3));
 		Fruit replaced = map.merge("Grape", new Fruit("Grape", 10, 1), (oldValue, newValue) -> {
 			newValue.setQuantity(oldValue.getQuantity() + newValue.getQuantity());
 			return newValue;
