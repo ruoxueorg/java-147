@@ -7,6 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.Test;
 
+import com.google.common.collect.Sets;
+
 public class ConcurrentHashSetMethodsTest {
 
 	@Test
@@ -47,6 +49,17 @@ public class ConcurrentHashSetMethodsTest {
 	}
 
 	@Test
+	public void Sets_newConcurrentHashSet() {
+		int expectedSize = 3;
+		Set<String> set = Sets.newConcurrentHashSet();
+		set.add("Longan");
+		set.add("Tomato");
+		set.add("Pear");
+		System.out.println(set);
+		assertEquals(expectedSize, set.size());
+	}
+
+	@Test
 	public void addAll() {
 		int expectedSize = 6;
 		Set<String> set = ConcurrentHashMap.newKeySet();
@@ -79,12 +92,12 @@ public class ConcurrentHashSetMethodsTest {
 	@Test
 	public void removeAll() {
 		int expectedSize = 1;
-		Set<String> set =  ConcurrentHashMap.newKeySet();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
 
-		Set<String> set2 =  ConcurrentHashMap.newKeySet();
+		Set<String> set2 = ConcurrentHashMap.newKeySet();
 		set2.add("Longan");
 		set2.add("Tomato");
 		set2.add("Mango");
@@ -96,7 +109,7 @@ public class ConcurrentHashSetMethodsTest {
 	@Test
 	public void clear() {
 		int expectedSize = 0;
-		Set<String> set =  ConcurrentHashMap.newKeySet();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -108,7 +121,7 @@ public class ConcurrentHashSetMethodsTest {
 	@Test
 	public void size() {
 		int expectedSize = 3;
-		Set<String> set =  ConcurrentHashMap.newKeySet();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -118,7 +131,7 @@ public class ConcurrentHashSetMethodsTest {
 
 	@Test
 	public void isEmpty() {
-		Set<String> set =  ConcurrentHashMap.newKeySet();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		System.out.println(set.isEmpty());
 		assertTrue(set.isEmpty());
 		set.add("Longan");

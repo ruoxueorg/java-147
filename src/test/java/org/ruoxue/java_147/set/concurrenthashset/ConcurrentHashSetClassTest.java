@@ -2,8 +2,8 @@ package org.ruoxue.java_147.set.concurrenthashset;
 
 import static org.junit.Assert.*;
 
-import java.util.ConcurrentHashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
@@ -12,7 +12,7 @@ public class ConcurrentHashSetClassTest {
 
 	@Test
 	public void contains() {
-		Set<String> set = new ConcurrentHashSet<String>();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -28,12 +28,12 @@ public class ConcurrentHashSetClassTest {
 
 	@Test
 	public void containsAll() {
-		Set<String> set = new ConcurrentHashSet<String>();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
 
-		Set<String> set2 = new ConcurrentHashSet<String>();
+		Set<String> set2 = ConcurrentHashMap.newKeySet();
 		set2.add("Longan");
 		set2.add("Tomato");
 
@@ -49,7 +49,7 @@ public class ConcurrentHashSetClassTest {
 	@Test
 	public void stream() {
 		int expectedSize = 1;
-		Set<String> set = new ConcurrentHashSet<String>();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -60,7 +60,7 @@ public class ConcurrentHashSetClassTest {
 
 	@Test
 	public void parallelStream() {
-		Set<String> set = new ConcurrentHashSet<String>();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -71,12 +71,12 @@ public class ConcurrentHashSetClassTest {
 
 	@Test
 	public void retainAll() {
-		Set<String> set = new ConcurrentHashSet<String>();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
 
-		Set<String> set2 = new ConcurrentHashSet<String>();
+		Set<String> set2 = ConcurrentHashMap.newKeySet();
 		set2.add("Longan");
 		set2.add("Lemon");
 		set2.add("Mango");

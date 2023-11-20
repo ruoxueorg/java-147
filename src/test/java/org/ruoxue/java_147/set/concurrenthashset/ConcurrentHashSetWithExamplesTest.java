@@ -2,10 +2,10 @@ package org.ruoxue.java_147.set.concurrenthashset;
 
 import static org.junit.Assert.*;
 
-import java.util.ConcurrentHashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Spliterator;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class ConcurrentHashSetWithExamplesTest {
 
 	@Test
 	public void forEach() {
-		Set<String> set = new ConcurrentHashSet<String>();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -22,7 +22,7 @@ public class ConcurrentHashSetWithExamplesTest {
 
 	@Test
 	public void forEachRemaining() {
-		Set<String> set = new ConcurrentHashSet<>();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -43,7 +43,7 @@ public class ConcurrentHashSetWithExamplesTest {
 
 	@Test
 	public void iterator() {
-		Set<String> set = new ConcurrentHashSet<>();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -55,7 +55,7 @@ public class ConcurrentHashSetWithExamplesTest {
 
 	@Test
 	public void spliterator() {
-		Set<String> set = new ConcurrentHashSet<>();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -72,7 +72,7 @@ public class ConcurrentHashSetWithExamplesTest {
 
 	@Test
 	public void trySplit() {
-		Set<String> set = new ConcurrentHashSet<>();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -80,7 +80,7 @@ public class ConcurrentHashSetWithExamplesTest {
 		Spliterator<String> sit2 = sit.trySplit();
 		System.out.println(sit.getExactSizeIfKnown());
 		sit.forEachRemaining(e -> System.out.println(e));
-		
+
 		System.out.println("----------");
 		System.out.println(sit2.getExactSizeIfKnown());
 		sit2.forEachRemaining(e -> System.out.println(e));
@@ -89,7 +89,7 @@ public class ConcurrentHashSetWithExamplesTest {
 	@Test
 	public void toArray() {
 		int expectedSize = 3;
-		Set<String> set = new ConcurrentHashSet<String>();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -105,7 +105,7 @@ public class ConcurrentHashSetWithExamplesTest {
 	@Test
 	public void streamToArray() {
 		int expectedSize = 3;
-		Set<String> set = new ConcurrentHashSet<String>();
+		Set<String> set = ConcurrentHashMap.newKeySet();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
