@@ -12,7 +12,7 @@ public class HashSetClassTest {
 
 	@Test
 	public void contains() {
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -28,12 +28,12 @@ public class HashSetClassTest {
 
 	@Test
 	public void containsAll() {
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
 
-		Set<String> set2 = new HashSet<String>();
+		Set<String> set2 = new HashSet<>();
 		set2.add("Longan");
 		set2.add("Tomato");
 
@@ -49,7 +49,7 @@ public class HashSetClassTest {
 	@Test
 	public void stream() {
 		int expectedSize = 1;
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -60,7 +60,7 @@ public class HashSetClassTest {
 
 	@Test
 	public void parallelStream() {
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -71,12 +71,12 @@ public class HashSetClassTest {
 
 	@Test
 	public void retainAll() {
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
 
-		Set<String> set2 = new HashSet<String>();
+		Set<String> set2 = new HashSet<>();
 		set2.add("Longan");
 		set2.add("Lemon");
 		set2.add("Mango");

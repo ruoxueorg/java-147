@@ -13,7 +13,7 @@ public class HashSetWithExamplesTest {
 
 	@Test
 	public void forEach() {
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -80,7 +80,7 @@ public class HashSetWithExamplesTest {
 		Spliterator<String> sit2 = sit.trySplit();
 		System.out.println(sit.getExactSizeIfKnown());
 		sit.forEachRemaining(e -> System.out.println(e));
-		
+
 		System.out.println("----------");
 		System.out.println(sit2.getExactSizeIfKnown());
 		sit2.forEachRemaining(e -> System.out.println(e));
@@ -89,7 +89,7 @@ public class HashSetWithExamplesTest {
 	@Test
 	public void toArray() {
 		int expectedSize = 3;
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -105,7 +105,7 @@ public class HashSetWithExamplesTest {
 	@Test
 	public void streamToArray() {
 		int expectedSize = 3;
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");

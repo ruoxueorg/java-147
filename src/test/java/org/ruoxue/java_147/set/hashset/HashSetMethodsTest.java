@@ -12,7 +12,7 @@ public class HashSetMethodsTest {
 	@Test
 	public void add() {
 		int expectedSize = 3;
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -20,16 +20,15 @@ public class HashSetMethodsTest {
 		assertEquals(expectedSize, set.size());
 	}
 
-
 	@Test
 	public void addAll() {
 		int expectedSize = 6;
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
 
-		Set<String> set2 = new HashSet<String>();
+		Set<String> set2 = new HashSet<>();
 		set2.add("Grape");
 		set2.add("Lemon");
 		set2.add("Mango");
@@ -42,7 +41,7 @@ public class HashSetMethodsTest {
 	@Test
 	public void remove() {
 		int expectedSize = 2;
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -54,12 +53,12 @@ public class HashSetMethodsTest {
 	@Test
 	public void removeAll() {
 		int expectedSize = 1;
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
 
-		Set<String> set2 = new HashSet<String>();
+		Set<String> set2 = new HashSet<>();
 		set2.add("Longan");
 		set2.add("Tomato");
 		set2.add("Mango");
@@ -71,7 +70,7 @@ public class HashSetMethodsTest {
 	@Test
 	public void clear() {
 		int expectedSize = 0;
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -83,7 +82,7 @@ public class HashSetMethodsTest {
 	@Test
 	public void size() {
 		int expectedSize = 3;
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
@@ -93,7 +92,7 @@ public class HashSetMethodsTest {
 
 	@Test
 	public void isEmpty() {
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new HashSet<>();
 		System.out.println(set.isEmpty());
 		assertTrue(set.isEmpty());
 		set.add("Longan");
