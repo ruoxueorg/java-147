@@ -29,9 +29,9 @@ public class ConcurrentHashSetMethodsTest {
 		map.put("Longan", 1);
 		map.put("Tomato", 2);
 		map.put("Pear", 3);
+		System.out.println(map);
 		Set<String> set = map.keySet();
 		System.out.println(set);
-		System.out.println(map);
 		assertEquals(expectedSize, set.size());
 	}
 
@@ -43,8 +43,8 @@ public class ConcurrentHashSetMethodsTest {
 		set.add("Longan");
 		set.add("Tomato");
 		set.add("Pear");
-		System.out.println(set);
 		System.out.println(map);
+		System.out.println(set);
 		assertEquals(expectedSize, set.size());
 	}
 
