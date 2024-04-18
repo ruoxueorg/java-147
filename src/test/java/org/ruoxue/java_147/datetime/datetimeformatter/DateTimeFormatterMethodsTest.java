@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Locale;
@@ -15,7 +17,7 @@ public class DateTimeFormatterMethodsTest {
 
 	@Test
 	public void ofPattern() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
 		String result = formatter.format(LocalDateTime.now());
 		System.out.println(result);
 
@@ -117,5 +119,19 @@ public class DateTimeFormatterMethodsTest {
 		result = formatter.format(localDateTime);
 		System.out.println(result);
 		assertEquals("2023/3/14 上午 9:08", result);
+	}
+	
+	@Test
+	public void toZonedDateTime() {
+		// 2024-04-17T00:00:00.000Z
+		LocalDateTime localDateTime = LocalDateTime.of(2024, 4, 17, 0, 0, 0, 123000000);
+		ZoneId zone = ZoneId.of("UTC");
+		ZonedDateTime zonedDateTime = localDateTime.atZone(zone);
+		System.out.println(zonedDateTime);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT.withZone(zone);
+		String result = zonedDateTime.format(formatter);
+		// 2024-04-17T00:00:00.123Z
+		System.out.println(result);
 	}
 }
