@@ -168,4 +168,30 @@ public class LocalDateTimeWithExamplesTest {
 		System.out.println(result);
 		assertEquals("2023-08-03T01:02:03.123", result.toString());
 	}
+	
+	
+	@Test
+	public void toZonedDateTime() {
+		LocalDateTime localDateTime = LocalDateTime.parse("2024-04-17T00:00:00");
+		ZoneId zone = ZoneId.of("UTC");
+		ZonedDateTime zonedDateTime = localDateTime.atZone(zone);
+		System.out.println(zonedDateTime);
+		assertEquals("2024-04-17T00:00Z[UTC]", zonedDateTime.toString());
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT.withZone(zone);
+		String result = zonedDateTime.format(formatter);
+		// 2024-04-17T00:00:00Z
+		System.out.println(result);
+		assertEquals("2024-04-17T00:00:00Z", result);
+		
+		localDateTime = localDateTime.minusNanos(1000000);
+		zonedDateTime = localDateTime.atZone(zone);
+		System.out.println(zonedDateTime);
+		assertEquals("2024-04-16T23:59:59.999Z[UTC]", zonedDateTime.toString());
+		
+		result = zonedDateTime.format(formatter);
+		// 2024-04-16T23:59:59.999Z
+		System.out.println(result);
+		assertEquals("2024-04-16T23:59:59.999Z", result);
+	}	
 }

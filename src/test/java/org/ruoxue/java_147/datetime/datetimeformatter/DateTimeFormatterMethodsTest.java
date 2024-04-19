@@ -120,24 +120,4 @@ public class DateTimeFormatterMethodsTest {
 		System.out.println(result);
 		assertEquals("2023/3/14 上午 9:08", result);
 	}
-	
-	@Test
-	public void toZonedDateTime() {
-		// 2024-04-17T00:00:00.000Z
-		LocalDateTime localDateTime = LocalDateTime.of(2024, 4, 17, 0, 0, 0, 0);
-		ZoneId zone = ZoneId.of("UTC");
-		ZonedDateTime zonedDateTime = localDateTime.atZone(zone);
-		System.out.println(zonedDateTime);
-		
-		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT.withZone(zone);
-		String result = zonedDateTime.format(formatter);
-		// 2024-04-17T00:00:00Z
-		System.out.println(result);
-		localDateTime = localDateTime.minusNanos(1000000);
-		zonedDateTime = localDateTime.atZone(zone);
-		System.out.println(zonedDateTime);
-		result = zonedDateTime.format(formatter);
-		// 2024-04-16T23:59:59.999Z
-		System.out.println(result);
-	}
 }
