@@ -1,157 +1,72 @@
 package org.ruoxue.java_147.net;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
-
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 public class DifferenceUriUrlTest {
 
 	@Test
-	public void addAll() {
-		int expectedSize = 3;
-		Collection<String> collection = Lists.newArrayList("Apple", "Banana", "Cherry");
-		Collection<String> result = new ArrayList<>();
-		result.addAll(collection);
-		System.out.println(result);
-		assertEquals(expectedSize, result.size());
+	public void createURI() {
+		String value = "https://username:password@www.ruoxue.org:443/java-learn/java-net?amount=101#top";
+		URI uri = URI.create(value);
+		System.out.println(uri);
+		System.out.println("Scheme: " + uri.getScheme());
+		System.out.println("SchemeSpecificPart: " + uri.getSchemeSpecificPart());
+		System.out.println("Authority: " + uri.getAuthority());
+		System.out.println("UserInfo: " + uri.getUserInfo());
+		System.out.println("Host: " + uri.getHost());
+		System.out.println("Port: " + uri.getPort());
+		System.out.println("Path: " + uri.getPath());
+		System.out.println("Query: " + uri.getQuery());
+		System.out.println("Fragment: " + uri.getFragment());
 
-		Collections.addAll(result, "Mango", "Orange", "Peach");
-		System.out.println(result);
-		assertEquals(6, result.size());
+		assertThat(uri.getScheme()).isEqualTo("https");
+		assertThat(uri.getAuthority()).isEqualTo("username:password@www.ruoxue.org:443");
+		assertThat(uri.getUserInfo()).isEqualTo("username:password");
+		assertThat(uri.getHost()).isEqualTo("www.ruoxue.org");
+		assertThat(uri.getPort()).isEqualTo(443);
+		assertThat(uri.getPath()).isEqualTo("/java-learn/java-net");
+		assertThat(uri.getQuery()).isEqualTo("amount=101");
+		assertThat(uri.getFragment()).isEqualTo("top");
 	}
-
+	
 	@Test
-	public void addAllInteger() {
-		int expectedSize = 3;
-		Collection<Integer> collection = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
-		Collection<Integer> result = new ArrayList<>();
-		result.addAll(collection);
-		System.out.println(result);
-		assertEquals(expectedSize, result.size());
+	public void createURL() {
+		try {
+			String value = "http://www.ruoxue.org/java-learn";
+			URL url = new URL(value);
+			System.out.println(url);
+			System.out.println("Protocol: " + url.getProtocol());
+			System.out.println("Authority: " + url.getAuthority());
+			System.out.println("UserInfo: " + url.getUserInfo());
+			System.out.println("Host: " + url.getHost());
+			System.out.println("Port: " + url.getPort());
+			System.out.println("DefaultPort: " + url.getDefaultPort());
+			System.out.println("File: " + url.getFile());
+			System.out.println("Path: " + url.getPath());
+			System.out.println("Query: " + url.getQuery());
+			System.out.println("Ref: " + url.getRef());
 
-		Collections.addAll(result, 10, 20, 30);
-		System.out.println(result);
-		assertEquals(6, result.size());
+			URL url2 = new URL("http", "www.ruoxue.org", 80, "/java-learn");
+			System.out.println(url2);
+			assertThat(url.getProtocol()).isEqualTo(url2.getProtocol());
+			assertThat(url.getHost()).isEqualTo(url2.getHost());
+			assertThat(url.getDefaultPort()).isEqualTo(url2.getDefaultPort());
+			assertThat(url.getFile()).isEqualTo(url2.getFile());
+			assertThat(url.getPath()).isEqualTo(url2.getPath());
+			assertThat(url.getQuery()).isEqualTo(url2.getQuery());
+			assertThat(url.getRef()).isEqualTo(url2.getRef());
+		} catch (MalformedURLException ex) {
+			throw new RuntimeException(ex.getMessage(), ex);
+		}		
 	}
-
+	
 	@Test
-	public void sort() {
-		List<String> list = Arrays.asList("Banana", "Apple", "Cherry");
-		System.out.println(list);
-		list.sort(null);
-		System.out.println(list);
-		assertThat(list).containsExactly("Apple", "Banana", "Cherry");
-
-		list = Arrays.asList("Orange", "Mango", "Peach");
-		System.out.println(list);
-		Collections.sort(list);
-		System.out.println(list);
-		assertThat(list).containsExactly("Mango", "Orange", "Peach");
-	}
-
-	@Test
-	public void sortDouble() {
-		List<Double> list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d);
-		System.out.println(list);
-		list.sort(null);
-		System.out.println(list);
-		assertThat(list).containsExactly(-1d, 3d, Double.MAX_VALUE);
-
-		list = Lists.newArrayList(Double.MAX_VALUE, -1d, 3d);
-		System.out.println(list);
-		Collections.sort(list);
-		System.out.println(list);
-		assertThat(list).containsExactly(-1d, 3d, Double.MAX_VALUE);
-	}
-
-	@Test
-	public void min() {
-		Collection<String> collection = Lists.newArrayList("Apple", "Banana", "Cherry");
-		String result = Collections.min(collection);
-		System.out.println(result);
-		assertThat(result).isEqualTo("Apple");
-
-		Collection<Integer> intCollection = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
-		Integer intResult = Collections.min(intCollection);
-		System.out.println(intResult);
-		assertThat(intResult).isEqualTo(-1);
-	}
-
-	@Test
-	public void max() {
-		Collection<String> collection = Lists.newArrayList("Apple", "Banana", "Cherry");
-		String result = Collections.max(collection);
-		System.out.println(result);
-		assertThat(result).isEqualTo("Cherry");
-
-		Collection<Integer> intCollection = Lists.newArrayList(Integer.MAX_VALUE, -1, 3);
-		Integer intResult = Collections.max(intCollection);
-		System.out.println(intResult);
-		assertThat(intResult).isEqualTo(Integer.MAX_VALUE);
-	}
-
-	@Test
-	public void replaceAll() {
-		List<String> list = Lists.newArrayList("Apple", "Banana", "Cherry", "Apple");
-		System.out.println(list);
-		boolean result = Collections.replaceAll(list, "Apple", "Mango");
-		System.out.println(list);
-		System.out.println(result);
-		assertThat(result).isTrue();
-
-		List<Integer> intList = Lists.newArrayList(Integer.MAX_VALUE, -1, 3, Integer.MAX_VALUE);
-		System.out.println(intList);
-		boolean intResult = Collections.replaceAll(intList, Integer.MAX_VALUE, Integer.MIN_VALUE);
-		System.out.println(intList);
-		System.out.println(intResult);
-		assertThat(intResult).isTrue();
-	}
-
-	@Test
-	public void enumeration() {
-		Collection<String> collection = Lists.newArrayList("Apple", "Banana", "Cherry");
-		Iterator<String> it = collection.iterator();
-		while (it.hasNext()) {
-			String e = it.next();
-			System.out.println(e);
-		}
-
-		Enumeration<String> en = Collections.enumeration(collection);
-		while (en.hasMoreElements()) {
-			String e = en.nextElement();
-			System.out.println(e);
-		}
-	}
-
-	@Test
-	public void list() {
-		int expectedSize = 3;
-		Vector<String> vector = new Vector<>();
-		vector.add("Apple");
-		vector.add("Banana");
-		vector.add("Cherry");
-		List<String> result = Collections.list(vector.elements());
-		System.out.println(result);
-		assertEquals(expectedSize, result.size());
-
-		Vector<Integer> intVector = new Vector<>();
-		intVector.add(Integer.MAX_VALUE);
-		intVector.add(-1);
-		intVector.add(3);
-		List<Integer> intResult = Collections.list(intVector.elements());
-		System.out.println(intResult);
-		assertEquals(expectedSize, intResult.size());
+	public void conversion() {
+		
 	}
 }
