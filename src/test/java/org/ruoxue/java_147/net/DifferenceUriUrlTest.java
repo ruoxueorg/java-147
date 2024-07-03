@@ -87,5 +87,9 @@ public class DifferenceUriUrlTest {
 		URL url = new URL("https://www.ruoxue.org");
 		String contents = IOUtils.toString(url.openStream(), StandardCharsets.UTF_8);
 		assertThat(contents).isNotNull();
+		
+		String contents2 = IOUtils.toString(url.openConnection().getInputStream(), StandardCharsets.UTF_8);
+		assertThat(contents).isNotNull();
+		assertThat(contents2).isEqualTo(contents);
 	}
 }
